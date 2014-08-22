@@ -135,14 +135,6 @@
           <p>Sources will be released (un-attached) from a track when the
           track is ended for any reason.</p>
 
-          <p>On the <code>
-              <a>MediaStreamTrack</a>
-            </code> object, sources are represented by a <code>
-              <a>sourceType</a>
-            </code> attribute. The behavior of APIs associated with the
-          source's capabilities and settings change depending on the source
-          type.</p>
-
           <p>Sources have <code>
               <a>capabilities</a>
             </code> and <code>
@@ -1005,11 +997,9 @@
               <a>applyConstraints()</a>
             </code> is called, a user agent MUST queue a task to evaluate
           those changes when the task queue is next serviced. Similarly, if
-          the <a>
-              <code>sourceType</code>
-            </a> changes, then the user agent MUST perform the same actions to
-          re-evaluate the constraints of each track affected by that source
-          change.</p>
+          the source changes (FIXME: can this happen?), then the user agent
+          MUST perform the same actions to re-evaluate the constraints of each
+          track affected by that source change.</p>
 
           <p>If the <code>
               <a>MediaStreamError</a>
@@ -1315,26 +1305,6 @@
                 </code> ends if the user unplugs the USB web camera that acts
               as the track's media source.</p>
             </dd>
-          </dl>
-        </section>
-
-        <section>
-          <h2>Track Source Types</h2>
-
-          <dl class="idl" title="enum SourceTypeEnum">
-            <dt>camera</dt>
-
-            <dd>A valid source type only for video <code>
-                <a>MediaStreamTrack</a>
-              </code>s. The source is a local video-producing camera
-            source.</dd>
-
-            <dt>microphone</dt>
-
-            <dd>A valid source type only for audio <code>
-                <a>MediaStreamTrack</a>
-              </code>s. The source is a local audio-producing microphone
-            source.</dd>
           </dl>
         </section>
 
@@ -4192,28 +4162,6 @@ if(supports["facingMode"]) {
           </thead>
 
           <tbody>
-            <tr id="def-constraint-sourceType">
-              <td>
-                <dfn>sourceType</dfn>
-              </td>
-
-              <td>
-                <a>
-                  <code>SourceTypeEnum</code>
-                </a>
-              </td>
-
-              <td> The type of the source of the <a>MediaStreamTrack</a>. Note
-              that the setting of this property is uniquely determined by the
-              source that is attached to the Track. In particular,
-              getCapabilities() will return only a single value for
-              sourceID/Type. This property can therefore be used for initial
-              media selection with getUserMedia(). However is not useful for
-              subsequent media control with applyConstraints, since any
-              attempt to set a different value will result in an unsatisfiable
-              ConstraintSet. </td>
-            </tr>
-
             <tr id="def-constraint-sourceId">
               <td>
                 <dfn>sourceId</dfn>
@@ -4470,6 +4418,8 @@ if(supports["facingMode"]) {
 
       <ol>
         <li>Bug 26243: Do we need getUserMedia() on MediaDevices?</li>
+
+        <li>Bug 25752: sourceType is redundant as constraint</li>
       </ol>
 
       <h2>Changes since July 4, 2014</h2>
