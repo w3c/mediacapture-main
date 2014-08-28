@@ -4134,6 +4134,11 @@ if(supports["facingMode"]) {
           <li>Whether or not any of the devices are presently recording ("on
           air") indicator</li>
         </ul> </p>
+
+      <div class="note">
+        <p>Developers of sites with persistent permissions should be careful that these permissions cannot be abused.</p>
+        <p>In particular, they should not make it possible to automatically send audio or video streams from media devices towards an end point that a third party can define: if an URL such as <code>https://example.org/?call=<var>evil</var></code> triggered the automatic capture and transmission of audio and video streams to the <var><code>evil</code></var> user, any page could set up a link or a redirect toward that URL and get streams from the user.</p>
+      </div>
     </section>
 
     <section>
