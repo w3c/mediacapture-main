@@ -2674,9 +2674,32 @@
     <section id="local-content">
       <h2>Obtaining local multimedia content</h2>
 
-      <p>This section extends <a>MediaDevices</a>
+      <p>This section extends <code>
+          <a>NavigatorUserMedia</a>
+        </code> and <code>
+          <a>MediaDevices</a>
         </code> with APIs to request permission to access media input devices
       available to the user agent.</p>
+
+      <section>
+        <h3>NavigatorUserMedia Interface Extensions</h3>
+
+        <div class="note">This method is kept on <code>
+            <a>NavigatorUserMedia</a>
+          </code> for legacy purposes. See <a
+        href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</div>
+
+        <dl class="idl" title="partial interface NavigatorUserMedia">
+          <dt>void getUserMedia(MediaStreamConstraints constraints,
+          NavigatorUserMediaSuccessCallback successCallback,
+          NavigatorUserMediaErrorCallback errorCallback)</dt>
+
+          <dd>
+            <p>See <a
+            href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          </dd>
+        </dl>
+      </section>
 
       <section>
         <h3>MediaDevices Interface Extensions</h3>
@@ -4469,7 +4492,6 @@ if(supports["facingMode"]) {
       <h2>Changes since August 17, 2014</h2>
 
       <ol>
-        <li>Bug 26243: Do we need getUserMedia() on MediaDevices?</li>
       </ol>
 
       <h2>Changes since July 4, 2014</h2>
