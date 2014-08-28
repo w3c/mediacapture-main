@@ -860,7 +860,14 @@
               <a href="#dom-mediastreamtrack-kind">kind</a>
             </code> and <code>
               <a href="#dom-mediastreamtrack-label">label</a>
-            </code> MUST not change values when the source is detached.</p>
+            </code> <em class="rfc2119">must not</em> change values
+            when the source is detached, unless this was the last
+            attached source.</p>
+
+          <p>When all <code><a>MediaStreamTrack</a></code> instances have
+            been detached from their sources, their <code>
+              <a href="#dom-mediastreamtrack-label">label</a></code>
+               <em class="rfc2119">must</em> be set to the empty string.</p>
 
           <p>When a <code>
               <a>MediaStreamTrack</a>
@@ -3093,7 +3100,7 @@
         </dl>
       </section>
 
-      <section class="informative">
+      <section>
         <h2>Implementation Suggestions</h2>
 
         <div class="practice">
@@ -3136,6 +3143,24 @@
           user chooses this option, the track corresponding to the resource
           that was provided to the page whose stream was affected must be
           removed.</p>
+        </div>
+
+        <div class="practice">
+          <span id="stored-permissions" class="practicelab">Stored
+            Permissions</span>
+          <p class="practicedesc">When permission is requested for a
+            device, the UA may choose to store that permission, if granted, for later
+            use by the same origin, so that the user does not need to
+            grant permission again at a later time. Such storing
+            <em class="rfc2119">must</em>
+            only be done when the page is secure (served over HTTPS and
+            having no mixed content). It is an UA choice whether it
+            offers functionality to store permission to each device
+            separately, all devices of a given class, or all devices; the
+            choice needs to be apparent to the user.</p>
+          <p class="practicedesc">When permission is not stored,
+            permission should last only until such time as all
+            MediaStreamTracks sourced from that device have been stopped.</p>
         </div>
 
         <div class="practice">
