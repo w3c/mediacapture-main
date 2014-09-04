@@ -861,13 +861,7 @@
             </code> and <code>
               <a href="#dom-mediastreamtrack-label">label</a>
             </code> <em class="rfc2119">must not</em> change values
-            when the source is detached, unless this was the last
-            attached source.</p>
-
-          <p>When all <code><a>MediaStreamTrack</a></code> instances have
-            been detached from their sources, their <code>
-              <a href="#dom-mediastreamtrack-label">label</a></code>
-               <em class="rfc2119">must</em> be set to the empty string.</p>
+            when the source is detached.</p>
 
           <p>When a <code>
               <a>MediaStreamTrack</a>
@@ -2493,9 +2487,7 @@
 
           <dd>
             <p>Collects information about the user agents available media
-            input and output devices. The method MUST only return information
-            that the script is authorized to access (TODO expand
-            authorized).</p>
+            input and output devices.</p>
 
             <p>When the <dfn id="dom-mediadevices-enumeratedevices">
                 <code>enumerateDevices()</code>
@@ -2509,6 +2501,14 @@
               </li>
 
               <li>
+                <p>Let <var>resultList</var> be an empty list.</p>
+              </li>
+
+              <li>
+                <p>If the user has granted permission to any
+                  <code>getUserMedia</code>, run the following sub steps:</p>
+                <ol>
+              <li>
                 <p>If this method has been called previously within this
                 application session, let <var>oldList</var> be the list of
                 <code>
@@ -2518,9 +2518,6 @@
                 an empty list.</p>
               </li>
 
-              <li>
-                <p>Let <var>resultList</var> be an empty list.</p>
-              </li>
 
               <li>
                 <p>Probe the user agent for available media devices, and run
@@ -2566,6 +2563,13 @@
                 </ol>
               </li>
 
+              <li>If none of the local devices are attached to an active
+                MediaStreamTrack, for each <var>deviceInfo</var> in
+                <var>resultList</var>, set
+                <code><a href="#widl-MediaDeviceInfo-groupId">label</a></code>
+                to the empty string.</li>
+              </ol>
+              </li>
               <li>
                 <p>Invoke <var>resultCallback</var> with <var>resultList</var>
                 as its argument.</p>
