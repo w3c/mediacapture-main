@@ -108,17 +108,9 @@
           can be a physical webcam, microphone, local video or audio file from
           the user's hard drive, network resource, or static image.</p>
 
-          <p>Some sources have an identifier which <em class="rfc2119"
-          title="must">must</em> be unique to the application (un-guessable by
-          another application) and persistent between application sessions
-          (e.g., the identifier for a given source device/application must
-          stay the same, but not be guessable by another application). Sources
-          that must have an identifier are camera and microphone sources;
-          local file sources are not required to have an identifier. Source
-          identifiers let the application save, identify the availability of,
-          and directly request specific sources.</p>
-
-          <p>Other than the identifier, other bits of source identity are
+          <p>Other than the source identifier (defined in
+            <code><a>MediaDeviceInfo</a>.deviceId</code>),
+          other bits of source identity are
           <strong>never</strong> directly available to the application until
           the user agent connects a source to a track. Once a source has been
           "released" to the application (either via a permissions UI,
@@ -132,7 +124,7 @@
           conform to the constraints present on that track (or set of
           tracks).</p>
 
-          <p>Sources will be released (un-attached) from a track when the
+          <p>Sources are released (un-attached) from a track when the
           track is ended for any reason.</p>
 
           <p>Sources have <code>
@@ -164,10 +156,6 @@
           exposed to the application through the tracks attached to the
           source. The <a>ConstrainablePattern</a> interface provides this
           exposure.</p>
-
-          <p>A conforming user-agent <em class="rfc2119"
-          title="must">must</em> support all the setting names defined in this
-          spec.</p>
         </dd>
 
         <dt>
@@ -214,10 +202,7 @@
           <p>It is possible for two tracks that share a unique source to apply
           contradictory constraints. The <a>ConstrainablePattern</a> interface
           supports the calling of an error handler when the conflicting
-          constraint is requested. After successful application of constraints
-          on a track (and its associated source), if at any later time the
-          track becomes <a>overconstrained</a>, the user agent MUST change the
-          track to the <a>muted</a> state.</p>
+          constraint is requested.</p>
 
           <p>A correspondingly-named constraint exists for each corresponding
           source setting name and capability name. In general, user agents
@@ -2647,6 +2632,16 @@
 
           <dd>
             <p>The unique id for the represented device.</p>
+            <p>Devices have an identifier which <em class="rfc2119"
+          title="must">must</em> be unique to the application (un-guessable by
+          another application) and persistent between application sessions
+          (e.g., the identifier for a given source device/application must
+          stay the same, but not be guessable by another application). Sources
+          that must have an identifier are camera and microphone sources;
+          local file sources are not required to have an identifier. Source
+          identifiers let the application save, identify the availability of,
+          and directly request specific sources.</p>
+
           </dd>
 
           <dt>MediaDeviceKind kind</dt>
@@ -3774,6 +3769,7 @@ if(supports["facingMode"]) {
         double, DOMString), legal values include lists of any of the atomic
         types, plus min-max ranges, as defined below.</p>
 
+
         <p>List values <em class="rfc2119" title="must">must</em> be
         interpreted as disjunctions. For example, if a property 'facingMode'
         for a camera is defined as having legal values ["left", "right",
@@ -3908,6 +3904,10 @@ if(supports["facingMode"]) {
         <code>Settings</code> dictionary contains the actual values that the
         UA has chosen for the object's Capabilities. The exact syntax of the
         value depends on the type of the property.</p>
+
+        <p>A conforming user-agent <em class="rfc2119"
+        title="must">must</em> support all the setting names defined in this
+        spec.</p>
 
         <p>An example of a Setting dictionary is shown below. This example is
         not very realistic in that a browser would actually be required to
