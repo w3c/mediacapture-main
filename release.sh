@@ -28,6 +28,11 @@
 # 5. Push the new release to github
 #    $ ./release.sh 20140817 20140909 push
 #
+# 6. (Optional)
+#    Print a release email (with links to releases and change log). You have
+#    to mail it manually.
+#    $ ./release.sh 20140817 20140909 email <your name>
+#
 # Done.
 #
 # If you made a release, pushed it to the github repo and notice that you missed
@@ -46,7 +51,7 @@ PREV_DATE=$1
 NEW_DATE=$2
 STAGE=$3
 
-USAGE="\n\nUsage: $0 <prev-date> <new-date> prepare|continue|push|retag\n\
+USAGE="\n\nUsage: $0 <prev-date> <new-date> prepare | continue | push | email <your-name> | retag  \n\
 For example: $0 20140817 20140909 prepare"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -138,6 +143,35 @@ case $STAGE in
     echo "*** Push ***"
     git push --dry-run origin master gh-pages :refs/tags/$TAG_NAME
     check "Push branches and tag"
+    ;;
+
+  email)
+    echo "*** Email ***"
+    SINGLE_DAY=$(date -d $PREV_DATE '+%e' | tr -d " ") # remove padding spaces
+    CHANGE_LOG_DATE=$(date -d $PREV_DATE "+%B $SINGLE_DAY, %Y")
+    EDITOR_NAME=$4
+
+    echo -e "Inspecting Change Log since $CHANGE_LOG_DATE\n"
+
+    echo "============= Subject =============="
+    echo "New $REPO_NAME Editor's draft (v$NEW_DATE)"
+    echo "========== Start of email =========="
+    echo "Hi"
+    echo ""
+    echo "A new dated version of the Editors' draft is available."
+    echo ""
+    echo "Dated version: http://w3c.github.io/$REPO_NAME/archives/$NEW_DATE/$SRC_NAME"
+    echo "Living document: http://w3c.github.io/$REPO_NAME/"
+    echo ""
+
+    echo "Changes include:"
+    sed -n "/Changes since $CHANGE_LOG_DATE/{:a;n;/Changes since/b;p;ba}" $SRC_NAME | sed "s/^ \+\|<ol>\|<\/ol>\|<li>\|<\/li>//g"
+
+    echo "Please review and provide feedback."
+    echo ""
+    echo "$EDITOR_NAME (for the editors)"
+    echo "=========== End of email ==========="
+    echo ""
     ;;
 
   retag)
