@@ -37,6 +37,11 @@
 # $ ./release.sh 20140817 20140909 retag
 #
 
+# Source and repository settings
+REPO_NAME="mediacapture-main"
+SRC_NAME="getusermedia.html"
+CONFIG_NAME="getusermedia.js"
+
 PREV_DATE=$1
 NEW_DATE=$2
 STAGE=$3
@@ -77,14 +82,14 @@ case $STAGE in
   prepare)
     echo "*** Prepare ***"
 
-    sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/mediacapture-main\/archives\/$PREV_DATE\/getusermedia.html\",/" getusermedia.js
+    sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
     check "Update prevED field in respec config"
 
     mkdir -p archives/$NEW_DATE
     check "Create new archive dir"
 
     echo "Do the Ctrl+Alt+Shift+s thing in Rspec.js and save the generated version as: "
-    echo "$DIR/archives/$NEW_DATE/getusermedia.html"
+    echo "$DIR/archives/$NEW_DATE/$SRC_NAME"
     echo -e "\nWhen the generated version is saved, run:"
     echo "$0 $PREV_DATE $NEW_DATE continue"
     ;;
@@ -92,9 +97,9 @@ case $STAGE in
   continue)
     echo "*** Continue ***"
 
-    if [ ! -f $DIR/archives/$NEW_DATE/getusermedia.html ] ; then
-      echo "Unable to find archives/$NEW_DATE/getusermedia.html"
-      echo "Please refer to the previous step."
+    if [ ! -f $DIR/archives/$NEW_DATE/$SRC_NAME ] ; then
+      echo "Unable to find archives/$NEW_DATE/$SRC_NAME"
+      echo "Please refer to the previous step (prepare)."
       exit 1
     fi
 
@@ -104,7 +109,7 @@ case $STAGE in
     git add archives/$NEW_DATE
     check "Add new archive directory"
 
-    ln -s -f archives/$NEW_DATE/getusermedia.html index.html
+    ln -s -f archives/$NEW_DATE/$SRC_NAME index.html
     check "Create index.html sym-link"
 
     git commit -am "Added dated version $TAG_NAME"
