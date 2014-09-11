@@ -136,7 +136,7 @@ case $STAGE in
     fi
 
     echo "*** Push ***"
-    git push -n origin master gh-pages :refs/tags/$TAG_NAME
+    git push --dry-run origin master gh-pages :refs/tags/$TAG_NAME
     check "Push branches and tag"
     ;;
 
