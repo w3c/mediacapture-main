@@ -81,7 +81,7 @@ function push {
     exit 1
   fi
 
-  echo "git push $1 origin master gh-pages :refs/tags/$TAG_NAME"
+  git push $1 origin master gh-pages :refs/tags/$TAG_NAME
   check "Push branches and tag $1"
 }
 
