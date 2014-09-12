@@ -25,7 +25,9 @@
 #    and master should be at the top of the tree along with a new tag. The
 #    remote branches should be lagging behind.
 #
-# 5. Push the new release to github
+# 5. Push the new release to github. Do:
+#    $ ./release.sh 20140817 20140909 fakepush
+#    to test pushing without sending anything to the server. Then do:
 #    $ ./release.sh 20140817 20140909 push
 #
 # 6. (Optional)
@@ -51,7 +53,7 @@ PREV_DATE=$1
 NEW_DATE=$2
 STAGE=$3
 
-USAGE="\n\nUsage: $0 <prev-date> <new-date> prepare | continue | push | email <your-name> | retag  \n\
+USAGE="\n\nUsage: $0 <prev-date> <new-date> prepare | continue | fakepush | push | email <your-name> | retag  \n\
 For example: $0 20140817 20140909 prepare"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -70,6 +72,17 @@ function check {
     quit 1
   fi
   echo "* $1: Done"
+}
+
+function push {
+  if [ ! -d $DIR/archives/$NEW_DATE ] ; then
+    echo "Unable to find archives/$NEW_DATE"
+    echo "Have you done the \"prepare\" and \"continue\" steps before \"push\"?"
+    exit 1
+  fi
+
+  echo "git push $1 origin master gh-pages :refs/tags/$TAG_NAME"
+  check "Push branches and tag $1"
 }
 
 if [ $# -lt 3 ] ; then
@@ -130,19 +143,20 @@ case $STAGE in
     check "Checkout master again (after rebase)"
 
     echo -e "\nPlease review the state of your repo. If everything looks OK, run:"
+    echo "$0 $PREV_DATE $NEW_DATE fakepush"
+    echo "to test pushing without actually sending anything to the server, or:"
     echo "$0 $PREV_DATE $NEW_DATE push"
+    echo "to push for real."
+    ;;
+
+  fakepush)
+    echo "*** Fakepush ***"
+    push "--dry-run"
     ;;
 
   push)
-    if [ ! -d $DIR/archives/$NEW_DATE ] ; then
-      echo "Unable to find archives/$NEW_DATE"
-      echo "Have you done the \"prepare\" and \"continue\" steps before \"push\"?"
-      exit 1
-    fi
-
     echo "*** Push ***"
-    git push --dry-run origin master gh-pages :refs/tags/$TAG_NAME
-    check "Push branches and tag"
+    push "--dry-run"
     ;;
 
   email)
