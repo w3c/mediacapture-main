@@ -1351,10 +1351,6 @@
 
             <dd />
 
-            <dt>ConstrainVideoFacingMode facingMode</dt>
-
-            <dd />
-
             <dt>ConstrainDouble volume</dt>
 
             <dd />
@@ -3879,18 +3875,6 @@ if(supports["facingMode"]) {
           <dd>The ideal (target) value for this property.</dd>
         </dl>
 
-        <dl class="idl" title="dictionary ConstrainVideoFacingModeParameters">
-          <dt>(VideoFacingModeEnum or sequence&lt;VideoFacingModeEnum&gt;&gt;)
-          exact</dt>
-
-          <dd>The exact required value for this property.</dd>
-
-          <dt>(VideoFacingModeEnum or sequence&lt;VideoFacingModeEnum&gt;)
-          ideal</dt>
-
-          <dd>The ideal (target) value for this property.</dd>
-        </dl>
-
         <dl class="idl"
             title="typedef (Long or ConstrainLongRange) ConstrainLong" />
 
@@ -3899,9 +3883,6 @@ if(supports["facingMode"]) {
 
         <dl class="idl"
             title="typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString" />
-
-        <dl class="idl"
-            title="typedef (VideoFacingModeEnum or sequence&lt;VideoFacingModeEnum&gt; or ConstrainVideoFacingModeEnumParameters) ConstrainVideoFacingMode" />
       </section>
 
       <section id="capabilities">
@@ -4389,9 +4370,7 @@ if(supports["facingMode"]) {
               </td>
 
               <td>
-                <code>
-                  <a>ConstrainDOMString</a>
-                </code>
+                <code><a>ConstrainDOMString</a></code>
               </td>
 
               <td>The members of the enum describe the directions that the
