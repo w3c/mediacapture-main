@@ -108,17 +108,9 @@
           can be a physical webcam, microphone, local video or audio file from
           the user's hard drive, network resource, or static image.</p>
 
-          <p>Some sources have an identifier which <em class="rfc2119"
-          title="must">must</em> be unique to the application (un-guessable by
-          another application) and persistent between application sessions
-          (e.g., the identifier for a given source device/application must
-          stay the same, but not be guessable by another application). Sources
-          that must have an identifier are camera and microphone sources;
-          local file sources are not required to have an identifier. Source
-          identifiers let the application save, identify the availability of,
-          and directly request specific sources.</p>
-
-          <p>Other than the identifier, other bits of source identity are
+          <p>Other than the source identifier (defined in
+            <code><a>MediaDeviceInfo</a>.deviceId</code>),
+          other bits of source identity are
           <strong>never</strong> directly available to the application until
           the user agent connects a source to a track. Once a source has been
           "released" to the application (either via a permissions UI,
@@ -132,8 +124,16 @@
           conform to the constraints present on that track (or set of
           tracks).</p>
 
-          <p>Sources will be released (un-attached) from a track when the
+          <p>Sources are released (un-attached) from a track when the
           track is ended for any reason.</p>
+
+          <p>On the <code>
+              <a>MediaStreamTrack</a>
+            </code> object, sources are represented by a <code>
+              <a>sourceType</a>
+            </code> attribute. The behavior of APIs associated with the
+          source's capabilities and settings change depending on the source
+          type.</p>
 
           <p>Sources have <code>
               <a>capabilities</a>
@@ -164,10 +164,6 @@
           exposed to the application through the tracks attached to the
           source. The <a>ConstrainablePattern</a> interface provides this
           exposure.</p>
-
-          <p>A conforming user-agent <em class="rfc2119"
-          title="must">must</em> support all the setting names defined in this
-          spec.</p>
         </dd>
 
         <dt>
@@ -195,7 +191,7 @@
         </dd>
 
         <dt>
-          <a>Constraints</a>
+          <dfn>Constraints</dfn>
         </dt>
 
         <dd>
@@ -214,10 +210,7 @@
           <p>It is possible for two tracks that share a unique source to apply
           contradictory constraints. The <a>ConstrainablePattern</a> interface
           supports the calling of an error handler when the conflicting
-          constraint is requested. After successful application of constraints
-          on a track (and its associated source), if at any later time the
-          track becomes <a>overconstrained</a>, the user agent MUST change the
-          track to the <a>muted</a> state.</p>
+          constraint is requested.</p>
 
           <p>A correspondingly-named constraint exists for each corresponding
           source setting name and capability name. In general, user agents
@@ -438,8 +431,8 @@
             <a>MediaStream</a>
           </code> consumers currently include the media elements [[HTML5]],
         <code>RTCPeerConnection</code> [[WEBRTC10]],
-        <code>MediaRecorder</code> [[mediastream-rec]] and
-        <code>ImageCapture</code> [[mediastream-imagecap]].</p>
+        <code>MediaRecorder</code> [[mediastream-recording]] and
+        <code>ImageCapture</code> [[image-capture]].</p>
 
         <p class="note"><code>
             <a>MediaStream</a>
@@ -820,14 +813,14 @@
 
           <p>A <code>
               <a>MediaStreamTrack</a>
-            </code> is <dfn id="track-muted">muted</dfn> when the source is
+            </code> is <a href="#track-muted">muted</a> when the source is
           temporarily unable to provide the track with data. A track can be
           muted by a user. Often this action is outside the control of the
           application. This could be as a result of the user hitting a
           hardware switch, or toggling a control in the operating system or
           browser chrome. A track can also be muted by the user agent.</p>
 
-          <p>Applications are able to <dfn id="track-enabled">enable</dfn> or
+          <p>Applications are able to <a href="#track-enabled">enable</a> or
           disable a <code>
               <a>MediaStreamTrack</a>
             </code> to prevent it from rendering media from the source. A
@@ -997,13 +990,15 @@
               <a>applyConstraints()</a>
             </code> is called, a user agent MUST queue a task to evaluate
           those changes when the task queue is next serviced. Similarly, if
-          the source changes (FIXME: can this happen?), then the user agent
-          MUST perform the same actions to re-evaluate the constraints of each
-          track affected by that source change.</p>
+          the <a>
+              <code>sourceType</code>
+            </a> changes, then the user agent MUST perform the same actions to
+          re-evaluate the constraints of each track affected by that source
+          change.</p>
 
           <p>If the <code>
               <a>MediaStreamError</a>
-            </code> event named 'overconstrained' is thrown, the track MUST be
+            </code> event named <code><a>overconstrained</a></code> is thrown, the track MUST be
           muted until either new satisfiable constraints are applied or the
           existing constraints become satisfiable.</p>
         </section>
@@ -1308,6 +1303,26 @@
           </dl>
         </section>
 
+        <section>
+          <h2>Track Source Types</h2>
+
+          <dl class="idl" title="enum SourceTypeEnum">
+            <dt>camera</dt>
+
+            <dd>A valid source type only for video <code>
+                <a>MediaStreamTrack</a>
+              </code>s. The source is a local video-producing camera
+            source.</dd>
+
+            <dt>microphone</dt>
+
+            <dd>A valid source type only for audio <code>
+                <a>MediaStreamTrack</a>
+              </code>s. The source is a local audio-producing microphone
+            source.</dd>
+          </dl>
+        </section>
+
         <section id="media-track-constraints">
           <h2>MediaTrackConstraints</h2>
 
@@ -1348,7 +1363,7 @@
 
             <dd />
 
-            <dt>boolean echoCancelation</dt>
+            <dt>boolean echoCancellation</dt>
 
             <dd />
 
@@ -2144,63 +2159,117 @@
     <section>
       <h2>Error Handling</h2>
 
-      <p>All errors defined in this specification implement the following
-      interface:</p>
+      <section>
+        <h3>MediaStreamError</h3>
+        <p>All errors defined in this specification implement the following
+          interface:</p>
 
-      <dl class="idl" title="[NoInterfaceObject] interface MediaStreamError">
-        <dt>readonly attribute DOMString name</dt>
+        <dl class="idl" title="[NoInterfaceObject] interface MediaStreamError">
+          <dt>readonly attribute DOMString name</dt>
 
-        <dd>
-          <p>The name of the error</p>
-        </dd>
+          <dd>
+            <p>The name of the error</p>
+          </dd>
 
-        <dt>readonly attribute DOMString? message</dt>
+          <dt>readonly attribute DOMString? message</dt>
 
-        <dd>A UA-dependent string offering extra human-readable information
-        about the error.</dd>
+          <dd>A UA-dependent string offering extra human-readable information
+            about the error.</dd>
 
-        <dt>readonly attribute DOMString? constraintName</dt>
+          <dt>readonly attribute DOMString? constraintName</dt>
 
-        <dd>
-          <p>This attribute is only used for some types of errors. For <code>
-              <a>MediaStreamError</a>
-            </code> with a name of <code>ConstraintNotSatisfiedError</code>,
-          this attribute MUST be set to the name of the constraint that caused
-          the error.</p>
-        </dd>
-      </dl>
+          <dd>
+            <p>This attribute is only used for some types of errors. For <code>
+                <a>MediaStreamError</a>
+              </code> with a name of <code>ConstraintNotSatisfiedError</code> or of <code>OverconstrainedError</code>,
+              this attribute MUST be set to the name of the constraint that caused
+              the error.</p>
+          </dd>
+        </dl>
 
-      <div class="note"> Open Issue: We may make MediaStreamError inherit from
-      DOMError once the definition of DOMError is stable. </div>
+        <div class="note">We may make MediaStreamError inherit from
+          DOMError once the definition of DOMError is stable. </div>
 
-      <div class="note"> Open Issue: Do we want to allow the constraintName
-      attribute to contain multiple constraint names? In many cases the error
-      is raised as soon as a single unsatisfied mandatory constraint is found,
-      but in others it may be possible to determine that multiple constraints
-      are not satisfied. </div>
+        <div class="issue">Do we want to allow the constraintName
+          attribute to contain multiple constraint names? In many cases the error
+          is raised as soon as a single unsatisfied mandatory constraint is found,
+          but in others it may be possible to determine that multiple constraints
+          are not satisfied. </div>
 
-      <p>The following interface is defined for cases when a MediaStreamError
-      is raised as an event:</p>
+        <p>The following interface is defined for cases when a MediaStreamError
+          is raised as an event:</p>
 
-      <dl class="idl" data-merge="MediaStreamErrorEventInit"
-          title="interface MediaStreamErrorEvent : Event">
-        <dt>Constructor(DOMString type, MediaStreamErrorEventInit
-        eventInitDict)</dt>
+        <dl class="idl" data-merge="MediaStreamErrorEventInit"
+            title="interface MediaStreamErrorEvent : Event">
+          <dt>Constructor(DOMString type, MediaStreamErrorEventInit
+            eventInitDict)</dt>
 
-        <dd>TODO</dd>
+          <dd>TODO</dd>
 
-        <dt>readonly attribute MediaStreamError error</dt>
+          <dt>readonly attribute MediaStreamError error</dt>
 
-        <dd>TODO</dd>
-      </dl>
+          <dd>TODO</dd>
+        </dl>
 
-      <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
-        <dt>MediaStreamError error</dt>
+        <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
+          <dt>MediaStreamError error</dt>
 
-        <dd>
-          <p>TODO</p>
-        </dd>
-      </dl>
+          <dd>
+            <p>TODO</p>
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <h3>Error names</h3>
+        <p>The table below lists the error names defined in this specification.</p>
+        <table>
+          <caption><code><a>MediaStreamError</a></code> names</caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><code><dfn>NotSupportedError</dfn></code></th>
+              <td>The operation is not supported.</td>
+              <td>Same as defined in [[DOM4]]</td>
+            </tr>
+            <tr>
+              <th><code><dfn>PermissionDeniedError</dfn></code></th>
+              <td>The user did not grant permission for the operation.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <th><code><dfn>ConstraintNotSatisfiedError</dfn></code></th>
+              <td>One of the mandatory <a>Constraints</a> could not be satisfied.</td>
+              <td>The <code>constraintName</code> attribute gets set to the name of the constraint that caused the error</td>
+            </tr>
+            <tr>
+              <th><code><dfn>OverconstrainedError</dfn></code></th>
+              <td>Due to changes in the environment, one or more mandatory constraints can no longer be satisfied..</td>
+              <td>The <code>constraintName</code> attribute gets set to the name of the constraint that caused the error</td>
+            </tr>
+            <tr>
+              <th><code><dfn>NotFoundError</dfn></code></th>
+              <td>The object can not be found here.</td>
+              <td>Same as defined in [[DOM4]]</td>
+            </tr>
+            <tr>
+              <th><code><dfn>AbortError</dfn></code></th>
+              <td>The operation was aborted.</td>
+              <td>Same as defined in [[DOM4]]</td>
+            </tr>
+            <tr>
+              <th><code><dfn>SourceUnavailableError</dfn></code></th>
+              <td>The source of the MediaStream could not be accessed due to a hardware error (e.g. lock from another process).</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </section>
 
     <section class="informative">
@@ -2377,9 +2446,7 @@
 
           <tr>
             <td>
-              <dfn id="event-mediastreamtrack-ended">
-                <code>ended</code>
-              </dfn>
+                <code id="event-mediastreamtrack-ended">ended</code>
             </td>
 
             <td>
@@ -2589,6 +2656,16 @@
 
           <dd>
             <p>The unique id for the represented device.</p>
+            <p>Devices have an identifier which <em class="rfc2119"
+          title="must">must</em> be unique to the application (un-guessable by
+          another application) and persistent between application sessions
+          (e.g., the identifier for a given source device/application must
+          stay the same, but not be guessable by another application). Sources
+          that must have an identifier are camera and microphone sources;
+          local file sources are not required to have an identifier. Source
+          identifiers let the application save, identify the availability of,
+          and directly request specific sources.</p>
+
           </dd>
 
           <dt>MediaDeviceKind kind</dt>
@@ -2640,9 +2717,32 @@
     <section id="local-content">
       <h2>Obtaining local multimedia content</h2>
 
-      <p>This section extends <a>MediaDevices</a>
+      <p>This section extends <code>
+          <a>NavigatorUserMedia</a>
+        </code> and <code>
+          <a>MediaDevices</a>
         </code> with APIs to request permission to access media input devices
       available to the user agent.</p>
+
+      <section>
+        <h3>NavigatorUserMedia Interface Extensions</h3>
+
+        <div class="note">This method is kept on <code>
+            <a>NavigatorUserMedia</a>
+          </code> for legacy purposes. See <a
+        href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</div>
+
+        <dl class="idl" title="partial interface NavigatorUserMedia">
+          <dt>void getUserMedia(MediaStreamConstraints constraints,
+          NavigatorUserMediaSuccessCallback successCallback,
+          NavigatorUserMediaErrorCallback errorCallback)</dt>
+
+          <dd>
+            <p>See <a
+            href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          </dd>
+        </dl>
+      </section>
 
       <section>
         <h3>MediaDevices Interface Extensions</h3>
@@ -2993,7 +3093,7 @@
                   </code> object whose <code>
                     <a>name</a>
                   </code> attribute has the value
-                <code>SourceUnavailable</code> and jump to the step
+                <code>SourceUnavailableError</code> and jump to the step
                 labeled <em>Error Task</em> below.</p>
               </li>
 
@@ -3550,7 +3650,7 @@ if(!supports["width"] || !supports["height"]) {
           <var>requiredConstraints</var> from the currently valid Constraints.
           This MediaStreamErrorEvent <em class="rfc2119"
           title="must">must</em> contain a MediaStreamError whose
-          <code>name</code> is "overconstrainedError", and whose
+          <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
           <code>message</code> attribute of the MediaStreamError SHOULD
@@ -3716,6 +3816,7 @@ if(supports["facingMode"]) {
         double, DOMString), legal values include lists of any of the atomic
         types, plus min-max ranges, as defined below.</p>
 
+
         <p>List values <em class="rfc2119" title="must">must</em> be
         interpreted as disjunctions. For example, if a property 'facingMode'
         for a camera is defined as having legal values ["left", "right",
@@ -3787,15 +3888,14 @@ if(supports["facingMode"]) {
       <section id="capabilities">
         <h3>Capabilities</h3>
 
-        <p><dfn>Capabilities</dfn> are dictionary containing one or more
+        <p><dfn>Capabilities</dfn> are a dictionary containing one or more
         key-value pairs, where each key <em class="rfc2119"
         title="must">must</em> be a constrainable property defined in the
         registry, and each value <em class="rfc2119" title="should">must</em>
         be a subset of the set of values defined for that property in the
         registry. The exact syntax of the value expression depends on the type
-        of the property but is of type <code>
-            <a>ConstraintValues</a>
-          </code>. The Capabilities dictionary specifies the subset of the
+        of the property, and its type is as defined in the Values column of
+        the registry. The Capabilities dictionary specifies the subset of the
         constrainable properties and values from the registry that the UA
         supports. Note that a UA <em class="rfc2119" title="may">may</em>
         support only a subset of the properties that are defined in the
@@ -3835,6 +3935,10 @@ if(supports["facingMode"]) {
         <code>Settings</code> dictionary contains the actual values that the
         UA has chosen for the object's Capabilities. The exact syntax of the
         value depends on the type of the property.</p>
+
+        <p>A conforming user-agent <em class="rfc2119"
+        title="must">must</em> support all the setting names defined in this
+        spec.</p>
 
         <p>An example of a Setting dictionary is shown below. This example is
         not very realistic in that a browser would actually be required to
@@ -4001,8 +4105,8 @@ if(supports["facingMode"]) {
 
       <div>
         <p>This example allows people to take photos of themselves from the
-        local video camera. Note that the forthcoming Image Capture
-        specification may provide a simpler way to accomplish this.</p>
+        local video camera. Note that the Image Capture
+        specification [[image-capture]] provides a simpler way to accomplish this.</p>
 
         <pre class="example highlight" xml:space="preserve">
 &lt;article&gt;
@@ -4047,23 +4151,6 @@ if(supports["facingMode"]) {
 &lt;/article&gt;
 </pre>
       </div>
-    </section>
-
-    <section>
-      <h1>Error Names</h1>
-
-      <p>This specification defines the following new error names</p>
-
-      <ul>
-        <li>PermissionDeniedError: User denied permission for scripts from
-        this origin to access the media device.</li>
-
-        <li>ConstraintNotSatisfiedError: One of the mandatory constraints
-        could not be satisfied.</li>
-
-        <li>OverconstrainedError: Due to changes in the environment, one or
-        more mandatory constraints can no longer be satisfied.</li>
-      </ul>
     </section>
 
     <section>
@@ -4143,6 +4230,28 @@ if(supports["facingMode"]) {
           </thead>
 
           <tbody>
+            <tr id="def-constraint-sourceType">
+              <td>
+                <dfn>sourceType</dfn>
+              </td>
+
+              <td>
+                <a>
+                  <code>SourceTypeEnum</code>
+                </a>
+              </td>
+
+              <td> The type of the source of the <a>MediaStreamTrack</a>. Note
+              that the setting of this property is uniquely determined by the
+              source that is attached to the Track. In particular,
+              getCapabilities() will return only a single value for
+              sourceID/Type. This property can therefore be used for initial
+              media selection with getUserMedia(). However is not useful for
+              subsequent media control with applyConstraints, since any
+              attempt to set a different value will result in an unsatisfiable
+              ConstraintSet. </td>
+            </tr>
+
             <tr id="def-constraint-sourceId">
               <td>
                 <dfn>sourceId</dfn>
@@ -4201,9 +4310,7 @@ if(supports["facingMode"]) {
               </td>
 
               <td>
-                <a>
-                  <code>ConstrainLong</code>
-                </a>
+                <code><a>ConstrainLong</a></code>
               </td>
 
               <td>The width or width range, in pixels, of the video source. As
@@ -4218,9 +4325,7 @@ if(supports["facingMode"]) {
               </td>
 
               <td>
-                <a>
-                  <code>ConstrainLong</code>
-                </a>
+                <code><a>ConstrainLong</a></code>
               </td>
 
               <td>The height or height range, in pixels, of the video source.
@@ -4235,9 +4340,7 @@ if(supports["facingMode"]) {
               </td>
 
               <td>
-                <a>
-                  <code>ConstrainDouble</code>
-                </a>
+                <code><a>ConstrainDouble</a></code>
               </td>
 
               <td>The exact desired frame rate (frames per second) or
@@ -4253,9 +4356,7 @@ if(supports["facingMode"]) {
               </td>
 
               <td>
-                <a>
-                  <code>ConstrainDouble</code>
-                </a>
+                <code><a>ConstrainDouble</a></code>
               </td>
 
               <td>The exact aspect ratio (width in pixels divided by height in
@@ -4330,9 +4431,7 @@ if(supports["facingMode"]) {
               <td>volume</td>
 
               <td>
-                <a>
-                  <code>ConstrainDouble</code>
-                </a>
+                <code><a>ConstrainDouble</a></code>
               </td>
 
               <td>The volume or volume range of the audio source, as a
@@ -4346,9 +4445,7 @@ if(supports["facingMode"]) {
               <td>sampleRate</td>
 
               <td>
-                <a>
-                  <code>ConstrainLong</code>
-                </a>
+                <code><a>ConstrainLong</a></code>
               </td>
 
               <td>The sample rate in samples per second for the audio
@@ -4359,26 +4456,24 @@ if(supports["facingMode"]) {
               <td>sampleSize</td>
 
               <td>
-                <a>
-                  <code>ConstrainLong</code>
-                </a>
+                <code><a>ConstrainLong</a></code>
               </td>
 
               <td>The linear sample size in bits. This constraint can only be
               satisfied for audio devices that produce linear samples. </td>
             </tr>
 
-            <tr id="def-constraint-echoCancelation">
-              <td> echoCancelation </td>
+            <tr id="def-constraint-echoCancellation">
+              <td> echoCancellation </td>
 
               <td>
                 <code>boolean</code>
               </td>
 
               <td> When one or more audio streams is being played in the
-              proceses of varios microphones, it is often desirable to attempt
+              processes of various microphones, it is often desirable to attempt
               to remove the sound being played from the input signals recorded
-              by the microphones. This is referred to echo cancelation. There
+              by the microphones. This is referred to echo cancellation. There
               are cases where it is not needed and it is desirable to turn it
               off so that no audio artifacts are introduced. This allows
               applications to control this behavior. </td>
@@ -4400,11 +4495,15 @@ if(supports["facingMode"]) {
       <p>This section will be removed before publication.</p>
 
       <h2>Changes since August 17, 2014</h2>
-
       <ol>
-        <li>Bug 26243: Do we need getUserMedia() on MediaDevices?</li>
+        <li>Bug 25988: Need a list of MediaStreamError "name" values</li>
 
-        <li>Bug 25752: sourceType is redundant as constraint</li>
+        <li>Bug 26623: Use commonest spelling of "cancellation"</li>
+
+        <li>Bug 25767: Missing Ref to Image Capture spec</li>
+
+        <li>Bug 22271: Terminology section should not have conformance
+        requirements</li>
       </ol>
 
       <h2>Changes since July 4, 2014</h2>
@@ -4576,7 +4675,7 @@ if(supports["facingMode"]) {
         <li>Remove noaccess, move peerIdentity</li>
 
         <li>Add constraints for sampleRate, sampleSize, and
-        echoCancelation.</li>
+        echoCancellation.</li>
 
         <li>Aligned text in remainder of document with Constrainable
         changes.</li>

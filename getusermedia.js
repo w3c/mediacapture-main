@@ -19,10 +19,10 @@ var respecConfig = {
    // copyrightStart: "2005",
 
    // if there is a previously published draft, uncomment this and set its YYYY-MM-DD
-   prevED: "http://dev.w3.org/2011/webrtc/editor/archives/20140704/getusermedia.html",
+   prevED: "http://w3c.github.io/mediacapture-main/archives/20140817/getusermedia.html",
 
    // if there a publicly available Editor's Draft, this is the link
-   edDraftURI:           "http://dev.w3.org/2011/webrtc/editor/getusermedia.html",
+   edDraftURI: "http://w3c.github.io/mediacapture-main/",
 
    // if this is a LCWD, uncomment and set the end of its review period
    // lcEnd: "2009-08-05",
@@ -66,27 +66,5 @@ var respecConfig = {
    // This is important for Rec-track documents, do not copy a patent URI from a random
    // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
    // Team Contact.
-   wgPatentURI:   ["http://www.w3.org/2004/01/pp-impl/47318/status","http://www.w3.org/2004/01/pp-impl/43696/status"],
-
-   localBiblio:  {
-      "mediastream-rec": {
-        title: "MediaStream Recording",
-        href: "https://dvcs.w3.org/hg/dap/raw-file/tip/media-stream-capture/MediaRecorder.html",
-        authors:  [
-            "Jim Barnett",
-            "Travis Leithead"
-        ],
-        status:   "WD",
-        publisher:  "W3C"
-      },
-      "mediastream-imagecap": {
-        title: "MediaStream Image Capture",
-        href: "http://www.w3.org/TR/image-capture/",
-        authors:  [
-            "Giridhar Mandyam"
-        ],
-        status:   "WD",
-        publisher:  "W3C"
-      }
-   }
+   wgPatentURI:   ["http://www.w3.org/2004/01/pp-impl/47318/status","http://www.w3.org/2004/01/pp-impl/43696/status"]
 };
