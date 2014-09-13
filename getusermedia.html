@@ -1254,14 +1254,6 @@
 
                 <dd>A new constraint structure to apply to this object.</dd>
 
-                <dt>VoidFunction successCallback</dt>
-
-                <dd>Called if the required constraints can be satisfied.</dd>
-
-                <dt>ConstraintErrorCallback errorCallback</dt>
-
-                <dd>Called if the required constraints cannot be
-                satisfied.</dd>
               </dl> See <a
             href="#constrainable-interface">ConstrainablePattern Interface</a>
             for the definition of this method.</dd>
@@ -1596,10 +1588,10 @@
       <p>It is possible that <a>constraints</a> can be applied to a track
       which a source is unable to satisfy, either because the source itself
       cannot satisfy the constraint or because the source is already
-      satisfying a conflicting constraint. When this happens, the <code>
+      satisfying a conflicting constraint. When this happens, the promise
+      returned from <code>
           <a>applyConstraints()</a>
-        </code> call will fail and call the user-provided
-      <a>ConstraintErrorCallback</a>, without applying any of the new
+        </code> will be rejected, without applying any of the new
       constraints. Since no change in constraints occurs in this case, there
       is also no required change to the source itself as a result of this
       condition. Here is an example of this behavior.</p>
@@ -2548,26 +2540,32 @@
               <a>MediaDevices</a>
             </code> interface.</dd>
 
-          <dt>void enumerateDevices (MediaDeviceInfoCallback
-          resultCallback)</dt>
+          <dt>Promise&lt;sequence&lt; MediaDeviceInfo &gt;&gt; enumerateDevices ()</dt>
 
           <dd>
-            <p>Collects information about the user agents available media
-            input and output devices. The method MUST only return information
+            <p>Returns a promise. The promise will be fulfilled with a sequence
+            of <code>
+              <a>MediaDeviceInfo</a>
+            </code> dictionaries representing the user agent's available media
+            input and output devices if enumeration is successful.</p>
+
+            <p>The method MUST only collect information
             that the script is authorized to access (TODO expand
             authorized).</p>
 
             <p>When the <dfn id="dom-mediadevices-enumeratedevices">
                 <code>enumerateDevices()</code>
-              </dfn> method is called, the user agent must queue a task that
-            runs the following steps:</p>
+              </dfn> method is called, the user agent must runs the following steps:</p>
 
             <ol>
               <li>
-                <p>Let <var>resultCallback</var> be the callback indicated by
-                the methods first argument.</p>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+              <li>
+                <p>Run the following steps asynchronously:</p>
               </li>
 
+              <ol>
               <li>
                 <p>If this method has been called previously within this
                 application session, let <var>oldList</var> be the list of
@@ -2627,9 +2625,12 @@
               </li>
 
               <li>
-                <p>Invoke <var>resultCallback</var> with <var>resultList</var>
-                as its argument.</p>
+                <p>Resolve <var>p</var> with <var>resultList</var>.</p>
               </li>
+            </ol>
+            <li>
+              <p>Return <var>p</var>.</p>
+            </li>
             </ol>
           </dd>
         </dl>
@@ -2637,17 +2638,6 @@
 
       <section>
         <h2>Device Info</h2>
-
-        <dl class="idl" title="callback MediaDeviceInfoCallback = void">
-          <dt>sequence&lt;MediaDeviceInfo&gt; deviceInfoList</dt>
-
-          <dd>A sequence of <code>
-              <a>MediaDeviceInfo</a>
-            </code> objects representing the result of a call to <code>
-              <a
-              href="#dom-mediadevices-enumeratedevices">MediaDevices.enumerateDevices()</a>
-            </code> .</dd>
-        </dl>
 
         <div class="note"> The old SourceInfo dictionary used to refer to the
         MediaSourceStates dictionary. That dictionary is no longer available
@@ -2742,8 +2732,67 @@
           NavigatorUserMediaErrorCallback errorCallback)</dt>
 
           <dd>
-            <p>See <a
-            href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+            <p>Prompts the user for permission to use their Web cam or other
+            video or audio input.</p>
+
+            <p>The <var>constraints</var> argument is a dictionary of type <code>
+                <a>MediaStreamConstraints</a>
+              </code>.</p>
+
+            <p>The <var>successCallback</var> will be invoked with a suitable
+                <a>MediaStream</a>
+              </code> object as its argument if the user accepts valid tracks
+            as described in <a
+              href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+
+            <p>The <var>errorCallback</var> will be invoked if there is a
+            failure in finding valid tracks or if the user denies permission,
+            both as described in <a
+              href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+
+            <p>When the <code>getUserMedia()</code>
+              method is called, the user agent MUST run the following
+            steps:</p>
+
+            <ol>
+              <li>
+                <p>Let <var>constraints</var> be the method's first
+                argument.</p>
+              </li>
+              <li>
+                <p>Let <var>successCallback</var> be the callback indicated by
+                the method's second argument.</p>
+              </li>
+              <li>
+                <p>Let <var>errorCallback</var> be the callback indicated by
+                the method's third argument.</p>
+              </li>
+              <li>
+                <p>Invoke <a
+                  href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>
+                with <var>constraints</var> as the argument, and let <var>p</var>
+                be resulting promise.</p>
+              </li>
+              <li>
+                <p>Upon fulfillment of <var>p</var> with value <var>stream</var>,
+                run the following step:</p>
+              </li>
+              <ol>
+                <li>
+                  <p>Invoke <var>successCallback</var> with <var>stream</var> as the
+                  argument.
+                </li>
+              </ol>
+              <li>
+                <p>Upon rejection of <var>p</var> with reason <var>r</var>,
+                run the following step:</p>
+              </li>
+              <ol>
+                <li>
+                  <p>Invoke <var>errorCallback</var> with <var>r</var> as the argument.</p>
+                </li>
+              </ol>
+            </ol>
           </dd>
         </dl>
       </section>
@@ -2767,9 +2816,8 @@
             present in the returned dictionary.</p>
           </dd>
 
-          <dt>void getUserMedia(MediaStreamConstraints constraints,
-          NavigatorUserMediaSuccessCallback successCallback,
-          NavigatorUserMediaErrorCallback errorCallback)</dt>
+          <dt>Promise&lt;MediaStream&gt; getUserMedia(
+          MediaStreamConstraints constraints)</dt>
 
           <dd>
             <p>Prompts the user for permission to use their Web cam or other
@@ -2778,17 +2826,16 @@
             <p class="issue">(Remove when other issues are removed. This is
             only here to keep the issues from being renumbered)</p>
 
-            <p>The <var>constraints</var> argument is an object of type <code>
+            <p>The <var>constraints</var> argument is a dictionary of type <code>
                 <a>MediaStreamConstraints</a>
               </code>.</p>
 
-            <p>The <var>successCallback</var> will be invoked with a suitable
-            <code>
+            <p>Returns a promise. The promise will be fulfilled with a suitable <code>
                 <a>MediaStream</a>
-              </code> object as its argument if the user accepts valid tracks
+              </code> object if the user accepts valid tracks
             as described below.</p>
 
-            <p>The <var>errorCallback</var> will be invoked if there is a
+            <p>The promise will be rejected if there is a
             failure in finding valid tracks or if the user denies permission,
             both as described below.</p>
 
@@ -2799,20 +2846,18 @@
 
             <ol>
               <li>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+              <li>
                 <p>Let <var>constraints</var> be the method's first
                 argument.</p>
               </li>
 
               <li>
-                <p>Let <var>successCallback</var> be the callback indicated by
-                the method's second argument.</p>
+                <p>Run the following steps asynchronously:</p>
               </li>
 
-              <li>
-                <p>Let <var>errorCallback</var> be the callback indicated by
-                the method's third argument.</p>
-              </li>
-
+              <ol>
               <li>
                 <p>Let <var>requestedMediaTypes</var> be the set of media
                 types in <var>constraints</var> with either a dictionary value
@@ -2832,11 +2877,6 @@
 
               <li>
                 <p>Let <var>finalSet</var> be an (initially) empty set.</p>
-              </li>
-
-              <li>
-                <p>If <var>successCallback</var> is null, abort these
-                steps.</p>
               </li>
 
               <!-- we could throw an exception instead (that's
@@ -2994,10 +3034,6 @@
               </li>
 
               <li>
-                <p>Return, and run the remaining steps asynchronously.</p>
-              </li>
-
-              <li>
                 <p>Optionally, e.g., based on a previously-established user
                 preference, for security reasons, or due to platform
                 limitations, jump to the step labeled <em>Permission
@@ -3057,8 +3093,7 @@
               </li>
 
               <li>
-                <p>Queue a task to invoke <var>successCallback</var> with
-                <var>stream</var> as its argument.</p>
+                <p>Resolve <var>p</var> with <var>stream</var>.</p>
               </li>
 
               <li>
@@ -3113,16 +3148,13 @@
               </li>
 
               <li>
-                <p><em>Error Task:</em> Queue a task to invoke
-                <var>errorCallback</var> with <var>error</var> as its
-                argument.</p>
+                <p><em>Error Task:</em>
+                Reject <var>p</var> with <var>error</var>.</p>
               </li>
-
-              <li style="list-style: none; display: inline">
-                <p>The task source for these <span
-                title="concept-task">tasks</span> is the user interaction task
-                source.</p>
-              </li>
+            </ol>
+            <li>
+              <p>Return <var>p</var>.</p>
+            </li>
             </ol>
           </dd>
         </dl>
@@ -3203,8 +3235,8 @@
           <p class="practicedesc">The user agent is encouraged to reserve
           resources when it has determined that a given call to <a
           href="#dom-mediadevices-getusermedia">getUserMedia()</a> will
-          succeed. It is preferable to reserve the resource prior to invoking
-          the success callback provided by the web page. Subsequent calls to
+          be successful. It is preferable to reserve the resource prior to
+          resolving the returned promise. Subsequent calls to
           <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> (in this
           page or any other) should treat the resource that was previously
           allocated, as well as resources held by other applications, as busy.
@@ -3300,8 +3332,8 @@
       advanced list. The behavior is as follows: all 'min', 'max', and 'exact'
       constraints in the basic Constraint structure are together treated as
       the 'required' set, and if it is not possible to satisfy simultaneously
-      all of those individual constraints for tho indicated property names,
-      the UA MUST call the <code>errorCallback</code>. Otherwise, it must
+      all of those individual constraints for the indicated property names,
+      the UA MUST reject the returned promise. Otherwise, it must
       apply the required constraints. Next, it will consider any
       ConstraintSets given in the 'advanced' list, in the order in which they
       are specified, and will try to satisfy/apply each complete ConstraintSet
@@ -3310,7 +3342,7 @@
       Next, the UA MUST attempt to apply, individually, any 'ideal' constraint
       or a constraint given as a bare value for the property. Of these
       properties, it MUST satisfy the largest number that it can, in any
-      order. Finally, the UA MUST call the <code>successCallback</code>.</p>
+      order. Finally, the UA MUST resolve the returned promise.</p>
 
       <p>Important note: If JavaScript applications using this API want the
       attributes in the constraints to be used by the browser, the JavaScript
@@ -3357,10 +3389,9 @@ if(!supports["aspectRatio"]) {
       <p>This next example adds a small bit of complexity. The ideal values
       are still given for width and height, but this time with minimum
       requirements on each as well that must be satisfied. If it cannot
-      satisfy either the width or height minimum it will call the
-      <code>errorCallback</code>. Otherwise, it will try to satisfy the width,
-      height, and aspectRatio target values as well and then call the
-      <code>successCallback</code>.</p>
+      satisfy either the width or height minimum it will reject the promise.
+      Otherwise, it will try to satisfy the width, height, and aspectRatio
+      target values as well and then resolve the promise.</p>
 
       <pre class="example highlight" xml:space="preserve">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
@@ -3513,13 +3544,6 @@ if(!supports["width"] || !supports["height"]) {
 
               <dd>A new constraint structure to apply to this object.</dd>
 
-              <dt>VoidFunction successCallback</dt>
-
-              <dd>Called if the required constraints can be satisfied.</dd>
-
-              <dt>ConstraintErrorCallback errorCallback</dt>
-
-              <dd>Called if the required constraints cannot be satisfied.</dd>
             </dl>
 
             <p>The <dfn>applyConstraints()</dfn> algorithm for applying
@@ -3566,12 +3590,23 @@ if(!supports["width"] || !supports["height"]) {
             </ul>
 
             <p>When <code>applyConstraints</code> is called, the UA <em
-            class="rfc2119" title="must">must</em> queue a task to run the
+            class="rfc2119" title="must">must</em> run the
             following steps:</p>
 
             <ol>
-              <li>let <var>newContraints</var> be the argument to this
-              function. Each constraint <em class="rfc2119"
+              <li>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+              <li>
+                <p>Let <var>newContraints</var> be the argument to this
+                function.</p>
+              </li>
+              <li>
+                <p>Run the following steps asynchronously:</p>
+              </li>
+
+              <ol>
+              <li>Each constraint <em class="rfc2119"
               title="must">must</em> specify one or more values (or a range of
               values) for its property. A property <em class="rfc2119"
               title="may">may</em> appear more than once in the list of
@@ -3596,13 +3631,12 @@ if(!supports["width"] || !supports["height"]) {
               should behave as if it were <var>object</var> with all
               ConstraintSets removed.)</li>
 
-              <li>If <var>requiredConstraints</var> is non-null and cannot be
-              satisfied by <var>copy</var>, call the
-              <code>errorCallback</code>, passing it a new
+              <li>If <var>requiredConstraints</var> is non-empty and cannot be
+              satisfied by <var>copy</var>, reject <var>p</var> with a new
               <code>MediaStreamError</code> with name
               <code>ConstraintNotSatisfied</code> and
               <code>constraintName</code> set to any of the required
-              constraints that could not be satisfied, and return.
+              constraints that could not be satisfied, and abort these steps.
               <var>existingConstraints</var> remain in effect in this
               case.</li>
 
@@ -3620,11 +3654,16 @@ if(!supports["width"] || !supports["height"]) {
               then apply the largest subset of <var>unorderedConstraints</var>
               that can be satisifed. (If more than one 'largest subset' can be
               satisfied, the UA is free to select which 'largest subset' it
-              chooses.) Finally fire the <code>successCallback</code>. From
-              this point on until applyConstraints() is called successfully
+              chooses.)</li>
+              <li>Finally, resolve <var>p</var>. From this point on until
+              applyConstraints() is called successfully
               again, getConstraints() <em class="rfc2119"
               title="must">must</em> return the <var>newConstraints</var> that
               were passed as an argument to this call. </li>
+            </ol>
+            <li>
+              <p>Return <var>p</var>.</p>
+            </li>
             </ol>
 
             <p>The UA <em class="rfc2119" title="may">may</em> choose new
@@ -3665,23 +3704,6 @@ if(!supports["width"] || !supports["height"]) {
           constraints. The UA MAY take other actions as a result of the
           overconstrained situation.</p> </dd>
         </dl>
-
-        <section>
-          <h3>applyConstraints Failure Callback</h3>
-
-          <section>
-            <section>
-              <h4>ConstraintErrorCallback</h4>
-
-              <dl class="idl" title="callback ConstraintErrorCallback = void">
-                <dt>MediaStreamError error</dt>
-
-                <dd>An <code>MediaStreamError</code> holding a required
-                constraint that could not be satisfied.</dd>
-              </dl>
-            </section>
-          </section>
-        </section>
 
         <p>An example of Constraints that could be passed into <code>
             <a>applyConstraints()</a>
