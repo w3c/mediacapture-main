@@ -2958,34 +2958,36 @@
                   </li>
 
                   <li>
-                    <p>For all non-required ('ideal' or bare-value)
-                    constraints in <var>CS</var>, identify the maximum number
-                    of such constraint pairs that could be satisfied by at
-                    least one track in <var>thirdPassSet</var>.</p>
+                    <p>Identify the track in <var>thirdPassSet</var>
+                    with the smallest distance from the non-required
+                    ('ideal' or bare-value) constraints, calculated as
+                    the sum of the following constraint-specific
+                    distances for all of the non-required
+                    constraints.</p>
+                    <ol>
+                      <li>
+                        For all numeric non-required constraints
+                        (height, width, framerate, aspectRatio,
+                        sampleRate and sampleSize), use the
+                        formula <pre>(actual == 0) ? ideal : |actual -
+                        ideal|/actuall</pre>.
+                      </li>
+                      <li>
+                        For all non-required string and enum
+                        constraints (sourceId, groupId, facingMode,
+                        echoCancellation), use the
+                        formula <pre>(actual == ideal) ? 0 : 10</pre>.
+                        If multiple tracks in the
+                        <var>thirdPassSet</var> have the same total
+                        distance thus calculated, select any one of
+                        them.
+                      </li>
+                    </ol>
                   </li>
-
                   <li>
-                    <p>The decision of which of these non-required constraints
-                    to satisfy is completely up to the user agent, as long as
-                    the number of constraints satisfied matches the number in
-                    the previous step.</p>
+                    Let the <var>candidateSet</var> be the current
+                    contents of the <var>thirdPassSet</var>.
                   </li>
-
-                  <li>
-                    <p>For the non-required constraints the user agent has
-                    decided to satisfy, remove from the
-                    <var>thirdPassSet</var> any tracks that cannot satisfy
-                    those constraints.</p>
-                  </li>
-
-                  <li>
-                    <p>If the <var>thirdPassSet</var> is now empty, let the
-                    <var>thirdPassSet</var> be the current contents of the
-                    <var>candidateSet</var>. Otherwise, let the
-                    <var>candidateSet</var> be the current contents of the
-                    <var>thirdPassSet</var>.</p>
-                  </li>
-
                   <li>
                     <p><em>Final:</em> Add the tracks in the
                     <var>candidateSet</var> to the <var>finalSet</var>.</p>
@@ -3325,11 +3327,6 @@
       it will generate an error, while browsers that do not support the given
       name of the constraint will not generate an error. </p>
 
-      <p class="issue">The definition and behavior of 'ideal', along with that
-      of bare values in the basic constraint structure (which are assumed to
-      mean 'ideal'), have not yet been agreed upon, or even thoroughly
-      discussed.</p>
-
       <p>The following examples may help to understand how constraints work.
       The first shows a basic Constraint structure. Three constraints are
       given, each of which the UA will attempt to satisfy individually.
@@ -3632,11 +3629,6 @@ if(!supports["width"] || !supports["height"]) {
             does so it <em class="rfc2119" title="must">must</em> attempt to
             satisfy the current Constraints, in the manner described in the
             algorithm above. </p>
-
-            <p class="issue">The definition of how multiple
-            unorderedConstraints are to be satisfied together is still very
-            much under discussion. Also, please see issue 6 about 'ideal' not
-            yet being defined.</p>
           </dd>
 
           <dt>attribute EventHandler onoverconstrained</dt>
@@ -4508,6 +4500,11 @@ if(supports["facingMode"]) {
       <h2>Change Log</h2>
 
       <p>This section will be removed before publication.</p>
+
+      <h2>Changes since Sept 15th, 2014</h2>
+      <ol>
+        <li>Define alrogithm for processing "ideal" constraints.</li>
+      </ol>
 
       <h2>Changes since August 17, 2014</h2>
       <ol>
