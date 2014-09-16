@@ -2505,10 +2505,6 @@
               </li>
 
               <li>
-                <p>If the user has granted permission to any
-                  <code>getUserMedia</code>, run the following sub steps:</p>
-                <ol>
-              <li>
                 <p>If this method has been called previously within this
                 application session, let <var>oldList</var> be the list of
                 <code>
@@ -2568,8 +2564,6 @@
                 <var>resultList</var>, set
                 <code><a href="#widl-MediaDeviceInfo-groupId">label</a></code>
                 to the empty string.</li>
-              </ol>
-              </li>
               <li>
                 <p>Invoke <var>resultCallback</var> with <var>resultList</var>
                 as its argument.</p>
@@ -2577,6 +2571,21 @@
             </ol>
           </dd>
         </dl>
+        <section>
+          <h2>Access control model</h2>
+          <p>The algorithm described above means that the access to
+            media device information depends on whether or not permission has
+            been granted to the page's origin for use of any media devices.</p>
+
+          <p>If no such access has been granted, the
+            <code><a>MediaDeviceInfo</a></code> dictionary will contain
+            the deviceId, the kind and the groupId.</p>
+
+          <p>If access has been granted for any media device,
+            the <code><a>MediaDeviceInfo</a></code> dictionary will
+            contain the deviceId, the kind, the label and the groupId.</p>
+        </section>
+
       </section>
 
       <section>
