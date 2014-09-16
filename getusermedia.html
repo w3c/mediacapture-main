@@ -3789,14 +3789,14 @@ var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["aspectRatio"] || !supports["facingMode"]) {
   // Treat like an error.
 }
-navigator.mediaDevices.getUserMedia({
+var gotten = navigator.mediaDevices.getUserMedia({
   "video": {
     "width": {"min": 320, "ideal": 1280, "max": 1920},
     "height": {"min": 240, "ideal": 720, "max": 1080},
     "framerate": 30,     // Shorthand for ideal.
     // "facingMode": "environment" would be optional.
     "facingMode": {"exact": "environment"}
-  }}, ...);
+  }});
 </pre>
 
         <p>Here's an example of "I want 720p, but I can accept up to 1080p and
@@ -3807,10 +3807,10 @@ var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
 }
-navigator.mediaDevices.getUserMedia({"video": {
+var gotten = navigator.mediaDevices.getUserMedia({"video": {
   "width": {"min": 640, "ideal": 1280, "max": 1920},
   "height": {"min": 480, "ideal": 720, "max": 1080},
-}}, ...);
+}});
 </pre>
 
         <p>Here's an example of "I want a front-facing camera and it must be
@@ -3818,13 +3818,14 @@ navigator.mediaDevices.getUserMedia({"video": {
 
         <pre class="example highlight" xml:space="preserve">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
-if(supports["facingMode"]) {
-  navigator.mediaDevices.getUserMedia({"video": {
-    "facingMode": {"exact": "user"},
-    "width": {"exact": 640},
-    "height": {"exact": 480}
-  }}, ...);
+if(!supports["width"] || !supports["height"] || !supports["facingMode"]) {
+  // Treat like an error.
 }
+var gotten = navigator.mediaDevices.getUserMedia({"video": {
+  "facingMode": {"exact": "user"},
+  "width": {"exact": 640},
+  "height": {"exact": 480}
+}});
 </pre>
       </section>
 
@@ -4059,7 +4060,7 @@ if(supports["facingMode"]) {
      navigator.mediaDevices.getUserMedia({
          audio: true,
          video: true
-     }, gotStream, logError);
+     }).then(gotStream).catch(logError);
      startBtn.disabled = true;
  }
 
@@ -4164,13 +4165,12 @@ if(supports["facingMode"]) {
   &lt;p&gt;&lt;input type=button value="&amp;#x1F4F7;" onclick="snapshot()"&gt;
  &lt;/section&gt;
  &lt;script&gt;
- navigator.mediaDevices.getUserMedia({
-     video: true
- }, gotStream, noStream);
  var video = document.getElementById('monitor');
  var canvas = document.getElementById('photo');
 
- function gotStream(stream) {
+ navigator.mediaDevices.getUserMedia({
+     video: true
+ }).then(function (stream) {
      video.srcObject = stream;
      stream.oninactive = noStream;
      video.onloadedmetadata = function () {
@@ -4179,11 +4179,9 @@ if(supports["facingMode"]) {
          document.getElementById('splash').hidden = true;
          document.getElementById('app').hidden = false;
      };
- }
-
- function noStream() {
+ }).catch(function(reason) {
      document.getElementById('errorMessage').textContent = 'No camera available.';
- }
+ });
 
  function snapshot() {
      canvas.getContext('2d').drawImage(video, 0, 0);
