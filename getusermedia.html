@@ -2959,24 +2959,24 @@
 
                   <li>
                     <p>Identify the track in <var>thirdPassSet</var>
-                    with the smallest distance from the non-required
-                    ('ideal' or bare-value) constraints, calculated as
+                    with the smallest distance from the "ideal"
+                    (including bare-value) constraints, calculated as
                     the sum of the following constraint-specific
                     distances for all of the non-required
                     constraints.</p>
                     <ol>
                       <li>
-                        For all numeric non-required constraints
-                        (height, width, framerate, aspectRatio,
-                        sampleRate and sampleSize), use the
-                        formula <pre>(actual == 0) ? ideal : |actual -
-                        ideal|/actuall</pre>.
+                        For all numeric "ideal" (including bare-value)
+                        constraints (height, width, frameRate,
+                        aspectRatio, sampleRate and sampleSize), use
+                        the formula <pre>(actual == ideal) ? 0 :
+                        |actual - ideal|/max(|actual|,|ideal|)</pre>
                       </li>
                       <li>
-                        For all non-required string and enum
-                        constraints (sourceId, groupId, facingMode,
-                        echoCancellation), use the
-                        formula <pre>(actual == ideal) ? 0 : 10</pre>.
+                        For all string and enum "ideal" (including
+                        bare-value) constraints (sourceId, groupId,
+                        facingMode, echoCancellation), use the
+                        formula <pre>(actual == ideal) ? 0 : 1</pre>
                         If multiple tracks in the
                         <var>thirdPassSet</var> have the same total
                         distance thus calculated, select any one of
@@ -4503,7 +4503,7 @@ if(supports["facingMode"]) {
 
       <h2>Changes since Sept 15th, 2014</h2>
       <ol>
-        <li>Define alrogithm for processing "ideal" constraints.</li>
+        <li>Define algorithm for processing "ideal" constraints.</li>
       </ol>
 
       <h2>Changes since August 17, 2014</h2>
