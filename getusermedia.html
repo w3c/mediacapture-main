@@ -2959,22 +2959,21 @@
 
                   <li>
                     <p>Identify the track in <var>thirdPassSet</var>
-                    with the smallest distance from the "ideal"
-                    (including bare-value) constraints, calculated as
-                    the sum of the following constraint-specific
-                    distances.</p>
+                    with the smallest distance from the non-required
+                    constraints, calculated as the sum of the
+                    following constraint-specific distances.</p>
                     <ol>
                       <li>
-                        For all numeric "ideal" (including bare-value)
-                        constraints (height, width, frameRate,
-                        aspectRatio, sampleRate and sampleSize), use
-                        the formula <pre>(actual == ideal) ? 0 :
-                        |actual - ideal|/max(|actual|,|ideal|)</pre>
+                        For all numeric non-required constraints
+                        (height, width, frameRate, aspectRatio,
+                        sampleRate and sampleSize), use the
+                        formula <pre>(actual == ideal) ? 0 : |actual -
+                        ideal|/max(|actual|,|ideal|)</pre>
                       </li>
                       <li>
-                        For all string and enum "ideal" (including
-                        bare-value) constraints (sourceId, groupId,
-                        facingMode, echoCancellation), use the
+                        For all string and enum non-required
+                        constraints (sourceId, groupId, facingMode,
+                        echoCancellation), use the
                         formula <pre>(actual == ideal) ? 0 : 1</pre>
                         If multiple tracks in the
                         <var>thirdPassSet</var> have the same total
@@ -4502,7 +4501,7 @@ if(supports["facingMode"]) {
 
       <h2>Changes since Sept 15th, 2014</h2>
       <ol>
-        <li>Define algorithm for processing "ideal" constraints.</li>
+        <li>Define algorithm for processing non-required constraints.</li>
       </ol>
 
       <h2>Changes since August 17, 2014</h2>
