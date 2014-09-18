@@ -853,7 +853,8 @@
               <a href="#dom-mediastreamtrack-kind">kind</a>
             </code> and <code>
               <a href="#dom-mediastreamtrack-label">label</a>
-            </code> MUST not change values when the source is detached.</p>
+            </code> <em class="rfc2119">must not</em> change values
+            when the source is detached.</p>
 
           <p>When a <code>
               <a>MediaStreamTrack</a>
@@ -2553,9 +2554,7 @@
 
           <dd>
             <p>Collects information about the user agents available media
-            input and output devices. The method MUST only return information
-            that the script is authorized to access (TODO expand
-            authorized).</p>
+            input and output devices.</p>
 
             <p>When the <dfn id="dom-mediadevices-enumeratedevices">
                 <code>enumerateDevices()</code>
@@ -2569,6 +2568,10 @@
               </li>
 
               <li>
+                <p>Let <var>resultList</var> be an empty list.</p>
+              </li>
+
+              <li>
                 <p>If this method has been called previously within this
                 application session, let <var>oldList</var> be the list of
                 <code>
@@ -2578,9 +2581,6 @@
                 an empty list.</p>
               </li>
 
-              <li>
-                <p>Let <var>resultList</var> be an empty list.</p>
-              </li>
 
               <li>
                 <p>Probe the user agent for available media devices, and run
@@ -2627,12 +2627,38 @@
               </li>
 
               <li>
-                <p>Invoke <var>resultCallback</var> with <var>resultList</var>
-                as its argument.</p>
+                <p>If none of the local devices are attached to an active
+                <code><a>MediaStreamTrack</a></code>, let
+                <var>filteredList</var> be a copy of <var>resultList</var>, and
+                all its elements, where the <code><a href=
+                "#widl-MediaDeviceInfo-label">label</a></code> member is the
+                empty string.</p>
+              </li>
+
+              <li>
+                <p>If <var>filteredList</var> is a non-empty list, then invoke
+                <var>resultCallback</var> with <var>filteredList</var>
+                as its argument. Otherwise, use <var>resultList</var> as the
+                callback argument.</p>
               </li>
             </ol>
           </dd>
         </dl>
+        <section>
+          <h2>Access control model</h2>
+          <p>The algorithm described above means that the access to
+            media device information depends on whether or not permission has
+            been granted to the page's origin for use of any media devices.</p>
+
+          <p>If no such access has been granted, the
+            <code><a>MediaDeviceInfo</a></code> dictionary will contain
+            the deviceId, the kind and the groupId.</p>
+
+          <p>If access has been granted for any media device,
+            the <code><a>MediaDeviceInfo</a></code> dictionary will
+            contain the deviceId, the kind, the label and the groupId.</p>
+        </section>
+
       </section>
 
       <section>
@@ -3193,7 +3219,7 @@
         </dl>
       </section>
 
-      <section class="informative">
+      <section>
         <h2>Implementation Suggestions</h2>
 
         <div class="practice">
@@ -3236,6 +3262,24 @@
           user chooses this option, the track corresponding to the resource
           that was provided to the page whose stream was affected must be
           removed.</p>
+        </div>
+
+        <div class="practice">
+          <span id="stored-permissions" class="practicelab">Stored
+            Permissions</span>
+          <p class="practicedesc">When permission is requested for a
+            device, the UA may choose to store that permission, if granted, for later
+            use by the same origin, so that the user does not need to
+            grant permission again at a later time. Such storing
+            <em class="rfc2119">must</em>
+            only be done when the page is secure (served over HTTPS and
+            having no mixed content). It is an UA choice whether it
+            offers functionality to store permission to each device
+            separately, all devices of a given class, or all devices; the
+            choice needs to be apparent to the user.</p>
+          <p class="practicedesc">When permission is not stored,
+            permission should last only until such time as all
+            MediaStreamTracks sourced from that device have been stopped.</p>
         </div>
 
         <div class="practice">
@@ -4508,6 +4552,11 @@ if(supports["facingMode"]) {
       <h2>Change Log</h2>
 
       <p>This section will be removed before publication.</p>
+
+      <h2>Changes since September 9, 2014</h2>
+      <ol>
+        <li>Bug 22214: How long do permissions persist?</li>
+      </ol>
 
       <h2>Changes since August 17, 2014</h2>
       <ol>
