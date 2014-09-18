@@ -1372,7 +1372,7 @@
 
             <dd />
 
-            <dt>ConstrainDOMString sourceId</dt>
+            <dt>ConstrainDOMString deviceId</dt>
 
             <dd />
 
@@ -1504,7 +1504,7 @@
           <a>MediaStream</a>
         </code> objects on the home client contain tracks that use this same
       <code>
-          <a>sourceId</a>
+          <a>deviceId</a>
         </code>. The three media streams are connected to three different
       sinks: a <code>&lt;video&gt;</code> element (A), another
       <code>&lt;video&gt;</code> element (B), and a peer connection (C). The
@@ -1564,7 +1564,7 @@
       Two <code>
           <a>MediaStream</a>
         </code> objects contain tracks with the same <code>
-          <a>sourceId</a>
+          <a>deviceId</a>
         </code>, and those <code>
           <a>MediaStream</a>
         </code>s are connected to two different <code>&lt;video&gt;</code>
@@ -2436,7 +2436,7 @@
               (when multiple tracks share the same source) after the user
               agent has evaluated the current constraints against a given
               <code>
-                  <a>sourceId</a>
+                  <a>deviceId</a>
                 </code> and is not able to configure the source within the
               limitations established by the union of imposed constraints.</p>
 
@@ -3770,11 +3770,11 @@ var constraints = {
 
         <pre class="example highlight" xml:space="preserve">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
-if(!supports["sourceId"]) {
+if(!supports["deviceId"]) {
   // Treat like an error.
 }
 var constraints = {
-  sourceId: {"exact": "20983-20o198-109283-098-09812"},
+  deviceId: {"exact": "20983-20o198-109283-098-09812"},
   advanced: [{
       width: {
         min: 800,
@@ -3792,12 +3792,12 @@ var constraints = {
 
         <pre class="example highlight" xml:space="preserve">
 var supports = navigator.mediaDevices.getSupportedConstraints("audio");
-if(!supports["sourceId"] || !supports["gain"]) {
+if(!supports["deviceId"] || !supports["gain"]) {
   // Treat like an error.
 }
 var constraints = {
   advanced: [{
-      sourceId: "64815-wi3c89-1839dk-x82-392aa"
+      deviceId: "64815-wi3c89-1839dk-x82-392aa"
     }, {
       gain: 0.5
     }]
@@ -4308,16 +4308,16 @@ if(supports["facingMode"]) {
               that the setting of this property is uniquely determined by the
               source that is attached to the Track. In particular,
               getCapabilities() will return only a single value for
-              sourceID/Type. This property can therefore be used for initial
+              deviceId/Type. This property can therefore be used for initial
               media selection with getUserMedia(). However is not useful for
               subsequent media control with applyConstraints, since any
               attempt to set a different value will result in an unsatisfiable
               ConstraintSet. </td>
             </tr>
 
-            <tr id="def-constraint-sourceId">
+            <tr id="def-constraint-deviceId">
               <td>
-                <dfn>sourceId</dfn>
+                <dfn>deviceId</dfn>
               </td>
 
               <td>DOMString</td>
@@ -4328,7 +4328,7 @@ if(supports["facingMode"]) {
               GUID is recommended for the identifier. Note that the setting of
               this property is uniquely determined by the source that is
               attached to the Track. In particular, getCapabilities() will
-              return only a single value for sourceID/Type. This property can
+              return only a single value for deviceId/Type. This property can
               therefore be used for initial media selection with
               getUserMedia(). However is not useful for subsequent media
               control with applyConstraints, since any attempt to set a
