@@ -4436,10 +4436,13 @@ if(supports["facingMode"]) {
                 </code>
               </td>
 
-              <td>The members of the enum describe the directions that the
-              camera can face, as seen from the user's perspective. Valid
-              values for the strings in the ConstrainDOMString are the values
-              of <code>enum VideoFacingModeEnum</code>.</td>
+              <td>This string should be one of the members of <code>
+                <a>VideoFacingModeEnum</a></code>. The members describe the
+              directions that the camera can face, as seen from the user's
+              perspective. Note that <code>
+                <a>getConstraints</a></code> may not return exactly the same
+              string for strings not in this enum. This preserves the possibility
+              of using a future version of WebIDL enum for this property.</td>
             </tr>
           </tbody>
         </table>
