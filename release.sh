@@ -82,7 +82,7 @@ function push {
   fi
 
   git push $1 origin master gh-pages :refs/tags/$TAG_NAME
-  check "Push branches and tag $1"
+  check "Push branches and tag"
 }
 
 if [ $# -lt 3 ] ; then
@@ -156,7 +156,7 @@ case $STAGE in
 
   push)
     echo "*** Push ***"
-    push "--dry-run"
+    push
     ;;
 
   email)
