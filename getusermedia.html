@@ -1231,7 +1231,7 @@
                 </code> method is the DOM manipulation task source.</p>
             </dd>
 
-            <dt>Capabilities getCapabilities()</dt>
+            <dt>MediaTrackConstraintSet getCapabilities()</dt>
 
             <dd>
               <p>See <a href="#constrainable-interface">ConstrainablePattern
@@ -1243,10 +1243,12 @@
             <dd>See <a href="#constrainable-interface">ConstrainablePattern
             Interface</a> for the definition of this method. </dd>
 
-            <dt>Settings getSettings()</dt>
+            <dt>MediaTrackConstraintSet getSettings()</dt>
 
             <dd>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method. </dd>
+            Interface</a> for the definition of this method. The returned <code>
+              <a>MediaTrackConstraintSet</a></code> MUST contain bare values only.
+            </dd>
 
             <dt>void applyConstraints()</dt>
 
@@ -1364,7 +1366,7 @@
 
             <dd />
 
-            <dt>boolean echoCancellation</dt>
+            <dt>ConstrainBoolean echoCancellation</dt>
 
             <dd />
 
@@ -1372,7 +1374,7 @@
 
             <dd />
 
-            <dt>DOMString groupId</dt>
+            <dt>ConstrainDOMString groupId</dt>
 
             <dd />
           </dl>
@@ -2780,13 +2782,14 @@
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
-          <dt>static Dictionary getSupportedConstraints(DOMString kind)</dt>
+          <dt>static MediaTrackConstraintSet getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
-            <p>Returns a dictionary whose members are the constraint keys
+            <p>Returns a <code><a>MediaTrackConstraintSet
+            </a></code> dictionary whose members are the constraints
             known to the User Agent for the kind given as argument. A
             supported constraint MUST be represented by a member whose name is
-            the constraint name and whose value is <code>true</code>. Any
+            the constraint name and whose value is truthy. Any
             constraint names not supported by the User Agent MUST not be
             present in the returned dictionary.</p>
           </dd>
@@ -3901,6 +3904,16 @@ if(supports["facingMode"]) {
           <dd>The ideal (target) value for this property.</dd>
         </dl>
 
+        <dl class="idl" title="dictionary ConstrainBooleanParameters">
+          <dt>boolean exact</dt>
+
+          <dd>The exact required value for this property.</dd>
+
+          <dt>boolean ideal</dt>
+
+          <dd>The ideal (target) value for this property.</dd>
+        </dl>
+
         <dl class="idl" title="dictionary ConstrainDOMStringParameters">
           <dt>(DOMString or sequence&lt;DOMString&gt;&gt;) exact</dt>
 
@@ -3918,13 +3931,17 @@ if(supports["facingMode"]) {
             title="typedef (Double or ConstrainDoubleRange) ConstrainDouble" />
 
         <dl class="idl"
+            title="typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean" />
+
+        <dl class="idl"
             title="typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString" />
       </section>
 
       <section id="capabilities">
         <h3>Capabilities</h3>
-
-        <p><dfn>Capabilities</dfn> are a dictionary containing one or more
+        <p><dfn>Capabilities</dfn> is a
+        <a href="#idl-def-ConstraintSet">ConstraintSet</a>
+        dictionary containing one or more
         key-value pairs, where each key <em class="rfc2119"
         title="must">must</em> be a constrainable property defined in the
         registry, and each value <em class="rfc2119" title="should">must</em>
@@ -3959,14 +3976,15 @@ if(supports["facingMode"]) {
 
       <section id="settings">
         <h3>
-          <dfn>Settings</dfn>
+          Settings
         </h3>
 
-        <p>A <dfn>Setting</dfn> is a dictionary containing one or more
+        <p><dfn>Settings</dfn> is a bare-values-only subset of a <a
+        href="#idl-def-ConstraintSet">ConstraintSet</a> dictionary containing one or more
         key-value pairs. It <em class="rfc2119" title="must">must</em> contain
         each key returned in <code>getCapabilities()</code>. There <em
         class="rfc2119" title="must">must</em> be a single value for each key
-        and the value <em class="rfc2119" title="must">must</em> a member of
+        and the value <em class="rfc2119" title="must">must</em> be a member of
         the set defined for that property by <code>capabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
         UA has chosen for the object's Capabilities. The exact syntax of the
@@ -3997,10 +4015,12 @@ if(supports["facingMode"]) {
         Constrainable Pattern cannnot simply subclass Constraints and
         ConstraintSet as they are defined here. Instead they must provide
         their own definitions that follow this pattern. See <a
-        href="#media-track-constraints"> MediaTrackConstraints</a> for an
-        example of this.</p>
+        href="#media-track-constraints">MediaTrackConstraints</a> and <a
+        href="#idl-def-MediaTrackConstraintSet">MediaTrackConstraintSet</a>
+        for an example of this.</p>
 
-        <dl class="idl" title="typedef Dictionary ConstraintSet" />
+        <dl class="idl" title="dictionary ConstraintSet">
+        </dl>
 
         <p>Each member of a ConstraintSet corresponds to a Capability and
         specifies a subset of its legal values. Applying a ConstraintSet
