@@ -4142,16 +4142,6 @@ if(supports["facingMode"]) {
         <p>Users who have granted permanent permissions to <code>https://webrtc.example.org/</code> could be tricked to send their audio/video streams to an attacker <code>EvilSpy</code> by following a link or being redirected to <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
       </div>
 
-      <div class="note">
-        <p>The Media Capture Task Force has <a href="http://lists.w3.org/Archives/Public/public-media-capture/2014Sep/0089.html">discussed potential additional protections</a> to make this type of attacks harder to trigger, including:</p>
-        <ul>
-          <li>requiring an "engagement gesture" to invoke <code>getUserMedia</code></li>
-          <li>limiting permanently stored permissions to top-level browsing contexts</li>
-          <li>allowing a browsing context container to control the ability of embedded browsing contexts to make use of <code>getUserMedia</code></li>
-        </ul>
-        <p>The Task Force is explicitly looking for feedback on the need for these additional protections.</p>
-      </div>
-
     </section>
 
     <section>
