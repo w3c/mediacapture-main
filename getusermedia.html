@@ -4238,6 +4238,14 @@ if(supports["facingMode"]) {
           <li>Whether or not any of the devices are presently recording ("on
           air") indicator</li>
         </ul> </p>
+
+      <div class="note">
+        <p>Developers of sites with persistent permissions should be careful that these permissions cannot be abused.</p>
+        <p>In particular, they should not make it possible to automatically send audio or video streams from media devices towards an end point that a third party can define.</p>
+        <p>Indeed, if a site offered URLs such as <code>https://webrtc.example.org/?call=<var>user</var></code> that would automatically set up calls and transmit audio/video to <code><var>user</var></code>, it would be open for instance to the following abuse.</p>
+        <p>Users who have granted permanent permissions to <code>https://webrtc.example.org/</code> could be tricked to send their audio/video streams to an attacker <code>EvilSpy</code> by following a link or being redirected to <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
+      </div>
+
     </section>
 
     <section>
