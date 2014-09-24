@@ -100,7 +100,7 @@ case $STAGE in
   prepare)
     echo "*** Prepare ***"
 
-    sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    sed -i"" -e "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
     check "Update prevED field in respec config"
 
     mkdir -p archives/$NEW_DATE
