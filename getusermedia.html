@@ -2697,7 +2697,12 @@
           local file sources are not required to have an identifier. Source
           identifiers let the application save, identify the availability of,
           and directly request specific sources.</p>
-
+            <p>Since <code>deviceId</code> persists across sessions and to
+            reduce its potential as a fingerprinting mechanism,
+            <code>deviceId</code> is to be treated
+            as other persistent storage mechanisms such as cookies [[COOKIES]].
+            User agents should reset per-application device identifiers when
+            other persistent storages are cleared.</p>
           </dd>
 
           <dt>MediaDeviceKind kind</dt>
