@@ -3023,127 +3023,36 @@
                 <var>requestedMediaTypes</var>,</p>
 
                 <ol>
-                  <li>
-                    <p>Let <var>candidateSet</var> be all possible tracks of
-                    media type <var>T</var> that the browser could return.</p>
-                  </li>
+		  <li>
+		    <p>For each possible source for that media type, construct
+		      an unconstrained MediaStreamTrack with that source as
+		      its source.</p>
+		    <p>Call this set of tracks the <var>candidateSet</var>.
+		  </li>
+		  <li>
+                  <li>If the value of the <var>T</var> entry of
+                  <var>constraints</var> is "true", set CS to the empty
+		  constraint set (no constraint). Otherwise, continue with
+		  <var>CS</var>
+                  set to the value of the <var>T</var> entry of
+                  <var>constraints</var>.</li>
 
-                  <li>
-                   <p>If <var>candidateSet</var> is the empty set,
+		  <li><p>Run the <code><a>applyConstraint</a></code> algorithm
+		    on each track in <var>CandidateSet</var>. If the algorithm
+		    does not return an error, add the track to <var>finalSet</var>.
+		    This results in a single choice of configuration for each
+		    possible device, and eliminates devices unable to
+		      satisfy the constraints.</p>
+		  </li>
+
+                   <p>If <var>finalSet</var> is the empty set,
                    let <var>error</var> be a
                    new <code><a>MediaStreamError</a> </code> object
                    whose <code><a>name</a></code> attribute has the
                    value <code>NotFoundError</code> and jump to the
                    step labeled <em>Error Task</em> below.</p>
                   </li>
-
-                  <li>If the value of the <var>T</var> entry of
-                  <var>constraints</var> is "true", jump to the step labeled
-                  <em>final</em> below. Otherwise, continue with <var>CS</var>
-                  set to the value of the <var>T</var> entry of
-                  <var>constraints</var>.</li>
-
-                  <li>
-                    <p>For each required ('min', 'max', or 'exact') constraint
-                    provided for a constraint name in <var>CS</var>,</p>
-
-                    <ol>
-                      <li>
-                        <p>If the constraint is not supported by the browser,
-                        jump to the step labeled <em>Constraint Failure</em>
-                        below.</p>
-                      </li>
-
-                      <li>
-                        <p>Remove from the <var>candidateSet</var> any track
-                        that cannot satisfy the value given for the constraint
-                        in <var>CS</var>, if any.</p>
-                      </li>
-
-                      <li>
-                        <p>If the <var>candidateSet</var> no longer contains
-                        at least one track, jump to the step labeled
-                        <em>Constraint Failure</em> below. Otherwise, continue
-                        with the next required constraint.</p>
-                      </li>
-                    </ol>
-                  </li>
-
-                  <li>
-                    <p>Let the <var>secondPassSet</var> be the current
-                    contents of the <var>candidateSet</var>. Note that unknown
-                    properties are discarded by WebIDL, which means that
-                    unknown/unsupported required constraints will silently
-                    disappear. To avoid this being a surprise, application
-                    authors are expected to first use the
-                    <code>getSupportedConstraints()</code> method as shown in
-                    the Examples.</p>
-                  </li>
-
-                  <li>
-                    <p>For each constraint key-value pair in the "advanced"
-                    sequence of <var>CS</var>, in order,</p>
-
-                    <ol>
-                      <li>
-                        <p>If the constraint is not supported by the browser,
-                        skip it and continue with the next constraint.</p>
-                      </li>
-
-                      <li>
-                        <p>Remove from the <var>secondPassSet</var> any tracks
-                        that cannot satisfy the value given for the
-                        constraint.</p>
-                      </li>
-
-                      <li>
-                        <p>If the <var>secondPassSet</var> is now empty, let
-                        the <var>secondPassSet</var> be the current contents
-                        of the <var>candidateSet</var>. Otherwise, let the
-                        <var>candidateSet</var> be the current contents of the
-                        <var>secondPassSet</var>.</p>
-                      </li>
-                    </ol>
-                  </li>
-
-                  <li>
-                    <p>Let the <var>thirdPassSet</var> be the current contents
-                    of the <var>candidateSet</var>.</p>
-                  </li>
-
-                  <li>
-                    <p>Identify the track in <var>thirdPassSet</var>
-                    with the smallest distance from the non-required
-                    constraints, calculated as the sum of the
-                    following constraint-specific distances.</p>
-                    <ol>
-                      <li>
-                        For all numeric non-required constraints
-                        (height, width, frameRate, aspectRatio,
-                        sampleRate and sampleSize), use the
-                        formula <pre>(actual == ideal) ? 0 : |actual -
-                        ideal|/max(|actual|,|ideal|)</pre>
-                      </li>
-                      <li>
-                        For all string and enum non-required
-                        constraints (sourceId, groupId, facingMode,
-                        echoCancellation), use the
-                        formula <pre>(actual == ideal) ? 0 : 1</pre>
-                        If multiple tracks in the
-                        <var>thirdPassSet</var> have the same total
-                        distance thus calculated, select any one of
-                        them.
-                      </li>
-                    </ol>
-                  </li>
-                  <li>
-                    Let the <var>candidateSet</var> be the current
-                    contents of the <var>thirdPassSet</var>.
-                  </li>
-                  <li>
-                    <p><em>Final:</em> Add the tracks in the
-                    <var>candidateSet</var> to the <var>finalSet</var>.</p>
-                  </li>
+               
                 </ol>
               </li>
 
@@ -3169,8 +3078,9 @@
                     <a>MediaStreamTrack</a>
                   </code> MUST not change.</p>
 
-                <p class="issue">Define the event that should be raised when
-                the User Agent changes its choice of track.</p>
+		<p>The user agent MAY use the value of the computed "fitness
+		  distance" from the applyConstraints algorithm as an input
+		  to the selection algorithm.</p>
 
                 <p>User Agents are encouraged to default to using the user's
                 primary or system default camera and/or microphone (when
@@ -3688,6 +3598,45 @@ if(!supports["width"] || !supports["height"]) {
             constraints is stated below. Here are some preliminary definitions
             that are used in the statement of the algorithm:</p>
 
+	    <p>We define a <code>setting set</code> of a constrainable object as
+	      a set of values, one for each constraint, under which the object
+	      is able to function.</p>
+
+	    <p>We define the <code>fitness distance</code> between a <code>
+		setting set</code> and a constraint <var>CS</var> as the sum,
+	      for each constraint
+              provided for a constraint name in <var>CS</var>,
+	      ignoring "advanced",
+	      the following values:</p>
+
+            <ol>
+              <li>
+                <p>If the constraint is not supported by the browser,
+                  it does not contribute to the fitness distance. Use 0.</p>
+              </li>
+
+              <li>
+                <p>
+                  If the constraint is required ('min', 'max', or 'exact'),
+		  and the setting set's value for the constraint does not
+		  satisfy the constraint, use positive infinity.</p>
+              </li>
+              <li>
+                For all numeric non-required constraints
+                (such as height, width, frameRate, aspectRatio,
+                sampleRate and sampleSize), use the
+                formula <pre>(actual == ideal) ? 0 : |actual -
+                  ideal|/max(|actual|,|ideal|)</pre>
+              </li>
+              <li>
+                For all string and enum non-required
+                constraints (sourceId, groupId, facingMode,
+                echoCancellation), use the
+                formula <pre>(actual == ideal) ? 0 : 1</pre>
+              </li>
+            </ol>
+	  </li>
+	  <p>More definitions:</p>
             <ul>
               <li>We refer to each element of a ConstraintSet (other than the
               special term 'advanced') as a 'constraint' since it is intended
@@ -3707,19 +3656,14 @@ if(!supports["width"] || !supports["height"]) {
               be possible to set Capabilities C1 and C2 both to 'high', while
               on another less limited device, this may be possible.</li>
 
-              <li>A set of values for the Capabilities of an object O satisfy
-              ConstraintSet CS if each value a) is in the range of the
-              corresponding effective Capability of O, and b) is in the range
-              or list of values specified by the corresponding constraint in
-              CS, if there is one, and c) there is no constraint in CS that
-              does not correspond to a Capability of O. (Note that although
-              this definition ignores the difference between required and
-              optional ConstraintSets, the algorithm below distinguishes
-              between them.)</li>
+              <li>A setting set, which is a set of values for the Capabilities
+		of an object O, satisfies
+		ConstraintSet CS if the fitness distance between the set and CS
+		is less than infinity.</li>
 
               <li>A set of ConstraintSets CS1...CSn (n &gt;= 1) can be
-              satisfied by an object O if it is possible to choose a sequence
-              of values for the Capabilities of O that satisfy CS1...CSn
+              satisfied by an object O if it is possible to find a setting set
+	      of O that satisfy CS1...CSn
               simultaneously.</li>
 
               <li>To apply a set of ConstraintSet CS1...CSn to object O is to
@@ -3743,16 +3687,12 @@ if(!supports["width"] || !supports["height"]) {
               </li>
 
               <ol>
-              <li>Each constraint MUST specify one or more values (or a range of
-              values) for its property. A property MAY appear more than once in the list of
-              'advanced' ConstraintSets. Let <var>requiredConstraints</var> be
-              the set of 'min', 'max', and 'exact' constraints appearing in
-              <var>newConstraints</var>. Let <var>unorderedConstraints</var>
-              be all the other constraints in <var>newConstraints</var>. Note
-              that 'advanced' is not a member of either of these sets since it
-              represents meta-information about constraints. In the following
-              we treat <var>requiredConstraints</var> and
-              <var>unorderedConstraints</var> as ConstraintSets. Note that
+              <li>Each constraint MUST
+              specify one or more values (or a range of
+              values) for its property. A property MAY appear more than once
+              in the list of
+              'advanced' ConstraintSets.</p>
+	      <p>Note that
               unknown properties are discarded by WebIDL, which means that
               unknown/unsupported required constraints will silently
               disappear. To avoid this being a surprise, application authors
@@ -3766,8 +3706,14 @@ if(!supports["width"] || !supports["height"]) {
               should behave as if it were <var>object</var> with all
               ConstraintSets removed.)</li>
 
-              <li>If <var>requiredConstraints</var> is non-empty and cannot be
-              satisfied by <var>copy</var>, reject <var>p</var> with a new
+	      <li><p>For each <code>setting set</code> possible for <var>copy</var>,
+		compute its <code>fitness distance</code>.
+	      Discard the <code>setting sets</code> for which the result is
+	      infinity, and add the <code>setting sets</code> to the set
+	      of possible setting sets <var>candidates</var></p></li>
+
+	      <li><p>If the <code>fitness distance</code> of the best fitting
+		  constraint set is infinity, reject <var>p</var> with a new
               <code>MediaStreamError</code> with name
               <code>ConstraintNotSatisfied</code> and
               <code>constraintName</code> set to any of the required
@@ -3779,26 +3725,41 @@ if(!supports["width"] || !supports["height"]) {
               ConstraintSets, initially containing only
               <var>requiredConstraints</var>. Iterate over the 'advanced'
               ConstraintSets in <var>newConstraints</var> in the order in
-              which they were specified. For each ConstraintSet, if it and
-              <var>successfulConstraints</var> together can be satisfied by
-              <var>copy</var>, append it to the rear of
-              <var>successfulConstraints</var>. Otherwise, skip it. </li>
-
+              which they were specified. For each ConstraintSet:
+	      <ol>
+		<li><p>compute
+	      the fitness distance between it and each setting set.</p>
+	      <li><p>If the fitness distance is finite for one or more setting sets,
+	      add this ConstraintSet
+	      to <var>requiredConstraints</var>, and keep these setting sets
+	      in the list of possible settings, discarding others.</p>
+	      <p>If the fitness distance is infinite for all sets, ignore this
+	      ConstraintSet.</p></li>
+	      </ol>
               <li>In a single operation, remove <var>existingConstraints</var>
               from <var>object</var>, apply <var>successfulConstraints</var>,
               then apply the largest subset of <var>unorderedConstraints</var>
-              that can be satisfied. (If more than one 'largest subset' can be
+              that can be satisifed. (If more than one 'largest subset' can be
               satisfied, the User Agent is free to select which 'largest subset' it
-              chooses.)</li>
+              chooses.)
+		<p>When picking a setting set to use, the UA SHOULD use the one
+		  with a smaller <code>fitness distance</code>.
+		</p>
               <li>Finally, resolve <var>p</var>. From this point on until
               applyConstraints() is called successfully
-              again, getConstraints() MUST return the <var>newConstraints</var> that
-              were passed as an argument to this call. </li>
+              again, getConstraints() <em class="rfc2119"
+              title="must">must</em> return the <var>newConstraints</var> that
+              were passed as an argument to this call.</p> </li>
             </ol>
             <li>
               <p>Return <var>p</var>.</p>
             </li>
             </ol>
+
+	<p>Note: Any implementation that has the same result as the algorithm
+	  above is an allowed implementation. For instance, the implementation
+	  may choose to keep track of permitted ranges for settings rather than
+	  keeping track of all possible combinations.</p>
 
             <p>The User Agent MAY choose new
             settings for the Capabilities of the object at any time. When it
