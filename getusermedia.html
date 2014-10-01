@@ -3637,7 +3637,7 @@ if(!supports["width"] || !supports["height"]) {
 		  satisfy the constraint, use positive infinity.</p>
               </li>
               <li>
-                For all numeric non-required constraints
+                For all positive numeric non-required constraints
                 (such as height, width, frameRate, aspectRatio,
                 sampleRate and sampleSize), use the
                 formula <pre>(actual == ideal) ? 0 : |actual -
@@ -3707,11 +3707,12 @@ if(!supports["width"] || !supports["height"]) {
               should behave as if it were <var>object</var> with all
               ConstraintSets removed.)</li>
 
-	      <li><p>For each <code>settings dictionary</code> possible for <var>copy</var>,
+	      <li><p>For every possible <code>settings dictionary</code>
+		  of <var>copy</var>,
 		compute its <code>fitness distance</code>.
 	      Discard the <code>settings dictionaries</code> for which the result is
-	      infinity, and add the <code>settings dictionaries</code> to the set
-	      of possible settins dictionaries <var>candidates</var></p></li>
+	      infinity, and add the remaining <code>settings dictionaries</code> to the set
+	      of possible settings dictionaries <var>candidates</var></p></li>
 
 	      <li><p>If the <code>fitness distance</code> of the best fitting
 		  settings dictionary is infinity, return "undefined" as the result
