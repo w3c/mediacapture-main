@@ -2156,6 +2156,11 @@
     <section>
       <h2>Error Handling</h2>
 
+      <p>All promises in this specification, when they are rejected, are
+      rejected with an object that implements the <code>
+        <a>MediaStreamError</a>
+      </code>interface.</p>
+
       <section>
         <h3>MediaStreamError</h3>
         <p>All errors defined in this specification implement the following
@@ -2184,8 +2189,9 @@
           </dd>
         </dl>
 
-        <div class="note">We may make MediaStreamError inherit from
-          DOMError once the definition of DOMError is stable. </div>
+        <div class="note">We use MediaStreamError rather than deriving from
+          Error until the situation with adding additional information into an
+          error has been clarified. </div>
 
         <div class="issue">Do we want to allow the constraintName
           attribute to contain multiple constraint names? In many cases the error
