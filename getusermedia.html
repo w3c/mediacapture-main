@@ -3958,6 +3958,36 @@ if(supports["facingMode"]) {
   "facingMode": ["user", "environment"]
 }
 </pre>
+
+        <p>The next example below points out that capabilities for
+        range values provide ranges for individual constrainable
+        properties, not combinations.  This is particularly relevant
+        for video width and height, since the ranges for width and
+        height are reported separately.  In the example, if the UA can
+        only provide 640x480 and 800x600 resolutions the relevant
+        capabilities returned would be:</p>
+
+        <pre class="example highlight" xml:space="preserve">
+{
+  "width": {
+    "min": 640,
+    "max": 800
+  },
+  "height": {
+    "min": 480,
+    "max": 600
+  },
+  "aspectRatio": {
+    "min": 1.3333333333,
+    "max": 1.3333333333
+  }
+}
+</pre>
+
+        <p>Note in the example above that the aspectRatio would make
+        clear that not any arbitrary combination of widths and heights
+        was possible, although it would still suggest that more than
+        two resolutions were available.</p>
       </section>
 
       <section id="settings">
@@ -4537,6 +4567,8 @@ if(supports["facingMode"]) {
 
       <h2>Changes since September 24, 2014</h2>
       <ol>
+        <li>Bug 25777: Added example of capabilities when only two
+        video sizes are available.</li>
       </ol>
 
       <h2>Changes since September 9, 2014</h2>
