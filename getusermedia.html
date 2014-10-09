@@ -2574,6 +2574,11 @@
               </li>
 
               <li>
+                <p>If the entry settings object's origin is not an authenticated
+              origin, throw a <code>NotSupportedError</code> exception.
+              </li>
+
+              <li>
                 <p>If this method has been called previously within this
                 application session, let <var>oldList</var> be the list of
                 <code>
@@ -2847,7 +2852,8 @@
               </li>
 
               <li>
-                <p>If <var>requestedMediaTypes</var> is the empty set, let
+                <p>If the entry settings object's origin is not an authenticated
+                origin, or if <var>requestedMediaTypes</var> is the empty set, let
                 <var>error</var> be a new <code>
                     <a>MediaStreamError</a>
                   </code> object whose <code>
@@ -3271,10 +3277,7 @@
           <p class="practicedesc">When permission is requested for a
             device, the UA may choose to store that permission, if granted, for later
             use by the same origin, so that the user does not need to
-            grant permission again at a later time. Such storing
-            <em class="rfc2119">must</em>
-            only be done when the page is secure (served over HTTPS and
-            having no mixed content). It is an UA choice whether it
+            grant permission again at a later time. It is an UA choice whether it
             offers functionality to store permission to each device
             separately, all devices of a given class, or all devices; the
             choice needs to be apparent to the user.</p>
@@ -3610,6 +3613,13 @@ if(!supports["width"] || !supports["height"]) {
             following steps:</p>
 
             <ol>
+              <li>
+                <p>If the entry settings object's origin is not an authenticated
+              origin, call the <code>errorCallback</code>, passing it a new
+              <code>MediaStreamError</code> with name
+              <code>NotSupportedError</code>, and return.
+              </li>
+
               <li>let <var>newContraints</var> be the argument to this
               function. Each constraint <em class="rfc2119"
               title="must">must</em> specify one or more values (or a range of
@@ -4233,6 +4243,10 @@ if(supports["facingMode"]) {
       input devices for media - in this iteration, microphones and cameras. It
       also allows the manipulation of audio output devices (speakers and
       headphones).</p>
+
+      <p>To prevent passive and active network attackers getting access to the
+      user's MediaStream, it is only made available to authenticated origins.
+      [[mixed-content]].</p>
 
       <p>Without authorization (to the “drive-by web”), it offers the ability
       to tell how many devices there are of each class. The identifiers for
