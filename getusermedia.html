@@ -2574,8 +2574,8 @@
               </li>
 
               <li>
-                <p>If the entry script's origin is not an authenticated origin,
-              throw a <code>NotSupportedError</code> exception.
+                <p>If the entry settings object's origin is not an authenticated
+              origin, throw a <code>NotSupportedError</code> exception.
               </li>
 
               <li>
@@ -2852,8 +2852,8 @@
               </li>
 
               <li>
-                <p>If the entry script's origin is not an authenticated origin,
-                or if <var>requestedMediaTypes</var> is the empty set, let
+                <p>If the entry settings object's origin is not an authenticated
+                origin, or if <var>requestedMediaTypes</var> is the empty set, let
                 <var>error</var> be a new <code>
                     <a>MediaStreamError</a>
                   </code> object whose <code>
@@ -3614,8 +3614,8 @@ if(!supports["width"] || !supports["height"]) {
 
             <ol>
               <li>
-                <p>If the entry script's origin is not an authenticated origin,
-              call the <code>errorCallback</code>, passing it a new
+                <p>If the entry settings object's origin is not an authenticated
+              origin, call the <code>errorCallback</code>, passing it a new
               <code>MediaStreamError</code> with name
               <code>NotSupportedError</code>, and return.
               </li>
