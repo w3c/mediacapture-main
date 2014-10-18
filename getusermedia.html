@@ -4509,12 +4509,13 @@ if(supports["facingMode"]) {
                 <code><a>ConstrainDouble</a></code>
               </td>
 
-              <td>The volume or volume range of the audio source, as a
-              percentage. A volume of 0.0 is silence, while a volume of 1.0 is
-              the maximum supported volume. Note that any ConstraintSet that
-              specifies values outside of this range can never be
-              satisfied.</td>
-            </tr>
+              <td>The volume or volume range of the audio source is a multiplier
+              of the linear audio sample values.  A volume of 0.0 is silence,
+              while a volume of 1.0 is the maximum supported volume.  A volume
+              of 0.5 will result in an approximately 6 dBspl change in the sound
+              pressure level from the maximum volume.  Note that any
+              ConstraintSet that specifies values outside of this range of 0 to
+              1 can never be satisfied.</td> </tr>
 
             <tr id="def-constraint-sampleRate">
               <td>sampleRate</td>
@@ -4569,6 +4570,8 @@ if(supports["facingMode"]) {
       <ol>
         <li>Bug 25777: Added example of capabilities when only two
         video sizes are available.</li>
+
+        <li> Added more detail to the definition of volume. </li>
       </ol>
 
       <h2>Changes since September 9, 2014</h2>
