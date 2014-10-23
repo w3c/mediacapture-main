@@ -1368,7 +1368,7 @@
 
             <dd />
 
-            <dt>boolean echoCancellation</dt>
+            <dt>ConstrainBoolean echoCancellation</dt>
 
             <dd />
 
@@ -1376,7 +1376,7 @@
 
             <dd />
 
-            <dt>DOMString groupId</dt>
+            <dt>ConstrainDOMString groupId</dt>
 
             <dd />
           </dl>
@@ -3904,6 +3904,16 @@ if(supports["facingMode"]) {
           <dd>The ideal (target) value for this property.</dd>
         </dl>
 
+        <dl class="idl" title="dictionary ConstrainBooleanParameters">
+          <dt>boolean exact</dt>
+
+          <dd>The exact required value for this property.</dd>
+
+          <dt>boolean ideal</dt>
+
+          <dd>The ideal (target) value for this property.</dd>
+        </dl>
+
         <dl class="idl" title="dictionary ConstrainDOMStringParameters">
           <dt>(DOMString or sequence&lt;DOMString&gt;) exact</dt>
 
@@ -3921,13 +3931,16 @@ if(supports["facingMode"]) {
             title="typedef (double or ConstrainDoubleRange) ConstrainDouble" />
 
         <dl class="idl"
+            title="typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean" />
+
+        <dl class="idl"
             title="typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString" />
       </section>
 
       <section id="capabilities">
         <h3>Capabilities</h3>
 
-        <p><dfn>Capabilities</dfn> are a dictionary containing one or more
+        <p><dfn>Capabilities</dfn> is a dictionary containing one or more
         key-value pairs, where each key <em class="rfc2119"
         title="must">must</em> be a constrainable property defined in the
         registry, and each value <em class="rfc2119" title="should">must</em>
@@ -3995,11 +4008,11 @@ if(supports["facingMode"]) {
           <dfn>Settings</dfn>
         </h3>
 
-        <p>A <dfn>Setting</dfn> is a dictionary containing one or more
+        <p><dfn>Settings</dfn> is a dictionary containing one or more
         key-value pairs. It <em class="rfc2119" title="must">must</em> contain
         each key returned in <code>getCapabilities()</code>. There <em
         class="rfc2119" title="must">must</em> be a single value for each key
-        and the value <em class="rfc2119" title="must">must</em> a member of
+        and the value <em class="rfc2119" title="must">must</em> be a member of
         the set defined for that property by <code>capabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
         UA has chosen for the object's Capabilities. The exact syntax of the
@@ -4033,7 +4046,8 @@ if(supports["facingMode"]) {
         href="#media-track-constraints"> MediaTrackConstraints</a> for an
         example of this.</p>
 
-        <dl class="idl" title="typedef Dictionary ConstraintSet" />
+        <dl class="idl" title="dictionary ConstraintSet">
+        </dl>
 
         <p>Each member of a ConstraintSet corresponds to a Capability and
         specifies a subset of its legal values. Applying a ConstraintSet
@@ -4569,6 +4583,7 @@ if(supports["facingMode"]) {
       <ol>
         <li>Bug 25777: Added example of capabilities when only two
         video sizes are available.</li>
+        <li>Bug 26654: Added ConstrainBoolean.</li>
       </ol>
 
       <h2>Changes since September 9, 2014</h2>
