@@ -2755,10 +2755,42 @@
       <section>
         <h3>NavigatorUserMedia Interface Extensions</h3>
 
-        <div class="note">This method is kept on <code>
-            <a>NavigatorUserMedia</a>
-          </code> for legacy purposes. See <a
-        href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</div>
+        <div class="note">The text in this section reflects two major
+        changes from the API definition that has existed here for many
+        months.
+          <p>First, the official definition for the getUserMedia()
+          method, and the one which developers are encouraged to use,
+          is now
+          at <a href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.
+          This decision reflected consensus as long as the original
+          API remained available here under the Navigator object for
+          backwards compatibility reasons, since the working
+          group acknowledges that early users of these APIS have been
+          encouraged to define getUserMedia as "var getUserMedia =
+          navigator.getUserMedia || navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia;" in order for their code to be
+          functional both before and after official implementations of
+          getUserMedia() in popular browsers.  To ensure functional
+          equivalence, the getUserMedia() method here is defined in
+          terms of the method under MediaDevices.
+          </p>
+          <p>Second, the decision to change all other callback-based
+          methods in the specification to be based on Promises instead
+          required that the Navigator.getUserMedia() definition
+          reflect this in its use of the MediaDevices.getUserMedia()
+          method.  Because Navigator.getUserMedia() is now the only
+          callback-based method remaining in the specification, there
+          is ongoing discussion as to a) whether it still belongs in
+          the specification, and b) if it does, whether its syntax
+          should remain callback-based or change in some way to use
+          Promises.  Input on these questions is encouraged,
+          particularly from developers actively using today's
+          implementations of this functionality.</p>
+          <p>Note that the other methods that changed from a
+          callback-based syntax to a Promises-based syntax were not
+          considered to have been implemented widely enough in any
+          form to have to consider legacy usage.</p>
+        </div>
 
         <dl class="idl" title="partial interface NavigatorUserMedia">
           <dt>void getUserMedia(MediaStreamConstraints constraints,
