@@ -2755,17 +2755,17 @@
       <section>
         <h3>NavigatorUserMedia Interface Extensions</h3>
 
-        <div class="note">The text in this section reflects two major
-        changes from the API definition that has existed here for many
-        months.
+        <div class="note">The definition of getUserMedia() in this
+        section reflects two major changes from the method definition
+        that has existed here for many months.
           <p>First, the official definition for the getUserMedia()
           method, and the one which developers are encouraged to use,
           is now
           at <a href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.
           This decision reflected consensus as long as the original
           API remained available here under the Navigator object for
-          backwards compatibility reasons, since the working
-          group acknowledges that early users of these APIS have been
+          backwards compatibility reasons, since the working group
+          acknowledges that early users of these APIS have been
           encouraged to define getUserMedia as "var getUserMedia =
           navigator.getUserMedia || navigator.webkitGetUserMedia ||
           navigator.mozGetUserMedia;" in order for their code to be
@@ -2816,7 +2816,7 @@
             both as described in <a
               href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
 
-            <p>When the <code>getUserMedia()</code>
+            <p>When the <dfn id="dom-navigatorusermedia-getusermedia"><code>getUserMedia()</code></dfn>
               method is called, the user agent MUST run the following
             steps:</p>
 
@@ -2865,6 +2865,33 @@
 
       <section>
         <h3>MediaDevices Interface Extensions</h3>
+
+        <div class="note">The definition of getUserMedia() in this
+        section reflects two major changes from the method definition
+        that has existed under NavigatorUserMedia for many months.
+          <p>First, the official definition for the getUserMedia()
+          method, and the one which developers are encouraged to use,
+          is now the one defined here under MediaDevices.  This
+          decision reflected consensus as long as the original API
+          remained available
+          at <a href="#dom-navigatorusermedia-getusermedia">NavigatorUserMedia.getUserMedia()</a>
+          under the Navigator object for backwards compatibility
+          reasons, since the working group acknowledges that early
+          users of these APIS have been encouraged to define
+          getUserMedia as "var getUserMedia = navigator.getUserMedia
+          || navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia;" in order for their code to be
+          functional both before and after official implementations of
+          getUserMedia() in popular browsers.  To ensure functional
+          equivalence, the getUserMedia() method under
+          NavigatorUserMedia is defined in terms of the method here.
+          </p>
+          <p>Second, the method defined here is Promises-based, while
+          the one defined under NavigatorUserMedia is currently still
+          callback-based.  Developers expecting to find getUserMedia()
+          defined under NavigatorUserMedia are strongly encouraged to
+          read the detailed Note given there.</p>
+        </div>
 
         <p>The <code>getSupportedConstraints</code> method is provided to
         allow the application to determine which constraints the User Agent
