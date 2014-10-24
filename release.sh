@@ -81,7 +81,7 @@ function push {
     exit 1
   fi
 
-  git push $1 origin master gh-pages :refs/tags/$TAG_NAME
+  git push $1 origin master gh-pages $TAG_NAME
   check "Push branches and tag"
 }
 
@@ -193,10 +193,13 @@ case $STAGE in
     git tag -d $TAG_NAME
     check "Remove local tag"
 
+    git push origin :refs/tags/$TAG_NAME
+    check "Remove server tag"
+
     git tag -m "Editor's draft $NEW_DATE." $TAG_NAME
     check "Add new tag at master's position"
 
-    git push origin :refs/tags/$TAG_NAME
+    git push origin $TAG_NAME
     check "Push new tag"
     ;;
 
