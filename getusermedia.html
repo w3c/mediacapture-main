@@ -899,13 +899,49 @@
             <li>
               <p>Fire a simple event named <code>
                   <a href="#event-mediastreamtrack-ended">ended</a>
-                </code> at the object.</p>
+                </code> at the object.
+              If the end of the stream was reached due to a user request, the
+              event source for this event is the user interaction event
+              source.</p>
+            </li>
+
+            <li>
+              <p>Let <var>p</var> be the <var>track's</var> <code>
+                <a href="#widl-MediaStreamTrack-ended">ended</a>
+              </code> attribute.</p>
+            </li>
+
+            <li>
+              <p>If the track ended because the user rescinded permission, then
+              reject <var>p</var> with a new <code>
+                  <a>MediaStreamError</a>
+                </code> with the name <code>PermissionDeniedError</code>,
+                and abort these steps.</p>
+            </li>
+
+            <li>
+              <p>If the track ended because of a device or hardware failure,
+              then reject <var>p</var> with a new <code>
+                  <a>MediaStreamError</a>
+                </code> with the name <code>SourceUnavailableError</code>,
+                and abort these steps.</p>
+            </li>
+
+            <li>
+              <p>Unless the track has reached a natural end due to a finite
+              length or due to the UA instructing the track to end in a manner
+              where there is no failure condition, reject <var>p</var> with a
+              new <code>
+                  <a>MediaStreamError</a>
+                </code> with the name <code>AbortError</code>,
+                and abort these steps.</p>
+            </li>
+
+            <li>
+              <p>Resolve <var>p</var> with <code>undefined</code>.</p>
             </li>
           </ol>
 
-          <p>If the end of the stream was reached due to a user request, the
-          event source for this event is the user interaction event
-          source.</p>
 
           <h4>Media Flow</h4>
 
@@ -1144,6 +1180,15 @@
                 <a>MediaStreamTrack</a>
               </code> interface.</dd>
 
+            <dt>attribute Promise&lt;void&gt; ended</dt>
+
+            <dd>If the <code>
+              <a>MediaStreamTrack</a></code> has <a
+                href="#track-ended">ended</a> without incident, then
+              this promise MUST be fulfilled with <code>undefined</code>,
+              otherwise if the track has terminated prematurely, then this
+              promise MUST be rejected with the reason.</dd>
+
             <dt>MediaStreamTrack clone()</dt>
 
             <dd>
@@ -1222,6 +1267,12 @@
                 <li>
                   <p><a href="#track-detached">Detach</a> <var>track's</var>
                   source.</p>
+                </li>
+
+                <li>
+                  <p>Resolve the <var>track's</var> <code>
+                    <a href="#widl-MediaStreamTrack-ended">ended</a>
+                  </code> attribute with <code>undefined</code>.</p>
                 </li>
               </ol>
 
@@ -4580,6 +4631,11 @@ if(supports["facingMode"]) {
       <p>This section will be removed before publication.</p>
 
       <h2>Changes since September 24, 2014</h2>
+      <ol>
+        <li>Bug 26939: Added track.ended promise to determine whether track
+          ended successfully or failed with a reason.</li>
+     </ol>
+
       <ol>
         <li>Bug 25777: Added example of capabilities when only two
         video sizes are available.</li>
