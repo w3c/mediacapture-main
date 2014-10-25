@@ -2549,7 +2549,9 @@
               <a>MediaDevices</a>
             </code> interface.</dd>
 
-          <dt>Promise&lt;sequence&lt; MediaDeviceInfo &gt;&gt; enumerateDevices ()</dt>
+            <!-- I have no idea why the &#8288; are needed but respec is broken
+          and does not display stuff correctly if you remove them --> 
+          <dt>Promise&lt;&#8288;sequence&lt;&#8288;MediaDeviceInfo&#8288;&gt;&#8288;&gt; enumerateDevices ()</dt>
 
           <dd>
             <p>Collects information about the user agents available media
@@ -2765,7 +2767,7 @@
           This decision reflected consensus as long as the original
           API remained available here under the Navigator object for
           backwards compatibility reasons, since the working group
-          acknowledges that early users of these APIS have been
+          acknowledges that early users of these APIs have been
           encouraged to define getUserMedia as "var getUserMedia =
           navigator.getUserMedia || navigator.webkitGetUserMedia ||
           navigator.mozGetUserMedia;" in order for their code to be
@@ -2877,7 +2879,7 @@
           at <a href="#dom-navigatorusermedia-getusermedia">NavigatorUserMedia.getUserMedia()</a>
           under the Navigator object for backwards compatibility
           reasons, since the working group acknowledges that early
-          users of these APIS have been encouraged to define
+          users of these APIs have been encouraged to define
           getUserMedia as "var getUserMedia = navigator.getUserMedia
           || navigator.webkitGetUserMedia ||
           navigator.mozGetUserMedia;" in order for their code to be
