@@ -58,6 +58,8 @@ For example: $0 20140817 20140909 prepare"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TAG_NAME="v$NEW_DATE"
+ARCHIVED_SRC="$DIR/archives/$NEW_DATE/$SRC_NAME"
+THIS_VERSION_LINK="http://w3c.github.io/$REPO_NAME/archives/$NEW_DATE/$SRC_NAME"
 
 pushd $DIR > /dev/null
 
@@ -115,11 +117,14 @@ case $STAGE in
   continue)
     echo "*** Continue ***"
 
-    if [ ! -f $DIR/archives/$NEW_DATE/$SRC_NAME ] ; then
+    if [ ! -f $ARCHIVED_SRC ] ; then
       echo "Unable to find archives/$NEW_DATE/$SRC_NAME"
       echo "Please refer to the previous step (prepare)."
       exit 1
     fi
+
+    sed -i"" -e "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    check "Update \"This version\" field in generated source"
 
     cp -r images archives/$NEW_DATE/
     check "Copy image resources"
