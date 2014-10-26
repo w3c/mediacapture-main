@@ -61,6 +61,12 @@ TAG_NAME="v$NEW_DATE"
 ARCHIVED_SRC="$DIR/archives/$NEW_DATE/$SRC_NAME"
 THIS_VERSION_LINK="http://w3c.github.io/$REPO_NAME/archives/$NEW_DATE/$SRC_NAME"
 
+case $(uname) in
+  *Darwin*)
+    DARWIN=1
+    ;;
+esac
+
 pushd $DIR > /dev/null
 
 function quit {
@@ -102,7 +108,11 @@ case $STAGE in
   prepare)
     echo "*** Prepare ***"
 
-    sed -i"" -e "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    if [ -n $DARWIN ] ; then
+      sed -i "" "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    else
+      sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    fi
     check "Update prevED field in respec config"
 
     mkdir -p archives/$NEW_DATE
@@ -123,7 +133,11 @@ case $STAGE in
       exit 1
     fi
 
-    sed -i"" -e "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    if [ -n $DARWIN ] ; then
+      sed -i "" "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    else
+      sed -i "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    fi
     check "Update \"This version\" field in generated source"
 
     cp -r images archives/$NEW_DATE/
