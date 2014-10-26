@@ -2677,8 +2677,8 @@
             </code> .</dd>
         </dl>
 
-        <dl class="idl" title="dictionary MediaDeviceInfo">
-          <dt>DOMString deviceId</dt>
+        <dl class="idl" title="interface MediaDeviceInfo">
+          <dt>readonly attribute DOMString deviceId</dt>
 
           <dd>
             <p>The unique id for the represented device.</p>
@@ -2699,21 +2699,21 @@
             other persistent storages are cleared.</p>
           </dd>
 
-          <dt>MediaDeviceKind kind</dt>
+          <dt>readonly attribute MediaDeviceKind kind</dt>
 
           <dd>
             <p>Describes the kind of the represented device.</p>
           </dd>
 
-          <dt>DOMString label</dt>
+          <dt>readonly attribute DOMString? label</dt>
 
           <dd>
             <p>A label describing this device (for example "External USB
             Webcam"). If the device has no associated label, then this
-            dictionary member MUST return the empty string.</p>
+            attribute MUST return the empty string.</p>
           </dd>
 
-          <dt>DOMString groupId</dt>
+          <dt>readonly attribute DOMString? groupId</dt>
 
           <dd>
             <p>Returns the group identifier of the represented device. Two
@@ -3066,15 +3066,15 @@
                 <em>Permission Failure</em> below. If the user never responds,
                 this algorithm stalls on this step.</p>
 
-		<p>If the user grants permission but a hardware error
-		such as an OS/program/webpage lock prevents access,
-		jump to the step labeled <em>Unavailable Failure</em>
-		below.</p>
+                <p>If the user grants permission but a hardware error
+                such as an OS/program/webpage lock prevents access,
+                jump to the step labeled <em>Unavailable Failure</em>
+                below.</p>
 
-		<p>If the user grants permission but device access
-		fails for any reason other than those listed above,
-		jump to the step labeled <em>General Failure</em>
-		below.</p>
+                <p>If the user grants permission but device access
+                fails for any reason other than those listed above,
+                jump to the step labeled <em>General Failure</em>
+                below.</p>
               </li>
 
               <li>
@@ -4373,9 +4373,9 @@ if(supports["facingMode"]) {
 
               <td>The group identifier for this source. Two devices have the
               same group identifier if they belong to the same physical
-	      device; for example the audio input and output devices
-	      representing the speaker and microphone of the same
-	      headset. </td>
+              device; for example the audio input and output devices
+              representing the speaker and microphone of the same
+              headset. </td>
             </tr>
           </tbody>
         </table>
