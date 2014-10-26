@@ -1,3 +1,11 @@
+# Media Capture and Streams Specification
+
+This document defines a set of JavaScript APIs that allow local
+media, including audio and video, to be requested from a platform.
+
+[Latest editors draft](https://w3c.github.io/mediacapture-main/)
+[Latest published version](http://www.w3.org/TR/mediacapture-streams/)
+
 NOTA BENE
 =================================
 
