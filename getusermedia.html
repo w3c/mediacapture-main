@@ -2564,6 +2564,12 @@
             </code> dictionaries representing the user agent's available media
             input and output devices if enumeration is successful.</p>
 
+            <p>Camera and microphone sources <em class="rfc2119">should</em> be
+            enumerable.  Local file sources <em class="rfc2119">must not</em> be
+            enumerable.  Specifications that add additional types of source will
+            provide recommendations about whether the source type should be
+            enumerable.</p>
+
             <p>When the <dfn id="dom-mediadevices-enumeratedevices">
                 <code>enumerateDevices()</code>
               </dfn> method is called, the user agent must run the following steps:</p>
@@ -2681,22 +2687,24 @@
           <dt>DOMString deviceId</dt>
 
           <dd>
-            <p>The unique id for the represented device.</p>
-            <p>Devices have an identifier which <em class="rfc2119"
-          title="must">must</em> be unique to the application (un-guessable by
-          another application) and persistent between application sessions
-          (e.g., the identifier for a given source device/application must
-          stay the same, but not be guessable by another application). Sources
-          that must have an identifier are camera and microphone sources;
-          local file sources are not required to have an identifier. Source
-          identifiers let the application save, identify the availability of,
-          and directly request specific sources.</p>
+            <p>A unique identifier for the represented device.</p>
+
+            <p>All enumerable devices have an identifier
+            that <em class="rfc2119" title="must">must</em> be unique to the
+            application and persistent across sessions.  Unique and stable
+            identifiers let the application save, identify the availability of,
+            and directly request specific sources.</p>
+
+            <p>This identifier <em class="rfc2119">must</em> be un-guessable by
+            other applications to prevent the identifier being used to correlate
+            the same user across different applications.</p>
+
             <p>Since <code>deviceId</code> persists across sessions and to
-            reduce its potential as a fingerprinting mechanism,
-            <code>deviceId</code> is to be treated
-            as other persistent storage mechanisms such as cookies [[COOKIES]].
-            User agents should reset per-application device identifiers when
-            other persistent storages are cleared.</p>
+            reduce its potential as a fingerprinting
+            mechanism, <code>deviceId</code> is to be treated as other
+            persistent storage mechanisms such as cookies [[COOKIES]].  User
+            agents <em class="rfc2119">should</em> reset per-application device
+            identifiers when other persistent storages are cleared.</p>
           </dd>
 
           <dt>MediaDeviceKind kind</dt>
