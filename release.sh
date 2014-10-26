@@ -108,7 +108,7 @@ case $STAGE in
   prepare)
     echo "*** Prepare ***"
 
-    if [ -n $DARWIN ] ; then
+    if [ -n "$DARWIN" ] ; then
       sed -i "" "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
     else
       sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
@@ -133,7 +133,7 @@ case $STAGE in
       exit 1
     fi
 
-    if [ -n $DARWIN ] ; then
+    if [ -n "$DARWIN" ] ; then
       sed -i "" "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
     else
       sed -i "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
