@@ -1,5 +1,4 @@
-
-all: getusermedia.diff.html 
+all: getusermedia.diff.html
 
 clean:
 	- rm -f *.svg *.png *.pdf   getusermedia.diff.html getusermedia.txt
@@ -12,3 +11,6 @@ getusermedia.orig.txt: getusermedia.orig.html
 
 getusermedia.diff.html: getusermedia.orig.txt getusermedia.txt
 	htmlwdiff getusermedia.orig.txt getusermedia.txt > getusermedia.diff.html
+
+tidy:
+	tidy --quiet y -utf8 --vertical-space y --tidy-mark n -indent -wrap 80

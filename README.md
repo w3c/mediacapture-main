@@ -1,15 +1,5 @@
-
-NOTA BENE ( http://bit.ly/VoL9Qt ) 
+NOTA BENE ( http://bit.ly/VoL9Qt )
 =================================
-
-
-To Reflow the Spec
-------------------
-
-To format the draft use something like 
-
-tidy --quiet y -utf8 --vertical-space y --tidy-mark n -indent -wrap 80
-
 
 To Generate a Version
 ---------------------
@@ -117,4 +107,3 @@ See Work Flow
 -------------
 
 [![Stories in Ready](https://badge.waffle.io/fluffy/webrtc-w3c.png?label=ready&title=Ready)](http://waffle.io/fluffy/webrtc-w3c)
-
