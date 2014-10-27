@@ -35,6 +35,9 @@
 #    to mail it manually.
 #    $ ./release.sh 20140817 20140909 email <your name>
 #
+# 7. Add a new "Changes since" section with <li></li> placeholder for
+#    new changes to be listed.
+#
 # Done.
 #
 # If you made a release, pushed it to the github repo and notice that you missed
