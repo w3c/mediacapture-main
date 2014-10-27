@@ -19,7 +19,7 @@ var respecConfig = {
    // copyrightStart: "2005",
 
    // if there is a previously published draft, uncomment this and set its YYYY-MM-DD
-   prevED: "http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html",
+   prevED: "http://w3c.github.io/mediacapture-main/archives/20140924/getusermedia.html",
 
    // if there a publicly available Editor's Draft, this is the link
    edDraftURI: "http://w3c.github.io/mediacapture-main/",
