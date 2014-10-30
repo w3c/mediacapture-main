@@ -35,6 +35,9 @@
 #    to mail it manually.
 #    $ ./release.sh 20140817 20140909 email <your name>
 #
+# 7. Add a new "Changes since" section with <li></li> placeholder for
+#    new changes to be listed.
+#
 # Done.
 #
 # If you made a release, pushed it to the github repo and notice that you missed
@@ -58,6 +61,14 @@ For example: $0 20140817 20140909 prepare"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TAG_NAME="v$NEW_DATE"
+ARCHIVED_SRC="$DIR/archives/$NEW_DATE/$SRC_NAME"
+THIS_VERSION_LINK="http://w3c.github.io/$REPO_NAME/archives/$NEW_DATE/$SRC_NAME"
+
+case $(uname) in
+  *Darwin*)
+    DARWIN=1
+    ;;
+esac
 
 pushd $DIR > /dev/null
 
@@ -81,7 +92,7 @@ function push {
     exit 1
   fi
 
-  git push $1 origin master gh-pages :refs/tags/$TAG_NAME
+  git push $1 origin master gh-pages $TAG_NAME
   check "Push branches and tag"
 }
 
@@ -100,7 +111,11 @@ case $STAGE in
   prepare)
     echo "*** Prepare ***"
 
-    sed -i"" -e "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    if [ -n "$DARWIN" ] ; then
+      sed -i "" "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    else
+      sed -i "s/prevED:.*$/prevED: \"http:\/\/w3c.github.io\/$REPO_NAME\/archives\/$PREV_DATE\/$SRC_NAME\",/" $CONFIG_NAME
+    fi
     check "Update prevED field in respec config"
 
     mkdir -p archives/$NEW_DATE
@@ -115,11 +130,18 @@ case $STAGE in
   continue)
     echo "*** Continue ***"
 
-    if [ ! -f $DIR/archives/$NEW_DATE/$SRC_NAME ] ; then
+    if [ ! -f $ARCHIVED_SRC ] ; then
       echo "Unable to find archives/$NEW_DATE/$SRC_NAME"
       echo "Please refer to the previous step (prepare)."
       exit 1
     fi
+
+    if [ -n "$DARWIN" ] ; then
+      sed -i "" "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    else
+      sed -i "s|<dd><a class=\"u-url\" href=.*$|<dd><a class=\"u-url\" href=\"$THIS_VERSION_LINK\">$THIS_VERSION_LINK</a></dd>|" $ARCHIVED_SRC
+    fi
+    check "Update \"This version\" field in generated source"
 
     cp -r images archives/$NEW_DATE/
     check "Copy image resources"
@@ -193,10 +215,13 @@ case $STAGE in
     git tag -d $TAG_NAME
     check "Remove local tag"
 
+    git push origin :refs/tags/$TAG_NAME
+    check "Remove server tag"
+
     git tag -m "Editor's draft $NEW_DATE." $TAG_NAME
     check "Add new tag at master's position"
 
-    git push origin :refs/tags/$TAG_NAME
+    git push origin $TAG_NAME
     check "Push new tag"
     ;;
 
