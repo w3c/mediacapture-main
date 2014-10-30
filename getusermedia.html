@@ -4611,12 +4611,13 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
                 <code><a>ConstrainDouble</a></code>
               </td>
 
-              <td>The volume or volume range of the audio source, as a
-              percentage. A volume of 0.0 is silence, while a volume of 1.0 is
-              the maximum supported volume. Note that any ConstraintSet that
-              specifies values outside of this range can never be
-              satisfied.</td>
-            </tr>
+              <td>The volume or volume range of the audio source is a multiplier
+              of the linear audio sample values.  A volume of 0.0 is silence,
+              while a volume of 1.0 is the maximum supported volume.  A volume
+              of 0.5 will result in an approximately 6 dBspl change in the sound
+              pressure level from the maximum volume.  Note that any
+              ConstraintSet that specifies values outside of this range of 0 to
+              1 can never be satisfied.</td> </tr>
 
             <tr id="def-constraint-sampleRate">
               <td>sampleRate</td>
@@ -4669,6 +4670,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
 
       <h2>Changes since October 27, 2014</h2>
       <ol>
+        <li>Bug 26953: Added more detail to the definition of volume. </li>
         <li></li>
       </ol>
 
@@ -4680,9 +4682,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         cookies.</li>
         <li>Bug 25777: Added example of capabilities when only two
         video sizes are available.</li>
-
         <li>Bug 26654: Added ConstrainBoolean.</li>
-
         <li>Bug 26810: All callback-based methods have been converted
         to use Promises, except for the version of getUserMedia()
         defined under NavigatorUserMedia.</li>
