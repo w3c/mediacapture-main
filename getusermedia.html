@@ -328,7 +328,7 @@ so application authors
         <p>When a <code>
             <a>MediaStream</a>
           </code> object is being generated from a local file (as opposed to a
-        live audio/video source), the user agent SHOULD stream the data from
+        live audio/video source), the user agent <em class="rfc2119" title="should">should</em> stream the data from
         the file in real time, not all at once. The <code>MediaStream</code>
         object is also used in contexts outside <code>getUserMedia</code>,
         such as [[!WEBRTC10]]. In both cases, ensuring a realtime stream
@@ -765,13 +765,13 @@ so application authors
         the given permission for that source is revoked and the source is <dfn
         id="source-stopped">stopped</dfn>. If the data is being generated from
         a live source (e.g., a microphone or camera), then the user agent
-        SHOULD remove any active "on-air" indicator for that source. If the
+        <em class="rfc2119" title="should">should</em> remove any active "on-air" indicator for that source. If the
         data is being generated from a prerecorded source (e.g. a video file),
         any remaining content in the file is ignored. An implementation may
         use a per source reference count to keep track of source usage, but
         the specifics are out of scope for this specification.</p>
 
-        <p>If there is no stored permission to use that source, the UA SHOULD
+        <p>If there is no stored permission to use that source, the UA <em class="rfc2119" title="should">should</em>
         also remove the "permission granted" indicator for the source.</p>
 
         <section>
@@ -3812,7 +3812,7 @@ if(!supports["width"] || !supports["height"]) {
           <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
-          <code>message</code> attribute of the MediaStreamError SHOULD
+          <code>message</code> attribute of the MediaStreamError <em class="rfc2119" title="should">should</em>
           contain a string that is useful for debugging. The conditions under
           which this error might occur are platform and application-specific.
           For example, the user might physically manipulate a camera in a way
