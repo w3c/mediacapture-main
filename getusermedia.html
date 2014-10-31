@@ -800,9 +800,9 @@
           when the track is no longer muted or disabled, it MUST be turned
           back on.</p>
 
-          <p>The muted/unmuted state of a track reflects if the source
+          <p>The muted/unmuted state of a track reflects whether the source
           provides any media at this moment. The enabled/disabled state is
-          under application control and determines if the track outputs media
+          under application control and determines whether the track outputs media
           (to its consumers). Hence, media from the source only flows when a
           <code>
               <a>MediaStreamTrack</a>
@@ -1066,7 +1066,7 @@
 
               <p>On getting, the attribute MUST return the last value to which
               it was set. On setting, it MUST be set to the new value,
-              regardless if the <code>
+              regardless of whether the <code>
                   <a>MediaStreamTrack</a>
                 </code> object has been <a href="#track-detached">detached</a>
               from its source or not.</p>
