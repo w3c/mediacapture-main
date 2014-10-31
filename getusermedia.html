@@ -1497,7 +1497,7 @@ so application authors
 
       <p>To illustrate how changes to a given source impact various sinks,
       consider the following example. This example only uses width and height,
-      but the same principles apply to any of the <a>Settings</a> exposed in
+      but the same principles apply to all of the <a>Settings</a> exposed in
       this specification. In the first figure a home client has obtained a
       video source from its local video camera. The source's width and height
       settings are 800 pixels by 600 pixels, respectively. Three <code>
@@ -2673,13 +2673,13 @@ so application authors
           <h2>Access control model</h2>
           <p>The algorithm described above means that the access to
             media device information depends on whether or not permission has
-            been granted to the page's origin for use of any media devices.</p>
+            been granted to the page's origin to use media devices.</p>
 
           <p>If no such access has been granted, the
             <code><a>MediaDeviceInfo</a></code> dictionary will contain
             the deviceId, the kind and the groupId.</p>
 
-          <p>If access has been granted for any media device,
+          <p>If access has been granted for a media device,
             the <code><a>MediaDeviceInfo</a></code> dictionary will
             contain the deviceId, the kind, the label and the groupId.</p>
         </section>
