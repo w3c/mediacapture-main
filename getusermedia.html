@@ -1056,7 +1056,7 @@ so application authors
             <dt>readonly attribute DOMString label</dt>
 
             <dd>
-              <p>User agents MAY label audio and video sources (e.g.,
+              <p>User agents <em class="rfc2119" title="may">may</em> label audio and video sources (e.g.,
               "Internal microphone" or "External USB Webcam"). The <dfn
                   id="dom-mediastreamtrack-label">
                   <code>MediaStreamTrack.label</code>
@@ -1583,7 +1583,7 @@ so application authors
       source resolution, and needless work is being done both on the part of
       the source and on sink A. In such a case and without any other
       constraints forcing the source to continue producing the higher
-      resolution video, the media pipeline MAY change the source
+      resolution video, the media pipeline <em class="rfc2119" title="may">may</em> change the source
       resolution:</p>
 
       <img alt="Changing media stream sinks may affect sources: after the requested change"
@@ -3168,7 +3168,7 @@ so application authors
 
                 <p>User agents are encouraged to default to using the user's
                 primary or system default camera and/or microphone (when
-                possible) to generate the media stream. User agents MAY allow
+                possible) to generate the media stream. User agents <em class="rfc2119" title="may">may</em> allow
                 users to use any media source, including pre-recorded media
                 files.</p>
 
@@ -3817,7 +3817,7 @@ if(!supports["width"] || !supports["height"]) {
           which this error might occur are platform and application-specific.
           For example, the user might physically manipulate a camera in a way
           that makes it impossible to provide a resolution that satisfies the
-          constraints. The UA MAY take other actions as a result of the
+          constraints. The UA <em class="rfc2119" title="may">may</em> take other actions as a result of the
           overconstrained situation.</p> </dd>
         </dl>
 
@@ -4157,8 +4157,8 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         specifies a subset of its legal values. Applying a ConstraintSet
         instructs that UA to restrict the setting of the corresponding
         Capabilities to the specified values or ranges of values. A given
-        property MAY occur both in the basic Constraints set and in the
-        advanced ConstraintSets list, and MAY occur at most once in each
+        property <em class="rfc2119" title="may">may</em> occur both in the basic Constraints set and in the
+        advanced ConstraintSets list, and <em class="rfc2119" title="may">may</em> occur at most once in each
         ConstraintSet in the advanced list.</p>
 
         <dl class="idl" title="dictionary Constraints : ConstraintSet">
