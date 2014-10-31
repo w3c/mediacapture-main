@@ -128,8 +128,8 @@
           <p>Sources have <code>
               <a>capabilities</a>
             </code> and <code>
-              <a>settings</a>
-            </code>. The capabilities and settings are "owned" by the source
+              <a>settings</a></code
+            >. The capabilities and settings are "owned" by the source
           and are common to any (multiple) tracks that happen to be using the
           same source (e.g., if two different track objects bound to the same
           source ask for the same capability or setting information, they will
@@ -418,8 +418,8 @@
         find a specific <code>
             <a>MediaStreamTrack</a>
           </code> object in the set is to look it up by its <code>
-            <a href="#dom-mediastreamtrack-id">id</a>
-          </code>.</p>
+            <a href="#dom-mediastreamtrack-id">id</a></code
+          >.</p>
 
         <p>An object that reads data from the output of a <code>
             <a>MediaStream</a>
@@ -585,8 +585,8 @@
             <p>Adds the given <code>
                 <a>MediaStreamTrack</a>
               </code> to this <code>
-                <a>MediaStream</a>
-              </code>.</p>
+                <a>MediaStream</a></code
+              >.</p>
 
             <p>When the <dfn id="dom-mediastream-addtrack">
                 <code>addTrack()</code>
@@ -620,8 +620,8 @@
             <p>Removes the given <code>
                 <a>MediaStreamTrack</a>
               </code> from this <code>
-                <a>MediaStream</a>
-              </code>.</p>
+                <a>MediaStream</a></code
+              >.</p>
 
             <p>When the <dfn id="dom-mediastream-removetrack">
                 <code>removeTrack()</code>
@@ -914,8 +914,8 @@
 
           <p><dfn id="track-muted">Muted</dfn> refers to the input to the
           <code>
-              <a>MediaStreamTrack</a>
-            </code>. If live samples are not made available to the <code>
+              <a>MediaStreamTrack</a></code
+            >. If live samples are not made available to the <code>
               <a>MediaStreamTrack</a>
             </code> it is muted.</p>
 
@@ -925,8 +925,8 @@
             </code> attribute and listening to the associated events <code>
               <a href="#event-mediastreamtrack-mute">mute</a>
             </code> and <code>
-              <a href="#event-mediastreamtrack-unmute">unmute</a>
-            </code>. There can be several reasons for a <code>
+              <a href="#event-mediastreamtrack-unmute">unmute</a></code
+            >. There can be several reasons for a <code>
               <a>MediaStreamTrack</a>
             </code> to be muted: the user pushing a physical mute button on
           the microphone, the user toggling a control in the operating system,
@@ -1146,8 +1146,8 @@
 
             <dd>
               <p>Clones the given <code>
-                  <a>MediaStreamTrack</a>
-                </code>.</p>
+                  <a>MediaStreamTrack</a></code
+                >.</p>
 
               <p>When the <dfn id="dom-mediastreamtrack-clone">
                   <code>MediaStreamTrack.clone()</code>
@@ -1404,8 +1404,8 @@
 
           <dd>
             <p>Constructs a new <code>
-                <a>MediaStreamTrackEvent</a>
-              </code>.</p>
+                <a>MediaStreamTrackEvent</a></code
+              >.</p>
           </dd>
 
           <dt>readonly attribute MediaStreamTrack track</dt>
@@ -1494,8 +1494,8 @@
           <a>MediaStream</a>
         </code> objects on the home client contain tracks that use this same
       <code>
-          <a>deviceId</a>
-        </code>. The three media streams are connected to three different
+          <a>deviceId</a></code
+        >. The three media streams are connected to three different
       sinks: a <code>&lt;video&gt;</code> element (A), another
       <code>&lt;video&gt;</code> element (B), and a peer connection (C). The
       peer connection is streaming the source video to an away client. On the
@@ -2206,8 +2206,8 @@
             eventInitDict)</dt>
 
           <dd><p>Constructs a new <code>
-                <a>MediaStreamErrorEvent</a>
-              </code>.</p></dd>
+                <a>MediaStreamErrorEvent</a></code
+              >.</p></dd>
 
           <dt>readonly attribute MediaStreamError? error</dt>
 
@@ -2344,8 +2344,8 @@
                 <a>MediaStreamTrack</a>
               </code> has been added to this stream. Note that this event is
             not fired when the script directly modifies the tracks of a <code>
-                <a>MediaStream</a>
-              </code>.</td>
+                <a>MediaStream</a></code
+              >.</td>
           </tr>
 
           <tr>
@@ -2366,8 +2366,8 @@
               </code> has been removed from this stream. Note that this event
             is not fired when the script directly modifies the tracks of a
             <code>
-                <a>MediaStream</a>
-              </code>.</td>
+                <a>MediaStream</a></code
+              >.</td>
           </tr>
         </tbody>
       </table>
@@ -2813,8 +2813,8 @@
             video or audio input.</p>
 
             <p>The <var>constraints</var> argument is a dictionary of type <code>
-                <a>MediaStreamConstraints</a>
-              </code>.</p>
+                <a>MediaStreamConstraints</a></code
+              >.</p>
 
             <p>The <var>successCallback</var> will be invoked with a suitable
                 <a>MediaStream</a>
@@ -2931,8 +2931,8 @@
             only here to keep the issues from being renumbered)</p>
 
             <p>The <var>constraints</var> argument is a dictionary of type <code>
-                <a>MediaStreamConstraints</a>
-              </code>.</p>
+                <a>MediaStreamConstraints</a></code
+              >.</p>
 
             <p>Returns a promise. The promise will be fulfilled with a suitable <code>
                 <a>MediaStream</a>
