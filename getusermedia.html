@@ -146,8 +146,8 @@
           <p>A source's settings can change dynamically over time due to
           environmental conditions, sink configurations, or constraint
           changes. A source's settings must always conform to the current set
-          of mandatory constraints for all of the tracks to which it is bound have
-          defined, and should do its best to conform to the set of optional
+          of mandatory constraints defined by all of the tracks to which it is
+          bound, and should do its best to conform to the set of optional
           constraints specified.</p>
 
           <p>Although settings are a property of the source, they are only
@@ -1130,7 +1130,7 @@
               <p>The <dfn id="dom-mediastreamtrack-readystate">
                   <code>readyState</code>
                 </dfn> attribute represents the state of the track. It MUST
-              return the value to which the user agent last set it.</p>
+              return the value as last set by the user-agent.</p>
             </dd>
 
             <dt>attribute EventHandler onended</dt>
