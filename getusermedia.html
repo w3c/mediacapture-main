@@ -1489,7 +1489,7 @@
       but the same principles apply to all of the <a>Settings</a> exposed in
       this specification. In the first figure a home client has obtained a
       video source from its local video camera. The source's width and height
-      settings are 800 pixels by 600 pixels, respectively. Three <code>
+      settings are 800 pixels and 600 pixels, respectively. Three <code>
           <a>MediaStream</a>
         </code> objects on the home client contain tracks that use this same
       <code>
@@ -1596,7 +1596,7 @@
 
       <p>In this example, two media streams each have a video track that share
       the same source. The first track initially has no constraints applied.
-      It is connected to sink N. Sink N has a width and height of 800 by 600
+      It is connected to sink N. Sink N has a resolution of 800 by 600
       pixels and is scaling down the source's resolution of 1024 by 768 to
       fit. The other track has a mandatory constraint forcing off the source's
       fill light; it is connected to sink P. Sink P has a width and height
