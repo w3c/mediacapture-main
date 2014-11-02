@@ -1523,7 +1523,13 @@ But one thing I can't tell is whether static image wants to be with local file, 
       may fail as a result of a source setting change.</p>
 
       <p>The <code>RTCPeerConnection</code> is an interesting object because
-      it acts simultaneously as both a sink <strong>and</strong> a source for
+      it acts simultaneously as both a sink
+<section class="missing">
+<h1> it acts as a sink for WHAT? </h1>
+<p> You probably should say sink for a MediaStreamSource to Track or Whatever </p>
+<p> Also, I don't think the word <em>interesting</em> is suited for normative text </p>
+</section>
+ <strong>and</strong> a source for
       over-the-network streams. As a sink, it has source transformational
       capabilities (e.g., lowering bit-rates, scaling-up / down resolutions,
       and adjusting frame-rates), and as a source it could have its own settings
