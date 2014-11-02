@@ -1064,8 +1064,8 @@
                   <a href="#track-enabled">enabled</a>
                 </code> state for the object.</p>
 
-              <p>On getting, the attribute MUST return the last value to which
-              it was set. On setting, it MUST be set to the new value,
+              <p>On getting, the attribute MUST return the value to which
+              it was last set. On setting, it MUST be set to the new value,
               regardless of whether the <code>
                   <a>MediaStreamTrack</a>
                 </code> object has been <a href="#track-detached">detached</a>
@@ -1130,7 +1130,7 @@
               <p>The <dfn id="dom-mediastreamtrack-readystate">
                   <code>readyState</code>
                 </dfn> attribute represents the state of the track. It MUST
-              return the value as last set by the user-agent.</p>
+              return the value as most recently set by the user-agent.</p>
             </dd>
 
             <dt>attribute EventHandler onended</dt>
@@ -3637,7 +3637,7 @@ if(!supports["width"] || !supports["height"]) {
           <dt>Constraints getConstraints()</dt>
 
           <dd>The <dfn>getConstraints</dfn> method returns the Constraints
-          that were the argument to the last successful call of
+          that were the argument to the most recent successful call of
           <code>applyConstraints()</code>, maintaining the order in which they
           were specified. Note that some of the optional ConstraintSets
           returned may not be currently satisfied. To check which
