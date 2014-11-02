@@ -825,7 +825,7 @@ so application authors
           temporarily unable to provide the track with data. A track can be
           muted by a user. Often this action is outside the control of the
           application. This could be as a result of the user hitting a
-          hardware switch, or toggling a control in the operating system or
+          hardware switch or toggling a control in the operating system /
           browser chrome. A track can also be muted by the user agent.</p>
 
           <p>Applications are able to <a href="#track-enabled">enable</a> or
@@ -920,7 +920,7 @@ so application authors
           <p>There are two concepts related to the media flow for a
           <code>live</code> <code>
               <a>MediaStreamTrack</a>
-            </code>: muted or not, and enabled or disabled.</p>
+            </code>: muted / not muted, and enabled / disabled.</p>
 
           <p><dfn id="track-muted">Muted</dfn> refers to the input to the
           <code>
@@ -987,7 +987,7 @@ so application authors
           <p>Each track maintains an internal version of the <code>
               <a>Constraints</a>
             </code> structure, namely a mandatory set of constraints (no
-          duplicates), and an optional ordered list of individual constraint
+          duplicates) and an optional ordered list of individual constraint
           objects (may contain duplicates). The internal stored constraint
           structure is exposed to the application by the <code>
               <a>constraints</a>
@@ -1061,7 +1061,7 @@ so application authors
                   id="dom-mediastreamtrack-label">
                   <code>MediaStreamTrack.label</code>
                 </dfn> attribute <em class="rfc2119" title="must">must</em> return the label of the object's
-              corresponding source, if any. If the corresponding source has or
+              corresponding source, if any. If the corresponding source has /
               had no label, the attribute <em class="rfc2119" title="must">must</em> instead return the empty
               string.</p>
             </dd>
@@ -1487,8 +1487,8 @@ so application authors
       <p>The <code>RTCPeerConnection</code> is an interesting object because
       it acts simultaneously as both a sink <strong>and</strong> a source for
       over-the-network streams. As a sink, it has source transformational
-      capabilities (e.g., lowering bit-rates, scaling-up or down resolutions,
-      adjusting frame-rates), and as a source it could have its own settings
+      capabilities (e.g., lowering bit-rates, scaling-up / down resolutions,
+      and adjusting frame-rates), and as a source it could have its own settings
       changed by a track source (though in this specification sources with the
       <code>
           <a>remote</a>
@@ -3411,8 +3411,8 @@ so application authors
 
           <p class="practicedesc">It is recommended for multiple calls to <a
           href="#dom-mediadevices-getusermedia">getUserMedia()</a> from the
-          same page be allowed as a way for pages to request multiple,
-          discrete, video or audio streams.</p>
+          same page be allowed as a way for pages to request multiple
+          discrete video and/or audio streams.</p>
 
           <p class="practicedesc">A single call to <a
           href="#dom-mediadevices-getusermedia">getUserMedia()</a> will always
