@@ -1031,6 +1031,14 @@ Is it a .id === .id ?
               <a>applyConstraints()</a>
             </code> is called, a User Agent MUST queue a task to evaluate
           those changes when the task queue is next serviced. Similarly, if
+<section class="bug">
+<h1> is next-serviced the right terminology? </h1>
+<p>
+Assume I have 30 tasks in my queue.
+applyConstraints() queues a task.
+When the queue is serviced, does it handle all 31 tasks, or just some of them?
+</p>
+</section>
           the <a>
               <code>sourceType</code>
             </a> changes, then the User Agent MUST perform the same actions to
