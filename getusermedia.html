@@ -483,18 +483,24 @@ so application authors
         <dl class="idl" title="interface MediaStream : EventTarget">
           <dt>Constructor()</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>Constructor(MediaStream stream)</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>Constructor(sequence&lt;MediaStreamTrack&gt; tracks)</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>readonly attribute DOMString id</dt>
 
@@ -707,35 +713,43 @@ so application authors
 
           <dt>attribute EventHandler onactive</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a href="#event-mediastream-active">active</a></code
             >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler oninactive</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a href="#event-mediastream-inactive">inactive</a></code
             >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler onaddtrack</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a href="#event-mediastream-addtrack">addtrack</a></code
             >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler onremovetrack</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a href="#event-mediastream-removetrack">removetrack</a></code
             >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
         </dl>
       </section>
 
@@ -1104,38 +1118,46 @@ so application authors
 
             <dt>attribute EventHandler onmute</dt>
 
-            <dd>This event handler, of type <code>
+            <dd>
+              <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-mute">mute</a></code
               >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>attribute EventHandler onunmute</dt>
 
-            <dd>This event handler, of type <code>
+            <dd>
+              <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-unmute">unmute</a></code
               >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>readonly attribute boolean _readonly</dt>
 
-            <dd>If the track (audio or video) is backed by a read-only source
+            <dd>
+              <p>If the track (audio or video) is backed by a read-only source
             such as a file, or the track source is a local microphone or
             camera, but is shared so that constraints applied to the track
             cannot modify the source's settings, the <dfn
                 id="dom-mediastreamtrack-readonly">
                 <code>readonly</code>
               </dfn> attribute <em class="rfc2119" title="must">must</em> return the value <code>true</code>.
-            Otherwise, it must return the value <code>false</code>.</dd>
+            Otherwise, it must return the value <code>false</code>.</p>
+            </dd>
 
             <dt>readonly attribute boolean remote</dt>
 
-            <dd>If the track is sourced by a non-local source, the <dfn
+            <dd>
+              <p>If the track is sourced by a non-local source, the <dfn
                 id="dom-mediastreamtrack-remote">
                 <code>remote</code>
               </dfn> attribute <em class="rfc2119" title="must">must</em> return the value <code>true</code>.
-            Otherwise, it must return the value <code>false</code>.</dd>
+            Otherwise, it must return the value <code>false</code>.</p>
+            </dd>
 
             <dt>readonly attribute MediaStreamTrackState readyState</dt>
 
@@ -1148,11 +1170,13 @@ so application authors
 
             <dt>attribute EventHandler onended</dt>
 
-            <dd>This event handler, of type <code>
+            <dd>
+              <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-ended">ended</a></code
               >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>MediaStreamTrack clone()</dt>
 
@@ -1250,20 +1274,26 @@ so application authors
 
             <dt>MediaTrackConstraints getConstraints()</dt>
 
-            <dd>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method. </dd>
+            <dd>
+              <p>See <a href="#constrainable-interface">ConstrainablePattern
+            Interface</a> for the definition of this method. </p>
+            </dd>
 
             <dt>Settings getSettings()</dt>
 
-            <dd>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method. </dd>
+            <dd>
+              <p>See <a href="#constrainable-interface">ConstrainablePattern
+            Interface</a> for the definition of this method. </p>
+            </dd>
 
             <dt>Promise&lt;void&gt; applyConstraints()</dt>
 
             <dd> <dl class="parameters">
                 <dt>MediaTrackConstraints constraints</dt>
 
-                <dd>A new constraint structure to apply to this object.</dd>
+                <dd>
+                  <p>A new constraint structure to apply to this object.</p>
+                </dd>
 
               </dl> See <a
             href="#constrainable-interface">ConstrainablePattern Interface</a>
@@ -1312,17 +1342,21 @@ so application authors
           <dl class="idl" title="enum SourceTypeEnum">
             <dt>camera</dt>
 
-            <dd>A valid source type only for video <code>
+            <dd>
+              <p>A valid source type only for video <code>
                 <a>MediaStreamTrack</a>
               </code>s. The source is a local video-producing camera
-            source.</dd>
+            source.</p>
+            </dd>
 
             <dt>microphone</dt>
 
-            <dd>A valid source type only for audio <code>
+            <dd>
+              <p>A valid source type only for audio <code>
                 <a>MediaStreamTrack</a>
               </code>s. The source is a local audio-producing microphone
-            source.</dd>
+            source.</p>
+            </dd>
           </dl>
         </section>
 
@@ -1333,8 +1367,10 @@ so application authors
               title="dictionary MediaTrackConstraints : MediaTrackConstraintSet">
             <dt>sequence&lt;MediaTrackConstraintSet&gt; advanced</dt>
 
-            <dd>See <a href="#constraints">Constraints and ConstraintSet</a>
-            for the definition of this element.</dd>
+            <dd>
+              <p>See <a href="#constraints">Constraints and ConstraintSet</a>
+            for the definition of this element.</p>
+            </dd>
           </dl>
 
           <dl class="idl" title="dictionary MediaTrackConstraintSet">
@@ -2188,8 +2224,10 @@ so application authors
 
           <dt>readonly attribute DOMString? message</dt>
 
-          <dd>A UA-dependent string offering extra human-readable information
-            about the error.</dd>
+          <dd>
+            <p>A UA-dependent string offering extra human-readable information
+            about the error.</p>
+          </dd>
 
           <dt>readonly attribute DOMString? constraintName</dt>
 
@@ -2222,12 +2260,15 @@ so application authors
 
           <dd><p>Constructs a new <code>
                 <a>MediaStreamErrorEvent</a></code
-              >.</p></dd>
+              >.</p>
+          </dd>
 
           <dt>readonly attribute MediaStreamError? error</dt>
 
-          <dd>The <code><a>MediaStreamError</a></code> describing the
-          error that triggered the event (if any).</dd>
+          <dd>
+            <p>The <code><a>MediaStreamError</a></code> describing the
+          error that triggered the event (if any).</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
@@ -2561,11 +2602,13 @@ so application authors
         <dl class="idl" title="interface MediaDevices : EventTarget">
           <dt>attribute EventHandler ondevicechange</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a href="#event-mediadevices-devicechange">devicechange</a></code
             >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaDevices</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
             <!-- I have no idea why the &#8288; are needed but respec is broken
           and does not display stuff correctly if you remove them -->
@@ -3283,11 +3326,15 @@ so application authors
         <dl class="idl" title="dictionary MediaStreamConstraints">
           <!--        <dt>boolean audio</dt>
 
-        <dd>Set to true if an audio track is requested, default is false</dd>
+        <dd>
+          <p>Set to true if an audio track is requested, default is false</p>
+        </dd>
 
         <dt>boolean video</dt>
 
-        <dd>Set to true if a video track is requested, default is false</dd>
+        <dd>
+          <p>Set to true if a video track is requested, default is false</p>
+        </dd>
 -->
 
           <dt>(boolean or MediaTrackConstraints) video = false</dt>
@@ -3646,21 +3693,25 @@ if(!supports["width"] || !supports["height"]) {
 
           <dt>Constraints getConstraints()</dt>
 
-          <dd>The <dfn>getConstraints</dfn> method returns the Constraints
+          <dd>
+            <p>The <dfn>getConstraints</dfn> method returns the Constraints
           that were the argument to the most recent successful call of
           <code>applyConstraints()</code>, maintaining the order in which they
           were specified. Note that some of the optional ConstraintSets
           returned may not be currently satisfied. To check which
           ConstraintSets are currently in effect, the application should use
-          <code>getSettings</code>. </dd>
+          <code>getSettings</code>. </p>
+          </dd>
 
           <dt>Settings getSettings()</dt>
 
-          <dd>The <dfn>getSettings()</dfn> method returns the current settings
+          <dd>
+            <p>The <dfn>getSettings()</dfn> method returns the current settings
           of all the properties of the object, whether they are platform
           defaults or have been set by <code>applyConstraints()</code>. Note
           that the actual setting of a property <em class="rfc2119"
-          title="must">must</em> be a single value. </dd>
+          title="must">must</em> be a single value. </p>
+          </dd>
 
           <dt>Promise&lt;void&gt; applyConstraints()</dt>
 
@@ -3668,7 +3719,9 @@ if(!supports["width"] || !supports["height"]) {
             <dl class="parameters">
               <dt>Constraints constraints</dt>
 
-              <dd>A new constraint structure to apply to this object.</dd>
+              <dd>
+                <p>A new constraint structure to apply to this object.</p>
+              </dd>
 
             </dl>
 
@@ -3801,7 +3854,8 @@ if(!supports["width"] || !supports["height"]) {
 
           <dt>attribute EventHandler onoverconstrained</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a
               href="#event-constrainable-overconstrained">overconstrained</a></code
             >, <em class="rfc2119" title="must">must</em> be supported
@@ -3823,7 +3877,8 @@ if(!supports["width"] || !supports["height"]) {
           For example, the user might physically manipulate a camera in a way
           that makes it impossible to provide a resolution that satisfies the
           constraints. The UA <em class="rfc2119" title="may">may</em> take other actions as a result of the
-          overconstrained situation.</p> </dd>
+          overconstrained situation.</p> </p>
+          </dd>
         </dl>
 
         <p>An example of Constraints that could be passed into <code>
@@ -3980,57 +4035,81 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         <dl class="idl" title="dictionary ConstrainDoubleRange">
           <dt>double max</dt>
 
-          <dd>The maximum legal value of this property.</dd>
+          <dd>
+            <p>The maximum legal value of this property.</p>
+          </dd>
 
           <dt>double min</dt>
 
-          <dd>The minimum value of this Property.</dd>
+          <dd>
+            <p>The minimum value of this Property.</p>
+          </dd>
 
           <dt>double exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>double ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainLongRange">
           <dt>long max</dt>
 
-          <dd>The maximum legal value of this property.</dd>
+          <dd>
+            <p>The maximum legal value of this property.</p>
+          </dd>
 
           <dt>long min</dt>
 
-          <dd>The minimum value of this property.</dd>
+          <dd>
+            <p>The minimum value of this property.</p>
+          </dd>
 
           <dt>long exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>long ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainBooleanParameters">
           <dt>boolean exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>boolean ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainDOMStringParameters">
           <dt>(DOMString or sequence&lt;DOMString&gt;) exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>(DOMString or sequence&lt;DOMString&gt;) ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl"
@@ -4585,20 +4664,28 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         <dl class="idl" title="enum VideoFacingModeEnum">
           <dt>user</dt>
 
-          <dd>The source is facing toward the user (a self-view camera).</dd>
+          <dd>
+            <p>The source is facing toward the user (a self-view camera).</p>
+          </dd>
 
           <dt>environment</dt>
 
-          <dd>The source is facing away from the user (viewing the
-          environment).</dd>
+          <dd>
+            <p>The source is facing away from the user (viewing the
+          environment).</p>
+          </dd>
 
           <dt>left</dt>
 
-          <dd>The source is facing to the left of the user.</dd>
+          <dd>
+            <p>The source is facing to the left of the user.</p>
+          </dd>
 
           <dt>right</dt>
 
-          <dd>The source is facing to the right of the user.</dd>
+          <dd>
+            <p>The source is facing to the right of the user.</p>
+          </dd>
         </dl>
 
         <p>Below is an illustration of the video facing modes in relation to
