@@ -2211,16 +2211,18 @@
                 <a>MediaStreamErrorEvent</a>
               </code>.</p></dd>
 
-          <dt>readonly attribute MediaStreamError error</dt>
+          <dt>readonly attribute MediaStreamError? error</dt>
 
-          <dd>The <code><a>MediaStreamError</a></code> describing the error that triggered the event.</dd>
+          <dd>The <code><a>MediaStreamError</a></code> describing the
+          error that triggered the event (if any).</dd>
         </dl>
 
         <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
-          <dt>MediaStreamError error</dt>
+          <dt>MediaStreamError? error</dt>
 
           <dd>
-            <p>The <code><a>MediaStreamError</a></code> describing the error associated wtih the event</p>
+            <p>The <code><a>MediaStreamError</a></code> describing the
+            error associated wtih the event (if any)</p>
           </dd>
         </dl>
       </section>
@@ -2428,7 +2430,7 @@
             </td>
 
             <td>
-              <code>MediaStreamErrorEvent</code>
+              <code><a>MediaStreamErrorEvent</a></code>
             </td>
 
             <td>
@@ -2455,15 +2457,18 @@
             </td>
 
             <td>
-              <code>Event</code>
+              <code><a>MediaStreamErrorEvent</a></code>
             </td>
 
-            <td>The <code>
+            <td><p>The <code>
                 <a>MediaStreamTrack</a>
               </code> object's source will no longer provide any data, either
             because the user revoked the permissions, or because the source
             device has been ejected, or because the remote peer permanently
-            stopped sending data.</td>
+            stopped sending data.</p>
+            <p>When the end of MediaStreamTrack is the result of an
+            error, the <code>error</code> attribute of the event
+            object is set to describe the said error.</p></td>
           </tr>
         </tbody>
       </table>
