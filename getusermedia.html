@@ -255,7 +255,9 @@
             <a>MediaStreamTrack</a>
           </code> objects. All tracks in a <code>
             <a>MediaStream</a>
-          </code> are intended to be synchronized when rendered. Different
+          </code> are intended to be synchronized when rendered. This is not a
+          hard requirement, since it might not be possible to synchronize tracks
+          from sources that have different clocks. Different
         <code>
             <a>MediaStream</a>
           </code> objects do not need to be synchronized.</p>
