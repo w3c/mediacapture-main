@@ -1717,17 +1717,17 @@
           <li>
             <p>Whenever the user agent runs the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
-            media element load algorithm</a>, reaches the <a
+            media element load algorithm</a>, and reaches the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#concept-media-load-resource">
-            resource fetch phase</a> of this algorithm, and determines that
+            resource fetch phase</a> of this algorithm, if it determines that
             the media resource in question is a MediaStream, it MUST
             immediately abort the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#concept-media-load-algorithm">
-            resource selection algorithm</a>, setting the <a
+            resource selection algorithm</a>, and set the <a
                 href="http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-readystate">
                 <code>media.readyState</code>
-              </a> to HAVE_NOTHING if media is not yet available and to
-            HAVE_ENOUGH_DATA once it is.</p>
+              </a> to HAVE_NOTHING if the <code>MediaStream</code> is inactive,
+            or HAVE_ENOUGH_DATA if it is active.</p>
           </li>
 
           <li>
