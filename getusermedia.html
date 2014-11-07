@@ -1541,8 +1541,8 @@
         >. The three media streams are connected to three different
       sinks: a <code>&lt;video&gt;</code> element (A), another
       <code>&lt;video&gt;</code> element (B), and a peer connection (C). The
-      peer connection is streaming the source video to an away client. On the
-      away client there are two media streams with tracks that use the peer
+      peer connection is streaming the source video to a remote client. On the
+      remote client there are two media streams with tracks that use the peer
       connection as a source. These two media streams are connected to two
       <code>&lt;video&gt;</code> element sinks (Y and Z).</p>
 
@@ -1553,7 +1553,7 @@
       apply a transformation to the original source's provided dimension
       settings. B is scaling the video down, A is scaling the video up
       (resulting in loss of quality), and C is also scaling the video up
-      slightly for sending over the network. On the away client, sink Y is
+      slightly for sending over the network. On the remote client, sink Y is
       scaling the video <em>way</em> down, while sink Z is not applying any
       scaling.</p>
 
@@ -1566,14 +1566,14 @@
 
       <p>Note that the source change immediately affects all of the tracks and
       sinks on the home client, but does not impact any of the sinks (or
-      sources) on the away client. With the increase in the home client source
+      sources) on the remote client. With the increase in the home client source
       video's dimensions, sink A no longer has to perform any scaling, while
       sink B must scale down even further than before. Sink C (the peer
       connection) must now scale down the video in order to keep the
-      transmission constant to the away client.</p>
+      transmission constant to the remote client.</p>
 
       <p>While not shown, an equally valid settings change request could be
-      made of the away client video source (the peer connection on the away
+      made of the remote client video source (the peer connection on the remote
       client's side). This would not only impact sink Y and Z in the same
       manner as before, but could lead to re-negotiation with the peer
       connection on the home client in order to alter the transformation that
@@ -1582,7 +1582,7 @@
       video source.</p>
 
       <p>Note that this specification does not define a mechanism by which a
-      change to the away client's video source could automatically trigger a
+      change to the remote client's video source could automatically trigger a
       change to the home client's video source. Implementations may choose to
       make such source-to-sink optimizations as long as they only do so within
       the constraints established by the application, as the next example
