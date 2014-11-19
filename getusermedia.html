@@ -37,12 +37,12 @@
       <h2>Introduction</h2>
 
       <p>Access to multimedia streams (video, audio, or both) from local
-      devices (video cameras, microphones, Web cams) can have a number of
+      devices (video cameras, microphones, Web cams, etc.) can have a number of
       uses, such as real-time communication, recording, and surveillance.</p>
 
-      <p>This document defines the APIs used to get access to local devices
-      that can generate multimedia stream data. This document also defines the
-      MediaStream API by which JavaScript is able to manipulate the stream
+      <p>This document defines APIs to get access to local devices
+      that can expose multimedia stream data. This document also defines the
+      MediaStream API by which JavaScript is able to manipulate stream
       data or otherwise process it.</p>
     </section>
 
@@ -57,7 +57,7 @@
       intended to be easy to follow, and not intended to be performant.)</p>
 
       <p>Implementations that use ECMAScript to implement the APIs defined in
-      this specification must implement them in a manner consistent with the
+      this specification <em class="rfc2119">must</em> implement them in a manner consistent with the
       ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL]], as
       this specification uses that specification and terminology.</p>
     </section>
@@ -110,10 +110,10 @@
 
           <p>Other than the source identifier (defined in
             <code><a>MediaDeviceInfo</a>.deviceId</code>),
-          other bits of source identity are
-          <strong>never</strong> directly available to the application until
+          other bits of source identity <em class="rfc2119">must not</em>
+          be directly available to the application until
           the user agent connects a source to a track. Once a source has been
-          "released" to the application (either via a permissions UI,
+          "exposed" to the application (either via a permissions UI,
           pre-configured allow-list, or some other release mechanism) the
           application will be able discover additional source-specific
           capabilities.</p>
@@ -124,7 +124,7 @@
           conform to the constraints present on that track (or set of
           tracks).</p>
 
-          <p>Sources are released (un-attached) from a track when the
+          <p>Sources are <a href="#track-detached">detached</a> from a track when the
           track is ended for any reason.</p>
 
           <p>On the <code>
@@ -138,8 +138,8 @@
           <p>Sources have <code>
               <a>capabilities</a>
             </code> and <code>
-              <a>settings</a>
-            </code>. The capabilities and settings are "owned" by the source
+              <a>settings</a></code
+            >. The capabilities and settings are "owned" by the source
           and are common to any (multiple) tracks that happen to be using the
           same source (e.g., if two different track objects bound to the same
           source ask for the same capability or setting information, they will
@@ -156,14 +156,13 @@
           <p>A source's settings can change dynamically over time due to
           environmental conditions, sink configurations, or constraint
           changes. A source's settings must always conform to the current set
-          of mandatory constraints that all of the tracks it is bound to have
-          defined, and should do its best to conform to the set of optional
+          of mandatory constraints defined by all of the tracks to which it is
+          bound, and should do its best to conform to the set of optional
           constraints specified.</p>
 
           <p>Although settings are a property of the source, they are only
           exposed to the application through the tracks attached to the
-          source. The <a>ConstrainablePattern</a> interface provides this
-          exposure.</p>
+          source. This is exposed via the <a>ConstrainablePattern</a> interface.</p>
         </dd>
 
         <dt>
@@ -174,7 +173,7 @@
           <p>Source capabilities are the intrinsic "features" of a source
           object. For each source setting, there is a corresponding capability
           that describes whether it is supported by the source and if so, what
-          the range of supported values are. As with settings, capabilities
+          the range of supported values. As with settings, capabilities
           are exposed to the application via the <a>ConstrainablePattern</a>
           interface.</p>
 
@@ -209,13 +208,20 @@
 
           <p>It is possible for two tracks that share a unique source to apply
           contradictory constraints. The <a>ConstrainablePattern</a> interface
-          supports the calling of an error handler when the conflicting
+          supports calling an error handler when the conflicting
           constraint is requested.</p>
 
           <p>A correspondingly-named constraint exists for each corresponding
-          source setting name and capability name. In general, user agents
-          will have more flexibility to optimize the media streaming
-          experience the fewer constraints are applied, so application authors
+          source setting name and capability name. In general,
+the fewer constraints are applied,
+the
+ more flexibility
+user agents
+          will have
+
+ to optimize the media streaming
+          experience,
+so application authors
           are strongly encouraged to use mandatory constraints sparingly.</p>
         </dd>
 
@@ -237,17 +243,17 @@
 
         <p>The two main components in the MediaStream API are the <code>
             <a>MediaStreamTrack</a>
-          </code> and the <code>
+          </code> and <code>
             <a>MediaStream</a>
           </code> interfaces. The <code>
             <a>MediaStreamTrack</a>
           </code> object represents media originating from a single media
         source in the user agent, e.g. video from a web camera. A <code>
             <a>MediaStream</a>
-          </code> is used group several <code>
+          </code> is used to group several <code>
             <a>MediaStreamTrack</a>
-          </code> objects into one unit that can be rendered in a media
-        element or recorded.</p>
+          </code> objects into one unit that can be recorded or rendered in a media
+        element.</p>
 
         <p>Each <code>
             <a>MediaStream</a>
@@ -264,7 +270,7 @@
 
         <p class="note">While the intent is to synchronize tracks, it could be
         better in some circumstances to permit tracks to lose
-        synchronization.In particular, when tracks are remotely sourced and
+        synchronization. In particular, when tracks are remotely sourced and
         real-time [[!WEBRTC10]], it can be better to allow loss of
         synchronization than to accumulate delays or risk glitches and other
         artifacts. Implementations are expected to understand the implications
@@ -317,13 +323,13 @@
         title="consumer">consumed</a> individually. A cloned <code>
             <a>MediaStream</a>
           </code> contains clones of all member tracks from the original
-        stream.</p>
+        stream(s).</p>
 
         <p>When a <code>
             <a>MediaStream</a>
           </code> object is being generated from a local file (as opposed to a
-        live audio/video source), the user agent SHOULD stream the data from
-        the file in real time, not all at once. The <code>MediaStream</code>
+        live audio/video source), the user agent <em class="rfc2119" title="should">should</em> stream the data from
+        the file in real time, rather than sending the entire file immediately. The <code>MediaStream</code>
         object is also used in contexts outside <code>getUserMedia</code>,
         such as [[!WEBRTC10]]. In both cases, ensuring a realtime stream
         reduces the ease with which pages can distinguish live video from
@@ -400,7 +406,7 @@
 
           <li>
             <p>If <var>stream</var>'s <a href="#track-set">track set</a> is
-            empty or only contains ended tracks, set <var>stream</var>'s <code>
+            empty or only contains <a href="#track-ended">ended</a> tracks, set <var>stream</var>'s <code>
                 <a href="#dom-mediastream-active">active</a>
               </code> attribute to <code>false</code>, otherwise set it to
             <code>true</code>.</p>
@@ -414,7 +420,7 @@
         <p>The tracks of a <code>
             <a>MediaStream</a>
           </code> are stored in a <dfn id="track-set">track set</dfn>. The
-        track set MUST contain the <code>
+        track set <em class="rfc2119" title="must">must</em> contain the <code>
             <a>MediaStreamTrack</a>
           </code> objects that correspond to the tracks of the stream. The
         relative order of the tracks in the set is user agent defined and the
@@ -422,8 +428,8 @@
         find a specific <code>
             <a>MediaStreamTrack</a>
           </code> object in the set is to look it up by its <code>
-            <a href="#dom-mediastreamtrack-id">id</a>
-          </code>.</p>
+            <a href="#dom-mediastreamtrack-id">id</a></code
+          >.</p>
 
         <p>An object that reads data from the output of a <code>
             <a>MediaStream</a>
@@ -453,7 +459,7 @@
 
         <p>When a <code>
             <a>MediaStream</a>
-          </code> goes from being active to inactive, the user agent MUST
+          </code> goes from being active to inactive, the user agent <em class="rfc2119" title="must">must</em>
         queue a task that sets the object's <code>
             <a href="#dom-mediastream-active">active</a>
           </code> attribute to <code>false</code> and fire a simple event
@@ -461,7 +467,7 @@
             <a href="#event-mediastream-inactive">inactive</a>
           </code> at the object. When a <code>
             <a>MediaStream</a>
-          </code> goes from being inactive to active, the user agent MUST
+          </code> goes from being inactive to active, the user agent <em class="rfc2119" title="must">must</em>
         queue a task that sets the object's <code>
             <a href="#dom-mediastream-active">active</a>
           </code> attribute to <code>true</code> and fire a simple event named
@@ -477,33 +483,39 @@
         <dl class="idl" title="interface MediaStream : EventTarget">
           <dt>Constructor()</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>Constructor(MediaStream stream)</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>Constructor(sequence&lt;MediaStreamTrack&gt; tracks)</dt>
 
-          <dd> See the <a href="#mediastream-constructor">MediaStream
-          constructor algorithm</a> </dd>
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
 
           <dt>readonly attribute DOMString id</dt>
 
           <dd>
             <p>When a <code>
                 <a>MediaStream</a>
-              </code> object is created, the user agent MUST generate an
-            identifier string, and MUST initialize the object's <code>
+              </code> object is created, the user agent <em class="rfc2119" title="must">must</em> generate an
+            identifier string, and <em class="rfc2119" title="must">must</em> initialize the object's <code>
                 <a href="#dom-mediastream-id">id</a>
-              </code> attribute to that string. A good practice is to use an
+              </code> attribute to that string. A good practice is to use a
             UUID, which is 36 characters long in its canonical form.</p>
 
             <p>The <dfn id="dom-mediastream-id">
                 <code>id</code>
-              </dfn> attribute MUST return the value to which it was
+              </dfn> attribute <em class="rfc2119" title="must">must</em> return the value to which it was
             initialized when the object was created.</p>
           </dd>
 
@@ -517,7 +529,7 @@
 
             <p>The <dfn id="dom-mediastream-getaudiotracks">
                 <code>getAudioTracks()</code>
-              </dfn> method MUST return a sequence that represents a snapshot
+              </dfn> method <em class="rfc2119" title="must">must</em> return a sequence that represents a snapshot
             of all the <code>
                 <a>MediaStreamTrack</a>
               </code> objects in this stream's <a href="#track-set">track
@@ -525,7 +537,7 @@
                 <a href="#dom-mediastreamtrack-kind">kind</a>
               </code> is equal to "<code>audio</code>". The conversion from
             the <a href="#track-set">track set</a> to the sequence is user
-            agent defined and the order does not have to stable between
+            agent defined and the order does not have to be stable between
             calls.</p>
           </dd>
 
@@ -539,7 +551,7 @@
 
             <p>The <dfn id="dom-mediastream-getvideotracks">
                 <code>getVideoTracks()</code>
-              </dfn> method MUST return a sequence that represents a snapshot
+              </dfn> method <em class="rfc2119" title="must">must</em> return a sequence that represents a snapshot
             of all the <code>
                 <a>MediaStreamTrack</a>
               </code> objects in this stream's <a href="#track-set">track
@@ -547,7 +559,7 @@
                 <a href="#dom-mediastreamtrack-kind">kind</a>
               </code> is equal to "<code>video</code>". The conversion from
             the <a href="#track-set">track set</a> to the sequence is user
-            agent defined and the order does not have to stable between
+            agent defined and the order does not have to be stable between
             calls.</p>
           </dd>
 
@@ -560,13 +572,15 @@
 
             <p>The <dfn id="dom-mediastream-gettracks">
                 <code>getTracks()</code>
-              </dfn> method MUST return a sequence that represents a snapshot
+              </dfn> method <em class="rfc2119" title="must">must</em> return a sequence that represents a snapshot
             of all the <code>
                 <a>MediaStreamTrack</a>
               </code> objects in this stream's <a href="#track-set">track
-            set</a>, regardless of kind. The conversion from the <a
+            set</a>, regardless of <code>
+                <a href="#dom-mediastreamtrack-kind">kind</a></code
+              >. The conversion from the <a
             href="#track-set">track set</a> to the sequence is user agent
-            defined and the order does not have to stable between calls.</p>
+            defined and the order does not have to be stable between calls.</p>
           </dd>
 
           <dt>MediaStreamTrack? getTrackById(DOMString trackId)</dt>
@@ -574,13 +588,13 @@
           <dd>
             <p>The <dfn id="dom-mediastream-gettrackbyid">
                 <code>getTrackById()</code>
-              </dfn> method MUST return the first <code>
+              </dfn> method <em class="rfc2119" title="must">must</em> return the first <code>
                 <a>MediaStreamTrack</a>
               </code> object in this stream's <a href="#track-set">track
             set</a> whose <code>
                 <a href="#dom-mediastreamtrack-id">id</a>
-              </code> is equal to <var>trackId</var>. The method MUST return
-            null if no track matches the <var>trackId</var> argument.</p>
+              </code> is equal to <var>trackId</var>. The method <em class="rfc2119" title="must">must</em> return
+            null if none of the tracks match the <var>trackId</var> argument.</p>
           </dd>
 
           <dt>void addTrack(MediaStreamTrack track)</dt>
@@ -589,12 +603,12 @@
             <p>Adds the given <code>
                 <a>MediaStreamTrack</a>
               </code> to this <code>
-                <a>MediaStream</a>
-              </code>.</p>
+                <a>MediaStream</a></code
+              >.</p>
 
             <p>When the <dfn id="dom-mediastream-addtrack">
                 <code>addTrack()</code>
-              </dfn> method is invoked, the user agent MUST run the following
+              </dfn> method is invoked, the user agent <em class="rfc2119" title="must">must</em> run the following
             steps:</p>
 
             <ol>
@@ -624,12 +638,12 @@
             <p>Removes the given <code>
                 <a>MediaStreamTrack</a>
               </code> from this <code>
-                <a>MediaStream</a>
-              </code>.</p>
+                <a>MediaStream</a></code
+              >.</p>
 
             <p>When the <dfn id="dom-mediastream-removetrack">
                 <code>removeTrack()</code>
-              </dfn> method is invoked, the user agent MUST remove the track,
+              </dfn> method is invoked, the user agent <em class="rfc2119" title="must">must</em> remove the track,
             indicated by the method's argument, from the stream's <a
             href="#track-set">track set</a>, if present.</p>
           </dd>
@@ -643,7 +657,7 @@
 
             <p>When the <dfn id="dom-mediastream-clone">
                 <code>MediaStream.clone()</code>
-              </dfn> method is invoked, the user agent MUST run the following
+              </dfn> method is invoked, the user agent <em class="rfc2119" title="must">must</em> run the following
             steps:</p>
 
             <ol>
@@ -691,7 +705,7 @@
                 <a>MediaStream</a>
               </code> object is created, its <code>
                 <a href="#dom-mediastream-active">active</a>
-              </code> attribute MUST be set to true, unless stated otherwise
+              </code> attribute <em class="rfc2119" title="must">must</em> be set to true, unless stated otherwise
             (for example by the <code>
                 <a href="#dom-mediastream">MediaStream()</a>
               </code> constructor algorithm).</p>
@@ -699,35 +713,43 @@
 
           <dt>attribute EventHandler onactive</dt>
 
-          <dd>This event handler, of type <code>
-              <a href="#event-mediastream-active">active</a>
-            </code>, MUST be supported by all objects implementing the <code>
+          <dd>
+            <p>This event handler, of type <code>
+              <a href="#event-mediastream-active">active</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler oninactive</dt>
 
-          <dd>This event handler, of type <code>
-              <a href="#event-mediastream-inactive">inactive</a>
-            </code>, MUST be supported by all objects implementing the <code>
+          <dd>
+            <p>This event handler, of type <code>
+              <a href="#event-mediastream-inactive">inactive</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler onaddtrack</dt>
 
-          <dd>This event handler, of type <code>
-              <a href="#event-mediastream-addtrack">addtrack</a>
-            </code>, MUST be supported by all objects implementing the <code>
+          <dd>
+            <p>This event handler, of type <code>
+              <a href="#event-mediastream-addtrack">addtrack</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
           <dt>attribute EventHandler onremovetrack</dt>
 
-          <dd>This event handler, of type <code>
-              <a href="#event-mediastream-removetrack">removetrack</a>
-            </code>, MUST be supported by all objects implementing the <code>
+          <dd>
+            <p>This event handler, of type <code>
+              <a href="#event-mediastream-removetrack">removetrack</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaStream</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
         </dl>
       </section>
 
@@ -759,13 +781,13 @@
         the given permission for that source is revoked and the source is <dfn
         id="source-stopped">stopped</dfn>. If the data is being generated from
         a live source (e.g., a microphone or camera), then the user agent
-        SHOULD remove any active "on-air" indicator for that source. If the
+        <em class="rfc2119" title="should">should</em> remove any active "on-air" indicator for that source. If the
         data is being generated from a prerecorded source (e.g. a video file),
         any remaining content in the file is ignored. An implementation may
         use a per source reference count to keep track of source usage, but
         the specifics are out of scope for this specification.</p>
 
-        <p>If there is no stored permission to use that source, the UA SHOULD
+        <p>If there is no stored permission to use that source, the UA <em class="rfc2119" title="should">should</em>
         also remove the "permission granted" indicator for the source.</p>
 
         <section>
@@ -775,12 +797,12 @@
 
           <p>A <code>
               <a>MediaStreamTrack</a>
-            </code> has two stages in its life-cycle: <code>live</code> and
+            </code> has two states in its life-cycle: <code>live</code> and
           <code>ended</code>. A newly created <code>
               <a>MediaStreamTrack</a>
-            </code> can be in any stage depending on how it was created. For
+            </code> can be in either state depending on how it was created. For
           example, cloning an ended track results in a new ended track. The
-          current stage is reflected by the object's <code>
+          current state is reflected by the object's <code>
               <a href="#dom-mediastreamtrack-readystate">readyState</a>
             </code> attribute.</p>
 
@@ -802,12 +824,12 @@
             </code>), is playing but the rendered content is the muted output.
           When all tracks connected to a source are muted or disabled, the
           "on-air" or "recording" indicator for that source can be turned off;
-          when the track is no longer muted or disabled, it MUST be turned
+          when the track is no longer muted or disabled, it <em class="rfc2119" title="must">must</em> be turned
           back on.</p>
 
-          <p>The muted/unmuted state of a track reflects if the source
+          <p>The muted/unmuted state of a track reflects whether the source
           provides any media at this moment. The enabled/disabled state is
-          under application control and determines if the track outputs media
+          under application control and determines whether the track outputs media
           (to its consumers). Hence, media from the source only flows when a
           <code>
               <a>MediaStreamTrack</a>
@@ -819,7 +841,7 @@
           temporarily unable to provide the track with data. A track can be
           muted by a user. Often this action is outside the control of the
           application. This could be as a result of the user hitting a
-          hardware switch, or toggling a control in the operating system or
+          hardware switch or toggling a control in the operating system /
           browser chrome. A track can also be muted by the user agent.</p>
 
           <p>Applications are able to <a href="#track-enabled">enable</a> or
@@ -876,7 +898,7 @@
               <a>MediaStreamTrack</a>
             </code> <var>track</var> ends for any reason other than the <code>
               <a href="#dom-mediastreamtrack-stop">stop()</a>
-            </code> method being invoked, the user agent MUST queue a task
+            </code> method being invoked, the user agent <em class="rfc2119" title="must">must</em> queue a task
           that runs the following steps:</p>
 
           <ol>
@@ -914,12 +936,12 @@
           <p>There are two concepts related to the media flow for a
           <code>live</code> <code>
               <a>MediaStreamTrack</a>
-            </code>: muted or not, and enabled or disabled.</p>
+            </code>: muted / not muted, and enabled / disabled.</p>
 
           <p><dfn id="track-muted">Muted</dfn> refers to the input to the
           <code>
-              <a>MediaStreamTrack</a>
-            </code>. If live samples are not made available to the <code>
+              <a>MediaStreamTrack</a></code
+            >. If live samples are not made available to the <code>
               <a>MediaStreamTrack</a>
             </code> it is muted.</p>
 
@@ -929,8 +951,8 @@
             </code> attribute and listening to the associated events <code>
               <a href="#event-mediastreamtrack-mute">mute</a>
             </code> and <code>
-              <a href="#event-mediastreamtrack-unmute">unmute</a>
-            </code>.There can be several reasons for a <code>
+              <a href="#event-mediastreamtrack-unmute">unmute</a></code
+            >. There can be several reasons for a <code>
               <a>MediaStreamTrack</a>
             </code> to be muted: the user pushing a physical mute button on
           the microphone, the user toggling a control in the operating system,
@@ -981,7 +1003,7 @@
           <p>Each track maintains an internal version of the <code>
               <a>Constraints</a>
             </code> structure, namely a mandatory set of constraints (no
-          duplicates), and an optional ordered list of individual constraint
+          duplicates) and an optional ordered list of individual constraint
           objects (may contain duplicates). The internal stored constraint
           structure is exposed to the application by the <code>
               <a>constraints</a>
@@ -991,17 +1013,17 @@
 
           <p>When <code>
               <a>applyConstraints()</a>
-            </code> is called, a user agent MUST queue a task to evaluate
+            </code> is called, a user agent <em class="rfc2119" title="must">must</em> queue a task to evaluate
           those changes when the task queue is next serviced. Similarly, if
           the <a>
               <code>sourceType</code>
-            </a> changes, then the user agent MUST perform the same actions to
+            </a> changes, then the user agent <em class="rfc2119" title="must">must</em> perform the same actions to
           re-evaluate the constraints of each track affected by that source
           change.</p>
 
           <p>If the <code>
               <a>MediaStreamError</a>
-            </code> event named <code><a>overconstrained</a></code> is thrown, the track MUST be
+            </code> event named <code><a>overconstrained</a></code> is thrown, the track <em class="rfc2119" title="must">must</em> be
           muted until either new satisfiable constraints are applied or the
           existing constraints become satisfiable.</p>
         </section>
@@ -1015,7 +1037,7 @@
             <dd>
               <p>The <dfn id="dom-mediastreamtrack-kind">
                   <code>MediaStreamTrack.kind</code>
-                </dfn> attribute MUST return the string "<code>audio</code>"
+                </dfn> attribute <em class="rfc2119" title="must">must</em> return the string "<code>audio</code>"
               if the object represents an audio track or "<code>video</code>"
               if object represents a video track.</p>
             </dd>
@@ -1025,9 +1047,9 @@
             <dd>
               <p>Unless a <code>
                   <a>MediaStreamTrack</a>
-                </code> object is created as a part a of special purpose
+                </code> object is created as a part of a special purpose
               algorithm that specifies how the track id must be initialized,
-              the user agent MUST generate an identifier string and initialize
+              the user agent <em class="rfc2119" title="must">must</em> generate an identifier string and initialize
               the object's <code>
                   <a href="#dom-mediastreamtrack-id">id</a>
                 </code> attribute to that string. See <code>
@@ -1043,20 +1065,20 @@
 
               <p><dfn id="dom-mediastreamtrack-id">
                   <code>MediaStreamTrack.id</code>
-                </dfn> attribute MUST return the value to which it was
+                </dfn> attribute <em class="rfc2119" title="must">must</em> return the value to which it was
               initialized when the object was created.</p>
             </dd>
 
             <dt>readonly attribute DOMString label</dt>
 
             <dd>
-              <p>User agents MAY label audio and video sources (e.g.,
+              <p>User agents <em class="rfc2119" title="may">may</em> label audio and video sources (e.g.,
               "Internal microphone" or "External USB Webcam"). The <dfn
                   id="dom-mediastreamtrack-label">
                   <code>MediaStreamTrack.label</code>
-                </dfn> attribute MUST return the label of the object's
-              corresponding source, if any. If the corresponding source has or
-              had no label, the attribute MUST instead return the empty
+                </dfn> attribute <em class="rfc2119" title="must">must</em> return the label of the object's
+              corresponding source, if any. If the corresponding source has /
+              had no label, the attribute <em class="rfc2119" title="must">must</em> instead return the empty
               string.</p>
             </dd>
 
@@ -1069,9 +1091,9 @@
                   <a href="#track-enabled">enabled</a>
                 </code> state for the object.</p>
 
-              <p>On getting, the attribute MUST return the last value to which
-              it was set. On setting, it MUST be set to the new value,
-              regardless if the <code>
+              <p>On getting, the attribute <em class="rfc2119" title="must">must</em> return the value to which
+              it was last set. On setting, it <em class="rfc2119" title="must">must</em> be set to the new value,
+              regardless of whether the <code>
                   <a>MediaStreamTrack</a>
                 </code> object has been <a href="#track-detached">detached</a>
               from its source or not.</p>
@@ -1089,73 +1111,83 @@
             <dd>
               <p>The <dfn id="dom-mediastreamtrack-muted">
                   <code>MediaStreamTrack.muted</code>
-                </dfn> attribute MUST return <code>true</code> if the track is
+                </dfn> attribute <em class="rfc2119" title="must">must</em> return <code>true</code> if the track is
               <a href="#track-muted">muted</a>, and <code>false</code>
               otherwise.</p>
             </dd>
 
             <dt>attribute EventHandler onmute</dt>
 
-            <dd>This event handler, of type <code>
-                <a href="#event-mediastreamtrack-mute">mute</a>
-              </code>, MUST be supported by all objects implementing the <code>
+            <dd>
+              <p>This event handler, of type <code>
+                <a href="#event-mediastreamtrack-mute">mute</a></code
+              >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>attribute EventHandler onunmute</dt>
 
-            <dd>This event handler, of type <code>
-                <a href="#event-mediastreamtrack-unmute">unmute</a>
-              </code>, MUST be supported by all objects implementing the <code>
+            <dd>
+              <p>This event handler, of type <code>
+                <a href="#event-mediastreamtrack-unmute">unmute</a></code
+              >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>readonly attribute boolean _readonly</dt>
 
-            <dd>If the track (audio or video) is backed by a read-only source
+            <dd>
+              <p>If the track (audio or video) is backed by a read-only source
             such as a file, or the track source is a local microphone or
             camera, but is shared so that constraints applied to the track
             cannot modify the source's settings, the <dfn
                 id="dom-mediastreamtrack-readonly">
                 <code>readonly</code>
-              </dfn> attribute MUST return the value <code>true</code>.
-            Otherwise, it must return the value <code>false</code>.</dd>
+              </dfn> attribute <em class="rfc2119" title="must">must</em> return the value <code>true</code>.
+            Otherwise, it must return the value <code>false</code>.</p>
+            </dd>
 
             <dt>readonly attribute boolean remote</dt>
 
-            <dd>If the track is sourced by a non-local source, the <dfn
+            <dd>
+              <p>If the track is sourced by a non-local source, the <dfn
                 id="dom-mediastreamtrack-remote">
                 <code>remote</code>
-              </dfn> attribute MUST return the value <code>true</code>.
-            Otherwise, it must return the value <code>false</code>.</dd>
+              </dfn> attribute <em class="rfc2119" title="must">must</em> return the value <code>true</code>.
+            Otherwise, it must return the value <code>false</code>.</p>
+            </dd>
 
             <dt>readonly attribute MediaStreamTrackState readyState</dt>
 
             <dd>
               <p>The <dfn id="dom-mediastreamtrack-readystate">
                   <code>readyState</code>
-                </dfn> attribute represents the state of the track. It MUST
-              return the value to which the user agent last set it.</p>
+                </dfn> attribute represents the state of the track. It <em class="rfc2119" title="must">must</em>
+              return the value as most recently set by the user-agent.</p>
             </dd>
 
             <dt>attribute EventHandler onended</dt>
 
-            <dd>This event handler, of type <code>
-                <a href="#event-mediastreamtrack-ended">ended</a>
-              </code>, MUST be supported by all objects implementing the <code>
+            <dd>
+              <p>This event handler, of type <code>
+                <a href="#event-mediastreamtrack-ended">ended</a></code
+              >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
                 <a>MediaStreamTrack</a>
-              </code> interface.</dd>
+              </code> interface.</p>
+            </dd>
 
             <dt>MediaStreamTrack clone()</dt>
 
             <dd>
               <p>Clones the given <code>
-                  <a>MediaStreamTrack</a>
-                </code>.</p>
+                  <a>MediaStreamTrack</a></code
+                >.</p>
 
               <p>When the <dfn id="dom-mediastreamtrack-clone">
                   <code>MediaStreamTrack.clone()</code>
-                </dfn> method is invoked, the user agent MUST run the
+                </dfn> method is invoked, the user agent <em class="rfc2119" title="must">must</em> run the
               following steps:</p>
 
               <ol>
@@ -1174,13 +1206,13 @@
                 <li>
                   <p>Let <var>trackClone</var> inherit this track's underlying
                   source, <code>
-                      <a href="#dom-mediastreamtrack-kind">kind</a>
-                    </code>, <code>
-                      <a href="#dom-mediastreamtrack-label">label</a>
-                    </code>, <code>
+                      <a href="#dom-mediastreamtrack-kind">kind</a></code
+                    >, <code>
+                      <a href="#dom-mediastreamtrack-label">label</a></code
+                    >, <code>
                       <a
-                      href="#dom-mediastreamtrack-readystate">readyState</a>
-                    </code>, and <code>
+                      href="#dom-mediastreamtrack-readystate">readyState</a></code
+                    >, and <code>
                       <a href="#dom-mediastreamtrack-enabled">enabled</a>
                     </code> attributes, as well as its currently active
                   constraints.</p>
@@ -1192,14 +1224,14 @@
               </ol>
             </dd>
 
-            <dt>void stop ()</dt>
+            <dt>void stop()</dt>
 
             <dd>
               <p>When a <code>
                   <a>MediaStreamTrack</a>
                 </code> object's <dfn id="dom-mediastreamtrack-stop">
                   <code>stop()</code>
-                </dfn> method is invoked, the user agent MUST run following
+                </dfn> method is invoked, the user agent <em class="rfc2119" title="must">must</em> run following
               steps:</p>
 
               <ol>
@@ -1242,20 +1274,26 @@
 
             <dt>MediaTrackConstraints getConstraints()</dt>
 
-            <dd>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method. </dd>
+            <dd>
+              <p>See <a href="#constrainable-interface">ConstrainablePattern
+            Interface</a> for the definition of this method. </p>
+            </dd>
 
             <dt>Settings getSettings()</dt>
 
-            <dd>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method. </dd>
+            <dd>
+              <p>See <a href="#constrainable-interface">ConstrainablePattern
+            Interface</a> for the definition of this method. </p>
+            </dd>
 
             <dt>Promise&lt;void&gt; applyConstraints()</dt>
 
             <dd> <dl class="parameters">
                 <dt>MediaTrackConstraints constraints</dt>
 
-                <dd>A new constraint structure to apply to this object.</dd>
+                <dd>
+                  <p>A new constraint structure to apply to this object.</p>
+                </dd>
 
               </dl> See <a
             href="#constrainable-interface">ConstrainablePattern Interface</a>
@@ -1292,7 +1330,7 @@
 
               <p>For example, a video track in a <code>
                   <a>MediaStream</a>
-                </code> ends if the user unplugs the USB web camera that acts
+                </code> ends when the user unplugs the USB web camera that acts
               as the track's media source.</p>
             </dd>
           </dl>
@@ -1304,17 +1342,21 @@
           <dl class="idl" title="enum SourceTypeEnum">
             <dt>camera</dt>
 
-            <dd>A valid source type only for video <code>
+            <dd>
+              <p>A valid source type only for video <code>
                 <a>MediaStreamTrack</a>
               </code>s. The source is a local video-producing camera
-            source.</dd>
+            source.</p>
+            </dd>
 
             <dt>microphone</dt>
 
-            <dd>A valid source type only for audio <code>
+            <dd>
+              <p>A valid source type only for audio <code>
                 <a>MediaStreamTrack</a>
               </code>s. The source is a local audio-producing microphone
-            source.</dd>
+            source.</p>
+            </dd>
           </dl>
         </section>
 
@@ -1325,8 +1367,10 @@
               title="dictionary MediaTrackConstraints : MediaTrackConstraintSet">
             <dt>sequence&lt;MediaTrackConstraintSet&gt; advanced</dt>
 
-            <dd>See <a href="#constraints">Constraints and ConstraintSet</a>
-            for the definition of this element.</dd>
+            <dd>
+              <p>See <a href="#constraints">Constraints and ConstraintSet</a>
+            for the definition of this element.</p>
+            </dd>
           </dl>
 
           <dl class="idl" title="dictionary MediaTrackConstraintSet">
@@ -1398,7 +1442,7 @@
             <a>MediaStreamTrackEvent</a>
           </code> interface with the <code>
             <a href="#dom-mediastreamtrackevent-track">track</a>
-          </code> attribute set to <var>track</var>, MUST be created and
+          </code> attribute set to <var>track</var>, <em class="rfc2119" title="must">must</em> be created and
         dispatched at the given target.</p>
 
         <dl class="idl" data-merge="MediaStreamTrackEventInit"
@@ -1408,8 +1452,8 @@
 
           <dd>
             <p>Constructs a new <code>
-                <a>MediaStreamTrackEvent</a>
-              </code>.</p>
+                <a>MediaStreamTrackEvent</a></code
+              >.</p>
           </dd>
 
           <dt>readonly attribute MediaStreamTrack track</dt>
@@ -1434,7 +1478,7 @@
       <h2>The model: sources, sinks, constraints, and settings</h2>
 
       <p>Browsers provide a media pipeline from sources to sinks. In a
-      browser, sinks are the &lt;img&gt;, &lt;video&gt; and &lt;audio&gt;
+      browser, sinks are the &lt;img&gt;, &lt;video&gt;, and &lt;audio&gt;
       tags. Traditional sources include streamed content, files, and web
       resources. The media produced by these sources typically does not change
       over time - these sources can be considered to be static.</p>
@@ -1481,8 +1525,8 @@
       <p>The <code>RTCPeerConnection</code> is an interesting object because
       it acts simultaneously as both a sink <strong>and</strong> a source for
       over-the-network streams. As a sink, it has source transformational
-      capabilities (e.g., lowering bit-rates, scaling-up or down resolutions,
-      adjusting frame-rates), and as a source it could have its own settings
+      capabilities (e.g., lowering bit-rates, scaling-up / down resolutions,
+      and adjusting frame-rates), and as a source it could have its own settings
       changed by a track source (though in this specification sources with the
       <code>
           <a>remote</a>
@@ -1491,15 +1535,15 @@
 
       <p>To illustrate how changes to a given source impact various sinks,
       consider the following example. This example only uses width and height,
-      but the same principles apply to any of the <a>Settings</a> exposed in
+      but the same principles apply to all of the <a>Settings</a> exposed in
       this specification. In the first figure a home client has obtained a
       video source from its local video camera. The source's width and height
-      settings are 800 pixels by 600 pixels, respectively. Three <code>
+      settings are 800 pixels and 600 pixels, respectively. Three <code>
           <a>MediaStream</a>
         </code> objects on the home client contain tracks that use this same
       <code>
-          <a>deviceId</a>
-        </code>. The three media streams are connected to three different
+          <a>deviceId</a></code
+        >. The three media streams are connected to three different
       sinks: a <code>&lt;video&gt;</code> element (A), another
       <code>&lt;video&gt;</code> element (B), and a peer connection (C). The
       peer connection is streaming the source video to an away client. On the
@@ -1512,10 +1556,13 @@
 
       <p>Note that at this moment, all of the sinks on the home client must
       apply a transformation to the original source's provided dimension
-      settings. A is scaling the video up (resulting in loss of quality), B is
-      scaling the video down, and C is also scaling the video up slightly for
+      settings.
+ B is
+      scaling the video down,
+ A is scaling the video up (resulting in loss of quality),
+ and C is also scaling the video up slightly for
       sending over the network. On the away client, sink Y is scaling the
-      video way down, while sink Z is not applying any scaling.</p>
+      video <em>way</em> down, while sink Z is not applying any scaling.</p>
 
       <p>Using the <a>ConstrainablePattern</a> interface, one of the tracks
       requests a higher resolution (1920 by 1200 pixels) from the home
@@ -1550,7 +1597,7 @@
 
       <p>It is fairly obvious that changes to a given source will impact sink
       consumers. However, in some situations changes to a given sink may also
-      be cause for implementations to adjust a source's settings. This is
+      cause mplementations to adjust a source's settings. This is
       illustrated in the following figures. In the first figure below, the
       home client's video source is sending a video stream sized at 1920 by
       1200 pixels. The video source is also unconstrained, such that the exact
@@ -1558,8 +1605,8 @@
       Two <code>
           <a>MediaStream</a>
         </code> objects contain tracks with the same <code>
-          <a>deviceId</a>
-        </code>, and those <code>
+          <a>deviceId</a></code
+        >, and those <code>
           <a>MediaStream</a>
         </code>s are connected to two different <code>&lt;video&gt;</code>
       element sinks A and B. Sink A has been sized to
@@ -1575,16 +1622,16 @@
       to 1024 pixels wide and from 1200 to 768 pixels tall), the browser's
       media pipeline may recognize that none of its sinks require the higher
       source resolution, and needless work is being done both on the part of
-      the source and on sink A. In such a case and without any other
+      the source and sink A. In such a case and without any other
       constraints forcing the source to continue producing the higher
-      resolution video, the media pipeline MAY change the source
+      resolution video, the media pipeline <em class="rfc2119" title="may">may</em> change the source
       resolution:</p>
 
       <img alt="Changing media stream sinks may affect sources: after the requested change"
            src="images/change_states_after2.png" />
 
       <p>In the above figure, the home client's video source resolution was
-      changed to the greater of that from sinkA and from sinkB in order to
+      changed to the greater of that from sink A and B in order to
       optimize playback. While not shown above, the same behavior could apply
       to peer connections and other sinks.</p>
 
@@ -1601,7 +1648,7 @@
 
       <p>In this example, two media streams each have a video track that share
       the same source. The first track initially has no constraints applied.
-      It is connected to sink N. Sink N has a width and height of 800 by 600
+      It is connected to sink N. Sink N has a resolution of 800 by 600
       pixels and is scaling down the source's resolution of 1024 by 768 to
       fit. The other track has a mandatory constraint forcing off the source's
       fill light; it is connected to sink P. Sink P has a width and height
@@ -1640,7 +1687,7 @@
       <p>At this point, it is the responsibility of the application to address
       the problem that led to the overconstrained situation, perhaps by
       removing the fill light mandatory constraint on the second track or by
-      closing the second track altogether and informing the user</p>
+      closing the second track altogether and informing the user.</p>
     </section>
 
     <section>
@@ -1658,7 +1705,7 @@
       <section>
         <h3>Direct Assignment to Media Elements</h3>
 
-        <p>UAs that support this specification MUST support the following
+        <p>UAs that support this specification <em class="rfc2119" title="must">must</em> support the following
         partial interface, which allows a MediaStream to be assigned directly
         to a media element.</p>
 
@@ -1669,10 +1716,10 @@
             <p>Holds the MediaStream that provides media for this element.
             This attribute overrides both the <code>src</code> attribute and
             any &lt;source&gt; elements. Specifically, if
-            <code>srcObject</code> is specified, the UA MUST use it as the
+            <code>srcObject</code> is specified, the UA <em class="rfc2119" title="must">must</em> use it as the
             source of media, even if the <code>src</code> attribute is also
             set or &lt;source&gt; children are present. If the value of
-            <code>srcObject</code> is replaced or set to null the UA MUST
+            <code>srcObject</code> is replaced or set to null the UA <em class="rfc2119" title="must">must</em>
             re-run the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
             media element load algorithm</a></p>
@@ -1722,7 +1769,7 @@
             media element load algorithm</a>, reaches the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#concept-media-load-resource">
             resource fetch phase</a> of this algorithm, and determines that
-            the media resource in question is a MediaStream, it MUST
+            the media resource in question is a MediaStream, it <em class="rfc2119" title="must">must</em>
             immediately abort the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#concept-media-load-algorithm">
             resource selection algorithm</a>, setting the <a
@@ -1736,11 +1783,11 @@
             <p>For each <code>
                 <a>MediaStreamTrack</a>
               </code> in the <code>
-                <a>MediaStream</a>
-              </code>, including those that are added after the UA enters the
+                <a>MediaStream</a></code
+              >, including those that are added after the UA enters the
             <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
-            media element load algorithm</a>, the UA MUST create a
+            media element load algorithm</a>, the UA <em class="rfc2119" title="must">must</em> create a
             corresponding <code>
                 <a
                 href="http://www.w3.org/TR/html5/embedded-content-0.html#audiotrack">AudioTrack</a>
@@ -1759,7 +1806,7 @@
               </code> are ordered.</p>
 
             <p>The properties of the <code>AudioTrack</code> and
-            <code>VideoTrack</code> objects MUST be initialized as follows.
+            <code>VideoTrack</code> objects <em class="rfc2119" title="must">must</em> be initialized as follows.
             Let</p>
 
             <ul>
@@ -1816,20 +1863,20 @@
             <p>If a <code>
                 <a>MediaStreamTrack</a>
               </code> is removed from a <code>
-                <a>MediaStream</a>
-              </code>, played by a media element, the corresponding
-            <code>AudioTrack</code> or <code>VideoTrack</code> MUST be removed
+                <a>MediaStream</a></code
+              >, played by a media element, the corresponding
+            <code>AudioTrack</code> or <code>VideoTrack</code> <em class="rfc2119" title="must">must</em> be removed
             as well.</p>
           </li>
 
           <li>
-            <p>The UA MUST NOT buffer data from a MediaStream. When playing,
-            the UA MUST always play the current data from the stream.</p>
+            <p>The UA <em class="rfc2119" title="must not">must not</em> buffer data from a MediaStream. When playing,
+            the UA <em class="rfc2119" title="must">must</em> always play the current data from the stream.</p>
           </li>
 
           <li>
-            <p>When the MediaStream is moves from the active to the <a
-            href="#stream-inactive">inactive</a> state, the UA MUST raise an
+            <p>When the MediaStream state moves from the active to the <a
+            href="#stream-inactive">inactive</a> state, the UA <em class="rfc2119" title="must">must</em> raise an
             <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#event-media-ended">
             ended</a> event on the media element and set its <a
@@ -1885,7 +1932,7 @@
 
               <td>the empty string</td>
 
-              <td>When <code>srcObject</code> is specified the UA MUST set
+              <td>When <code>srcObject</code> is specified the UA <em class="rfc2119" title="must">must</em> set
               this to the empty string.</td>
             </tr>
 
@@ -1923,7 +1970,7 @@
                 </a>
               </td>
 
-              <td><code>buffered.length</code> MUST return
+              <td><code>buffered.length</code> <em class="rfc2119" title="must">must</em> return
               <code>0</code>.</td>
 
               <td>A MediaStream cannot be preloaded. Therefore, the amount
@@ -1966,7 +2013,7 @@
                   <a>MediaStream</a>
                 </code> may be created before there is any data available, for
               example when a stream is received from a remote peer. The value
-              of the <code>readyState</code> of the media element MUST be
+              of the <code>readyState</code> of the media element <em class="rfc2119" title="must">must</em> be
               HAVE_NOTHING before the first media arrives and HAVE_ENOUGH_DATA
               once the first media has arrived.</td>
             </tr>
@@ -1983,7 +2030,7 @@
                 <code>double</code>
               </td>
 
-              <td>Any positive integer. The initial value is 0 and the values
+              <td>Any non-negative integer. The initial value is 0 and the values
               increments linearly in real time whenever the stream is
               playing.</td>
 
@@ -2024,7 +2071,7 @@
               <td>false</td>
 
               <td>A MediaStream is not seekable. Therefore, this attribute
-              MUST always have the value <code>false</code>.</td>
+              <em class="rfc2119" title="must">must</em> always have the value <code>false</code>.</td>
             </tr>
 
             <tr>
@@ -2042,8 +2089,8 @@
               <td>1.0</td>
 
               <td>A MediaStream is not seekable. Therefore, this attribute
-              MUST always have the value <code>1.0</code> and any attempt to
-              alter it MUST fail.</td>
+              <em class="rfc2119" title="must">must</em> always have the value <code>1.0</code> and any attempt to
+              alter it <em class="rfc2119" title="must">must</em> fail.</td>
             </tr>
 
             <tr>
@@ -2061,8 +2108,8 @@
               <td>1.0</td>
 
               <td>A MediaStream is not seekable. Therefore, this attribute
-              MUST always have the value <code>1.0</code> and any attempt to
-              alter it MUST fail.</td>
+              <em class="rfc2119" title="must">must</em> always have the value <code>1.0</code> and any attempt to
+              alter it <em class="rfc2119" title="must">must</em> fail.</td>
             </tr>
 
             <tr>
@@ -2080,9 +2127,9 @@
                 </a>
               </td>
 
-              <td> <code>played.length</code> MUST return
-              <code>1</code>.<br /> <code>played.start(0)</code> MUST return
-              <code>0</code>.<br /> <code>played.end(0)</code> MUST return the
+              <td> <code>played.length</code> <em class="rfc2119" title="must">must</em> return
+              <code>1</code>.<br /> <code>played.start(0)</code> <em class="rfc2119" title="must">must</em> return
+              <code>0</code>.<br /> <code>played.end(0)</code> <em class="rfc2119" title="must">must</em> return the
               last known <a class="externalDFN"
                   href="http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currenttime">
                   <code>currentTime</code>
@@ -2107,7 +2154,7 @@
                 </a>
               </td>
 
-              <td> <code>seekable.length</code> MUST return <code>0</code>.
+              <td> <code>seekable.length</code> <em class="rfc2119" title="must">must</em> return <code>0</code>.
               </td>
 
               <td>A MediaStream is not seekable.</td>
@@ -2177,8 +2224,10 @@
 
           <dt>readonly attribute DOMString? message</dt>
 
-          <dd>A UA-dependent string offering extra human-readable information
-            about the error.</dd>
+          <dd>
+            <p>A UA-dependent string offering extra human-readable information
+            about the error.</p>
+          </dd>
 
           <dt>readonly attribute DOMString? constraintName</dt>
 
@@ -2186,7 +2235,7 @@
             <p>This attribute is only used for some types of errors. For <code>
                 <a>MediaStreamError</a>
               </code> with a name of <code>ConstraintNotSatisfiedError</code> or of <code>OverconstrainedError</code>,
-              this attribute MUST be set to the name of the constraint that caused
+              this attribute <em class="rfc2119" title="must">must</em> be set to the name of the constraint that caused
               the error.</p>
           </dd>
         </dl>
@@ -2210,13 +2259,16 @@
             eventInitDict)</dt>
 
           <dd><p>Constructs a new <code>
-                <a>MediaStreamErrorEvent</a>
-              </code>.</p></dd>
+                <a>MediaStreamErrorEvent</a></code
+              >.</p>
+          </dd>
 
           <dt>readonly attribute MediaStreamError? error</dt>
 
-          <dd>The <code><a>MediaStreamError</a></code> describing the
-          error that triggered the event (if any).</dd>
+          <dd>
+            <p>The <code><a>MediaStreamError</a></code> describing the
+          error that triggered the event (if any).</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
@@ -2224,7 +2276,7 @@
 
           <dd>
             <p>The <code><a>MediaStreamError</a></code> describing the
-            error associated wtih the event (if any)</p>
+            error associated with the event (if any)</p>
           </dd>
         </dl>
       </section>
@@ -2258,7 +2310,7 @@
             </tr>
             <tr>
               <th><code><dfn>OverconstrainedError</dfn></code></th>
-              <td>Due to changes in the environment, one or more mandatory constraints can no longer be satisfied..</td>
+              <td>Due to changes in the environment, one or more mandatory constraints can no longer be satisfied.</td>
               <td>The <code>constraintName</code> attribute gets set to the name of the constraint that caused the error</td>
             </tr>
             <tr>
@@ -2348,8 +2400,8 @@
                 <a>MediaStreamTrack</a>
               </code> has been added to this stream. Note that this event is
             not fired when the script directly modifies the tracks of a <code>
-                <a>MediaStream</a>
-              </code>.</td>
+                <a>MediaStream</a></code
+              >.</td>
           </tr>
 
           <tr>
@@ -2370,8 +2422,8 @@
               </code> has been removed from this stream. Note that this event
             is not fired when the script directly modifies the tracks of a
             <code>
-                <a>MediaStream</a>
-              </code>.</td>
+                <a>MediaStream</a></code
+              >.</td>
           </tr>
         </tbody>
       </table>
@@ -2541,7 +2593,7 @@
         the user agent.</p>
 
         <p>When a new media input or output device is made available, the user
-        agent MUST queue a task fires a simple event named <code>
+        agent <em class="rfc2119" title="must">must</em> queue a task fires a simple event named <code>
             <a href="#event-mediadevices-devicechange">devicechange</a>
           </code> at the <code>
             <a>MediaDevices</a>
@@ -2550,11 +2602,13 @@
         <dl class="idl" title="interface MediaDevices : EventTarget">
           <dt>attribute EventHandler ondevicechange</dt>
 
-          <dd>This event handler, of type <code>
-              <a href="#event-mediadevices-devicechange">devicechange</a>
-            </code>, MUST be supported by all objects implementing the <code>
+          <dd>
+            <p>This event handler, of type <code>
+              <a href="#event-mediadevices-devicechange">devicechange</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported by all objects implementing the <code>
               <a>MediaDevices</a>
-            </code> interface.</dd>
+            </code> interface.</p>
+          </dd>
 
             <!-- I have no idea why the &#8288; are needed but respec is broken
           and does not display stuff correctly if you remove them -->
@@ -2667,15 +2721,15 @@
           <h2>Access control model</h2>
           <p>The algorithm described above means that the access to
             media device information depends on whether or not permission has
-            been granted to the page's origin for use of any media devices.</p>
+            been granted to the page's origin to use media devices.</p>
 
           <p>If no such access has been granted, the
             <code><a>MediaDeviceInfo</a></code> dictionary will contain
-            the deviceId, the kind and the groupId.</p>
+            the deviceId, kind, and groupId.</p>
 
-          <p>If access has been granted for any media device,
+          <p>If access has been granted for a media device,
             the <code><a>MediaDeviceInfo</a></code> dictionary will
-            contain the deviceId, the kind, the label and the groupId.</p>
+            contain the deviceId, kind, label, and groupId.</p>
         </section>
 
       </section>
@@ -2716,7 +2770,7 @@
           <dd>
             <p>A label describing this device (for example "External USB
             Webcam"). If the device has no associated label, then this
-            dictionary member MUST return the empty string.</p>
+            dictionary member <em class="rfc2119" title="must">must</em> return the empty string.</p>
           </dd>
 
           <dt>DOMString groupId</dt>
@@ -2811,8 +2865,8 @@
             video or audio input.</p>
 
             <p>The <var>constraints</var> argument is a dictionary of type <code>
-                <a>MediaStreamConstraints</a>
-              </code>.</p>
+                <a>MediaStreamConstraints</a></code
+              >.</p>
 
             <p>The <var>successCallback</var> will be invoked with a suitable
                 <a>MediaStream</a>
@@ -2822,11 +2876,11 @@
 
             <p>The <var>errorCallback</var> will be invoked if there is a
             failure in finding valid tracks or if the user denies permission,
-            both as described in <a
+            as described in <a
               href="#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
 
             <p>When the <code  id="dom-navigatorusermedia-getusermedia">getUserMedia()</code>
-              method is called, the user agent MUST run the following
+              method is called, the user agent <em class="rfc2119" title="must">must</em> run the following
             steps:</p>
 
             <ol>
@@ -2912,9 +2966,9 @@
           <dd>
             <p>Returns a dictionary whose members are the constraint keys
             known to the User Agent for the kind given as argument. A
-            supported constraint MUST be represented by a member whose name is
+            supported constraint <em class="rfc2119" title="must">must</em> be represented by a member whose name is
             the constraint name and whose value is <code>true</code>. Any
-            constraint names not supported by the User Agent MUST not be
+            constraint names not supported by the User Agent <em class="rfc2119" title="must">must</em> not be
             present in the returned dictionary.</p>
           </dd>
 
@@ -2929,8 +2983,8 @@
             only here to keep the issues from being renumbered)</p>
 
             <p>The <var>constraints</var> argument is a dictionary of type <code>
-                <a>MediaStreamConstraints</a>
-              </code>.</p>
+                <a>MediaStreamConstraints</a></code
+              >.</p>
 
             <p>Returns a promise. The promise will be fulfilled with a suitable <code>
                 <a>MediaStream</a>
@@ -2939,11 +2993,11 @@
 
             <p>The promise will be rejected if there is a
             failure in finding valid tracks or if the user denies permission,
-            both as described below.</p>
+            as described below.</p>
 
             <p>When the <dfn id="dom-mediadevices-getusermedia">
                 <code>getUserMedia()</code>
-              </dfn> method is called, the user agent MUST run the following
+              </dfn> method is called, the user agent <em class="rfc2119" title="must">must</em> run the following
             steps:</p>
 
             <ol>
@@ -3148,21 +3202,21 @@
                     <a>MediaStream</a>
                   </code> object representing a media stream.</p>
 
-                <p>The provided media MUST include precisely one track of each
+                <p>The provided media <em class="rfc2119" title="must">must</em> include precisely one track of each
                 media type in requestedMediaTypes from the
                 <var>finalSet</var>. The decision of which tracks to choose
                 from the <var>finalSet</var> is completely up to the user
                 agent and may be determined by asking the user. Once selected,
                 the source of a <code>
                     <a>MediaStreamTrack</a>
-                  </code> MUST not change.</p>
+                  </code> <em class="rfc2119" title="must">must</em> not change.</p>
 
                 <p class="issue">Define the event that should be raised when
                 the user agent changes its choice of track.</p>
 
                 <p>User agents are encouraged to default to using the user's
                 primary or system default camera and/or microphone (when
-                possible) to generate the media stream. User agents MAY allow
+                possible) to generate the media stream. User agents <em class="rfc2119" title="may">may</em> allow
                 users to use any media source, including pre-recorded media
                 files.</p>
 
@@ -3272,11 +3326,15 @@
         <dl class="idl" title="dictionary MediaStreamConstraints">
           <!--        <dt>boolean audio</dt>
 
-        <dd>Set to true if an audio track is requested, default is false</dd>
+        <dd>
+          <p>Set to true if an audio track is requested, default is false</p>
+        </dd>
 
         <dt>boolean video</dt>
 
-        <dd>Set to true if a video track is requested, default is false</dd>
+        <dd>
+          <p>Set to true if a video track is requested, default is false</p>
+        </dd>
 -->
 
           <dt>(boolean or MediaTrackConstraints) video = false</dt>
@@ -3286,7 +3344,7 @@
             <a>MediaStream</a> contain a video track. If a <a>Constraints</a>
             structure is provided, it further specifies the nature and
             settings of the video Track. If <code>false</code>, the
-            <a>MediaStream</a> MUST not contain a video Track.</p>
+            <a>MediaStream</a> <em class="rfc2119" title="must">must</em> not contain a video Track.</p>
           </dd>
 
           <dt>(boolean or MediaTrackConstraints) audio = false</dt>
@@ -3296,7 +3354,7 @@
             <a>MediaStream</a> contain an audio track. If a <a>Constraints</a>
             structure is provided, it further specifies the nature and
             settings of the audio Track. If <code>false</code>, the
-            <a>MediaStream</a> MUST not contain an audio Track.</p>
+            <a>MediaStream</a> <em class="rfc2119" title="must">must</em> not contain an audio Track.</p>
           </dd>
         </dl>
       </section>
@@ -3349,11 +3407,11 @@
           that is keeping the source busy.</p>
 
           <p class="practicedesc">This document recommends that in the
-          permission grant dialog or device selection interace (if one
+          permission grant dialog or device selection interface (if one
           is present), the user be allowed to select any available
           hardware as a source for the stream requested by the page
-          (provided the resource is able to fulfill mandatory
-          constraints, if any were specified).  Although not
+          (provided the resource is able to fulfill any specified mandatory
+          constraints).  Although not
           specifically recommended as best practice, note that some
           user agents may support the ability to substitute a video or
           audio source with local files and other media. A file picker
@@ -3402,8 +3460,8 @@
 
           <p class="practicedesc">It is recommended for multiple calls to <a
           href="#dom-mediadevices-getusermedia">getUserMedia()</a> from the
-          same page be allowed as a way for pages to request multiple,
-          discrete, video or audio streams.</p>
+          same page be allowed as a way for pages to request multiple
+          discrete video and/or audio streams.</p>
 
           <p class="practicedesc">A single call to <a
           href="#dom-mediadevices-getusermedia">getUserMedia()</a> will always
@@ -3423,16 +3481,16 @@
     <section id="constrainable-interface">
       <h2>Constrainable Pattern</h2>
 
-      <p>The Constrainable pattern allows its consumers to inspect and adjust
-      the properties of the object that implements it. It is broken out as a
+      <p>The Constrainable pattern allows applications to inspect and adjust
+      the properties of objects implementing it. It is broken out as a
       separate set of definitions so that it can be referred to by other
-      specifications. The core concept is that of a Capability, which consists
+      specifications. The core concept is the Capability, which consists
       of a property or feature of an object and the set of its possible
       values, which may be specified either as a range or as an enumeration.
       For example, a camera might be capable of framerates (a property)
       between 20 and 50 frames per second (a range) and may be able to be
       positioned (a property) facing towards the user, away from the user, or
-      to the left or right of the user (an enumerated set.) The application
+      to the left or right of the user (an enumerated set). The application
       can examine a ConstrainablePattern object's set of Capabilities via the
       <code>getCapabilities()</code> accessor.</p>
 
@@ -3440,7 +3498,7 @@
       object's Capabilities by means of basic and/or advanced ConstraintSets
       and the <code>applyConstraints()</code> method. A ConstraintSet consists
       of the names of one or more properties of the object plus the desired
-      value (or a range of desired values) for each of them. Each of those
+      value (or a range of desired values) for each property. Each of those
       property/value pairs can be considered to be an individual constraint.
       For example, the application may set a ConstraintSet containing two
       constraints, the first stating that the framerate of a camera be between
@@ -3453,16 +3511,16 @@
       constraints in the basic Constraint structure are together treated as
       the 'required' set, and if it is not possible to satisfy simultaneously
       all of those individual constraints for the indicated property names,
-      the UA MUST reject the returned promise. Otherwise, it must
+      the UA <em class="rfc2119" title="must">must</em> reject the returned promise. Otherwise, it must
       apply the required constraints. Next, it will consider any
       ConstraintSets given in the 'advanced' list, in the order in which they
       are specified, and will try to satisfy/apply each complete ConstraintSet
       (i.e., all constraints in the ConstraintSet together), but will skip a
       ConstraintSet if and only if it cannot satisfy/apply it in its entirety.
-      Next, the UA MUST attempt to apply, individually, any 'ideal' constraint
+      Next, the UA <em class="rfc2119" title="must">must</em> attempt to apply, individually, any 'ideal' constraints
       or a constraint given as a bare value for the property. Of these
-      properties, it MUST satisfy the largest number that it can, in any
-      order. Finally, the UA MUST resolve the returned promise.</p>
+      properties, it <em class="rfc2119" title="must">must</em> satisfy the largest number that it can, in any
+      order. Finally, the UA <em class="rfc2119" title="must">must</em> resolve the returned promise.</p>
 
       <p>Important note: If JavaScript applications using this API want the
       attributes in the constraints to be used by the browser, the JavaScript
@@ -3533,7 +3591,7 @@ if(!supports["aspectRatio"]) {
       least 640 pixels wide and at least 480 pixels high. My preference is for
       precisely 1920x1280, but if you can't give me that, give me an
       aspectRatio of 4x3 if at all possible. If even that is not possible,
-      give me a resolution as close to 1280x720 as possieble."</p>
+      give me a resolution as close to 1280x720 as possible."</p>
 
       <pre class="example highlight" xml:space="preserve">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
@@ -3560,7 +3618,7 @@ if(!supports["width"] || !supports["height"]) {
       500, the second asking for a framerate greater than 400, and the third
       asking for one greater than 300. If the UA is capable of setting a
       framerate greater than 500, it will (and the subsequent two
-      ConstraintSets will be trivially satisfied.) However, if the UA cannot
+      ConstraintSets will be trivially satisfied). However, if the UA cannot
       set the framerate above 500, it will skip that ConstraintSet and attempt
       to set the framerate above 400. If that fails, it will then try to set
       it above 300. If the UA cannot satisfy any of the three ConstraintSets,
@@ -3609,7 +3667,7 @@ if(!supports["width"] || !supports["height"]) {
 
           <dd>
             <p>The <dfn>getCapabilities()</dfn> method returns the dictionary
-            of the capabilities that the object supports.</p>
+            of the names of the capabilities that the object supports.</p>
 
             <div class="note">
               <p>It is possible that the underlying hardware may not exactly
@@ -3635,21 +3693,25 @@ if(!supports["width"] || !supports["height"]) {
 
           <dt>Constraints getConstraints()</dt>
 
-          <dd>The <dfn>getConstraints</dfn> method returns the Constraints
-          that were the argument to the last successful call of
+          <dd>
+            <p>The <dfn>getConstraints</dfn> method returns the Constraints
+          that were the argument to the most recent successful call of
           <code>applyConstraints()</code>, maintaining the order in which they
           were specified. Note that some of the optional ConstraintSets
           returned may not be currently satisfied. To check which
           ConstraintSets are currently in effect, the application should use
-          <code>getSettings</code>. </dd>
+          <code>getSettings</code>. </p>
+          </dd>
 
           <dt>Settings getSettings()</dt>
 
-          <dd>The <dfn>getSettings()</dfn> method returns the current settings
+          <dd>
+            <p>The <dfn>getSettings()</dfn> method returns the current settings
           of all the properties of the object, whether they are platform
           defaults or have been set by <code>applyConstraints()</code>. Note
           that the actual setting of a property <em class="rfc2119"
-          title="must">must</em> be a single value. </dd>
+          title="must">must</em> be a single value. </p>
+          </dd>
 
           <dt>Promise&lt;void&gt; applyConstraints()</dt>
 
@@ -3657,7 +3719,9 @@ if(!supports["width"] || !supports["height"]) {
             <dl class="parameters">
               <dt>Constraints constraints</dt>
 
-              <dd>A new constraint structure to apply to this object.</dd>
+              <dd>
+                <p>A new constraint structure to apply to this object.</p>
+              </dd>
 
             </dl>
 
@@ -3677,7 +3741,7 @@ if(!supports["width"] || !supports["height"]) {
               returned by getCapabilities) taking into consideration
               environmental limitations and/or restrictions placed by other
               constraints. For example given a ConstraintSet that constrains
-              Capabilities aspectRatio, height and width, the values assigned
+              the aspectRatio, height, and width Capabilities, the values assigned
               to any two of the Capabilities limit the effective Capability of
               the third. The set of effective Capabilities may be platform
               dependent. For example, on a resource-limited device it may not
@@ -3767,7 +3831,7 @@ if(!supports["width"] || !supports["height"]) {
               <li>In a single operation, remove <var>existingConstraints</var>
               from <var>object</var>, apply <var>successfulConstraints</var>,
               then apply the largest subset of <var>unorderedConstraints</var>
-              that can be satisifed. (If more than one 'largest subset' can be
+              that can be satisfied. (If more than one 'largest subset' can be
               satisfied, the UA is free to select which 'largest subset' it
               chooses.)</li>
               <li>Finally, resolve <var>p</var>. From this point on until
@@ -3790,10 +3854,11 @@ if(!supports["width"] || !supports["height"]) {
 
           <dt>attribute EventHandler onoverconstrained</dt>
 
-          <dd>This event handler, of type <code>
+          <dd>
+            <p>This event handler, of type <code>
               <a
-              href="#event-constrainable-overconstrained">overconstrained</a>
-            </code>, <em class="rfc2119" title="must">must</em> be supported
+              href="#event-constrainable-overconstrained">overconstrained</a></code
+            >, <em class="rfc2119" title="must">must</em> be supported
           by all objects implementing the <code>
               <a>ConstrainablePattern</a>
             </code> pattern. <p>The UA <em class="rfc2119"
@@ -3806,13 +3871,14 @@ if(!supports["width"] || !supports["height"]) {
           <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
-          <code>message</code> attribute of the MediaStreamError SHOULD
+          <code>message</code> attribute of the MediaStreamError <em class="rfc2119" title="should">should</em>
           contain a string that is useful for debugging. The conditions under
           which this error might occur are platform and application-specific.
           For example, the user might physically manipulate a camera in a way
           that makes it impossible to provide a resolution that satisfies the
-          constraints. The UA MAY take other actions as a result of the
-          overconstrained situation.</p> </dd>
+          constraints. The UA <em class="rfc2119" title="may">may</em> take other actions as a result of the
+          overconstrained situation.</p> </p>
+          </dd>
         </dl>
 
         <p>An example of Constraints that could be passed into <code>
@@ -3958,68 +4024,92 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         interpreted as disjunctions. For example, if a property 'facingMode'
         for a camera is defined as having legal values ["left", "right",
         "user", "environment"], this means that 'facingMode' can have the
-        value "left", the value "right", the value "environment" or the value
+        values "left", "right", "environment", and
         "user". Similarly <a>Constraints</a> restricting 'facingMode' to
         ["user", "left", "right"] would mean that the UA should select a
         camera (or point the camera, if that is possible) so that "facingMode"
         is either "user", "left", or "right". This Constraint would thus
         request that the camera not be facing away from the user, but would
-        allow the UA to choose among the other directions.</p>
+        allow the UA to allow the user to choose other directions.</p>
 
         <dl class="idl" title="dictionary ConstrainDoubleRange">
           <dt>double max</dt>
 
-          <dd>The maximum legal value of this property.</dd>
+          <dd>
+            <p>The maximum legal value of this property.</p>
+          </dd>
 
           <dt>double min</dt>
 
-          <dd>The minimum value of this Property.</dd>
+          <dd>
+            <p>The minimum value of this Property.</p>
+          </dd>
 
           <dt>double exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>double ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainLongRange">
           <dt>long max</dt>
 
-          <dd>The maximum legal value of this property.</dd>
+          <dd>
+            <p>The maximum legal value of this property.</p>
+          </dd>
 
           <dt>long min</dt>
 
-          <dd>The minimum value of this property.</dd>
+          <dd>
+            <p>The minimum value of this property.</p>
+          </dd>
 
           <dt>long exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>long ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainBooleanParameters">
           <dt>boolean exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>boolean ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl" title="dictionary ConstrainDOMStringParameters">
           <dt>(DOMString or sequence&lt;DOMString&gt;) exact</dt>
 
-          <dd>The exact required value for this property.</dd>
+          <dd>
+            <p>The exact required value for this property.</p>
+          </dd>
 
           <dt>(DOMString or sequence&lt;DOMString&gt;) ideal</dt>
 
-          <dd>The ideal (target) value for this property.</dd>
+          <dd>
+            <p>The ideal (target) value for this property.</p>
+          </dd>
         </dl>
 
         <dl class="idl"
@@ -4096,8 +4186,8 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
 </pre>
 
         <p>Note in the example above that the aspectRatio would make
-        clear that not any arbitrary combination of widths and heights
-        was possible, although it would still suggest that more than
+        clear that arbitrary combination of widths and heights
+        are not possible, although it would still suggest that more than
         two resolutions were available.</p>
       </section>
 
@@ -4137,8 +4227,8 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
           <dfn>Constraints and ConstraintSet</dfn>
         </h3>
 
-        <p>Due to the limitiations of WebIDL, interfaces implementing the
-        Constrainable Pattern cannnot simply subclass Constraints and
+        <p>Due to the limitations of WebIDL, interfaces implementing the
+        Constrainable Pattern cannot simply subclass Constraints and
         ConstraintSet as they are defined here. Instead they must provide
         their own definitions that follow this pattern. See <a
         href="#media-track-constraints"> MediaTrackConstraints</a> for an
@@ -4149,10 +4239,10 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
 
         <p>Each member of a ConstraintSet corresponds to a Capability and
         specifies a subset of its legal values. Applying a ConstraintSet
-        instructs that UA to restrict the setting of the corresponding
+        instructs the UA to restrict the setting of the corresponding
         Capabilities to the specified values or ranges of values. A given
-        property MAY occur both in the basic Constraints set and in the
-        advanced ConstraintSets list, and MAY occur at most once in each
+        property <em class="rfc2119" title="may">may</em> occur both in the basic Constraints set and in the
+        advanced ConstraintSets list, and <em class="rfc2119" title="may">may</em> occur at most once in each
         ConstraintSet in the advanced list.</p>
 
         <dl class="idl" title="dictionary Constraints : ConstraintSet">
@@ -4334,12 +4424,12 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
     <section>
       <h1>Privacy and Security Considerations</h1>
 
-      <p>This section is non-normative; it specifies no new behaviour, but
+      <p>This section is non-normative; it specifies no new behavior, but
       instead summarizes information already present in other parts of the
       specification.</p>
 
       <p>This document extends the Web platform with the ability to manage
-      input devices for media - in this iteration, microphones and cameras. It
+      input devices for media - in this iteration, microphones, and cameras. It
       also allows the manipulation of audio output devices (speakers and
       headphones).</p>
 
@@ -4384,9 +4474,9 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         </ul> </p>
 
       <div class="note">
-        <p>Developers of sites with persistent permissions should be careful that these permissions cannot be abused.</p>
-        <p>In particular, they should not make it possible to automatically send audio or video streams from media devices towards an end point that a third party can define.</p>
-        <p>Indeed, if a site offered URLs such as <code>https://webrtc.example.org/?call=<var>user</var></code> that would automatically set up calls and transmit audio/video to <code><var>user</var></code>, it would be open for instance to the following abuse.</p>
+        <p>Developers of sites with persistent permissions should be careful that these permissions not be abused.</p>
+        <p>In particular, they should not make it possible to automatically send audio or video streams from authorized media devices to an end point that a third party can select.</p>
+        <p>Indeed, if a site offered URLs such as <code>https://webrtc.example.org/?call=<var>user</var></code> that would automatically set up calls and transmit audio/video to <code><var>user</var></code>, it would be open for instance to the following abuse:</p>
         <p>Users who have granted permanent permissions to <code>https://webrtc.example.org/</code> could be tricked to send their audio/video streams to an attacker <code>EvilSpy</code> by following a link or being redirected to <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
       </div>
 
@@ -4446,8 +4536,8 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
               <td>DOMString</td>
 
               <td>The application-unique identifier for this source. The same
-              identifier MUST be valid between sessions of this application,
-              but MUST also be different for other applications. Some sort of
+              identifier <em class="rfc2119" title="must">must</em> be valid between sessions of this application,
+              but <em class="rfc2119" title="must">must</em> also be different for other applications. Some sort of
               GUID is recommended for the identifier. Note that the setting of
               this property is uniquely determined by the source that is
               attached to the Track. In particular, getCapabilities() will
@@ -4533,7 +4623,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
               <td>The exact desired frame rate (frames per second) or
               frameRate range of the video source. If the source does not
               natively provide a frameRate, or the frameRate cannot be
-              determined from the source stream, then this value MUST refer to
+              determined from the source stream, then this value <em class="rfc2119" title="must">must</em> refer to
               the user agent's vsync display rate.</td>
             </tr>
 
@@ -4574,20 +4664,28 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
         <dl class="idl" title="enum VideoFacingModeEnum">
           <dt>user</dt>
 
-          <dd>The source is facing toward the user (a self-view camera).</dd>
+          <dd>
+            <p>The source is facing toward the user (a self-view camera).</p>
+          </dd>
 
           <dt>environment</dt>
 
-          <dd>The source is facing away from the user (viewing the
-          environment).</dd>
+          <dd>
+            <p>The source is facing away from the user (viewing the
+          environment).</p>
+          </dd>
 
           <dt>left</dt>
 
-          <dd>The source is facing to the left of the user.</dd>
+          <dd>
+            <p>The source is facing to the left of the user.</p>
+          </dd>
 
           <dt>right</dt>
 
-          <dd>The source is facing to the right of the user.</dd>
+          <dd>
+            <p>The source is facing to the right of the user.</p>
+          </dd>
         </dl>
 
         <p>Below is an illustration of the video facing modes in relation to
@@ -4621,7 +4719,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
               <td>The volume or volume range of the audio source is a multiplier
               of the linear audio sample values.  A volume of 0.0 is silence,
               while a volume of 1.0 is the maximum supported volume.  A volume
-              of 0.5 will result in an approximately 6 dBspl change in the sound
+              of 0.5 will result in an approximately 6 dB<sub>SPL</sub> change in the sound
               pressure level from the maximum volume.  Note that any
               ConstraintSet that specifies values outside of this range of 0 to
               1 can never be satisfied.</td> </tr>
@@ -4658,7 +4756,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
               <td> When one or more audio streams is being played in the
               processes of various microphones, it is often desirable to attempt
               to remove the sound being played from the input signals recorded
-              by the microphones. This is referred to echo cancellation. There
+              by the microphones. This is referred to as echo cancellation. There
               are cases where it is not needed and it is desirable to turn it
               off so that no audio artifacts are introduced. This allows
               applications to control this behavior. </td>
@@ -4758,7 +4856,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
 
         <li>Bug 25725: getUserMedia constraints should be non-nullable</li>
 
-        <li>Bug 25763: does the ID really have to be exaclty 36 char
+        <li>Bug 25763: does the ID really have to be exactly 36 char
         long?</li>
 
         <li>Bug 24934: invalid definition for the “seekable” attribute when
@@ -4928,7 +5026,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
 
         <li>Removed createObjectURL.</li>
 
-        <li>Bug 22209: Should not use MUST requirements on values provided by
+        <li>Bug 22209: Should not use <em class="rfc2119" title="must">must</em> requirements on values provided by
         the developer.</li>
       </ol>
 
@@ -4991,7 +5089,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
       <h2>May 29, 2013</h2>
 
       <ol>
-        <li>Bug 22252: fixed usage of MUST in MediaStream() constructor
+        <li>Bug 22252: fixed usage of <em class="rfc2119" title="must">must</em> in MediaStream() constructor
         description.</li>
 
         <li>Bug 22215: made MediaStream.ended readonly.</li>
@@ -5171,7 +5269,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
       <h2>Acknowledgements</h2>
 
       <p>The editors wish to thank the Working Group chairs and Team Contact,
-      Harald Alvestrand, Stefan Håkansson and Dominique Hazaël-Massieux, for
+      Harald Alvestrand, Stefan Håkansson, and Dominique Hazaël-Massieux, for
       their support. Substantial text in this specification was provided by
       many people including <!-- tag 1 to reduce merge conflicts when adding names to list  -->
       Jim Barnett, <!-- tag 2 --> Harald Alvestrand, <!-- tag 3 --> Travis
