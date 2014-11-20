@@ -178,6 +178,14 @@
           <p>Source capabilities are effectively constant. Applications should
           be able to depend on a specific source having the same capabilities
           for any session.</p>
+
+          <p>This API is intentionally simplified. Capabilities are not capable
+          of describing interactions between different values. For instance, it
+          is not possible to accurately describe the capabilities of a camera
+          that can produce a high resolution video stream at a low frame rate
+          and lower resolutions at a higher frame rate. Capabilities describe
+          the complete range of each value. Interactions between constraints are
+          exposed by attempting to apply constraints.</p>
         </dd>
 
         <dt>
