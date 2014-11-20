@@ -115,11 +115,12 @@
           can become available when applications are authorized to use a source
           (see <a href="#access-control-model"></a>).</p>
 
-          <p>Sources <strong>do not</strong> have constraints -- tracks have
-          constraints. When a source is connected to a track, it must,
-          possibly in combination with UA processing (e.g., downsampling),
-          conform to the constraints present on that track (or set of
-          tracks).</p>
+          <p>Sources <strong>do not</strong> have constraints &mdash; tracks
+          have constraints. When a source is connected to a track, it must
+          produce media that conforms to the constraints present on that track.
+          Multiple tracks can be attached to the same source.  UA processing,
+          such as downsampling, MAY be used to ensure that all tracks have
+          appropriate media.</p>
 
           <p>Sources are released (un-attached) from a track when the
           track is ended for any reason.</p>
