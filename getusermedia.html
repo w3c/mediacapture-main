@@ -109,15 +109,11 @@
           can be a physical webcam, microphone, local video or audio file from
           the user's hard drive, network resource, or static image.</p>
 
-          <p>Other than the source identifier (defined in
-            <code><a>MediaDeviceInfo</a>.deviceId</code>),
-          other bits of source identity are
-          <strong>never</strong> directly available to the application until
-          the user agent connects a source to a track. Once a source has been
-          "released" to the application (either via a permissions UI,
-          pre-configured allow-list, or some other release mechanism) the
-          application will be able discover additional source-specific
-          capabilities.</p>
+          <p>An application that has no prior authorization regarding sources is
+          only given the number of available sources, their type and any
+          relationship to other devices.  Additional information about sources
+          can become available when applications are authorized to use a source
+          (see <a href="#access-control-model"></a>).</p>
 
           <p>Sources <strong>do not</strong> have constraints -- tracks have
           constraints. When a source is connected to a track, it must,
