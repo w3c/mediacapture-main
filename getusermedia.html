@@ -869,7 +869,7 @@
               <a href="#dom-mediastreamtrack-kind">kind</a>
             </code> and <code>
               <a href="#dom-mediastreamtrack-label">label</a>
-            </code> <em class="rfc2119">must not</em> change values
+            </code> MUST NOT change values
             when the source is detached.</p>
 
           <p>When a <code>
@@ -2738,12 +2738,12 @@
             <p>A unique identifier for the represented device.</p>
 
             <p>All enumerable devices have an identifier
-            that <em class="rfc2119" title="must">must</em> be unique to the
+            that MUST be unique to the
             application and persistent across sessions.  Unique and stable
             identifiers let the application save, identify the availability of,
             and directly request specific sources.</p>
 
-            <p>This identifier <em class="rfc2119">must</em> be un-guessable by
+            <p>This identifier MUST be un-guessable by
             other applications to prevent the identifier being used to correlate
             the same user across different applications.</p>
 
@@ -3433,7 +3433,7 @@
             device, the UA may choose to store that permission, if granted, for later
             use by the same origin, so that the user does not need to
             grant permission again at a later time. Such storing
-            <em class="rfc2119">must</em>
+            MUST
             only be done when the page is secure (served over HTTPS and
             having no mixed content). It is an UA choice whether it
             offers functionality to store permission to each device
@@ -3668,8 +3668,7 @@ if(!supports["width"] || !supports["height"]) {
             <div class="note">
               <p>It is possible that the underlying hardware may not exactly
               map to the range defined in the registry entry. Where this is
-              possible, the entry <em class="rfc2119"
-              title="should">should</em> define how to translate and scale the
+              possible, the entry SHOULD define how to translate and scale the
               hardware's setting onto the values defined in the entry. For
               example, suppose that a registry entry defines a hypothetical
               fluxCapacitance capability that is defined to be the range from
@@ -3705,8 +3704,7 @@ if(!supports["width"] || !supports["height"]) {
             <p>The <dfn>getSettings()</dfn> method returns the current settings
           of all the properties of the object, whether they are platform
           defaults or have been set by <code>applyConstraints()</code>. Note
-          that the actual setting of a property <em class="rfc2119"
-          title="must">must</em> be a single value. </p>
+          that the actual setting of a property MUST be a single value. </p>
           </dd>
 
           <dt>Promise&lt;void&gt; applyConstraints()</dt>
@@ -3764,8 +3762,7 @@ if(!supports["width"] || !supports["height"]) {
               assign them as the settings for the properties of O.</li>
             </ul>
 
-            <p>When <code>applyConstraints</code> is called, the UA <em
-            class="rfc2119" title="must">must</em> run the
+            <p>When <code>applyConstraints</code> is called, the UA MUST run the
             following steps:</p>
 
             <ol>
@@ -3781,10 +3778,8 @@ if(!supports["width"] || !supports["height"]) {
               </li>
 
               <ol>
-              <li>Each constraint <em class="rfc2119"
-              title="must">must</em> specify one or more values (or a range of
-              values) for its property. A property <em class="rfc2119"
-              title="may">may</em> appear more than once in the list of
+              <li>Each constraint MUST specify one or more values (or a range of
+              values) for its property. A property MAY appear more than once in the list of
               'advanced' ConstraintSets. Let <var>requiredConstraints</var> be
               the set of 'min', 'max', and 'exact' constraints appearing in
               <var>newConstraints</var>. Let <var>unorderedConstraints</var>
@@ -3832,8 +3827,7 @@ if(!supports["width"] || !supports["height"]) {
               chooses.)</li>
               <li>Finally, resolve <var>p</var>. From this point on until
               applyConstraints() is called successfully
-              again, getConstraints() <em class="rfc2119"
-              title="must">must</em> return the <var>newConstraints</var> that
+              again, getConstraints() MUST return the <var>newConstraints</var> that
               were passed as an argument to this call. </li>
             </ol>
             <li>
@@ -3841,9 +3835,9 @@ if(!supports["width"] || !supports["height"]) {
             </li>
             </ol>
 
-            <p>The UA <em class="rfc2119" title="may">may</em> choose new
+            <p>The UA MAY choose new
             settings for the Capabilities of the object at any time. When it
-            does so it <em class="rfc2119" title="must">must</em> attempt to
+            does so it MUST attempt to
             satisfy the current Constraints, in the manner described in the
             algorithm above. </p>
           </dd>
@@ -3854,16 +3848,14 @@ if(!supports["width"] || !supports["height"]) {
             <p>This event handler, of type <code>
               <a
               href="#event-constrainable-overconstrained">overconstrained</a></code
-            >, <em class="rfc2119" title="must">must</em> be supported
+            >, MUST be supported
           by all objects implementing the <code>
               <a>ConstrainablePattern</a>
-            </code> pattern. <p>The UA <em class="rfc2119"
-          title="must">must</em> raise a <code>MediaStreamErrorEvent</code>
+            </code> pattern. <p>The UA MUST raise a <code>MediaStreamErrorEvent</code>
           named "overconstrained" if changing circumstances at runtime result
           in it no longer being able to satisfy the
           <var>requiredConstraints</var> from the currently valid Constraints.
-          This MediaStreamErrorEvent <em class="rfc2119"
-          title="must">must</em> contain a MediaStreamError whose
+          This MediaStreamErrorEvent MUST contain a MediaStreamError whose
           <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
@@ -4006,8 +3998,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
         <p>There is a single <a href="#sec-iana">IANA registry</a> that
         defines the constrainable properties of all objects that implement the
-        Constrainable pattern. The registry entries <em class="rfc2119"
-        title="must">must</em> contain the name of each property along with
+        Constrainable pattern. The registry entries
+        MUST contain the name of each property along with
         its set of legal values. The registry entries for MediaStreamTrack are
         defined <a href="#sec-constraints">below</a>. The syntax for the
         specification of the set of legal values depends on the type of the
@@ -4016,7 +4008,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         types, plus min-max ranges, as defined below.</p>
 
 
-        <p>List values <em class="rfc2119" title="must">must</em> be
+        <p>List values MUST be
         interpreted as disjunctions. For example, if a property 'facingMode'
         for a camera is defined as having legal values ["left", "right",
         "user", "environment"], this means that 'facingMode' can have the
@@ -4125,17 +4117,16 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <h3>Capabilities</h3>
 
         <p><dfn>Capabilities</dfn> is a dictionary containing one or more
-        key-value pairs, where each key <em class="rfc2119"
-        title="must">must</em> be a constrainable property defined in the
-        registry, and each value <em class="rfc2119" title="should">must</em>
+        key-value pairs, where each key MUST be a constrainable property
+        defined in the registry, and each value MUST
         be a subset of the set of values defined for that property in the
         registry. The exact syntax of the value expression depends on the type
         of the property, and its type is as defined in the Values column of
         the registry. The Capabilities dictionary specifies the subset of the
         constrainable properties and values from the registry that the UA
-        supports. Note that a UA <em class="rfc2119" title="may">may</em>
+        supports. Note that a UA MAY
         support only a subset of the properties that are defined in the
-        registry, and <em class="rfc2119" title="may">may</em> support a
+        registry, and MAY support a
         subset of the set values for those properties that it does support.
         Note that Capabilities are returned from the UA to the application,
         and cannot be specified by the application. However, the application
@@ -4193,17 +4184,15 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         </h3>
 
         <p><dfn>Settings</dfn> is a dictionary containing one or more
-        key-value pairs. It <em class="rfc2119" title="must">must</em> contain
-        each key returned in <code>getCapabilities()</code>. There <em
-        class="rfc2119" title="must">must</em> be a single value for each key
-        and the value <em class="rfc2119" title="must">must</em> be a member of
+        key-value pairs. It MUST contain
+        each key returned in <code>getCapabilities()</code>. There MUST be a
+        single value for each key and the value MUST be a member of
         the set defined for that property by <code>capabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
         UA has chosen for the object's Capabilities. The exact syntax of the
         value depends on the type of the property.</p>
 
-        <p>A conforming user-agent <em class="rfc2119"
-        title="must">must</em> support all the setting names defined in this
+        <p>A conforming user-agent MUST support all the setting names defined in this
         spec.</p>
 
         <p>An example of a Setting dictionary is shown below. This example is
@@ -4245,16 +4234,15 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dt>sequence&lt;ConstraintSet&gt; advanced</dt>
 
           <dd>
-            <p>The list of ConstraintSets that the UA <em class="rfc2119"
-            title="should">must</em> attempt to satisfy, in order, skipping
-            only those that cannot be satisfied. The order of these
+            <p>The list of ConstraintSets that the UA MUST attempt to satisfy,
+            in order, skipping only those that cannot be satisfied. The order of these
             ConstraintSets is significant. In particular, when they are passed
-            as an argument to <code>applyConstraints</code>, the UA <em
-            class="rfc2119" title="must">must</em> try to satisfy them in the
+            as an argument to <code>applyConstraints</code>, the UA MUST
+            try to satisfy them in the
             order that is specified. Thus if optional ConstraintSets C1 and C2
             can be satisfied individually, but not together, then whichever of
             C1 and C2 is first in this list will be satisfied, and the other
-            will not. The UA <em class="rfc2119" title="must">must</em>
+            will not. The UA MUST
             attempt to satisfy all optional ConstraintSets in the list, even
             if some cannot be satisfied. Thus, in the preceding example, if
             optional constraint C3 is specified after C1 and C2, the UA will
