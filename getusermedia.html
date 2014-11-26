@@ -266,15 +266,13 @@
         of choices regarding synchronization of playback and the effect that
         these have on user perception.</p>
 
-        <p>A <code>
+        <p>A single <code>
             <a>MediaStreamTrack</a>
-          </code> represents content comprising one or more channels, where
-        the channels have a defined well known relationship to each other
-        (such as a stereo or 5.1 audio signal). A channel is the smallest unit
-        considered in this API specification.</p>
-
-        <p>
-          <img alt="A MediaStream" src="images/media-stream.png" width="418" />
+          </code> can represent multi-channel content, such as stereo or 5.1
+        audio or stereoscopic video, where the channels have a well defined
+        relationship to each other.  Information about channels might be exposed
+        through other APIs, such as [[WEBAUDIO]], but this specification
+        provides no direct access to channels.
         </p>
 
         <p>A <code>
