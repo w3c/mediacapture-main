@@ -116,7 +116,7 @@
           <p>Sources <strong>do not</strong> have constraints &mdash; tracks
           have constraints. When a source is connected to a track, it must
           produce media that conforms to the constraints present on that track.
-          Multiple tracks can be attached to the same source.  UA processing,
+          Multiple tracks can be attached to the same source.  User agent processing,
           such as downsampling, MAY be used to ensure that all tracks have
           appropriate media.</p>
 
@@ -339,7 +339,7 @@
           </code> or an array of <code>
             <a>MediaStreamTrack</a>
           </code> objects. <dfn id="mediastream-constructor">When the
-        constructor is invoked</dfn>, the UA must run the following steps:</p>
+        constructor is invoked</dfn>, the user agent must run the following steps:</p>
 
         <ol>
           <li>
@@ -779,7 +779,7 @@
         use a per source reference count to keep track of source usage, but
         the specifics are out of scope for this specification.</p>
 
-        <p>If there is no stored permission to use that source, the UA SHOULD
+        <p>If there is no stored permission to use that source, the user agent SHOULD
         also remove the "permission granted" indicator for the source.</p>
 
         <section>
@@ -882,7 +882,7 @@
               <a href="#dom-mediastreamtrack-stop">stop()</a>
             </code> method on the <code>
               <a>MediaStreamTrack</a>
-            </code> object, or because the UA has instructed the track to end
+            </code> object, or because the user agent has instructed the track to end
           for any reason) it is said to be <dfn
           id="track-ended">ended</dfn>.</p>
 
@@ -948,7 +948,7 @@
               <a>MediaStreamTrack</a>
             </code> to be muted: the user pushing a physical mute button on
           the microphone, the user toggling a control in the operating system,
-          the user clicking a mute button in the browser chrome, the UA (on
+          the user clicking a mute button in the browser chrome, the user agent (on
           behalf of the user) mutes, etc.</p>
 
           <p><dfn id="track-enabled">Enabled/disabled</dfn> on the other hand
@@ -1695,7 +1695,7 @@
       <section>
         <h3>Direct Assignment to Media Elements</h3>
 
-        <p>UAs that support this specification MUST support the following
+        <p>User agents that support this specification MUST support the following
         partial interface, which allows a MediaStream to be assigned directly
         to a media element.</p>
 
@@ -1706,10 +1706,10 @@
             <p>Holds the MediaStream that provides media for this element.
             This attribute overrides both the <code>src</code> attribute and
             any &lt;source&gt; elements. Specifically, if
-            <code>srcObject</code> is specified, the UA MUST use it as the
+            <code>srcObject</code> is specified, the user agent MUST use it as the
             source of media, even if the <code>src</code> attribute is also
             set or &lt;source&gt; children are present. If the value of
-            <code>srcObject</code> is replaced or set to null the UA MUST
+            <code>srcObject</code> is replaced or set to null the user agent MUST
             re-run the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
             media element load algorithm</a></p>
@@ -1723,7 +1723,7 @@
       <section>
         <h3>Loading and Playing a MediaStream in a Media Element</h3>
 
-        <p>The UA runs the <a
+        <p>The user agent runs the <a
         href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
         media element load algorithm</a> to obtain media for the media element
         to display. As defined in the [[HTML5]] specification, this algorithm
@@ -1737,7 +1737,7 @@
         <code>srcObject</code> takes priority over other means of specifying
         the resource, and it provides the object itself rather than a URI.
         Therefore, there is no need to run the resource selection algorithm.
-        Secondly, when the UA reaches the resource fetch algorithm with a
+        Secondly, when the user agent reaches the resource fetch algorithm with a
         MediaStream, the MediaStream is a local object so there's nothing to
         fetch. Therefore, the following modifications/restrictions to the <a
         href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
@@ -1748,7 +1748,7 @@
             <p>Whenever the user agent runs the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
             media element load algorithm</a>, if <code>srcObject</code> is
-            specified, the UA must immediately go to the <a
+            specified, the user agent must immediately go to the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#concept-media-load-resource">
             resource fetch phase</a> of the algorithm.</p>
           </li>
@@ -1773,11 +1773,11 @@
             <p>For each <code>
                 <a>MediaStreamTrack</a>
               </code> in the <code>
-                <a>MediaStream</a></code
-              >, including those that are added after the UA enters the
+                <a>MediaStream</a>
+              </code>, including those that are added after the user agent enters the
             <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
-            media element load algorithm</a>, the UA MUST create a
+            media element load algorithm</a>, the user agent MUST create a
             corresponding <code>
                 <a
                 href="http://www.w3.org/TR/html5/embedded-content-0.html#audiotrack">AudioTrack</a>
@@ -1841,7 +1841,7 @@
             <code>AudioTrack.enabled</code>, <code>VideoTrack.selected</code>
             and <code>VideoTrackList.selectedIndex</code> accordingly.</p>
 
-            <p>(Note that since the MediaStream is potentially endless, the UA
+            <p>(Note that since the MediaStream is potentially endless, the user agent
             does not exit the <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#media-element-load-algorithm">
             media element load algorithm</a> until the MediaStream moves from
@@ -1860,13 +1860,13 @@
           </li>
 
           <li>
-            <p>The UA MUST NOT buffer data from a MediaStream. When playing,
-            the UA MUST always play the current data from the stream.</p>
+            <p>The user agent MUST NOT buffer data from a MediaStream. When playing,
+            the user agent MUST always play the current data from the stream.</p>
           </li>
 
           <li>
             <p>When the MediaStream state moves from the active to the <a
-            href="#stream-inactive">inactive</a> state, the UA MUST raise an
+            href="#stream-inactive">inactive</a> state, the user agent MUST raise an
             <a
             href="http://www.w3.org/TR/html5/embedded-content-0.html#event-media-ended">
             ended</a> event on the media element and set its <a
@@ -1922,7 +1922,7 @@
 
               <td>the empty string</td>
 
-              <td>When <code>srcObject</code> is specified the UA MUST set
+              <td>When <code>srcObject</code> is specified the user agent MUST set
               this to the empty string.</td>
             </tr>
 
@@ -2197,10 +2197,8 @@
 
           <dt>readonly attribute DOMString? message</dt>
 
-          <dd>
-            <p>A UA-dependent string offering extra human-readable information
-            about the error.</p>
-          </dd>
+          <dd><p>A user agent-dependent string offering extra human-readable information
+            about the error.</p></dd>
 
           <dt>readonly attribute DOMString? constraintName</dt>
 
@@ -2936,7 +2934,7 @@
         </div>
 
         <p>The <code>getSupportedConstraints</code> method is provided to
-        allow the application to determine which constraints the User Agent
+        allow the application to determine which constraints the user agent
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
@@ -2944,10 +2942,10 @@
 
           <dd>
             <p>Returns a dictionary whose members are the constraint keys
-            known to the User Agent for the kind given as argument. A
+            known to the user agent for the kind given as argument. A
             supported constraint MUST be represented by a member whose name is
             the constraint name and whose value is <code>true</code>. Any
-            constraint names not supported by the User Agent MUST not be
+            constraint names not supported by the user agent MUST not be
             present in the returned dictionary.</p>
           </dd>
 
@@ -3299,7 +3297,7 @@
         <h2>MediaStreamConstraints</h2>
 
         <p>The <code>MediaStreamConstraints</code> dictionary is used to
-        instruct the UA what sort of <a>MediaStreamTrack</a>s to include in
+        instruct the user agent what sort of <a>MediaStreamTrack</a>s to include in
         the <a>MediaStream</a> returned by <a>getUserMedia()</a>.</p>
 
         <dl class="idl" title="dictionary MediaStreamConstraints">
@@ -3413,12 +3411,12 @@
           <span id="stored-permissions" class="practicelab">Stored
             Permissions</span>
           <p class="practicedesc">When permission is requested for a
-            device, the UA may choose to store that permission, if granted, for later
+            device, the user agent may choose to store that permission, if granted, for later
             use by the same origin, so that the user does not need to
             grant permission again at a later time. Such storing
             MUST
             only be done when the page is secure (served over HTTPS and
-            having no mixed content). It is an UA choice whether it
+            having no mixed content). It is an user agent choice whether it
             offers functionality to store permission to each device
             separately, all devices of a given class, or all devices; the
             choice needs to be apparent to the user.</p>
@@ -3490,16 +3488,16 @@
       constraints in the basic Constraint structure are together treated as
       the 'required' set, and if it is not possible to satisfy simultaneously
       all of those individual constraints for the indicated property names,
-      the UA MUST reject the returned promise. Otherwise, it must
+      the user agent MUST reject the returned promise. Otherwise, it must
       apply the required constraints. Next, it will consider any
       ConstraintSets given in the 'advanced' list, in the order in which they
       are specified, and will try to satisfy/apply each complete ConstraintSet
       (i.e., all constraints in the ConstraintSet together), but will skip a
       ConstraintSet if and only if it cannot satisfy/apply it in its entirety.
-      Next, the UA MUST attempt to apply, individually, any 'ideal' constraints
+      Next, the user agent  MUST attempt to apply, individually, any 'ideal' constraints
       or a constraint given as a bare value for the property. Of these
       properties, it MUST satisfy the largest number that it can, in any
-      order. Finally, the UA MUST resolve the returned promise.</p>
+      order. Finally, the user agent MUST resolve the returned promise.</p>
 
       <p>Important note: If JavaScript applications using this API want the
       attributes in the constraints to be used by the browser, the JavaScript
@@ -3516,7 +3514,7 @@
 
       <p>The following examples may help to understand how constraints work.
       The first shows a basic Constraint structure. Three constraints are
-      given, each of which the UA will attempt to satisfy individually.
+      given, each of which the user agent will attempt to satisfy individually.
       Depending upon the resolutions available for this camera, it is possible
       that not all three constraints can be satisfied at the same time. If so,
       the user agent will satisfy two if it can, or only one if not even two
@@ -3595,15 +3593,15 @@ if(!supports["width"] || !supports["height"]) {
       the same property. For example, an application might specify three
       optional ConstraintSets, the first asking for a framerate greater than
       500, the second asking for a framerate greater than 400, and the third
-      asking for one greater than 300. If the UA is capable of setting a
+      asking for one greater than 300. If the user agent is capable of setting a
       framerate greater than 500, it will (and the subsequent two
-      ConstraintSets will be trivially satisfied). However, if the UA cannot
+      ConstraintSets will be trivially satisfied). However, if the user agent cannot
       set the framerate above 500, it will skip that ConstraintSet and attempt
       to set the framerate above 400. If that fails, it will then try to set
-      it above 300. If the UA cannot satisfy any of the three ConstraintSets,
+      it above 300. If the user agent cannot satisfy any of the three ConstraintSets,
       it will set the framerate to any value it can get. If the developer
       wanted to insist on 300 as a lower bound, he could provide that as a
-      'min' value in the basic ConstraintSet. In that case, the UA would fail
+      'min' value in the basic ConstraintSet. In that case, the user agent would fail
       altogether if it couldn't get a value over 300, but would choose a value
       over 500 if possible, then try for a value over 400.</p>
 
@@ -3617,7 +3615,7 @@ if(!supports["width"] || !supports["height"]) {
       application may inspect the full set of Constraints currently in effect
       via the <code>getConstraints()</code> accessor.</p>
 
-      <p>The specific value that the UA chooses for a Capability is referred
+      <p>The specific value that the user agent chooses for a Capability is referred
       to as a Setting. For example, if the application applies a ConstraintSet
       specifying that the framerate must be at least 30 frames per second, and
       no greater than 40, the Setting can be any intermediate value, e.g., 32,
@@ -3745,7 +3743,7 @@ if(!supports["width"] || !supports["height"]) {
               assign them as the settings for the properties of O.</li>
             </ul>
 
-            <p>When <code>applyConstraints</code> is called, the UA MUST run the
+            <p>When <code>applyConstraints</code> is called, the user agent MUST run the
             following steps:</p>
 
             <ol>
@@ -3806,7 +3804,7 @@ if(!supports["width"] || !supports["height"]) {
               from <var>object</var>, apply <var>successfulConstraints</var>,
               then apply the largest subset of <var>unorderedConstraints</var>
               that can be satisfied. (If more than one 'largest subset' can be
-              satisfied, the UA is free to select which 'largest subset' it
+              satisfied, the user agent is free to select which 'largest subset' it
               chooses.)</li>
               <li>Finally, resolve <var>p</var>. From this point on until
               applyConstraints() is called successfully
@@ -3818,7 +3816,7 @@ if(!supports["width"] || !supports["height"]) {
             </li>
             </ol>
 
-            <p>The UA MAY choose new
+            <p>The user agent MAY choose new
             settings for the Capabilities of the object at any time. When it
             does so it MUST attempt to
             satisfy the current Constraints, in the manner described in the
@@ -3834,7 +3832,7 @@ if(!supports["width"] || !supports["height"]) {
             >, MUST be supported
           by all objects implementing the <code>
               <a>ConstrainablePattern</a>
-            </code> pattern. <p>The UA MUST raise a <code>MediaStreamErrorEvent</code>
+            </code> pattern. <p>The user agent MUST raise a <code>MediaStreamErrorEvent</code>
           named "overconstrained" if changing circumstances at runtime result
           in it no longer being able to satisfy the
           <var>requiredConstraints</var> from the currently valid Constraints.
@@ -3847,7 +3845,7 @@ if(!supports["width"] || !supports["height"]) {
           which this error might occur are platform and application-specific.
           For example, the user might physically manipulate a camera in a way
           that makes it impossible to provide a resolution that satisfies the
-          constraints. The UA MAY take other actions as a result of the
+          constraints. The user agent MAY take other actions as a result of the
           overconstrained situation.</p> </p>
           </dd>
         </dl>
@@ -3997,11 +3995,11 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         "user", "environment"], this means that 'facingMode' can have the
         values "left", "right", "environment", and
         "user". Similarly <a>Constraints</a> restricting 'facingMode' to
-        ["user", "left", "right"] would mean that the UA should select a
+        ["user", "left", "right"] would mean that the user agent should select a
         camera (or point the camera, if that is possible) so that "facingMode"
         is either "user", "left", or "right". This Constraint would thus
         request that the camera not be facing away from the user, but would
-        allow the UA to allow the user to choose other directions.</p>
+        allow the user agent to allow the user to choose other directions.</p>
 
         <dl class="idl" title="dictionary ConstrainDoubleRange">
           <dt>double max</dt>
@@ -4106,14 +4104,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         registry. The exact syntax of the value expression depends on the type
         of the property, and its type is as defined in the Values column of
         the registry. The Capabilities dictionary specifies the subset of the
-        constrainable properties and values from the registry that the UA
-        supports. Note that a UA MAY
+        constrainable properties and values from the registry that the user agent
+        supports. Note that a user agent MAY
         support only a subset of the properties that are defined in the
         registry, and MAY support a
         subset of the set values for those properties that it does support.
-        Note that Capabilities are returned from the UA to the application,
+        Note that Capabilities are returned from the user agent to the application,
         and cannot be specified by the application. However, the application
-        can control the Settings that the UA chooses for Capabilities by means
+        can control the Settings that the user agent chooses for Capabilities by means
         of Constraints.</p>
 
         <p>An example of a Capabilities dictionary is shown below. This
@@ -4134,7 +4132,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         range values provide ranges for individual constrainable
         properties, not combinations.  This is particularly relevant
         for video width and height, since the ranges for width and
-        height are reported separately.  In the example, if the UA can
+        height are reported separately.  In the example, if the user agent can
         only provide 640x480 and 800x600 resolutions the relevant
         capabilities returned would be:</p>
 
@@ -4172,7 +4170,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         single value for each key and the value MUST be a member of
         the set defined for that property by <code>capabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
-        UA has chosen for the object's Capabilities. The exact syntax of the
+        user agent has chosen for the object's Capabilities. The exact syntax of the
         value depends on the type of the property.</p>
 
         <p>A conforming user-agent MUST support all the setting names defined in this
@@ -4207,7 +4205,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
         <p>Each member of a ConstraintSet corresponds to a Capability and
         specifies a subset of its legal values. Applying a ConstraintSet
-        instructs the UA to restrict the setting of the corresponding
+        instructs the user agent to restrict the setting of the corresponding
         Capabilities to the specified values or ranges of values. A given
         property MAY occur both in the basic Constraints set and in the
         advanced ConstraintSets list, and MAY occur at most once in each
@@ -4217,18 +4215,18 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dt>sequence&lt;ConstraintSet&gt; advanced</dt>
 
           <dd>
-            <p>The list of ConstraintSets that the UA MUST attempt to satisfy,
+            <p>The list of ConstraintSets that the user agent MUST attempt to satisfy,
             in order, skipping only those that cannot be satisfied. The order of these
             ConstraintSets is significant. In particular, when they are passed
-            as an argument to <code>applyConstraints</code>, the UA MUST
+            as an argument to <code>applyConstraints</code>, the user agent MUST
             try to satisfy them in the
             order that is specified. Thus if optional ConstraintSets C1 and C2
             can be satisfied individually, but not together, then whichever of
             C1 and C2 is first in this list will be satisfied, and the other
-            will not. The UA MUST
+            will not. The user agent MUST
             attempt to satisfy all optional ConstraintSets in the list, even
             if some cannot be satisfied. Thus, in the preceding example, if
-            optional constraint C3 is specified after C1 and C2, the UA will
+            optional constraint C3 is specified after C1 and C2, the user agent will
             attempt to satisfy C3 even though C2 cannot be satisfied. Note
             that a given property name may occur only once in each
             ConstraintSet but may occur in more than one ConstraintSet.</p>
@@ -4423,7 +4421,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>It is possible to use constraints so that the failure of a
       getUserMedia call will return information about devices on the system
       without prompting the user, which increases the surface available for
-      fingerprinting. The UA should consider limiting the rate at which failed
+      fingerprinting. The user agent should consider limiting the rate at which failed
       getUserMedia calls are allowed in order to limit this additional
       surface.</p>
 
@@ -4431,7 +4429,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       easy to find the list of granted permissions and revoke permissions that
       the user wishes to revoke.</p>
 
-      <p>Once permission has been granted, the UA should make two things
+      <p>Once permission has been granted, the user agent should make two things
       readily apparent to the user: <ul>
           <li>That the page has access to the devices for which permission is
           given</li>
