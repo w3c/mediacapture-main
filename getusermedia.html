@@ -136,10 +136,10 @@
           get back the same answer).</p>
         </dd>
 
-        <dt> <a href="#settings">Setting</a> (Source Setting) </dt>
+        <dt>Setting (Source Setting) </dt>
 
         <dd>
-          <p>A setting refers to the immediate, current value of the source's
+          <p>A <a href="#settings">setting</a> refers to the immediate, current value of the source's
           (optionally constrained) capabilities. Settings are always
           read-only.</p>
 
@@ -156,12 +156,10 @@
           exposure.</p>
         </dd>
 
-        <dt>
-          <a>Capabilities</a>
-        </dt>
+        <dt>Capabilities</dt>
 
         <dd>
-          <p>Source capabilities are the intrinsic "features" of a source
+          <p>Source <a>capabilities</a> are the intrinsic "features" of a source
           object. For each source setting, there is a corresponding capability
           that describes whether it is supported by the source and if so, what
           the range of supported values are. As with settings, capabilities
@@ -4102,7 +4100,7 @@ var gotten = navigator.mediaDevices.getUserMedia({"video": {
           Settings
         </h3>
 
-        <p>Settings is a dictionary containing one or more
+        <p><dfn>Settings</dfn> is a dictionary containing one or more
         key-value pairs. It <em class="rfc2119" title="must">must</em> contain
         each key returned in <code>getCapabilities()</code>. There <em
         class="rfc2119" title="must">must</em> be a single value for each key
