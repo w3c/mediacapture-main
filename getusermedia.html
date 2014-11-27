@@ -352,46 +352,36 @@
           </li>
 
           <li>
-            <p>If the constructor's argument is present, run the sub steps
-            that corresponds to the argument type.</p>
+            <p>If the constructor's argument is present, construct a set of
+            tracks, <var>tracks</var> based on the type of argument:</p>
 
             <ul>
               <li>
-                <p><code>Array</code> of <code>
-                    <a>MediaStreamTrack</a>
-                  </code> objects:</p>
+                <p>A <code><a>MediaStream</a></code> object:</p>
 
-                <p>Run the following sub steps for each <code>
-                    <a>MediaStreamTrack</a>
-                  </code> in the array:</p>
-
-                <ol>
-                  <li>
-                    <p><em>Add track</em>: Let <var>track</var> be the <code>
-                        <a>MediaStreamTrack</a>
-                      </code> about to be processed.</p>
-                  </li>
-
-                  <li>
-                    <p>Add <var>track</var> to <var>stream</var>'s <a
-                    href="#track-set">track set</a>.</p>
-                  </li>
-                </ol>
+                <p>Let <var>tracks</var> be a set containing all
+                the <code><a>MediaStreamTrack</a></code> objects in
+                the <code><a>MediaStream</a></code> <a href="#track-set">track
+                set</a>.</p>
               </li>
 
               <li>
-                <p><code>
-                    <a>MediaStream</a>
-                  </code>:</p>
+                <p>A sequence of <code><a>MediaStreamTrack</a></code>
+                objects:</p>
 
-                <p>Run the sub steps labeled <em>Add track</em> (above) for
-                every <code>
-                    <a>MediaStreamTrack</a>
-                  </code> in the argument stream's <a href="#track-set">track
-                set</a>.</p>
+                <p>Let <var>tracks</var> be a set containing all
+                the <code><a>MediaStreamTrack</a></code> objects in the provided
+                sequence.</p>
               </li>
             </ul>
           </li>
+
+          <li>
+            <p>Run the steps
+            for <code><a href="#widl-MediaStream-addTrack-void-MediaStreamTrack-track">addTrack</a></code>
+            on <var>stream</var> for each <code><a>MediaStreamTrack</a></code>
+            in <var>tracks</var>.</p>
+         </li>
 
           <li>
             <p>If <var>stream</var>'s <a href="#track-set">track set</a> is
