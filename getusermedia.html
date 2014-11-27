@@ -145,10 +145,13 @@
 
           <p>A source's settings can change dynamically over time due to
           environmental conditions, sink configurations, or constraint
-          changes. A source's settings must always conform to the current set
-          of mandatory constraints defined by all of the tracks to which it is
-          bound, and should do its best to conform to the set of optional
-          constraints specified.</p>
+          changes. A source's settings must always conform to the current set of
+          mandatory constraints on all attached tracks.  A source that cannot
+          conform to mandatory constraints causes affected tracks to become
+          <a>overconstrained</a> and therefore <a>muted</a>.  A <a>user
+          agent</a> attempts to ensure that sources adhere to optional
+          constraints as closely as possible,
+          see <a href="#constrainable-interface"></a>.</p>
 
           <p>Although settings are a property of the source, they are only
           exposed to the application through the tracks attached to the
