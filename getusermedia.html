@@ -436,15 +436,13 @@
           </code> consumers must be able to handle tracks being added and
         removed. This behavior is specified per consumer.</p>
 
-        <p>A <code>
-            <a>MediaStream</a>
-          </code> object is said to be <dfn
-        id="stream-inactive">MediaStream.inactive</dfn> when it does not have
-        any tracks or all tracks belonging to the stream have <a
-        href="#track-ended">ended</a>. Otherwise the stream is active. A <code>
-            <a>MediaStream</a>
-          </code> can start its life as inactive if it is constructed without
-        any tracks.</p>
+        <p>A <code><a>MediaStream</a></code> object is said to
+        be <dfn id="stream-active">active</dfn> when it has at least
+        one <code><a>MediaStreamTrack</a></code> that has
+        not <a href="#track-ended">ended</a>.  A <code><a>MediaStream</a></code>
+        that does not have any tracks or only has tracks that
+        are <a href="#track-ended">ended</a>
+        is <dfn id="stream-inactive">inactive</dfn>.</p>
 
         <p>When a <code>
             <a>MediaStream</a>
