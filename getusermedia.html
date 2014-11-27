@@ -307,12 +307,14 @@
             <a>MediaStream</a>
           </code> and <code>
             <a>MediaStreamTrack</a>
-          </code> objects can be cloned. This allows for greater control since
-        the separate instances can be manipulated and <a
-        title="consumer">consumed</a> individually. A cloned <code>
+          </code> objects can be cloned. A cloned <code>
             <a>MediaStream</a>
           </code> contains clones of all member tracks from the original
-        stream.</p>
+        stream.  A cloned <code><a>MediaStreamTrack</a></code> has a
+        <a href="#constrainable-interface">set of constraints</a> that is
+        independent of the instance it is cloned from, which allows media
+        from the same source to have different constraints applied for
+        different <a>consumer</a>s.</p>
 
         <p>When a <code>
             <a>MediaStream</a>
