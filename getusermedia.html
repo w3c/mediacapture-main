@@ -2715,8 +2715,8 @@
       <section>
         <h2>Device Info</h2>
 
-        <dl class="idl" title="dictionary MediaDeviceInfo">
-          <dt>DOMString deviceId</dt>
+        <dl class="idl" title="interface MediaDeviceInfo">
+          <dt>readonly attribute DOMString deviceId</dt>
 
           <dd>
             <p>A unique identifier for the represented device.</p>
@@ -2739,21 +2739,21 @@
             identifiers when other persistent storages are cleared.</p>
           </dd>
 
-          <dt>MediaDeviceKind kind</dt>
+          <dt>readonly attribute MediaDeviceKind kind</dt>
 
           <dd>
             <p>Describes the kind of the represented device.</p>
           </dd>
 
-          <dt>DOMString label</dt>
+          <dt>readonly attribute DOMString? label</dt>
 
           <dd>
             <p>A label describing this device (for example "External USB
             Webcam"). If the device has no associated label, then this
-            dictionary member MUST return the empty string.</p>
+            attribute MUST return the empty string.</p>
           </dd>
 
-          <dt>DOMString groupId</dt>
+          <dt>readonly attribute DOMString? groupId</dt>
 
           <dd>
             <p>Returns the group identifier of the represented device. Two
