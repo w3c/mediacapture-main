@@ -105,7 +105,9 @@
           <p>A source is the "thing" providing the source of a media stream
           track. The source is the broadcaster of the media itself. A source
           can be a physical webcam, microphone, local video or audio file from
-          the user's hard drive, network resource, or static image.</p>
+          the user's hard drive, network resource, or static image. Note that this
+          document describes the use of microphone and camera type sources only, the
+          use of other source types is described in other documents.</p>
 
           <p>An application that has no prior authorization regarding sources is
           only given the number of available sources, their type and any
@@ -317,15 +319,6 @@
         from the same source to have different constraints applied for
         different <a>consumer</a>s.</p>
 
-        <p>When a <code>
-            <a>MediaStream</a>
-          </code> object is being generated from a local file (as opposed to a
-        live audio/video source), the User Agent SHOULD stream the data from
-        the file in real time, rather than sending the entire file immediately. The <code>MediaStream</code>
-        object is also used in contexts outside <code>getUserMedia</code>,
-        such as [[WEBRTC10]]. In both cases, ensuring a realtime stream
-        reduces the ease with which pages can distinguish live video from
-        pre-recorded video, which can help protect the user's privacy.</p>
       </section>
 
       <section>
@@ -766,11 +759,9 @@
         the given permission for that source is revoked and the source is <dfn
         id="source-stopped">stopped</dfn>. If the data is being generated from
         a live source (e.g., a microphone or camera), then the User Agent
-        SHOULD remove any active "on-air" indicator for that source. If the
-        data is being generated from a prerecorded source (e.g. a video file),
-        any remaining content in the file is ignored. An implementation may
-        use a per source reference count to keep track of source usage, but
-        the specifics are out of scope for this specification.</p>
+        SHOULD remove any active "on-air" indicator for that source. An
+        implementation may use a per source reference count to keep track of
+        source usage, but the specifics are out of scope for this specification.</p>
 
         <p>If there is no stored permission to use that source, the User Agent SHOULD
         also remove the "permission granted" indicator for the source.</p>
@@ -869,8 +860,6 @@
               <a>MediaStreamTrack</a>
             </code> object ends for any reason (e.g., because the user
           rescinds the permission for the page to use the local camera, or
-          because the data comes from a finite file and the file's end has
-          been reached and the user has not requested that it be looped, or
           because the application invoked the <code>
               <a href="#dom-mediastreamtrack-stop">stop()</a>
             </code> method on the <code>
@@ -1124,9 +1113,8 @@
             <dt>readonly attribute boolean _readonly</dt>
 
             <dd>
-              <p>If the track (audio or video) is backed by a read-only source
-            such as a file, or the track source is a local microphone or
-            camera, but is shared so that constraints applied to the track
+              <p>If the track (audio or video) source is a local microphone or
+            camera that is shared so that constraints applied to the track
             cannot modify the source's settings, the <dfn
                 id="dom-mediastreamtrack-readonly">
                 <code>readonly</code>
@@ -2587,7 +2575,6 @@
             input and output devices if enumeration is successful.</p>
 
             <p>Camera and microphone sources <em class="rfc2119">should</em> be
-            enumerable.  Local file sources <em class="rfc2119">must not</em> be
             enumerable.  Specifications that add additional types of source will
             provide recommendations about whether the source type should be
             enumerable.</p>
