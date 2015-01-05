@@ -454,9 +454,11 @@
             <a href="#event-mediastream-active">active</a>
           </code> at the object.</p>
 
-        <p>If the stream's activity status changed due to a user request, the
+        <p>If the stream's activity status changed programmatically by the
+        script (for example by calling <code><a href=
+        "#dom-mediastream-addtrack">addTrack()</a></code>), the
         task source for this <span title="concept-task">task</span> is the
-        user interaction task source. Otherwise the task source for this <span
+        DOM manipulation task source. Otherwise the task source for this <span
         title="concept-task">task</span> is the networking task source.</p>
 
         <dl class="idl" title="interface MediaStream : EventTarget">
