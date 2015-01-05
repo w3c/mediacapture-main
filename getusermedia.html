@@ -565,15 +565,12 @@
           <dt>MediaStreamTrack? getTrackById(DOMString trackId)</dt>
 
           <dd>
-            <p>The <dfn id="dom-mediastream-gettrackbyid">
-                <code>getTrackById()</code>
-              </dfn> method MUST return the first <code>
-                <a>MediaStreamTrack</a>
-              </code> object in this stream's <a href="#track-set">track
-            set</a> whose <code>
-                <a href="#dom-mediastreamtrack-id">id</a>
-              </code> is equal to <var>trackId</var>. The method MUST return
-            null if none of the tracks match the <var>trackId</var> argument.</p>
+            <p>The <dfn id=
+            "dom-mediastream-gettrackbyid"><code>getTrackById()</code></dfn>
+            method MUST return either a <code><a>MediaStreamTrack</a></code>
+            object from this stream's <a href="#track-set">track set</a> whose
+            <code><a href="#dom-mediastreamtrack-id">id</a></code> is equal to
+            <var>trackId</var>, or null, if no such track exists.</p>
           </dd>
 
           <dt>void addTrack(MediaStreamTrack track)</dt>
