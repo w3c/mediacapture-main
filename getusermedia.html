@@ -4365,7 +4365,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       also allows the manipulation of audio output devices (speakers and
       headphones).</p>
 
-      <p>Without authorization (to the “drive-by web”), it offers the ability
+      <p>Without authorization (to the "drive-by web"), it offers the ability
       to tell how many devices there are of each class. The identifiers for
       the devices are designed to not be useful for a fingerprint that can
       track the user between origins, but the number of devices adds to the
@@ -4381,9 +4381,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
       <p>Authorization may be given on a case-by-case basis, or be persistent.
       In the case of a case-by-case authorization, it is important that the
-      user be able to say “no” in a way that prevents the UI from blocking
+      user be able to say "no" in a way that prevents the UI from blocking
       user interaction until permission is given - either by offering a way to
-      say a “persistent NO” or by not using a modal permissions dialog.</p>
+      say a "persistent NO" or by not using a modal permissions dialog.</p>
 
       <p>It is possible to use constraints so that the failure of a
       getUserMedia call will return information about devices on the system
@@ -4392,7 +4392,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       getUserMedia calls are allowed in order to limit this additional
       surface.</p>
 
-      <p>In the case of persistent authorization, it is important that it’s
+      <p>In the case of persistent authorization, it is important that it is
       easy to find the list of granted permissions and revoke permissions that
       the user wishes to revoke.</p>
 
@@ -4764,7 +4764,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
         <li>Define algorithm for processing non-required constraints.</li>
 
-        <li>Bug 24933: deviceId is not registered as constraints, so apps can’t
+        <li>Bug 24933: deviceId is not registered as constraints, so apps can't
         choose device based on the device enumeration</li>
 
         <li>Bug 25609: MediaStreamErrorEvent is incomplete</li>
@@ -4822,7 +4822,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <li>Bug 25763: does the ID really have to be exactly 36 char
         long?</li>
 
-        <li>Bug 24934: invalid definition for the “seekable” attribute when
+        <li>Bug 24934: invalid definition for the "seekable" attribute when
         MediaStream is set to srcObject.</li>
 
         <li>Removed MediaStreamTrack new state (sourceType none removed as a
