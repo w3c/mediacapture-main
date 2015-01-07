@@ -3029,7 +3029,6 @@
 		      its source.</p>
 		    <p>Call this set of tracks the <var>candidateSet</var>.
 		  </li>
-		  <li>
                   <li>If the value of the <var>T</var> entry of
                   <var>constraints</var> is "true", set CS to the empty
 		  constraint set (no constraint). Otherwise, continue with
@@ -3037,24 +3036,25 @@
                   set to the value of the <var>T</var> entry of
                   <var>constraints</var>.</li>
 
-		  <li><p>Run the <code><a>applyConstraint</a></code> algorithm
-		    on each track in <var>CandidateSet</var>. If the algorithm
-		    does not return an error, add the track to <var>finalSet</var>.
-		    This results in a single choice of configuration for each
-		    possible device, and eliminates devices unable to
+		  <li><p>Run
+		      the <code><a>applyConstraints()</a></code>
+		      algorithm on each track
+		      in <var>CandidateSet</var>. If the algorithm 
+		      does not return an error, add the track to
+		      <var>finalSet</var>.
+		      This results in a single choice of configuration for each
+		      possible device, and eliminates devices unable to
 		      satisfy the constraints.</p>
 		  </li>
+                  </ol>
 
-                   <p>If <var>finalSet</var> is the empty set,
-                   let <var>error</var> be a
-                   new <code><a>MediaStreamError</a> </code> object
-                   whose <code><a>name</a></code> attribute has the
-                   value <code>NotFoundError</code> and jump to the
-                   step labeled <em>Error Task</em> below.</p>
-                  </li>
-               
-                </ol>
-              </li>
+                  <p>If <var>finalSet</var> is the empty set,
+                    let <var>error</var> be a
+                    new <code><a>MediaStreamError</a> </code> object
+                    whose <code><a>name</a></code> attribute has the
+                    value <code>NotFoundError</code> and jump to the
+                    step labeled <em>Error Task</em> below.</p>
+                             </li>
 
               <li>
                 <p>Optionally, e.g., based on a previously-established user
@@ -3079,8 +3079,11 @@
                   </code> MUST not change.</p>
 
 		<p>The user agent MAY use the value of the computed "fitness
-		  distance" from the applyConstraints algorithm as an input
-		  to the selection algorithm.</p>
+		  distance" from the applyConstraints algorithm, or
+		  any other internally-availble information about the
+		  devices, as an input
+		  to the selection algorithm.
+		</p>
 
                 <p>User Agents are encouraged to default to using the user's
                 primary or system default camera and/or microphone (when
@@ -3755,11 +3758,21 @@ if(!supports["width"] || !supports["height"]) {
               <p>Return <var>p</var>.</p>
             </li>
             </ol>
-
-	<p>Note: Any implementation that has the same result as the algorithm
+	      <div class="note">
+	<p>Any implementation that has the same result as the algorithm
 	  above is an allowed implementation. For instance, the implementation
 	  may choose to keep track of permitted ranges for settings rather than
 	  keeping track of all possible combinations.</p>
+</div>
+	      <div class="note">
+		<p>When picking a setting set, the UA can use
+		any information available to it. Examples of such
+		information may be whether the selection is done as
+		part of device selection in getUserMedia, whether the
+		energy usage of the camera varies between the setting
+		sets, or whether a setting set will cause the device
+		driver to apply resampling.</p>
+		</div>
 
             <p>The User Agent MAY choose new
             settings for the Capabilities of the object at any time. When it
