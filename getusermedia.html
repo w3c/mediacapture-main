@@ -3470,18 +3470,20 @@
       properties, it MUST satisfy the largest number that it can, in any
       order. Finally, the User Agent MUST resolve the returned promise.</p>
 
-      <p>Important note: If JavaScript applications using this API want the
-      attributes in the constraints to be used by the browser, the JavaScript
-      code has to first check, via <code>getSupportedConstraints()</code>,
-      that all the named properties that are used are supported by the
-      browser. The reason for this is that WebIDL drops any unsupported names
-      from the dictionary holding the constraints, so the browser does not see
-      them and the unsupported names end up being silently ignored. This will
-      cause confusing programming errors as the JavaScript code will be
-      setting constraints but the browser will be ignoring them. Browsers that
-      support (recognize) the name of a required constraint but cannot satisfy
-      it will generate an error, while browsers that do not support the given
-      name of the constraint will not generate an error. </p>
+      <div class="note">
+        If JavaScript applications using this API want the
+        attributes in the constraints to be used by the browser, the JavaScript
+        code has to first check, via <code>getSupportedConstraints()</code>,
+        that all the named properties that are used are supported by the
+        browser. The reason for this is that WebIDL drops any unsupported names
+        from the dictionary holding the constraints, so the browser does not see
+        them and the unsupported names end up being silently ignored. This will
+        cause confusing programming errors as the JavaScript code will be
+        setting constraints but the browser will be ignoring them. Browsers that
+        support (recognize) the name of a required constraint but cannot satisfy
+        it will generate an error, while browsers that do not support the given
+        name of the constraint will not generate an error.
+      </div>
 
       <p>The following examples may help to understand how constraints work.
       The first shows a basic Constraint structure. Three constraints are
