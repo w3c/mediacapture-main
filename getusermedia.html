@@ -3037,14 +3037,15 @@
                   <var>constraints</var>.</li>
 
 		  <li><p>Run
-		      the <code><a>applyConstraints()</a></code>
+		      the <code><a>SelectSettings()</a></code>
 		      algorithm on each track
 		      in <var>CandidateSet</var>. If the algorithm 
-		      does not return an error, add the track to
+		      does not return "undefined", add the track to
 		      <var>finalSet</var>.
-		      This results in a single choice of configuration for each
-		      possible device, and eliminates devices unable to
-		      satisfy the constraints.</p>
+		      This eliminates devices unable to
+		      satisfy the constraints, by verifying that at least
+		      one setting set exists that satisfies the constraints.
+		    </p>
 		  </li>
                   </ol>
 
@@ -3079,7 +3080,7 @@
                   </code> MUST not change.</p>
 
 		<p>The user agent MAY use the value of the computed "fitness
-		  distance" from the applyConstraints algorithm, or
+		  distance" from the SelectSettings algorithm, or
 		  any other internally-availble information about the
 		  devices, as an input
 		  to the selection algorithm.
@@ -3118,7 +3119,10 @@
                     <a>MediaStream</a>
                   </code> object for which the user granted permission.</p>
               </li>
-
+	      <li>
+		<p>Run the <code>ApplyConstraints()</code> algorithm on
+		  all tracks in <var>stream</var> with the appropriate
+		  constraints.
               <li>
                 <p>Resolve <var>p</var> with <var>stream</var>.</p>
               </li>
@@ -3185,6 +3189,15 @@
             </ol>
           </dd>
         </dl>
+	      <div class="note">
+		<p>In the algorithm above, constraints are checked
+		twice - once at device selection, and once after
+		access approval. Time may have passed between those
+		checks, so it is concievable that the selected device
+		is no longer suitable. In this case, a
+		SourceUnavailable error will result.</p>
+	      </div>
+		  
       </section>
 
       <section>
@@ -3673,23 +3686,9 @@ if(!supports["width"] || !supports["height"]) {
               choose such a sequence of values that satisfy CS1...CSn and
               assign them as the settings for the properties of O.</li>
             </ul>
-
-            <p>When <code>applyConstraints</code> is called, the User Agent MUST run the
-            following steps:</p>
-
-            <ol>
-              <li>
-                <p>Let <var>p</var> be a new promise.</p>
-              </li>
-              <li>
-                <p>Let <var>newContraints</var> be the argument to this
-                function.</p>
-              </li>
-              <li>
-                <p>Run the following steps asynchronously:</p>
-              </li>
-
-              <ol>
+	    <p>
+	      We define the function <code>SelectSettings()</code> as follows:
+             <ol>
               <li>Each constraint MUST
               specify one or more values (or a range of
               values) for its property. A property MAY appear more than once
@@ -3716,13 +3715,8 @@ if(!supports["width"] || !supports["height"]) {
 	      of possible setting sets <var>candidates</var></p></li>
 
 	      <li><p>If the <code>fitness distance</code> of the best fitting
-		  constraint set is infinity, reject <var>p</var> with a new
-              <code>MediaStreamError</code> with name
-              <code>ConstraintNotSatisfied</code> and
-              <code>constraintName</code> set to any of the required
-              constraints that could not be satisfied, and abort these steps.
-              <var>existingConstraints</var> remain in effect in this
-              case.</li>
+		  setting set is infinity, return "undefined" as the result
+		  of the function.</p>
 
               <li>Let <var>successfulConstraints</var> be a list of
               ConstraintSets, initially containing only
@@ -3731,23 +3725,54 @@ if(!supports["width"] || !supports["height"]) {
               which they were specified. For each ConstraintSet:
 	      <ol>
 		<li><p>compute
-	      the fitness distance between it and each setting set.</p>
-	      <li><p>If the fitness distance is finite for one or more setting sets,
-	      add this ConstraintSet
-	      to <var>requiredConstraints</var>, and keep these setting sets
-	      in the list of possible settings, discarding others.</p>
-	      <p>If the fitness distance is infinite for all sets, ignore this
-	      ConstraintSet.</p></li>
+		    the fitness distance between it and each setting set.</p>
+		<li><p>If the fitness distance is finite for one or more setting sets,
+		    add this ConstraintSet
+		    to <var>requiredConstraints</var>, and keep these setting sets
+		    in the list of possible settings, discarding others.</p>
+		  <p>If the fitness distance is infinite for all sets, ignore this
+		    ConstraintSet.</p></li>
+		</ol>
+	      <li><p>Select one setting set from the list of possible settings,
+		  and return this as the result of <code>SelectSettings()</code>. 		  The UA SHOULD use the one
+		  with a smaller <code>fitness distance</code>.
+		</p>
+
 	      </ol>
-              <li>In a single operation, remove <var>existingConstraints</var>
+
+
+            <p>When <code>applyConstraints</code> is called, the User Agent MUST run the
+            following steps:</p>
+
+            <ol>
+              <li>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+              <li>
+                <p>Let <var>newContraints</var> be the argument to this
+                function.</p>
+              </li>
+              <li>
+                <p>Run the following steps asynchronously:</p>
+              </li>
+	      <ol>
+		<li><p>Let <var>successfulConstraints</var> be the result
+		    of running <code>SelectSettings(newConstraints)</code>.</p>
+		<li><p>If <var>successfulConstraints</var> is undefined,
+		    reject <var>p</var> with a new
+		    <code>MediaStreamError</code> with name
+		    <code>ConstraintNotSatisfied</code> and
+		    <code>constraintName</code> set to any of the required
+		    constraints that could not be satisfied, and abort these steps.
+		    <var>existingConstraints</var> remain in effect in this
+		    case.</li>
+
+               <li>In a single operation, remove <var>existingConstraints</var>
               from <var>object</var>, apply <var>successfulConstraints</var>,
               then apply the largest subset of <var>unorderedConstraints</var>
               that can be satisifed. (If more than one 'largest subset' can be
               satisfied, the User Agent is free to select which 'largest subset' it
               chooses.)
-		<p>When picking a setting set to use, the UA SHOULD use the one
-		  with a smaller <code>fitness distance</code>.
-		</p>
               <li>Finally, resolve <var>p</var>. From this point on until
               applyConstraints() is called successfully
               again, getConstraints() <em class="rfc2119"
@@ -4712,6 +4737,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         
         <!-- merge tag A -->
         <!-- merge tag B -->
+	<li>Bug 113 (old 25771): Explanation of constraints in GUM
+	call. Rewrote algorithm with separate SelectSettings step,
+	used both in GUM and in applyConstraints.</li>
         <!-- merge tag C -->
         <!-- merge tag D -->
         <!-- merge tag E -->
