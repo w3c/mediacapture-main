@@ -125,11 +125,11 @@
           <p>Sources are <a href="#track-detached">detached</a> from a track when the
           track is ended for any reason.</p>
 
-          <p>Sources have <code>
+          <p>Sources have constrainable properties which have <code>
               <a>capabilities</a>
             </code> and <code>
               <a>settings</a></code
-            >. The capabilities and settings are "owned" by the source
+            >. The constrainable properties are "owned" by the source
           and are common to any (multiple) tracks that happen to be using the
           same source (e.g., if two different track objects bound to the same
           source ask for the same capability or setting information, they will
@@ -140,7 +140,7 @@
 
         <dd>
           <p>A <a href="#settings">setting</a> refers to the immediate, current value of the source's
-          (optionally constrained) capabilities. Settings are always
+          constrainable properties. Settings are always
           read-only.</p>
 
           <p>A source's settings can change dynamically over time due to
@@ -161,8 +161,7 @@
         <dt>Capabilities</dt>
 
         <dd>
-          <p>Source <a>capabilities</a> are the intrinsic "features" of a source
-          object. For each source setting, there is a corresponding capability
+          <p>For each constrainable property, there is a capability
           that describes whether it is supported by the source and if so, the
           range of supported values. As with settings, capabilities are exposed
           to the application via the <a>ConstrainablePattern</a> interface.</p>
@@ -209,7 +208,8 @@
           supports calling an error handler when the conflicting
           constraint is requested.</p>
 
-          <p>A correspondingly-named constraint exists for each corresponding
+          <p>For each constrainable property, a constraint exists whose
+          name corresponds with the relevant
           source setting name and capability name. In general, the fewer
           constraints are applied, the more flexibility User Agents will have
           to optimize the media streaming experience, so application authors
@@ -2911,11 +2911,11 @@
           <dt>static Dictionary getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
-            <p>Returns a dictionary whose members are the constraint keys
+            <p>Returns a dictionary whose members are the constrainable properties
             known to the User Agent for the kind given as argument. A
-            supported constraint MUST be represented by a member whose name is
+            supported constrainable property MUST be represented by a member whose name is
             the constraint name and whose value is <code>true</code>. Any
-            constraint names not supported by the User Agent MUST not be
+            constrainable properties not supported by the User Agent MUST not be
             present in the returned dictionary.</p>
           </dd>
 
@@ -3432,13 +3432,13 @@
       the properties of objects implementing it. It is broken out as a
       separate set of definitions so that it can be referred to by other
       specifications. The core concept is the Capability, which consists
-      of a property or feature of an object and the set of its possible
+      of a constrainable property of an object and the set of its possible
       values, which may be specified either as a range or as an enumeration.
       For example, a camera might be capable of framerates (a property)
       between 20 and 50 frames per second (a range) and may be able to be
       positioned (a property) facing towards the user, away from the user, or
       to the left or right of the user (an enumerated set). The application
-      can examine a ConstrainablePattern object's set of Capabilities via the
+      can examine a constrainable property's supported Capabilities via the
       <code>getCapabilities()</code> accessor.</p>
 
       <p>The application can select the (range of) values it wants for an
@@ -3470,9 +3470,10 @@
       order. Finally, the User Agent MUST resolve the returned promise.</p>
 
       <div class="note">
-        If JavaScript applications using this API want the
-        attributes in the constraints to be used by the browser, the JavaScript
-        code has to first check, via <code>getSupportedConstraints()</code>,
+        Any constraint provided via this API will only be considered if the
+        given constrainable property is supported by the browser.  JavaScript
+        application code is expected
+        to first check, via <code>getSupportedConstraints()</code>,
         that all the named properties that are used are supported by the
         browser. The reason for this is that WebIDL drops any unsupported names
         from the dictionary holding the constraints, so the browser does not see
@@ -3480,8 +3481,8 @@
         cause confusing programming errors as the JavaScript code will be
         setting constraints but the browser will be ignoring them. Browsers that
         support (recognize) the name of a required constraint but cannot satisfy
-        it will generate an error, while browsers that do not support the given
-        name of the constraint will not generate an error.
+        it will generate an error, while browsers that do not support the
+        constrainable property will not generate an error.
       </div>
 
       <p>The following examples may help to understand how constraints work.
@@ -3655,7 +3656,7 @@ if(!supports["width"] || !supports["height"]) {
 
           <dd>
             <p>The <dfn>getSettings()</dfn> method returns the current settings
-          of all the properties of the object, whether they are platform
+          of all the constrainable properties of the object, whether they are platform
           defaults or have been set by <code>applyConstraints()</code>. Note
           that the actual setting of a property MUST be a single value. </p>
           </dd>
@@ -4084,7 +4085,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
         <p>An example of a Capabilities dictionary is shown below. This
         example is not very realistic in that a browser would actually be
-        required to support more settings that just these.</p>
+        required to support more constrainable properties than just these.</p>
 
         <pre class="example highlight" xml:space="preserve">
 {
@@ -4138,15 +4139,15 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         single value for each key and the value MUST be a member of
         the set defined for that property by <code>capabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
-        User Agent has chosen for the object's Capabilities. The exact syntax of the
+        User Agent has chosen for the object's constrainable properties. The exact syntax of the
         value depends on the type of the property.</p>
 
-        <p>A conforming User Agent MUST support all the setting names defined in this
-        spec.</p>
+        <p>A conforming User Agent MUST support all the constrainable
+        properties defined in this specification.</p>
 
         <p>An example of a Setting dictionary is shown below. This example is
         not very realistic in that a browser would actually be required to
-        support more settings that just these.</p>
+        support more constrainable properties than just these.</p>
 
         <pre class="example highlight" xml:space="preserve">
 {
@@ -4171,10 +4172,10 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <dl class="idl" title="dictionary ConstraintSet">
         </dl>
 
-        <p>Each member of a ConstraintSet corresponds to a Capability and
-        specifies a subset of its legal values. Applying a ConstraintSet
-        instructs the User Agent to restrict the setting of the corresponding
-        Capabilities to the specified values or ranges of values. A given
+        <p>Each member of a ConstraintSet corresponds to a constrainable property and
+        specifies a subset of the property's legal Capability values. Applying a ConstraintSet
+        instructs the User Agent to restrict the settings of the corresponding
+        constrainable properties to the specified values or ranges of values. A given
         property MAY occur both in the basic Constraints set and in the
         advanced ConstraintSets list, and MAY occur at most once in each
         ConstraintSet in the advanced list.</p>
@@ -4713,6 +4714,10 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         
         <li>Clarified in section 4.1 that synchronization is only an
         intention because some tracks cannot be synchronized.</il>
+
+        <li>Introduced and made consistent use of the term
+        'constrainable property' everywhere we refer to a property
+        which can have Capabilities, Constraints, and Settings.</li>
 
         <!-- put some random merge tag and put your change log entry after
         that. This reduces the odds of merge conflicts when we merge the pull
