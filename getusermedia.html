@@ -191,29 +191,42 @@
         </dt>
 
         <dd>
-          <p>Constraints are an optional track feature for restricting the
-          range of allowed variability on a source. Without provided track
+          <p>Constraints provide a general control surface that allows
+          applications to both select an appropriate source for a track
+          and, once selected, to influence how a source operates.</p>
+
+          <p>Constrains limit the range of operating modes that a source can
+          use when providing media for a track.  Without provided track
           constraints, implementations are free to select a source's settings
           from the full ranges of its supported capabilities, and to adjust
-          those settings at any time for any reason.</p>
+          those settings at any time within the bounds imposed by all
+          applied constraints.</p>
 
-          <p>Constraints are exposed on tracks via the
+          <p><a>getUserMedia()</a> uses constraints to aid in the selection of
+          an appropriate source for a track.  Constraints are then exposed on
+          tracks via the
           <a>ConstrainablePattern</a> interface, which includes an API for
           dynamically changing constraints. Note that <a>getUserMedia()</a>
           also permits an initial set of constraints to be applied when the
           track is first obtained.</p>
 
-          <p>It is possible for two tracks that share a unique source to apply
-          contradictory constraints. The <a>ConstrainablePattern</a> interface
-          supports calling an error handler when the conflicting
-          constraint is requested.</p>
+          <p>A track will not be connected to a source using
+          <a>getUserMedia()</a> if its initial constraints cannot be satisfied.
+          However, the ability to meet the constraints on a track can change
+          over time, and constraints can be changed.  If circumstances change
+          such that constraints cannot be met, the <a>ConstrainablePattern</a>
+          interface defines an appropriate error to inform the application.
+          <a href="#the-model-sources-sinks-constraints-and-settings"></a>
+          explains how constraints interact in more detail.</p>
+
+          <p> In general, user agents will have more flexibility
+          to optimize the media streaming experience the fewer constraints
+          are applied, so application authors
+          are strongly encouraged to use mandatory constraints sparingly.</p>
 
           <p>For each constrainable property, a constraint exists whose
           name corresponds with the relevant
-          source setting name and capability name. In general, the fewer
-          constraints are applied, the more flexibility User Agents will have
-          to optimize the media streaming experience, so application authors
-          are strongly encouraged to use mandatory constraints sparingly.</p>
+          source setting name and capability name.
         </dd>
 
         <dt>
@@ -4719,6 +4732,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         'constrainable property' everywhere we refer to a property
         which can have Capabilities, Constraints, and Settings.</li>
 
+        <li>Changed constraint definition text using concepts and some direct
+        text from PR 61.</li>
         <!-- put some random merge tag and put your change log entry after
         that. This reduces the odds of merge conflicts when we merge the pull
         request --> 
