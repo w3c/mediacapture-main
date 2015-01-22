@@ -3617,9 +3617,6 @@ if(!supports["width"] || !supports["height"]) {
 	    <p>We use the term <dfn>settings dictionary</dfn> for the set
               of values that might be applied as settings to the object.</p>
 
-	      a set of values, one for each constraint, under which the object
-	      is able to function.</p>
-
 	    <p>We define the <code>fitness distance</code> between a
               <code>settings dictionary</code> and a constraint
               <var>CS</var> as the sum, for each constraint
@@ -3788,9 +3785,10 @@ if(!supports["width"] || !supports["height"]) {
 	      <div class="note">
 	<p>Any implementation that has the same result as the algorithm
 	  above is an allowed implementation. For instance, the implementation
-	  may choose to keep track of permitted ranges for settings rather than
-	  keeping track of all possible combinations.</p>
-</div>
+	  may choose to keep track of the maximum and minimum values for a
+          setting that are OK under the constraints considered, rather than
+	  keeping track of all possible values for the setting.</p>
+              </div>
 	      <div class="note">
 		<p>When picking a settings dictionary, the UA can use
 		any information available to it. Examples of such
