@@ -195,20 +195,18 @@
           applications to both select an appropriate source for a track
           and, once selected, to influence how a source operates.</p>
 
-          <p>Constrains limit the range of operating modes that a source can
+          <p>Constraints limit the range of operating modes that a source can
           use when providing media for a track.  Without provided track
           constraints, implementations are free to select a source's settings
-          from the full ranges of its supported capabilities, and to adjust
-          those settings at any time within the bounds imposed by all
+          from the full ranges of its supported capabilities.  Implementations
+          may also adjust
+          source settings at any time within the bounds imposed by all
           applied constraints.</p>
 
-          <p><a>getUserMedia()</a> uses constraints to aid in the selection of
-          an appropriate source for a track.  Constraints are then exposed on
-          tracks via the
-          <a>ConstrainablePattern</a> interface, which includes an API for
-          dynamically changing constraints. Note that <a>getUserMedia()</a>
-          also permits an initial set of constraints to be applied when the
-          track is first obtained.</p>
+          <p><a>getUserMedia()</a> uses constraints to help select
+          an appropriate source for a track and configure it.  Additionally, the
+          <a>ConstrainablePattern</a> interface on tracks includes an API for
+          dynamically changing the track's constraints at any later time.</p>
 
           <p>A track will not be connected to a source using
           <a>getUserMedia()</a> if its initial constraints cannot be satisfied.
