@@ -383,6 +383,14 @@
                 the <code><a>MediaStreamTrack</a></code> objects in the provided
                 sequence.</p>
               </li>
+
+              <li>
+                <p>One or more <code><a>MediaStreamTrack</a></code> objects as
+                variadic list:</p>
+
+                <p>Let <var>tracks</var> be a set containing all
+                the <code><a>MediaStreamTrack</a></code> variadic arguments.</p>
+              </li>
             </ul>
           </li>
 
@@ -486,6 +494,13 @@
           </dd>
 
           <dt>Constructor(sequence&lt;MediaStreamTrack&gt; tracks)</dt>
+
+          <dd>
+            <p> See the <a href="#mediastream-constructor">MediaStream
+          constructor algorithm</a> </p>
+          </dd>
+
+          <dt>Constructor(MediaStreamTrack... tracks)</dt>
 
           <dd>
             <p> See the <a href="#mediastream-constructor">MediaStream
