@@ -3043,10 +3043,10 @@
                   <var>constraints</var>.</li>
 
 		  <li><p>Run
-		      the <code><a>SelectSettings()</a></code>
+		      the <code><a>SelectSettings</a></code>
 		      algorithm on each track
 		      in <var>CandidateSet</var>. If the algorithm
-		      does not return "undefined", add the track to
+		      does not return <code>undefined</code>, add the track to
 		      <var>finalSet</var>.
 		      This eliminates devices unable to
 		      satisfy the constraints, by verifying that at least
@@ -3086,7 +3086,7 @@
                   </code> MUST not change.</p>
 
 		<p>The user agent MAY use the value of the computed "fitness
-		  distance" from the <a>SelectSettings()</a> algorithm, or
+		  distance" from the <a>SelectSettings</a> algorithm, or
 		  any other internally-availble information about the
 		  devices, as an input
 		  to the selection algorithm.
@@ -3692,7 +3692,7 @@ if(!supports["width"] || !supports["height"]) {
               assign them as the settings for the properties of O.</li>
             </ul>
 	    <p>
-	      We define the function <dfn>SelectSettings()</dfn> as follows:
+	      We define the <dfn>SelectSettings</dfn> algorithm as follows:
              <ol>
               <li>Each constraint MUST
               specify one or more values (or a range of
@@ -3721,7 +3721,7 @@ if(!supports["width"] || !supports["height"]) {
 	      of possible settings dictionaries <var>candidates</var></p></li>
 
 	      <li><p>If the <a>fitness distance</a> of the best fitting
-		  settings dictionary is infinity, return "undefined" as the result
+		  settings dictionary is infinity, return <code>undefined</code> as the result
 		  of the function.</p>
 
               <li>Let <var>successfulConstraints</var> be a list of
@@ -3742,7 +3742,7 @@ if(!supports["width"] || !supports["height"]) {
 		</ol>
 	      <li><p>Select one settings dictionary from the list of possible
                   settings,
-		  and return this as the result of <code>SelectSettings()</code>. 		  The UA SHOULD use the one
+		  and return this as the result of the <code>SelectSettings</code> algorithm. 		  The UA SHOULD use the one
 		  with a smaller <a>fitness distance</a>.
 		</p>
 
@@ -3765,7 +3765,7 @@ if(!supports["width"] || !supports["height"]) {
               </li>
 	      <ol>
 		<li><p>Let <var>successfulSettings</var> be the result
-		    of running <a>SelectSettings(newConstraints)</a>.</p>
+		    of running the <a>SelectSettings</a> algorithm with <var>newConstraints</var> as the constraint set.</p>
 		<li><p>If <var>successfulSettings</var> is undefined,
 		    reject <var>p</var> with a new
 		    <code>MediaStreamError</code> with name
