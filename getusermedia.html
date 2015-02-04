@@ -3043,10 +3043,10 @@
                   <var>constraints</var>.</li>
 
 		  <li><p>Run
-		      the <code><a>SelectSettings()</a></code>
+		      the <code><a>SelectSettings</a></code>
 		      algorithm on each track
-		      in <var>CandidateSet</var>. If the algorithm
-		      does not return "undefined", add the track to
+		      in <var>CandidateSet</var> with <var>CS</var> as the constraint set. If the algorithm
+		      does not return <code>undefined</code>, add the track to
 		      <var>finalSet</var>.
 		      This eliminates devices unable to
 		      satisfy the constraints, by verifying that at least
@@ -3086,8 +3086,8 @@
                   </code> MUST not change.</p>
 
 		<p>The user agent MAY use the value of the computed "fitness
-		  distance" from the <a>SelectSettings()</a> algorithm, or
-		  any other internally-availble information about the
+		  distance" from the <a>SelectSettings</a> algorithm, or
+		  any other internally-available information about the
 		  devices, as an input
 		  to the selection algorithm.
 		</p>
@@ -3623,12 +3623,12 @@ if(!supports["width"] || !supports["height"]) {
 	    <p>We use the term <dfn>settings dictionary</dfn> for the set
               of values that might be applied as settings to the object.</p>
 
-	    <p>We define the <code>fitness distance</code> between a
-              <code>settings dictionary</code> and a constraint
+	    <p>We define the <dfn>fitness distance</dfn> between a
+              <a>settings dictionary</a> and a constraint set
               <var>CS</var> as the sum, for each constraint
               provided for a constraint name in <var>CS</var>,
 	      ignoring "advanced",
-	      the following values:</p>
+	      of the following values:</p>
 
             <ol>
               <li>
@@ -3639,7 +3639,7 @@ if(!supports["width"] || !supports["height"]) {
               <li>
                 <p>
                   If the constraint is required ('min', 'max', or 'exact'),
-		  and the settings dictionary's value for the constraint does not
+		  and the <a>settings dictionary</a>'s value for the constraint does not
 		  satisfy the constraint, use positive infinity.</p>
               </li>
               <li>
@@ -3692,7 +3692,7 @@ if(!supports["width"] || !supports["height"]) {
               assign them as the settings for the properties of O.</li>
             </ul>
 	    <p>
-	      We define the function <dfn>SelectSettings()</dfn> as follows:
+	      We define the <dfn>SelectSettings</dfn> algorithm as follows:
              <ol>
               <li>Each constraint MUST
               specify one or more values (or a range of
@@ -3707,21 +3707,21 @@ if(!supports["width"] || !supports["height"]) {
               <code>getSupportedConstraints()</code> method as shown in the
               Examples below.</li>
 
-              <li>Let <var>object</var> be the ConstrainablePattern object on
-              which this method was called. Let <var>copy</var> be an
+              <li>Let <var>object</var> be the <code><a>ConstrainablePattern</a></code> object on
+              which this algorithm is applied. Let <var>copy</var> be an
               unconstrained copy of <var>object</var> (i.e., <var>copy</var>
               should behave as if it were <var>object</var> with all
               ConstraintSets removed.)</li>
 
-	      <li><p>For every possible <code>settings dictionary</code>
+	      <li><p>For every possible <a>settings dictionary</a>
 		  of <var>copy</var>,
-		compute its <code>fitness distance</code>.
-	      Discard the <code>settings dictionaries</code> for which the result is
-	      infinity, and add the remaining <code>settings dictionaries</code> to the set
+		compute its <a>fitness distance</a>.
+	      Discard the <a title="settings dictionary">settings dictionaries</a> for which the result is
+	      infinity, and add the remaining <a title="settings dictionary">settings dictionaries</a> to the set
 	      of possible settings dictionaries <var>candidates</var></p></li>
 
-	      <li><p>If the <code>fitness distance</code> of the best fitting
-		  settings dictionary is infinity, return "undefined" as the result
+	      <li><p>If the <a>fitness distance</a> of the best fitting
+		  settings dictionary is infinity, return <code>undefined</code> as the result
 		  of the function.</p>
 
               <li>Let <var>successfulConstraints</var> be a list of
@@ -3742,8 +3742,8 @@ if(!supports["width"] || !supports["height"]) {
 		</ol>
 	      <li><p>Select one settings dictionary from the list of possible
                   settings,
-		  and return this as the result of <code>SelectSettings()</code>. 		  The UA SHOULD use the one
-		  with a smaller <code>fitness distance</code>.
+		  and return this as the result of the <code>SelectSettings</code> algorithm. 		  The UA SHOULD use the one
+		  with a smaller <a>fitness distance</a>.
 		</p>
 
 	      </ol>
@@ -3765,8 +3765,8 @@ if(!supports["width"] || !supports["height"]) {
               </li>
 	      <ol>
 		<li><p>Let <var>successfulSettings</var> be the result
-		    of running <a>SelectSettings(newConstraints)</a>.</p>
-		<li><p>If <var>successfulSettings</var> is undefined,
+		    of running the <a>SelectSettings</a> algorithm with <var>newConstraints</var> as the constraint set.</p>
+		<li><p>If <var>successfulSettings</var> is <code>undefined</code>,
 		    reject <var>p</var> with a new
 		    <code>MediaStreamError</code> with name
 		    <code>ConstraintNotSatisfied</code> and
