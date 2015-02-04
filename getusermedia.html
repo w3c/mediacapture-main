@@ -3721,26 +3721,23 @@ if(!supports["width"] || !supports["height"]) {
 		  settings dictionary is infinity, return <code>undefined</code> as the result
 		  of the function.</p>
 
-              <li>Let <var>successfulConstraints</var> be a list of
-              ConstraintSets, initially containing only
-              <var>requiredConstraints</var>. Iterate over the 'advanced'
+              <li>Iterate over the 'advanced'
               ConstraintSets in <var>newConstraints</var> in the order in
               which they were specified. For each ConstraintSet:
 	      <ol>
 		<li><p>compute
 		    the fitness distance between it and each settings dictionary.</p>
 		<li><p>If the fitness distance is finite for one or more
-                    settings dictionaries, add this ConstraintSet
-		    to <var>requiredConstraints</var>, and keep these settings
-                    dictionaries
+		    settings dictionaries, keep these settings dictionaries
 		    in the list of possible settings, discarding others.</p>
 		  <p>If the fitness distance is infinite for all settings
                     dictionaries, ignore this ConstraintSet.</p></li>
 		</ol>
 	      <li><p>Select one settings dictionary from the list of possible
                   settings,
-		  and return this as the result of the <code>SelectSettings</code> algorithm. 		  The UA SHOULD use the one
-		  with a smaller <a>fitness distance</a>.
+		  and return this as the result of the <code>SelectSettings()</code> algorithm.
+		  The UA SHOULD use the one with the smallest <code>fitness distance</code>,
+		  as calculated in step 3.
 		</p>
 
 	      </ol>
