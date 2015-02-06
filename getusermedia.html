@@ -4437,12 +4437,12 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <h1 id="sec-iana">IANA Registrations</h1>
 
       <section>
-        <h2 id="sec-track-properties">Track Property Registrations</h2>
+        <h2 id="sec-track-properties">Track Constrainable Property Registrations</h2>
 
-        <p>IANA is requested to register the following properties as specified
+        <p>IANA is requested to register the following constrainable properties as specified
         in [[!RTCWEB-CONSTRAINTS]]:</p>
 
-        <p>The following constraint names are defined to apply to both video
+        <p>The following constrainable properties are defined to apply to both video
         and audio <code>
             <a>MediaStreamTrack</a>
           </code> objects:</p>
@@ -4486,7 +4486,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
               <td>DOMString</td>
 
-              <td>The application-unique identifier for this source. The same
+              <td>The application-unique identifier for the source of the <a>MediaStreamTrack</a>. The same
               identifier MUST be valid between sessions of this application,
               but MUST also be different for other applications. Some sort of
               GUID is recommended for the identifier. Note that the setting of
@@ -4507,7 +4507,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
               <td>DOMString</td>
 
-              <td>The group identifier for this source. Two devices have the
+              <td>The group identifier for the source of the <a>MediaStreamTrack</a>. Two devices have the
               same group identifier if they belong to the same physical
               device; for example the audio input and output devices
               representing the speaker and microphone of the same
@@ -4516,7 +4516,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           </tbody>
         </table>
 
-        <p>The following properties are defined to apply only to video <code>
+        <p>The following constrainable properties are defined to apply only to video <code>
             <a>MediaStreamTrack</a>
           </code> objects:</p>
 
@@ -4571,7 +4571,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
                 <code><a>ConstrainDouble</a></code>
               </td>
 
-              <td>The exact desired frame rate (frames per second) or
+              <td>The exact frame rate (frames per second) or
               frame rate range. If this frame rate cannot be determined
               (e.g. the source does not natively provide a frame rate,
               or the frame rate cannot be determined from the source
@@ -4589,8 +4589,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
               </td>
 
               <td>The exact aspect ratio (width in pixels divided by height in
-              pixels), represented as a double rounded to the tenth decimal
-              place.</td>
+              pixels, represented as a double rounded to the tenth decimal
+              place) or aspect ratio range.</td>
             </tr>
 
             <tr id="def-constraint-facingMode">
@@ -4602,7 +4602,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
                 <code><a>ConstrainDOMString</a></code>
               </td>
 
-              <td>This string should be one of the members of <code>
+              <td>This string (or each string, when a list) should be one of the members of <code>
                 <a>VideoFacingModeEnum</a></code>. The members describe the
               directions that the camera can face, as seen from the user's
               perspective. Note that <code>
@@ -4645,7 +4645,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         alt="Illustration of video facing modes in relation to user"
         src="images/camera-names-exp.svg" style="width:40%" /></p>
 
-        <p>The following properties are defined to apply only to audio <code>
+        <p>The following constrainable properties are defined to apply only to audio <code>
             <a>MediaStreamTrack</a>
           </code> objects:</p>
 
@@ -4668,7 +4668,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
                 <code><a>ConstrainDouble</a></code>
               </td>
 
-              <td>The volume or volume range of the audio source is a multiplier
+              <td>The volume or volume range, as a multiplier
               of the linear audio sample values.  A volume of 0.0 is silence,
               while a volume of 1.0 is the maximum supported volume.  A volume
               of 0.5 will result in an approximately 6 dB<sub>SPL</sub> change in the sound
