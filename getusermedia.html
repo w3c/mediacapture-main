@@ -4541,7 +4541,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
                 <code><a>ConstrainLong</a></code>
               </td>
 
-              <td>The width or width range, in pixels, of the video source. As
+              <td>The width or width range, in pixels. As
               a capability, the range should span the video source's pre-set
               width values with min being the smallest width and max being the
               largest width.</td>
@@ -4556,7 +4556,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
                 <code><a>ConstrainLong</a></code>
               </td>
 
-              <td>The height or height range, in pixels, of the video source.
+              <td>The height or height range, in pixels.
               As a capability, the range should span the video source's
               pre-set height values with min being the smallest height and max
               being the largest height.</td>
@@ -4572,10 +4572,11 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
               </td>
 
               <td>The exact desired frame rate (frames per second) or
-              frameRate range of the video source. If the source does not
-              natively provide a frameRate, or the frameRate cannot be
-              determined from the source stream, then this value MUST refer to
-              the User Agent's vsync display rate.</td>
+              frame rate range. If this frame rate cannot be determined
+              (e.g. the source does not natively provide a frame rate,
+              or the frame rate cannot be determined from the source
+              stream), then this value MUST refer to the User Agent's
+              vsync display rate.</td>
             </tr>
 
             <tr id="def-constraint-aspect">
