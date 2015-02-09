@@ -4471,12 +4471,12 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
               <td> The type of the source of the <a>MediaStreamTrack</a>. Note
               that the setting of this property is uniquely determined by the
               source that is attached to the Track. In particular,
-              getCapabilities() will return only a single value for
-              deviceId/Type. This property can therefore be used for initial
-              media selection with getUserMedia(). However is not useful for
-              subsequent media control with applyConstraints, since any
+              <a>getCapabilities()</a> will return only a single value for
+              sourceType. This property can therefore be used for initial
+              media selection with <a>getUserMedia()</a>. However, it is not useful for
+              subsequent media control with <a>applyConstraints()</a>, since any
               attempt to set a different value will result in an unsatisfiable
-              ConstraintSet. </td>
+              <a>ConstraintSet</a>. </td>
             </tr>
 
             <tr id="def-constraint-deviceId">
@@ -4491,12 +4491,12 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
               but MUST also be different for other applications. Some sort of
               GUID is recommended for the identifier. Note that the setting of
               this property is uniquely determined by the source that is
-              attached to the Track. In particular, getCapabilities() will
-              return only a single value for deviceId/Type. This property can
+              attached to the Track. In particular, <a>getCapabilities()</a> will
+              return only a single value for deviceId. This property can
               therefore be used for initial media selection with
-              getUserMedia(). However is not useful for subsequent media
-              control with applyConstraints, since any attempt to set a
-              different value will result in an unsatisfiable ConstraintSet.
+              <a>getUserMedia()</a>. However, it is not useful for subsequent media
+              control with <a>applyConstraints</a>, since any attempt to set a
+              different value will result in an unsatisfiable <a>ConstraintSet</a>.
               </td>
             </tr>
 
@@ -4509,9 +4509,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
               <td>The group identifier for the source of the <a>MediaStreamTrack</a>. Two devices have the
               same group identifier if they belong to the same physical
-              device; for example the audio input and output devices
+              device; for example, the audio input and output devices
               representing the speaker and microphone of the same
-              headset. </td>
+              headset would have the same groupId. </td>
             </tr>
           </tbody>
         </table>
