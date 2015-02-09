@@ -3803,10 +3803,11 @@ if(!supports["width"] || !supports["height"]) {
           <dt>attribute EventHandler onoverconstrained</dt>
 
           <dd>This event handler, of type <code><a>overconstrained</a></code>,
-          fires a <code>MediaStreamErrorEvent</code> when the User Agent is
+          is executed when the User Agent is
           no longer able to satisfy the <var>requiredConstraints</var> from
           the currently valid Constraints.</p>
-          <p>This MediaStreamErrorEvent contains a MediaStreamError whose
+          <p>When executed, the event handler is passed
+          a <code>MediaStreamErrorEvent</code> as parameter, which references a <code>MediaStreamError</code> whose
           <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
