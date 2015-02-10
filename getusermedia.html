@@ -2451,7 +2451,7 @@
 
               <p>The affected track(s) will remain <a
               href="#track-muted">muted</a> until the application adjusts the
-              constraints to accommodate the source's capabilities.</p>
+              constraints to accommodate the source's current effective capabilities.</p>
             </td>
           </tr>
 
@@ -3531,12 +3531,12 @@ if(!supports["width"] || !supports["height"]) {
       application may inspect the full set of Constraints currently in effect
       via the <code>getConstraints()</code> accessor.</p>
 
-      <p>The specific value that the User Agent chooses for a Capability is referred
+      <p>The specific value that the User Agent chooses for a constrainable property is referred
       to as a Setting. For example, if the application applies a ConstraintSet
       specifying that the framerate must be at least 30 frames per second, and
       no greater than 40, the Setting can be any intermediate value, e.g., 32,
       35, or 37 frames per second. The application can query the current
-      settings of the object's Capabilities via the <code>
+      settings of the object's constrainable properties via the <code>
           <a>getSettings()</a>
         </code> accessor.</p>
 
@@ -3560,7 +3560,7 @@ if(!supports["width"] || !supports["height"]) {
 
           <dd>
             <p>The <dfn>getCapabilities()</dfn> method returns the dictionary
-            of the names of the capabilities that the object supports.</p>
+            of the names of the constrainable properties that the object supports.</p>
 
             <div class="note">
               <p>It is possible that the underlying hardware may not exactly
@@ -3568,7 +3568,7 @@ if(!supports["width"] || !supports["height"]) {
               possible, the entry SHOULD define how to translate and scale the
               hardware's setting onto the values defined in the entry. For
               example, suppose that a registry entry defines a hypothetical
-              fluxCapacitance capability that is defined to be the range from
+              fluxCapacitance property that ranges from
               -10 (min) to 10 (max), but there are common hardware devices
               that support only values of "off" "medium" and "full". The
               registry entry might specify that for such hardware, the user
@@ -3659,35 +3659,37 @@ if(!supports["width"] || !supports["height"]) {
 	  </li>
 	  <p>More definitions:</p>
             <ul>
-              <li>We refer to each element of a ConstraintSet (other than the
-              special term 'advanced') as a 'constraint' since it is intended
-              to constrain the corresponding Capability of the
-              ConstrainablePattern object to a value that is within the range
-              or list of values it specifies.</li>
+              <li>We refer to each element of a ConstraintSet (other
+              than the special term 'advanced') as a 'constraint'
+              since it is intended to constrain the acceptable
+              settings for the given property from the full list or
+              range given in the corresponding Capability of the
+              ConstrainablePattern object to a value that is within
+              the range or list of values it specifies.</li>
 
               <li>We refer to the "effective Capability" C of an object O as
               the possibly proper subset of the possible values of C (as
               returned by getCapabilities) taking into consideration
               environmental limitations and/or restrictions placed by other
               constraints. For example given a ConstraintSet that constrains
-              the aspectRatio, height, and width Capabilities, the values assigned
-              to any two of the Capabilities limit the effective Capability of
+              the aspectRatio, height, and width properties, the values assigned
+              to any two of the properties limit the effective Capability of
               the third. The set of effective Capabilities may be platform
               dependent. For example, on a resource-limited device it may not
-              be possible to set Capabilities C1 and C2 both to 'high', while
+              be possible to set properties P1 and P2 both to 'high', while
               on another less limited device, this may be possible.</li>
 
-              <li>A settings dictionary, which is a set of values for the Capabilities
+              <li>A settings dictionary, which is a set of values for the constrainable properties
 		of an object O, satisfies
 		ConstraintSet CS if the fitness distance between the set and CS
 		is less than infinity.</li>
 
               <li>A set of ConstraintSets CS1...CSn (n &gt;= 1) can be
               satisfied by an object O if it is possible to find a settings dictionary
-	      of O that satisfy CS1...CSn
+	      of O that satisfies CS1...CSn
               simultaneously.</li>
 
-              <li>To apply a set of ConstraintSet CS1...CSn to object O is to
+              <li>To apply a set of ConstraintSets CS1...CSn to object O is to
               choose such a sequence of values that satisfy CS1...CSn and
               assign them as the settings for the properties of O.</li>
             </ul>
@@ -3807,7 +3809,7 @@ if(!supports["width"] || !supports["height"]) {
 		</div>
 
             <p>The User Agent MAY choose new
-            settings for the Capabilities of the object at any time. When it
+            settings for the constrainable properties of the object at any time. When it
             does so it MUST attempt to
             satisfy the current Constraints, in the manner described in the
             algorithm above. </p>
@@ -4097,7 +4099,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         subset of the set values for those properties that it does support.
         Note that Capabilities are returned from the User Agent to the application,
         and cannot be specified by the application. However, the application
-        can control the Settings that the User Agent chooses for Capabilities by means
+        can control the Settings that the User Agent chooses for constrainable properties by means
         of Constraints.</p>
 
         <p>An example of a Capabilities dictionary is shown below. This
@@ -4154,7 +4156,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         key-value pairs. It MUST contain
         each key returned in <code>getCapabilities()</code>. There MUST be a
         single value for each key and the value MUST be a member of
-        the set defined for that property by <code>capabilities()</code>. The
+        the set defined for that property by <code>getCapabilities()</code>. The
         <code>Settings</code> dictionary contains the actual values that the
         User Agent has chosen for the object's constrainable properties. The exact syntax of the
         value depends on the type of the property.</p>
