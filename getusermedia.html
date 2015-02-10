@@ -693,9 +693,7 @@
           <dd>
             <p>This event handler, of type <code>
               <a href="#event-mediastream-active">active</a></code
-            >, MUST be supported by all objects implementing the <code>
-              <a>MediaStream</a>
-            </code> interface.</p>
+            >, is executed when the MediaStream becomes active.</p>
           </dd>
 
           <dt>attribute EventHandler oninactive</dt>
@@ -703,9 +701,7 @@
           <dd>
             <p>This event handler, of type <code>
               <a href="#event-mediastream-inactive">inactive</a></code
-            >, MUST be supported by all objects implementing the <code>
-              <a>MediaStream</a>
-            </code> interface.</p>
+            >, is executed when the MediaStream becomes inactive.</p>
           </dd>
 
           <dt>attribute EventHandler onaddtrack</dt>
@@ -713,9 +709,8 @@
           <dd>
             <p>This event handler, of type <code>
               <a href="#event-mediastream-addtrack">addtrack</a></code
-            >, MUST be supported by all objects implementing the <code>
-              <a>MediaStream</a>
-            </code> interface.</p>
+            >, is executed when a <code><a>MediaStreamTrack</a></code> is added
+              to the MediaStream.</p>
           </dd>
 
           <dt>attribute EventHandler onremovetrack</dt>
@@ -723,9 +718,8 @@
           <dd>
             <p>This event handler, of type <code>
               <a href="#event-mediastream-removetrack">removetrack</a></code
-            >, MUST be supported by all objects implementing the <code>
-              <a>MediaStream</a>
-            </code> interface.</p>
+            >, is executed when a <code><a>MediaStreamTrack</a></code> is removed
+              from the MediaStream.</p>
           </dd>
         </dl>
       </section>
@@ -1094,9 +1088,8 @@
             <dd>
               <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-mute">mute</a></code
-              >, MUST be supported by all objects implementing the <code>
-                <a>MediaStreamTrack</a>
-              </code> interface.</p>
+              >, is executed when the <code>MediaStreamTrack</code> source
+                is temporarily unable to provide data.</p>
             </dd>
 
             <dt>attribute EventHandler onunmute</dt>
@@ -1104,9 +1097,9 @@
             <dd>
               <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-unmute">unmute</a></code
-              >, MUST be supported by all objects implementing the <code>
-                <a>MediaStreamTrack</a>
-              </code> interface.</p>
+              >, is executed when the <code>MediaStreamTrack</code> source is
+                live again after having been temporarily unable to provide
+                data.</p>
             </dd>
 
             <dt>readonly attribute boolean _readonly</dt>
@@ -1145,9 +1138,10 @@
             <dd>
               <p>This event handler, of type <code>
                 <a href="#event-mediastreamtrack-ended">ended</a></code
-              >, MUST be supported by all objects implementing the <code>
-                <a>MediaStreamTrack</a>
-              </code> interface.</p>
+              >, is executed when the <code>MediaStreamTrack</code> source
+                will no longer provide any data, either due to a user
+                action (revoked permission, removal of capture device) or
+                due to an error.</p>
             </dd>
 
             <dt>MediaStreamTrack clone()</dt>
@@ -2555,9 +2549,8 @@
           <dd>
             <p>This event handler, of type <code>
               <a href="#event-mediadevices-devicechange">devicechange</a></code
-            >, MUST be supported by all objects implementing the <code>
-              <a>MediaDevices</a>
-            </code> interface.</p>
+            >, is executed when the set of media devices available to the user
+              agent has changed.</p>
           </dd>
 
           <dt>Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices ()</dt>
@@ -3818,13 +3811,11 @@ if(!supports["width"] || !supports["height"]) {
           <dt>attribute EventHandler onoverconstrained</dt>
 
           <dd>This event handler, of type <code><a>overconstrained</a></code>,
-          MUST be supported by all objects implementing the <code>
-              <a>ConstrainablePattern</a>
-            </code> pattern. <p>The User Agent MUST raise a <code>MediaStreamErrorEvent</code>
-          named "overconstrained" if changing circumstances at runtime result
-          in it no longer being able to satisfy the
-          <var>requiredConstraints</var> from the currently valid Constraints.
-          This MediaStreamErrorEvent MUST contain a MediaStreamError whose
+          is executed when the User Agent is
+          no longer able to satisfy the <var>requiredConstraints</var> from
+          the currently valid Constraints.</p>
+          <p>When executed, the event handler is passed
+          a <code>MediaStreamErrorEvent</code> as parameter, which references a <code>MediaStreamError</code> whose
           <code>name</code> is <code>OverconstrainedError</code>, and whose
           <code>constraintName</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
