@@ -109,6 +109,24 @@
           the user's hard drive, network resource, or static image. Note that this
           document describes the use of microphone and camera type sources only, the
           use of other source types is described in other documents.</p>
+<section class="awkward">
+<h1> It's very hard to parse this thought, even though in theory it's simple, and in theory it's all OR and thus doesn't matter. </h1>
+<ul>
+<li>[webcam, microphone, local video, local audio, network resource, static image].or()</li>
+<li>[webcam, microphone, [local [video, audio].or() from the user's harddrive], network resource, static image].or()</li>
+<li>[webcam, microphone, [video, audio].or() [local from user's harddrive, network resoruce].or(), static image].or()</li>
+</ul>
+<p>Specifically, my grammar system wants to insert an "a" before "static".</p>
+<p>
+I think I'd suggest:</p>
+<tt>
+network resource, physical device (webcam/microphone), local file (video, audio, image), or a static image.
+</tt>
+<p>
+But one thing I can't tell is whether static image wants to be with local file, can i do a local image file, or can i only do an generated static image?
+</p>
+
+</section>
 
           <p>An application that has no prior authorization regarding sources is
           only given the number of available sources, their type and any
@@ -235,6 +253,16 @@
         <dd><dfn>
             <code>RTCPeerConnection</code>
           </dfn> is defined in [[WEBRTC10]].</dd>
+
+        <dt>
+          <a> Session </a>
+        </dt>
+
+        <dd>
+          <p class="error">
+            <h1> This term is used in a number of places, but is not defined. </h1>
+          </p>
+        </dd>
       </dl>
     </section>
 
@@ -292,6 +320,12 @@
         <p>A <code>
             <a>MediaStream</a>
           </code> object has an input and an output that represent the
+<section class="missing-concept">
+<h1> A foo has an E and an O -not-specified-thing-. </h1>
+<p> are input and output properties? attributes? dogs? cats?</p>
+
+<p>How do they represent things?</p>
+</section>
         combined input and output of all the object's tracks. The output of
         the <code>
             <a>MediaStream</a>
@@ -358,7 +392,7 @@
 
           <li>
             <p>Initialize <var>stream's</var> <code>
-                <a href="#dom-mediastream-id">id</a>
+                <a href="#widl-MediaStream-id">id</a>
               </code> attribute to a newly generated value.</p>
           </li>
 
@@ -636,6 +670,15 @@
             MUST remove the <code><a>MediaStreamTrack</a></code> object,
             indicated by the method's argument, from the stream's <a
             href="#track-set">track set</a>, if present.</p>
+<section class="bug">
+<h1> present is not defined </h1>
+<p>
+Does this mean === ?
+</p>
+<p>
+Is it a .id === .id ?
+</p>
+</section>
           </dd>
 
           <dt>MediaStream clone()</dt>
@@ -982,6 +1025,14 @@
               <a>applyConstraints()</a>
             </code> is called, a User Agent MUST queue a task to evaluate
           those changes when the task queue is next serviced. Similarly, if
+<section class="bug">
+<h1> is next-serviced the right terminology? </h1>
+<p>
+Assume I have 30 tasks in my queue.
+applyConstraints() queues a task.
+When the queue is serviced, does it handle all 31 tasks, or just some of them?
+</p>
+</section>
           the <a>
               <code>sourceType</code>
             </a> changes, then the User Agent MUST perform the same actions to
@@ -1486,10 +1537,20 @@
       down-level sinks that are using that source. Many sinks may be able to
       take these changes in stride, such as the <code>&lt;video&gt;</code>
       element or <code>RTCPeerConnection</code>. Others like the Recorder API
+<section class="missing-link">
+<h1> Link </h1>
+<p> <em>Recorder API</em> should link somewhere, or at least be marked up </p>
+</section>
       may fail as a result of a source setting change.</p>
 
       <p>The <code>RTCPeerConnection</code> is an interesting object because
-      it acts simultaneously as both a sink <strong>and</strong> a source for
+      it acts simultaneously as both a sink
+<section class="missing">
+<h1> it acts as a sink for WHAT? </h1>
+<p> You probably should say sink for a MediaStreamSource to Track or Whatever </p>
+<p> Also, I don't think the word <em>interesting</em> is suited for normative text </p>
+</section>
+ <strong>and</strong> a source for
       over-the-network streams. As a sink, it has source transformational
       capabilities (e.g., lowering bit-rates, scaling-up / down resolutions,
       and adjusting frame-rates), and as a source it could have its own settings
@@ -1544,6 +1605,7 @@
       transmission constant to the remote client.</p>
 
       <p>While not shown, an equally valid settings change request could be
+      made of the remote client video source (the peer connection on the remote
       client's side). In addition to impacting sink Y and Z in the same
       manner as A, B and C were impacted earlier, it could lead to re-negotiation with the peer
       connection on the home client in order to alter the transformation that
@@ -2435,6 +2497,9 @@
               <p>This error event fires for each affected track
               (when multiple tracks share the same source) after the user
               agent has evaluated the current constraints against a given
+<p class="error">
+<h1> The parenthetical here somewhat implies that it won't be asynchronous if there aren't multiple tracks. </h1>
+</p>
               <code>
                   <a>deviceId</a>
                 </code> and is not able to configure the source within the
@@ -2915,6 +2980,9 @@
 
         <p>The <code>getSupportedConstraints</code> method is provided to
         allow the application to determine which constraints the User Agent
+<p class="error">
+You use User Agent here
+</p>
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
@@ -3744,6 +3812,10 @@ if(!supports["width"] || !supports["height"]) {
 	      <li><p>Select one settings dictionary from the list of possible
                   settings,
 		  and return this as the result of the <code>SelectSettings</code> algorithm. 		  The UA SHOULD use the one
+<p class="error">
+You use UA here
+(And this line should be rewrapped)
+</p>
 		  with a smaller <a>fitness distance</a>.
 		</p>
 
@@ -3799,6 +3871,9 @@ if(!supports["width"] || !supports["height"]) {
               </div>
 	      <div class="note">
 		<p>When picking a settings dictionary, the UA can use
+<p class="error">
+You use UA here
+</p>
 		any information available to it. Examples of such
 		information may be whether the selection is done as
 		part of device selection in getUserMedia, whether the
