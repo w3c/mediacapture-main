@@ -395,7 +395,7 @@
           <li>
             <p>If <var>stream</var>'s <a href="#track-set">track set</a> is
             empty or only contains <a href="#track-ended">ended</a> tracks, set <var>stream</var>'s <code>
-                <a href="#dom-mediastream-active">active</a>
+                <a href="#stream-active">active</a>
               </code> attribute to <code>false</code>, otherwise set it to
             <code>true</code>.</p>
           </li>
@@ -450,7 +450,7 @@
             <a>MediaStream</a>
           </code> goes from being active to inactive, the User Agent MUST
         queue a task that sets the object's <code>
-            <a href="#dom-mediastream-active">active</a>
+            <a href="#stream-active">active</a>
           </code> attribute to <code>false</code> and fire a simple event
         named <code>
             <a href="#event-mediastream-inactive">inactive</a>
@@ -458,7 +458,7 @@
             <a>MediaStream</a>
           </code> goes from being inactive to active, the User Agent MUST
         queue a task that sets the object's <code>
-            <a href="#dom-mediastream-active">active</a>
+            <a href="#stream-active">active</a>
           </code> attribute to <code>true</code> and fire a simple event named
         <code>
             <a href="#event-mediastream-active">active</a>
@@ -2295,7 +2295,7 @@
           <tr>
             <td>
 
-                <code>active</code>
+                <code id="event-mediastream-active">active</code>
 
             </td>
 
@@ -2312,7 +2312,7 @@
           <tr>
             <td>
 
-                <code>inactive</code>
+                <code id="event-mediastream-inactive">inactive</code>
 
             </td>
 
@@ -3960,7 +3960,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         Constrainable pattern. The registry entries
         MUST contain the name of each property along with
         its set of legal values. The registry entries for MediaStreamTrack are
-        defined <a href="#sec-constraints">below</a>. The syntax for the
+        defined <a href="#sec-track-properties">below</a>. The syntax for the
         specification of the set of legal values depends on the type of the
         values. In addition to the standard atomic types (boolean, long,
         double, DOMString), legal values include lists of any of the atomic
