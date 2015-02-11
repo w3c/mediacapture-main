@@ -8,6 +8,7 @@ install:
  - pip install html5validator
  - sudo apt-get install libwww-perl
 script:
+ - mkdir build
  - phantomjs --ignore-ssl-errors=true --ssl-protocol=tlsv1 respec/tools/respec2html.js -e -w getusermedia.html build/output.html
  - python webidl-checker/webidl-check build/output.html
  - "! (perl -T linkchecker/bin/checklink -S 0  -q -b build/output.html |grep  \"^\")"
