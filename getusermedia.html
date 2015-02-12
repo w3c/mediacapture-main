@@ -3380,31 +3380,69 @@
 
       <p>The application can select the (range of) values it wants for an
       object's Capabilities by means of basic and/or advanced ConstraintSets
-      and the <code>applyConstraints()</code> method. A ConstraintSet consists
+      and the <code>applyConstraints()</code> method.</p>
+
+      <p>A ConstraintSet consists
       of the names of one or more properties of the object plus the desired
       value (or a range of desired values) for each property. Each of those
-      property/value pairs can be considered to be an individual constraint.
-      For example, the application may set a ConstraintSet containing two
+      property/value pairs defines an individual constraint.</p>
+
+      <p>For example, the application may set a ConstraintSet containing two
       constraints, the first stating that the framerate of a camera be between
       30 and 40 frames per second (a range) and the second that the camera
-      should be facing the user (a specific value). How the individual
+      should be facing the user (a specific value).</p>
+
+      <p>How the individual
       constraints interact depends on whether and how they are given in the
       basic Constraint structure, which is a ConstraintSet with an additional
-      'advanced' property, or whether they are in a ConstraintSet in the
-      advanced list. The behavior is as follows: all 'min', 'max', and 'exact'
-      constraints in the basic Constraint structure are together treated as
-      the 'required' set, and if it is not possible to satisfy simultaneously
-      all of those individual constraints for the indicated property names,
-      the User Agent MUST reject the returned promise. Otherwise, it must
-      apply the required constraints. Next, it will consider any
-      ConstraintSets given in the 'advanced' list, in the order in which they
+      <code>advanced</code> property, or whether they are in a ConstraintSet in the
+      advanced list.</p>
+
+      <p>A constraint associates a given property with 4 values using
+        the <code id="readConstraint">ReadConstraint</code> algorithm:
+        for a constraint with a property <var>p</var> associated to
+        the value <var>v</var>:</p>
+      <ol>
+        <li>let <var>min</var>, <var>max</var>, <var>exact</var>
+        and <var>ideal</var> be initially undefined values;</li>
+        <li>unless set otherwise, let <var>plainAsIdeal</var> be <code>true</code></li>
+        <li>if <var>v</var> is an object, set <var>min</var>
+        to <code><var>v</var>.min</code>, <var>max</var>
+        to <code><var>v</var>.max</code>, <var>exact</var>
+        to <code><var>v</var>.exact</code>, <var>ideal</var>
+        to <code><var>v</var>.ideal</code>;</li>
+        <li>if <var>v</var> is a string or a number:<ul>
+            <li>if <var>plainAsIdeal</var> is <code>true</code>,
+            set <var>ideal</var> to <var>v</var>;</li>
+            <li>otherwise, set <var>exact</var> to <var>v</var>.</li>
+        </ul></li>
+        <li>return <var>min</var>, <var>max</var>, <var>exact</var>
+        and <var>ideal</var></li>
+      </ol>
+
+      <p>The behavior is as follows:</p>
+      <ol>
+        <li>all <var>min</var>, <var>max</var>, and <var>exact</var>
+      values in a constraint are together treated as
+      the <em>required</em> set</li>
+        <li>if it is not possible to satisfy simultaneously
+          all of those individual constraints for the indicated property names,
+          the User Agent MUST reject the returned promise.</li>
+        <li>Otherwise, it must
+      apply the required constraints.
+      </ul></li>
+      <li>Next, it will consider any
+          ConstraintSets given in the <code>advanced</code> list, in the order in which they
       are specified, and will try to satisfy/apply each complete ConstraintSet
       (i.e., all constraints in the ConstraintSet together), but will skip a
-      ConstraintSet if and only if it cannot satisfy/apply it in its entirety.
-      Next, the User Agent  MUST attempt to apply, individually, any 'ideal' constraints
-      or a constraint given as a bare value for the property. Of these
+      ConstraintSet if and only if it cannot satisfy/apply it in its
+          entirety.</li>
+        <li>Next, the User Agent  MUST attempt to apply, individually, any <code>ideal</code> constraints. Of these
       properties, it MUST satisfy the largest number that it can, in any
-      order. Finally, the User Agent MUST resolve the returned promise.</p>
+      order.</li>
+        <li>Finally, the User Agent MUST resolve the returned
+        promise.</li>
+      </ol>
 
       <div class="note">
         Any constraint provided via this API will only be considered if the
@@ -3631,10 +3669,11 @@ if(!supports["width"] || !supports["height"]) {
               </li>
 
               <li>
-                <p>
-                  If the constraint is required ('min', 'max', or 'exact'),
+                  If either of <var>min</var>, <var>max</var>
+		  or <var>exact</var> is defined for the constraint
+		  (i.e. it is required),
 		  and the <a>settings dictionary</a>'s value for the constraint does not
-		  satisfy the constraint, use positive infinity.</p>
+		  satisfy the constraint, use positive infinity.
               </li>
               <li>
                 For all positive numeric non-required constraints
@@ -3690,18 +3729,12 @@ if(!supports["width"] || !supports["height"]) {
 	    <p>
 	      We define the <dfn>SelectSettings</dfn> algorithm as follows:
              <ol>
-              <li>Each constraint MUST
-              specify one or more values (or a range of
-              values) for its property. A property MAY appear more than once
-              in the list of
-              'advanced' ConstraintSets.</p>
-	      <p>Note that
-              unknown properties are discarded by WebIDL, which means that
-              unknown/unsupported required constraints will silently
-              disappear. To avoid this being a surprise, application authors
-              are expected to first use the
-              <code>getSupportedConstraints()</code> method as shown in the
-              Examples below.</li>
+              <li>for each constraint in the ConstraintSet, apply the
+              <a href="#readConstraint"><code>ReadConstraint</code></a>
+              algorithm with the <var>plainAsIdeal</var> flag set to
+              <code>true</code>. The <var>min</var>, <var>max</var>, <var>exact</var>
+              and <var>ideal</var> values it returns will be used to
+              calculate the fitness distance.</li>
 
               <li>Let <var>object</var> be the <code><a>ConstrainablePattern</a></code> object on
               which this algorithm is applied. Let <var>copy</var> be an
@@ -3722,10 +3755,14 @@ if(!supports["width"] || !supports["height"]) {
 
               <li>Let <var>successfulConstraints</var> be a list of
               ConstraintSets, initially containing only
-              <var>requiredConstraints</var>. Iterate over the 'advanced'
+              <var>requiredConstraints</var>. Iterate over the <code>advanced</code>
               ConstraintSets in <var>newConstraints</var> in the order in
               which they were specified. For each ConstraintSet:
 	      <ol>
+                <li>Obtain the values for the constraint using
+                the <a href="#readConstraint"><code>ReadConstraint</code></a>
+                algorithm with the <code>plainAsIdeal</code> flag set
+                to <strong><code>false</code></strong>;</li>
 		<li><p>compute
 		    the fitness distance between it and each settings dictionary.</p>
 		<li><p>If the fitness distance is finite for one or more
@@ -3743,7 +3780,6 @@ if(!supports["width"] || !supports["height"]) {
 		</p>
 
 	      </ol>
-
 
             <p>When <code>applyConstraints</code> is called, the User Agent MUST run the
             following steps:</p>
