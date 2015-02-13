@@ -68,5 +68,25 @@ var respecConfig = {
    // Team Contact.
    wgPatentURI:   ["http://www.w3.org/2004/01/pp-impl/47318/status","http://www.w3.org/2004/01/pp-impl/43696/status"],
    // This spec remains on process 2005 for now
-   processVersion: "2005"
+   processVersion: "2005",
+   otherLinks: [
+    {
+      key: "Participate",
+      data: [
+        {
+          value: "Mailing list",
+          href: "http://lists.w3.org/Archives/Public/public-media-capture/"
+        },
+        {
+          value: "Browse open issues",
+          href: "https://github.com/w3c/mediacapture-main/issues"
+        },
+        {
+          value: "File a bug",
+          href: "https://github.com/w3c/mediacapture-main/issues/new"
+        }
+      ]
+    }
+  ]
+
 };
