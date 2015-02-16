@@ -1226,7 +1226,7 @@
                 </code> method is the DOM manipulation task source.</p>
             </dd>
 
-            <dt>Capabilities getCapabilities()</dt>
+            <dt>MediaTrackCapabilities getCapabilities()</dt>
 
             <dd>
               <p>See <a href="#constrainable-interface">ConstrainablePattern
@@ -1240,7 +1240,7 @@
             Interface</a> for the definition of this method. </p>
             </dd>
 
-            <dt>Settings getSettings()</dt>
+            <dt>MediaTrackSettings getSettings()</dt>
 
             <dd>
               <p>See <a href="#constrainable-interface">ConstrainablePattern
@@ -1321,6 +1321,60 @@
           </dl>
         </section>
 
+        <section id="media-track-capabilities">
+          <h2>MediaTrackCapabilities</h2>
+
+          <p><code><a>MediaTrackCapabilities</a></code> represents the
+          <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
+          </p>
+
+          <dl class="idl" title="dictionary MediaTrackCapabilities">
+            <dt>ConstrainLong width</dt>
+
+            <dd />
+
+            <dt>ConstrainLong height</dt>
+
+            <dd />
+
+            <dt>ConstrainDouble aspectRatio</dt>
+
+            <dd />
+
+            <dt>ConstrainDouble frameRate</dt>
+
+            <dd />
+
+            <dt>ConstrainDOMString facingMode</dt>
+
+            <dd />
+
+            <dt>ConstrainDouble volume</dt>
+
+            <dd />
+
+            <dt>ConstrainLong sampleRate</dt>
+
+            <dd />
+
+            <dt>ConstrainLong sampleSize</dt>
+
+            <dd />
+
+            <dt>ConstrainBoolean echoCancellation</dt>
+
+            <dd />
+
+            <dt>ConstrainDOMString deviceId</dt>
+
+            <dd />
+
+            <dt>ConstrainDOMString groupId</dt>
+
+            <dd />
+          </dl>
+        </section>
+
         <section id="media-track-constraints">
           <h2>MediaTrackConstraints</h2>
 
@@ -1376,6 +1430,59 @@
             <dd />
 
             <dt>ConstrainDOMString groupId</dt>
+
+            <dd />
+          </dl>
+        </section>
+
+        <section id="media-track-settings">
+          <h2>MediaTrackSettings</h2>
+
+          <p><code><a>MediaTrackSettings</a></code> represents the
+          <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
+
+          <dl class="idl" title="dictionary MediaTrackSettings">
+            <dt>long width</dt>
+
+            <dd />
+
+            <dt>long height</dt>
+
+            <dd />
+
+            <dt>double aspectRatio</dt>
+
+            <dd />
+
+            <dt>double frameRate</dt>
+
+            <dd />
+
+            <dt>DOMString facingMode</dt>
+
+            <dd />
+
+            <dt>double volume</dt>
+
+            <dd />
+
+            <dt>long sampleRate</dt>
+
+            <dd />
+
+            <dt>long sampleSize</dt>
+
+            <dd />
+
+            <dt>boolean echoCancellation</dt>
+
+            <dd />
+
+            <dt>DOMString deviceId</dt>
+
+            <dd />
+
+            <dt>DOMString groupId</dt>
 
             <dd />
           </dl>
