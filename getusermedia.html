@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <!--
    To publish this document, see instructions in README
    -->
-<html lang="en-us" xml:lang="en-us" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ns="http://www.w3.org/1999/xhtml">
+<html lang="en-us">
   <head>
     <link href="getusermedia.css" rel="stylesheet" type="text/css" />
 
@@ -397,7 +395,7 @@
           <li>
             <p>If <var>stream</var>'s <a href="#track-set">track set</a> is
             empty or only contains <a href="#track-ended">ended</a> tracks, set <var>stream</var>'s <code>
-                <a href="#dom-mediastream-active">active</a>
+                <a href="#stream-active">active</a>
               </code> attribute to <code>false</code>, otherwise set it to
             <code>true</code>.</p>
           </li>
@@ -452,7 +450,7 @@
             <a>MediaStream</a>
           </code> goes from being active to inactive, the User Agent MUST
         queue a task that sets the object's <code>
-            <a href="#dom-mediastream-active">active</a>
+            <a href="#stream-active">active</a>
           </code> attribute to <code>false</code> and fire a simple event
         named <code>
             <a href="#event-mediastream-inactive">inactive</a>
@@ -460,7 +458,7 @@
             <a>MediaStream</a>
           </code> goes from being inactive to active, the User Agent MUST
         queue a task that sets the object's <code>
-            <a href="#dom-mediastream-active">active</a>
+            <a href="#stream-active">active</a>
           </code> attribute to <code>true</code> and fire a simple event named
         <code>
             <a href="#event-mediastream-active">active</a>
@@ -2292,7 +2290,7 @@
           <tr>
             <td>
 
-                <code>active</code>
+                <code id="event-mediastream-active">active</code>
 
             </td>
 
@@ -2309,7 +2307,7 @@
           <tr>
             <td>
 
-                <code>inactive</code>
+                <code id="event-mediastream-inactive">inactive</code>
 
             </td>
 
@@ -2575,7 +2573,6 @@
               </li>
               <li>
                 <p>Run the following steps asynchronously:</p>
-              </li>
 
               <ol>
               <li>
@@ -2651,7 +2648,7 @@
                 <var>p</var> with <var>filteredList</var>. Otherwise, resolve
                 <var>p</var> with <var>resultList</var>.</p>
               </li>
-            </ol>
+            </ol></li>
             <li>
               <p>Return <var>p</var>.</p>
             </li>
@@ -2857,22 +2854,20 @@
               <li>
                 <p>Upon fulfillment of <var>p</var> with value <var>stream</var>,
                 run the following step:</p>
-              </li>
               <ol>
                 <li>
                   <p>Invoke <var>successCallback</var> with <var>stream</var> as the
                   argument.
                 </li>
-              </ol>
+              </ol></li>
               <li>
                 <p>Upon rejection of <var>p</var> with reason <var>r</var>,
                 run the following step:</p>
-              </li>
               <ol>
                 <li>
                   <p>Invoke <var>errorCallback</var> with <var>r</var> as the argument.</p>
                 </li>
-              </ol>
+              </ol></li>
             </ol>
           </dd>
         </dl>
@@ -2963,7 +2958,6 @@
 
               <li>
                 <p>Run the following steps asynchronously:</p>
-              </li>
 
               <ol>
               <li>
@@ -3176,7 +3170,7 @@
                 <p><em>Error Task:</em>
                 Reject <var>p</var> with <var>error</var>.</p>
               </li>
-            </ol>
+            </ol></li>
             <li>
               <p>Return <var>p</var>.</p>
             </li>
@@ -3433,7 +3427,7 @@
       combination of two constraints that could be satisfied. If so, the user
       agent will choose.</p>
 
-      <pre class="example highlight" xml:space="preserve">
+      <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["aspectRatio"]) {
   // Treat like an error.
@@ -3453,7 +3447,7 @@ if(!supports["aspectRatio"]) {
       Otherwise, it will try to satisfy the width, height, and aspectRatio
       target values as well and then resolve the promise.</p>
 
-      <pre class="example highlight" xml:space="preserve">
+      <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["aspectRatio"]) {
   // Treat like an error.
@@ -3480,7 +3474,7 @@ if(!supports["aspectRatio"]) {
       aspectRatio of 4x3 if at all possible. If even that is not possible,
       give me a resolution as close to 1280x720 as possible."</p>
 
-      <pre class="example highlight" xml:space="preserve">
+      <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
@@ -3765,7 +3759,6 @@ if(!supports["width"] || !supports["height"]) {
               </li>
               <li>
                 <p>Run the following steps asynchronously:</p>
-              </li>
 	      <ol>
 		<li><p>Let <var>successfulSettings</var> be the result
 		    of running the <a>SelectSettings</a> algorithm with <var>newConstraints</var> as the constraint set.</p>
@@ -3787,7 +3780,7 @@ if(!supports["width"] || !supports["height"]) {
               again, getConstraints() <em class="rfc2119"
               title="must">must</em> return the <var>newConstraints</var> that
               were passed as an argument to this call.</p> </li>
-            </ol>
+            </ol></li>
             <li>
               <p>Return <var>p</var>.</p>
             </li>
@@ -3844,7 +3837,7 @@ if(!supports["width"] || !supports["height"]) {
           </code> is below. It uses the properties defined in <a
         href="#sec-track-properties">the Track property registry</a>.</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["facingMode"]) {
   // Treat like an error.
@@ -3878,7 +3871,7 @@ var constraints = {
         must have a particular camera and have separate preferences for the
         width and height:</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["deviceId"]) {
   // Treat like an error.
@@ -3900,7 +3893,7 @@ var constraints = {
 
         <p>And here's one for an audio track:</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("audio");
 if(!supports["deviceId"] || !supports["volume"]) {
   // Treat like an error.
@@ -3916,7 +3909,7 @@ var constraints = {
 
         <p>Here's an example of use of ideal:</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["aspectRatio"] || !supports["facingMode"]) {
   // Treat like an error.
@@ -3934,7 +3927,7 @@ var gotten = navigator.mediaDevices.getUserMedia({
         <p>Here's an example of "I want 720p, but I can accept up to 1080p and
         down to VGA.":</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
@@ -3948,7 +3941,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <p>Here's an example of "I want a front-facing camera and it must be
         VGA.":</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints("video");
 if(!supports["width"] || !supports["height"] || !supports["facingMode"]) {
   // Treat like an error.
@@ -3969,7 +3962,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         Constrainable pattern. The registry entries
         MUST contain the name of each property along with
         its set of legal values. The registry entries for MediaStreamTrack are
-        defined <a href="#sec-constraints">below</a>. The syntax for the
+        defined <a href="#sec-track-properties">below</a>. The syntax for the
         specification of the set of legal values depends on the type of the
         values. In addition to the standard atomic types (boolean, long,
         double, DOMString), legal values include lists of any of the atomic
@@ -4105,7 +4098,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         example is not very realistic in that a browser would actually be
         required to support more constrainable properties than just these.</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 {
   frameRate: {
     min: 1.0,
@@ -4123,7 +4116,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         only provide 640x480 and 800x600 resolutions the relevant
         capabilities returned would be:</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 {
   width: {
     min: 640,
@@ -4167,7 +4160,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         not very realistic in that a browser would actually be required to
         support more constrainable properties than just these.</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 {
   frameRate: 30.0,
   facingMode: "user"
@@ -4232,7 +4225,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         the page access to the local camera) and then disabling the stream
         (e.g., revoking that access).</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 &lt;input type="button" value="Start" onclick="start()" id="startBtn"&gt;
 &lt;script&gt;
  var startBtn = document.getElementById('startBtn');
@@ -4264,7 +4257,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>This example allows people to record a short audio message and upload
       it to the server. This example even shows rudimentary error handling.</p>
 
-      <pre xml:space="preserve" class="example highlight">
+      <pre class="example highlight">
 &lt;input type="button" value="Start" onclick="msgRecord()" id="recBtn"&gt;
 &lt;input type="button" value="Stop" onclick="msgStop()" id="stopBtn" disabled&gt;
 &lt;p id="status"&gt;To start recording, press the Start button.&lt;/p&gt;
@@ -4331,7 +4324,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         local video camera. Note that the Image Capture
         specification [[image-capture]] provides a simpler way to accomplish this.</p>
 
-        <pre class="example highlight" xml:space="preserve">
+        <pre class="example highlight">
 &lt;article&gt;
  &lt;style scoped&gt;
   video { transform: scaleX(-1); }
