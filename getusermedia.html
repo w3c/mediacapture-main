@@ -1329,47 +1329,47 @@
           </p>
 
           <dl class="idl" title="dictionary MediaTrackCapabilities">
-            <dt>ConstrainLong width</dt>
+            <dt>(long or LongRange) width</dt>
 
             <dd />
 
-            <dt>ConstrainLong height</dt>
+            <dt>(long or LongRange) height</dt>
 
             <dd />
 
-            <dt>ConstrainDouble aspectRatio</dt>
+            <dt>(double or DoubleRange) aspectRatio</dt>
 
             <dd />
 
-            <dt>ConstrainDouble frameRate</dt>
+            <dt>(double or DoubleRange) frameRate</dt>
 
             <dd />
 
-            <dt>ConstrainDOMString facingMode</dt>
+            <dt>DOMString facingMode</dt>
 
             <dd />
 
-            <dt>ConstrainDouble volume</dt>
+            <dt>(double or DoubleRange) volume</dt>
 
             <dd />
 
-            <dt>ConstrainLong sampleRate</dt>
+            <dt>(long or LongRange) sampleRate</dt>
 
             <dd />
 
-            <dt>ConstrainLong sampleSize</dt>
+            <dt>(long or LongRange) sampleSize</dt>
 
             <dd />
 
-            <dt>ConstrainBoolean echoCancellation</dt>
+            <dt>boolean echoCancellation</dt>
 
             <dd />
 
-            <dt>ConstrainDOMString deviceId</dt>
+            <dt>DOMString deviceId</dt>
 
             <dd />
 
-            <dt>ConstrainDOMString groupId</dt>
+            <dt>DOMString groupId</dt>
 
             <dd />
           </dl>
@@ -4095,7 +4095,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         request that the camera not be facing away from the user, but would
         allow the User Agent to allow the user to choose other directions.</p>
 
-        <dl class="idl" title="dictionary ConstrainDoubleRange">
+        <dl class="idl" title="dictionary DoubleRange">
           <dt>double max</dt>
 
           <dd>
@@ -4107,7 +4107,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dd>
             <p>The minimum value of this Property.</p>
           </dd>
+        </dl>
 
+        <dl class="idl" title="dictionary ConstrainDoubleRange : DoubleRange">
           <dt>double exact</dt>
 
           <dd>
@@ -4121,7 +4123,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           </dd>
         </dl>
 
-        <dl class="idl" title="dictionary ConstrainLongRange">
+        <dl class="idl" title="dictionary LongRange">
           <dt>long max</dt>
 
           <dd>
@@ -4133,7 +4135,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dd>
             <p>The minimum value of this property.</p>
           </dd>
+        </dl>
 
+        <dl class="idl" title="dictionary ConstrainLongRange : LongRange">
           <dt>long exact</dt>
 
           <dd>
