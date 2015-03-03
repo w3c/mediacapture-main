@@ -3615,7 +3615,6 @@ if(!supports["width"] || !supports["height"]) {
               <a>settings dictionary</a> and a constraint set
               <var>CS</var> as the sum, for each constraint
               provided for a constraint name in <var>CS</var>,
-	      ignoring "advanced",
 	      of the following values:</p>
 
             <ol>
@@ -3715,32 +3714,30 @@ if(!supports["width"] || !supports["height"]) {
 		compute its <a>fitness distance</a>.
 	      Discard the <a title="settings dictionary">settings dictionaries</a> for which the result is
 	      infinity, and add the remaining <a title="settings dictionary">settings dictionaries</a> to the set
-	      of possible settings dictionaries <var>candidates</var></p></li>
+	      of possible settings dictionaries <var>candidates</var>.</p></li>
 
 	      <li><p>If the <a>fitness distance</a> of the best fitting
 		  settings dictionary is infinity, return <code>undefined</code> as the result
 		  of the function.</p>
 
-              <li>Let <var>successfulConstraints</var> be a list of
-              ConstraintSets, initially containing only
-              <var>requiredConstraints</var>. Iterate over the 'advanced'
+              <li>Iterate over the 'advanced'
               ConstraintSets in <var>newConstraints</var> in the order in
               which they were specified. For each ConstraintSet:
 	      <ol>
 		<li><p>compute
-		    the fitness distance between it and each settings dictionary.</p>
+		    the fitness distance between it and each settings dictionary in
+        <var>candidates</var>.</p>
 		<li><p>If the fitness distance is finite for one or more
-                    settings dictionaries, add this ConstraintSet
-		    to <var>requiredConstraints</var>, and keep these settings
-                    dictionaries
-		    in the list of possible settings, discarding others.</p>
+		    settings dictionaries in <var>candidates</var>, keep those settings dictionaries
+		    in <var>candidates</var>, discarding others.</p>
 		  <p>If the fitness distance is infinite for all settings
-                    dictionaries, ignore this ConstraintSet.</p></li>
+		  dictionaries in <var>candidates</var>, ignore this ConstraintSet.</p></li>
 		</ol>
 	      <li><p>Select one settings dictionary from the list of possible
                   settings,
-		  and return this as the result of the <code>SelectSettings</code> algorithm. 		  The UA SHOULD use the one
-		  with a smaller <a>fitness distance</a>.
+		  and return this as the result of the <code>SelectSettings()</code> algorithm.
+		  The UA SHOULD use the one with the smallest <code>fitness distance</code>,
+		  as calculated in step 3.
 		</p>
 
 	      </ol>
