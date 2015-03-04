@@ -3694,11 +3694,14 @@ if(!supports["width"] || !supports["height"]) {
 	    <p>
 	      We define the <dfn>SelectSettings</dfn> algorithm as follows:
              <ol>
-              <li>Each <a title="constraints">constraint</a> MUST
-              specify one or more values (or a range of
+              <li>Each <a title="constraints">constraint</a> specifies
+              one or more values (or a range of
               values) for its property. A property MAY appear more than once
               in the list of
-              'advanced' ConstraintSets.</p>
+              'advanced' ConstraintSets.  If an empty object or list has been
+              given as the value for a constraint, it MUST be interpreted as if
+              the constraint were not specified (in other words, an empty
+              constraint == no constraint).</p>
 	      <p>Note that
               unknown properties are discarded by WebIDL, which means that
               unknown/unsupported required constraints will silently
@@ -4721,6 +4724,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <ol>
         <li>Added getUserMedia() implementation suggestion as discussed in
         issue #67</li>
+        <li>Issue 139:  Clarified in SelectSettings algorithm that an empty constraint is to be treated as no constraint.</li>
       </ol>
 
       <h2>Changes since October 27, 2014</h2>
