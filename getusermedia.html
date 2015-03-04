@@ -3306,15 +3306,19 @@
           <span id="stored-permissions" class="practicelab">Stored
             Permissions</span>
           <p class="practicedesc">When permission is requested for a
-            device, the User Agent may choose to store that permission, if granted, for later
-            use by the same origin, so that the user does not need to
-            grant permission again at a later time. Such storing
-            MUST
-            only be done when the page is secure (served over HTTPS and
-            having no mixed content). It is an User Agent choice whether it
-            offers functionality to store permission to each device
-            separately, all devices of a given class, or all devices; the
-            choice needs to be apparent to the user.</p>
+            device, the User Agent may choose to store that
+            permission, if granted, for later use by the same origin,
+            so that the user does not need to grant permission again
+            at a later time. Such storing MUST only be done when the
+            page is secure (served over HTTPS and having no mixed
+            content). It is a User Agent choice whether it offers
+            functionality to store permission to each device
+            separately, all devices of a given class, or all devices;
+            the choice needs to be apparent to the user, and
+            permission must have been granted for the entire set whose
+            permission is being stored, e.g., to store permission to
+            use all cameras the user must have given permission to use
+            all cameras and not just one.</p>
           <p class="practicedesc">When permission is not stored,
             permission should last only until such time as all
             MediaStreamTracks sourced from that device have been stopped.</p>
