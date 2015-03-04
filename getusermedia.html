@@ -3717,8 +3717,8 @@ if(!supports["width"] || !supports["height"]) {
               ConstraintSets removed.)</li>
 
 	      <li><p>For every possible <a>settings dictionary</a>
-		  of <var>copy</var>,
-		compute its <a>fitness distance</a>.
+		  of <var>copy</var>
+		compute its <a>fitness distance, treating bare values of properties as ideal values</a>.
               Let <var>candidates</var> be the set of <a title="settings dictionary">settings dictionaries</a> for which the <a>fitness distance</a> is finite.</p></li>
 
 	      <li><p>If <var>candidates</var> is empty, return <code>undefined</code> as the result
@@ -3730,7 +3730,7 @@ if(!supports["width"] || !supports["height"]) {
 	      <ol>
 		<li><p>compute
 		    the fitness distance between it and each settings dictionary in
-        <var>candidates</var>.</p>
+        <var>candidates</var>, treating bare values of properties as exact.</p>
 		<li><p>If the fitness distance is finite for one or more
 		    settings dictionaries in <var>candidates</var>, keep those settings dictionaries
 		    in <var>candidates</var>, discarding others.</p>
@@ -4725,6 +4725,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <li>Added getUserMedia() implementation suggestion as discussed in
         issue #67</li>
         <li>Issue 139:  Clarified in SelectSettings algorithm that an empty constraint is to be treated as no constraint.</li>
+        <li>Issue 128:  Clarified in SelectSettings that bare values mean exact in the advanced array and ideal otherwise.</li>
       </ol>
 
       <h2>Changes since October 27, 2014</h2>
