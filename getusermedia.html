@@ -1224,7 +1224,7 @@
                 </code> method is the DOM manipulation task source.</p>
             </dd>
 
-            <dt>Capabilities getCapabilities()</dt>
+            <dt>MediaTrackCapabilities getCapabilities()</dt>
 
             <dd>
               <p>See <a href="#constrainable-interface">ConstrainablePattern
@@ -1238,7 +1238,7 @@
             Interface</a> for the definition of this method. </p>
             </dd>
 
-            <dt>Settings getSettings()</dt>
+            <dt>MediaTrackSettings getSettings()</dt>
 
             <dd>
               <p>See <a href="#constrainable-interface">ConstrainablePattern
@@ -1319,6 +1319,60 @@
           </dl>
         </section>
 
+        <section id="media-track-capabilities">
+          <h2>MediaTrackCapabilities</h2>
+
+          <p><code><a>MediaTrackCapabilities</a></code> represents the
+          <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
+          </p>
+
+          <dl class="idl" title="dictionary MediaTrackCapabilities">
+            <dt>(long or LongRange) width</dt>
+
+            <dd />
+
+            <dt>(long or LongRange) height</dt>
+
+            <dd />
+
+            <dt>(double or DoubleRange) aspectRatio</dt>
+
+            <dd />
+
+            <dt>(double or DoubleRange) frameRate</dt>
+
+            <dd />
+
+            <dt>DOMString facingMode</dt>
+
+            <dd />
+
+            <dt>(double or DoubleRange) volume</dt>
+
+            <dd />
+
+            <dt>(long or LongRange) sampleRate</dt>
+
+            <dd />
+
+            <dt>(long or LongRange) sampleSize</dt>
+
+            <dd />
+
+            <dt>sequence&lt;boolean&gt; echoCancellation</dt>
+
+            <dd />
+
+            <dt>DOMString deviceId</dt>
+
+            <dd />
+
+            <dt>DOMString groupId</dt>
+
+            <dd />
+          </dl>
+        </section>
+
         <section id="media-track-constraints">
           <h2>MediaTrackConstraints</h2>
 
@@ -1374,6 +1428,59 @@
             <dd />
 
             <dt>ConstrainDOMString groupId</dt>
+
+            <dd />
+          </dl>
+        </section>
+
+        <section id="media-track-settings">
+          <h2>MediaTrackSettings</h2>
+
+          <p><code><a>MediaTrackSettings</a></code> represents the
+          <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
+
+          <dl class="idl" title="dictionary MediaTrackSettings">
+            <dt>long width</dt>
+
+            <dd />
+
+            <dt>long height</dt>
+
+            <dd />
+
+            <dt>double aspectRatio</dt>
+
+            <dd />
+
+            <dt>double frameRate</dt>
+
+            <dd />
+
+            <dt>DOMString facingMode</dt>
+
+            <dd />
+
+            <dt>double volume</dt>
+
+            <dd />
+
+            <dt>long sampleRate</dt>
+
+            <dd />
+
+            <dt>long sampleSize</dt>
+
+            <dd />
+
+            <dt>boolean echoCancellation</dt>
+
+            <dd />
+
+            <dt>DOMString deviceId</dt>
+
+            <dd />
+
+            <dt>DOMString groupId</dt>
 
             <dd />
           </dl>
@@ -3982,7 +4089,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         request that the camera not be facing away from the user, but would
         allow the User Agent to allow the user to choose other directions.</p>
 
-        <dl class="idl" title="dictionary ConstrainDoubleRange">
+        <dl class="idl" title="dictionary DoubleRange">
           <dt>double max</dt>
 
           <dd>
@@ -3994,7 +4101,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dd>
             <p>The minimum value of this Property.</p>
           </dd>
+        </dl>
 
+        <dl class="idl" title="dictionary ConstrainDoubleRange : DoubleRange">
           <dt>double exact</dt>
 
           <dd>
@@ -4008,7 +4117,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           </dd>
         </dl>
 
-        <dl class="idl" title="dictionary ConstrainLongRange">
+        <dl class="idl" title="dictionary LongRange">
           <dt>long max</dt>
 
           <dd>
@@ -4020,7 +4129,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <dd>
             <p>The minimum value of this property.</p>
           </dd>
+        </dl>
 
+        <dl class="idl" title="dictionary ConstrainLongRange : LongRange">
           <dt>long exact</dt>
 
           <dd>
