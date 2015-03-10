@@ -2812,7 +2812,7 @@
             <p>Describes the kind of the represented device.</p>
           </dd>
 
-          <dt>readonly attribute DOMString? label</dt>
+          <dt>readonly attribute DOMString label</dt>
 
           <dd>
             <p>A label describing this device (for example "External USB
@@ -2820,7 +2820,7 @@
             attribute MUST return the empty string.</p>
           </dd>
 
-          <dt>readonly attribute DOMString? groupId</dt>
+          <dt>readonly attribute DOMString groupId</dt>
 
           <dd>
             <p>Returns the group identifier of the represented device. Two
@@ -4838,6 +4838,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <li>Issue 139:  Clarified in SelectSettings algorithm that an empty constraint is to be treated as no constraint.</li>
         <li>Issue 128:  Clarified in SelectSettings that bare values mean exact in the advanced array and ideal otherwise.</li>
         <li>[PR#37/Bug 26654] Webidl in Constrainable</li>
+        <li>[Issue #141] MediaDeviceInfo.label and .groupId should not be
+        nullable</li>
       </ol>
 
       <h2>Changes since October 27, 2014</h2>
