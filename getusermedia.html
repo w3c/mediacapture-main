@@ -3019,15 +3019,15 @@
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
-          <dt>static Dictionary getSupportedConstraints(DOMString kind)</dt>
+          <dt>MediaTrackSettings getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
-            <p>Returns a dictionary whose members are the constrainable properties
+            <p>Returns an object whose members are the constrainable properties
             known to the User Agent for the kind given as argument. A
             supported constrainable property MUST be represented by a member whose name is
-            the constraint name and whose value is <code>true</code>. Any
+            the constraint name and whose value is truthy. Any
             constrainable properties not supported by the User Agent MUST not be
-            present in the returned dictionary.</p>
+            present in the returned object.</p>
           </dd>
 
           <dt>Promise&lt;MediaStream&gt; getUserMedia(
