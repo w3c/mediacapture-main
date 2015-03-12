@@ -2743,7 +2743,11 @@
 
               <li>
                 <p>If none of the local devices are attached to an active
-                <code><a>MediaStreamTrack</a></code>, let
+                <code><a>MediaStreamTrack</a></code> in the current browsing
+                context, and if
+                no <a href="stored-permissions">persistent
+                permission</a> to access these local devices have been
+                granted to the page's origin, let
                 <var>filteredList</var> be a copy of <var>resultList</var>, and
                 all its elements, where the <code><a href=
                 "#widl-MediaDeviceInfo-label">label</a></code> member is the
