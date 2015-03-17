@@ -1319,6 +1319,62 @@
           </dl>
         </section>
 
+        <section id="media-track-supported-constraints">
+          <h2>MediaTrackSupportedConstraints</h2>
+
+          <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
+           list of constraints recognized by a User Agent for controlling the
+           <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
+          </p>
+
+          <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
+            <dt>boolean width = true</dt>
+
+            <dd />
+
+            <dt>boolean height = true</dt>
+
+            <dd />
+
+            <dt>boolean aspectRatio = true</dt>
+
+            <dd />
+
+            <dt>boolean frameRate = true</dt>
+
+            <dd />
+
+            <dt>boolean facingMode = true</dt>
+
+            <dd />
+
+            <dt>boolean volume = true</dt>
+
+            <dd />
+
+            <dt>boolean sampleRate = true</dt>
+
+            <dd />
+
+            <dt>boolean sampleSize = true</dt>
+
+            <dd />
+
+            <dt>boolean echoCancellation = true</dt>
+
+            <dd />
+
+            <dt>boolean deviceId = true</dt>
+
+            <dd />
+
+            <dt>boolean groupId = true</dt>
+
+            <dd />
+          </dl>
+
+        </section>
+
         <section id="media-track-capabilities">
           <h2>MediaTrackCapabilities</h2>
 
@@ -3019,15 +3075,15 @@
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
-          <dt>Dictionary getSupportedConstraints(DOMString kind)</dt>
+          <dt>MediaTrackSupportedConstraints getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
-            <p>Returns a dictionary whose members are the constrainable properties
+            <p>Returns an object whose properties are the constrainable properties
             known to the User Agent for the kind given as argument. A
-            supported constrainable property MUST be represented by a member whose name is
+            supported constrainable property MUST be represented by a property whose name is
             the constraint name and whose value is <code>true</code>. Any
             constrainable properties not supported by the User Agent MUST not be
-            present in the returned dictionary.</p>
+            present in the returned object.</p>
           </dd>
 
           <dt>Promise&lt;MediaStream&gt; getUserMedia(
