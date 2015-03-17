@@ -3078,12 +3078,12 @@
           <dt>MediaTrackSupportedConstraints getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
-            <p>Returns an object whose properties are the constrainable properties
+            <p>Returns a dictionary whose members are the constrainable properties
             known to the User Agent for the kind given as argument. A
             supported constrainable property MUST be represented by a property whose name is
             the constraint name and whose value is <code>true</code>. Any
             constrainable properties not supported by the User Agent MUST not be
-            present in the returned object.</p>
+            present in the returned dictionary.</p>
           </dd>
 
           <dt>Promise&lt;MediaStream&gt; getUserMedia(
