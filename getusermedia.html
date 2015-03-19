@@ -1319,6 +1319,62 @@
           </dl>
         </section>
 
+        <section id="media-track-supported-constraints">
+          <h2>MediaTrackSupportedConstraints</h2>
+
+          <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
+           list of constraints recognized by a User Agent for controlling the
+           <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
+          </p>
+
+          <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
+            <dt>boolean width</dt>
+
+            <dd />
+
+            <dt>boolean height</dt>
+
+            <dd />
+
+            <dt>boolean aspectRatio</dt>
+
+            <dd />
+
+            <dt>boolean frameRate</dt>
+
+            <dd />
+
+            <dt>boolean facingMode</dt>
+
+            <dd />
+
+            <dt>boolean volume</dt>
+
+            <dd />
+
+            <dt>boolean sampleRate</dt>
+
+            <dd />
+
+            <dt>boolean sampleSize</dt>
+
+            <dd />
+
+            <dt>boolean echoCancellation</dt>
+
+            <dd />
+
+            <dt>boolean deviceId</dt>
+
+            <dd />
+
+            <dt>boolean groupId</dt>
+
+            <dd />
+          </dl>
+
+        </section>
+
         <section id="media-track-capabilities">
           <h2>MediaTrackCapabilities</h2>
 
@@ -3019,7 +3075,7 @@
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
-          <dt>static Dictionary getSupportedConstraints(DOMString kind)</dt>
+          <dt>MediaTrackSupportedConstraints getSupportedConstraints(DOMString kind)</dt>
 
           <dd>
             <p>Returns a dictionary whose members are the constrainable properties
