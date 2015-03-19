@@ -1327,6 +1327,11 @@
            <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
           </p>
 
+          <p> Future specification extend the MediaTrackSupportedConstraints 
+          dictionary by defining a partial dictionary with DictionaryMembers of Type 
+          boolean and an identifier that is a Property Name registered in the 
+          [[!RTCWEB-CONSTRAINTS]] registry. </p> 
+
           <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
             <dt>boolean width</dt>
 
@@ -1381,6 +1386,12 @@
           <p><code><a>MediaTrackCapabilities</a></code> represents the
           <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
           </p>
+
+          <p> Future specification extend the MediaTrackCapabilities dictionary 
+          by defining a partial dictionary with DictionaryMembers of appropriate 
+          Type and an identifier that is a Property Name registered in the 
+          [[!RTCWEB-CONSTRAINTS]] registry. </p>
+
 
           <dl class="idl" title="dictionary MediaTrackCapabilities">
             <dt>(long or LongRange) width</dt>
@@ -1442,6 +1453,11 @@
             </dd>
           </dl>
 
+          <p> Future specification extend the MediaTrackConstraintSet dictionary 
+          by defining a partial dictionary with DictionaryMembers of appropriate 
+          Type and an identifier that is a Property Name registered in the 
+          [[!RTCWEB-CONSTRAINTS]] registry. </p>
+
           <dl class="idl" title="dictionary MediaTrackConstraintSet">
             <dt>ConstrainLong width</dt>
 
@@ -1494,6 +1510,11 @@
 
           <p><code><a>MediaTrackSettings</a></code> represents the
           <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
+
+          <p> Future specification extend the MediaTrackSettings dictionary 
+          by defining a partial dictionary with DictionaryMembers of appropriate 
+          Type and an identifier that is a Property Name registered in the 
+          [[!RTCWEB-CONSTRAINTS]] registry. </p>
 
           <dl class="idl" title="dictionary MediaTrackSettings">
             <dt>long width</dt>
@@ -3083,7 +3104,9 @@
             supported constrainable property MUST be represented by a member whose name is
             the constraint name and whose value is <code>true</code>. Any
             constrainable properties not supported by the User Agent MUST not be
-            present in the returned dictionary.</p>
+            present in the returned dictionary. The values returned represent
+            what the browser implements and will not change during a single
+            session. </p>
           </dd>
 
           <dt>Promise&lt;MediaStream&gt; getUserMedia(
