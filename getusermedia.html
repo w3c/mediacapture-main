@@ -3075,11 +3075,11 @@
         recognizes.</p>
 
         <dl class="idl" title="partial interface MediaDevices">
-          <dt>MediaTrackSupportedConstraints getSupportedConstraints(DOMString kind)</dt>
+          <dt>MediaTrackSupportedConstraints getSupportedConstraints()</dt>
 
           <dd>
             <p>Returns a dictionary whose members are the constrainable properties
-            known to the User Agent for the kind given as argument. A
+            known to the User Agent. A
             supported constrainable property MUST be represented by a member whose name is
             the constraint name and whose value is <code>true</code>. Any
             constrainable properties not supported by the User Agent MUST not be
@@ -3599,7 +3599,7 @@
       agent will choose.</p>
 
       <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"]) {
   // Treat like an error.
 }
@@ -3619,7 +3619,7 @@ if(!supports["aspectRatio"]) {
       target values as well and then resolve the promise.</p>
 
       <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"]) {
   // Treat like an error.
 }
@@ -3646,7 +3646,7 @@ if(!supports["aspectRatio"]) {
       give me a resolution as close to 1280x720 as possible."</p>
 
       <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
 }
@@ -4006,7 +4006,7 @@ if(!supports["width"] || !supports["height"]) {
         href="#sec-track-properties">the Track property registry</a>.</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["facingMode"]) {
   // Treat like an error.
 }
@@ -4040,7 +4040,7 @@ var constraints = {
         width and height:</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["deviceId"]) {
   // Treat like an error.
 }
@@ -4062,7 +4062,7 @@ var constraints = {
         <p>And here's one for an audio track:</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("audio");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["deviceId"] || !supports["volume"]) {
   // Treat like an error.
 }
@@ -4078,7 +4078,7 @@ var constraints = {
         <p>Here's an example of use of ideal:</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"] || !supports["facingMode"]) {
   // Treat like an error.
 }
@@ -4096,7 +4096,7 @@ var gotten = navigator.mediaDevices.getUserMedia({
         down to VGA.":</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
 }
@@ -4110,7 +4110,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         VGA.":</p>
 
         <pre class="example highlight">
-var supports = navigator.mediaDevices.getSupportedConstraints("video");
+var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"] || !supports["facingMode"]) {
   // Treat like an error.
 }
