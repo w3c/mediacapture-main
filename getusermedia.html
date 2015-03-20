@@ -175,7 +175,12 @@
           <p>Source capabilities are effectively constant. Applications should
           be able to depend on a specific source having the same capabilities
           for any session.</p>
-
+          
+        <div class="note">
+          <p> Open Issue: Is "session" the correct term? Should it be "top-level
+          browsing context" as defined in HTML spec? </p>
+        </div>
+           
           <p>This API is intentionally simplified. Capabilities are not capable
           of describing interactions between different values. For instance, it
           is not possible to accurately describe the capabilities of a camera
@@ -1327,8 +1332,8 @@
            <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
           </p>
 
-          <p> Future specification extend the MediaTrackSupportedConstraints 
-          dictionary by defining a partial dictionary with DictionaryMembers of Type 
+          <p> Future specification can extend the MediaTrackSupportedConstraints 
+          dictionary by defining a partial dictionary with dictionary members of type 
           boolean and an identifier that is a Property Name registered in the 
           [[!RTCWEB-CONSTRAINTS]] registry. </p> 
 
@@ -1387,9 +1392,9 @@
           <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
           </p>
 
-          <p> Future specification extend the MediaTrackCapabilities dictionary 
-          by defining a partial dictionary with DictionaryMembers of appropriate 
-          Type and an identifier that is a Property Name registered in the 
+          <p> Future specification can extend the MediaTrackCapabilities dictionary 
+          by defining a partial dictionary with dictionary members of appropriate 
+          type and an identifier that is a Property Name registered in the 
           [[!RTCWEB-CONSTRAINTS]] registry. </p>
 
 
@@ -1453,9 +1458,9 @@
             </dd>
           </dl>
 
-          <p> Future specification extend the MediaTrackConstraintSet dictionary 
-          by defining a partial dictionary with DictionaryMembers of appropriate 
-          Type and an identifier that is a Property Name registered in the 
+          <p> Future specification can extend the MediaTrackConstraintSet dictionary 
+          by defining a partial dictionary with dictionary members of appropriate 
+          type and an identifier that is a Property Name registered in the 
           [[!RTCWEB-CONSTRAINTS]] registry. </p>
 
           <dl class="idl" title="dictionary MediaTrackConstraintSet">
@@ -1511,9 +1516,9 @@
           <p><code><a>MediaTrackSettings</a></code> represents the
           <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
 
-          <p> Future specification extend the MediaTrackSettings dictionary 
-          by defining a partial dictionary with DictionaryMembers of appropriate 
-          Type and an identifier that is a Property Name registered in the 
+          <p> Future specification can extend the MediaTrackSettings dictionary 
+          by defining a partial dictionary with dictionary members of appropriate 
+          type and an identifier that is a Property Name registered in the 
           [[!RTCWEB-CONSTRAINTS]] registry. </p>
 
           <dl class="idl" title="dictionary MediaTrackSettings">
@@ -3105,7 +3110,7 @@
             the constraint name and whose value is <code>true</code>. Any
             constrainable properties not supported by the User Agent MUST not be
             present in the returned dictionary. The values returned represent
-            what the browser implements and will not change during a single
+            what the browser implements and will not change during a 
             session. </p>
           </dd>
 
