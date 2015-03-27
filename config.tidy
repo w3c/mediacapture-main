@@ -3,7 +3,7 @@ indent-spaces: 2
 wrap: 80
 vertical-space: no
 tidy-mark: no
-output-encoding: ascii
+char-encoding: utf8
 output-html: true
 new-inline-tags: code
 new-blocklevel-tags: section
