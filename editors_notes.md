@@ -9,6 +9,11 @@ To format the draft use something like
 ## tidy --quiet y -utf8 --vertical-space y --tidy-mark n -indent -wrap 80
 tidy -config config.tidy getusermedia.html
 
+Note that any empty elements will be removed, so if you want to keep, for
+example, the <dd /> tags you will need to either a) change them before tidy
+to something like <dd>&nbsp;</dd> and then change them back afterwards, or
+b) add them back in manually after tidy
+
 
 To Generate a Version
 ---------------------
