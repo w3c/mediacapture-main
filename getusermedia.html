@@ -159,12 +159,7 @@
 
         <p>Source capabilities are effectively constant. Applications should be
         able to depend on a specific source having the same capabilities for
-        any session.</p>
-
-        <div class="note">
-          <p>Open Issue: Is "session" the correct term? Should it be "top-level
-          browsing context" as defined in HTML spec?</p>
-        </div>
+        any browsing session.</p>
 
         <p>This API is intentionally simplified. Capabilities are not capable
         of describing interactions between different values. For instance, it
@@ -2416,7 +2411,7 @@
 
                 <li>
                   <p>If this method has been called previously within this
-                  application session, let <var>oldList</var> be the list of
+                  browsing session, let <var>oldList</var> be the list of
                   <code><a>MediaDeviceInfo</a></code> objects that was produced
                   at that call (<var>resultList</var>); otherwise, let
                   <var>oldList</var> be an empty list.</p>
@@ -2518,7 +2513,7 @@
           <p>A unique identifier for the represented device.</p>
 
           <p>All enumerable devices have an identifier that MUST be unique to
-          the application and persistent across sessions. Unique and stable
+          the application and persistent across browsing sessions. Unique and stable
           identifiers let the application save, identify the availability of,
           and directly request specific sources.</p>
 
@@ -2526,7 +2521,7 @@
           prevent the identifier being used to correlate the same user across
           different applications.</p>
 
-          <p>Since <code>deviceId</code> persists across sessions and to reduce
+          <p>Since <code>deviceId</code> persists across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>deviceId</code> is
           to be treated as other persistent storage mechanisms such as cookies
           [[COOKIES]]. User agents <em class="rfc2119">should</em> reset
@@ -2754,7 +2749,7 @@
           name and whose value is <code>true</code>. Any constrainable
           properties not supported by the User Agent MUST not be present in the
           returned dictionary. The values returned represent what the browser
-          implements and will not change during a session.</p>
+          implements and will not change during a browsing session.</p>
         </dd>
 
         <dt>Promise&lt;MediaStream&gt; getUserMedia( MediaStreamConstraints
@@ -4293,10 +4288,10 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
             <td>DOMString</td>
 
-            <td>The application-unique identifier for the source of the
+            <td>The origin-unique identifier for the source of the
             <a>MediaStreamTrack</a>. The same identifier MUST be valid between
-            sessions of this application, but MUST also be different for other
-            applications. Some sort of GUID is recommended for the identifier.
+            browsing sessions of this origin, but MUST also be different for other
+            origins. Some sort of GUID is recommended for the identifier.
             Note that the setting of this property is uniquely determined by
             the source that is attached to the Track. In particular,
             <a>getCapabilities()</a> will return only a single value for
