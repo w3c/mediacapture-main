@@ -1648,8 +1648,6 @@
         </dd>
       </dl>
 
-      <p class="issue">We may want to allow direct assignment of other types as
-      well</p>
     </section>
 
     <section>
@@ -2057,13 +2055,6 @@
         We use MediaStreamError rather than deriving from Error until the
         situation with adding additional information into an error has been
         clarified.
-      </div>
-
-      <div class="issue">
-        Do we want to allow the constraintName attribute to contain multiple
-        constraint names? In many cases the error is raised as soon as a single
-        unsatisfied mandatory constraint is found, but in others it may be
-        possible to determine that multiple constraints are not satisfied.
       </div>
 
       <p>The following interface is defined for cases when a MediaStreamError
@@ -2772,9 +2763,6 @@
         <dd>
           <p>Prompts the user for permission to use their Web cam or other
           video or audio input.</p>
-
-          <p class="issue">(Remove when other issues are removed. This is only
-          here to keep the issues from being renumbered)</p>
 
           <p>The <var>constraints</var> argument is a dictionary of type
           <code><a>MediaStreamConstraints</a></code>.</p>
