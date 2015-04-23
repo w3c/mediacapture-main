@@ -6,7 +6,7 @@ install:
  - cd widlproc && make obj/widlproc && cd ..
  - pip install html5lib lxml
  - pip install html5validator
- - sudo apt-get install libwww-perl
+ - sudo apt-get install libwww-perl libcss-dom-perl
 script:
  - mkdir build && cd build && ln -s ../images . && ln -s ../getusermedia.css . && cd ..
  - phantomjs --ignore-ssl-errors=true --ssl-protocol=tlsv1 respec/tools/respec2html.js -e -w getusermedia.html build/output.html
