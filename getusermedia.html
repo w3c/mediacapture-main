@@ -329,10 +329,8 @@
         </li>
 
         <li>
-          <p>Run the steps for <code><a href=
-          "#widl-MediaStream-addTrack-void-MediaStreamTrack-track">addTrack</a></code>
-          on <var>stream</var> for each <code><a>MediaStreamTrack</a></code> in
-          <var>tracks</var>.</p>
+          <p><a href="#stream-add-track">Add each track</a> in <var>tracks</var>
+          to <var>stream</var>.</p>
         </li>
 
         <li>
@@ -399,6 +397,29 @@
       for this <span title="concept-task">task</span> is the <a href=
       "http://www.w3.org/TR/html5/webappapis.html#networking-task-source">networking
       task source</a> [[!HTML5]].</p>
+
+      <p>To <dfn id="stream-add-track">add a track</dfn> to a
+      <code><a>MediaStream</a></code>, the User Agent MUST run the
+      following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>track</var> be the
+          <code><a>MediaStreamTrack</a></code> in question and
+          <var>stream</var> the <code><a>MediaStream</a></code>
+          object to which <var>track</var> is to be added.</p>
+        </li>
+
+        <li>
+          <p>If <var>track</var> is already in <var>stream's</var> <a href=
+          "#track-set">track set</a>, then abort these steps.</p>
+        </li>
+
+        <li>
+          <p>Add <var>track</var> to <var>stream</var>'s <a href=
+          "#track-set">track set</a>.</p>
+        </li>
+      </ol>
 
       <dl class="idl" title="interface MediaStream : EventTarget">
         <dt>Constructor()</dt>
@@ -505,26 +526,9 @@
 
           <p>When the <dfn id=
           "dom-mediastream-addtrack"><code>addTrack()</code></dfn> method is
-          invoked, the User Agent MUST run the following steps:</p>
-
-          <ol>
-            <li>
-              <p>Let <var>track</var> be the
-              <code><a>MediaStreamTrack</a></code> argument and
-              <var>stream</var> this <code><a>MediaStream</a></code>
-              object.</p>
-            </li>
-
-            <li>
-              <p>If <var>track</var> is already in <var>stream's</var> <a href=
-              "#track-set">track set</a>, then abort these steps.</p>
-            </li>
-
-            <li>
-              <p>Add <var>track</var> to <var>stream</var>'s <a href=
-              "#track-set">track set</a>.</p>
-            </li>
-          </ol>
+          invoked, the User Agent MUST <a href="#stream-add-track">add the
+          track</a>, specified by the methods first argument, to this
+          <code><a>MediaStream</a></code>.</p>
         </dd>
 
         <dt>void removeTrack(MediaStreamTrack track)</dt>
