@@ -568,16 +568,9 @@
             </li>
 
             <li>
-              <p>Let <var>clonedTracks</var> be a list that contains the result
-              of running <code><a href=
-              "#dom-mediastreamtrack-clone">MediaStreamTrack.clone()</a></code>
-              on all the tracks in the stream on which this method was
-              called.</p>
-            </li>
-
-            <li>
-              <p>Let <var>clonedTracks</var> be <var>streamClone</var>'s
-              <a href="#track-set">track set</a>.</p>
+              <p><a href="#track-clone">Clone each track</a> in this
+              <code><a>MediaStream</a></code> object and add the result to
+              <var>streamClone</var>'s <a href="#track-set">track set</a>.</p>
             </li>
 
             <li>Return <var>streamClone</var>.</li>
@@ -654,6 +647,42 @@
 
       <p>If there is no stored permission to use that source, the User Agent
       SHOULD also remove the "permission granted" indicator for the source.</p>
+
+      <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST
+      run the following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>track</var> be the
+          <code><a>MediaStreamTrack</a></code> object to be cloned.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> be a newly constructed
+          <code><a>MediaStreamTrack</a></code> object.</p>
+        </li>
+
+        <li>
+          <p>Initialize <var>trackClone</var>'s <code><a href=
+          "#dom-mediastreamtrack-id">id</a></code> attribute to a newly
+          generated value.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> inherit <var>track</var>'s underlying
+          source, <code><a href=
+          "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
+          "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
+          "#dom-mediastreamtrack-readystate">readyState</a></code>, and
+          <code><a href=
+          "#dom-mediastreamtrack-enabled">enabled</a></code> attributes,
+          as well as its currently active constraints.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> be the result of this algorithm.</p>
+        </li>
+      </ol>
 
       <section>
         <h3>Life-cycle and Media Flow</h3>
@@ -978,35 +1007,8 @@
 
             <p>When the <dfn id=
             "dom-mediastreamtrack-clone"><code>MediaStreamTrack.clone()</code></dfn>
-            method is invoked, the User Agent MUST run the following steps:</p>
-
-            <ol>
-              <li>
-                <p>Let <var>trackClone</var> be a newly constructed
-                <code><a>MediaStreamTrack</a></code> object.</p>
-              </li>
-
-              <li>
-                <p>Initialize <var>trackClone</var>'s <code><a href=
-                "#dom-mediastreamtrack-id">id</a></code> attribute to a newly
-                generated value.</p>
-              </li>
-
-              <li>
-                <p>Let <var>trackClone</var> inherit this track's underlying
-                source, <code><a href=
-                "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
-                "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
-                "#dom-mediastreamtrack-readystate">readyState</a></code>, and
-                <code><a href=
-                "#dom-mediastreamtrack-enabled">enabled</a></code> attributes,
-                as well as its currently active constraints.</p>
-              </li>
-
-              <li>
-                <p>Return <var>trackClone</var>.</p>
-              </li>
-            </ol>
+            method is invoked, the User Agent MUST return the result of
+            <a href="#track-clone">cloning this track</a>.</p>
           </dd>
 
           <dt>void stop()</dt>
