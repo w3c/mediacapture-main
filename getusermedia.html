@@ -784,6 +784,33 @@
         button in the browser chrome, the User Agent (on behalf of the user)
         mutes, etc.</p>
 
+        <p>To <dfn id="update-track-muted">update a track's muted state</dfn> to
+        <var>newState</var>, the user agent MUST queue a task to run the
+        following steps:</p>
+
+        <ol>
+          <li>
+            <p>Let <var>track</var> be the <code>MediaStreamTrack</code> in
+            question.</p>
+          </li>
+
+          <li>
+            <p>Set <var>track</var>'s <code>muted</code> attribute to
+            <var>newState</var>.</p>
+          </li>
+
+          <li>
+            <p>If <var>newState</var> is <code>true</code> let
+            <var>eventName</var> be <code>mute</code>, otherwise
+            <code>unmute</code>.</p>
+          </li>
+
+          <li>
+            <p>Fire a simple event named <var>eventName</var> on
+            <var>track</var>.</p>
+          </li>
+        </ol>
+
         <p><dfn id="track-enabled">Enabled/disabled</dfn> on the other hand is
         available to application to control (and observe) via the
         <code><a href="#dom-mediastreamtrack-enabled">enabled</a></code>
