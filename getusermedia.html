@@ -329,10 +329,8 @@
         </li>
 
         <li>
-          <p>Run the steps for <code><a href=
-          "#widl-MediaStream-addTrack-void-MediaStreamTrack-track">addTrack</a></code>
-          on <var>stream</var> for each <code><a>MediaStreamTrack</a></code> in
-          <var>tracks</var>.</p>
+          <p><a href="#stream-add-track">Add each track</a> in <var>tracks</var>
+          to <var>stream</var>.</p>
         </li>
 
         <li>
@@ -399,6 +397,29 @@
       for this <span title="concept-task">task</span> is the <a href=
       "http://www.w3.org/TR/html5/webappapis.html#networking-task-source">networking
       task source</a> [[!HTML5]].</p>
+
+      <p>To <dfn id="stream-add-track">add a track</dfn> to a
+      <code><a>MediaStream</a></code>, the User Agent MUST run the
+      following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>track</var> be the
+          <code><a>MediaStreamTrack</a></code> in question and
+          <var>stream</var> the <code><a>MediaStream</a></code>
+          object to which <var>track</var> is to be added.</p>
+        </li>
+
+        <li>
+          <p>If <var>track</var> is already in <var>stream's</var> <a href=
+          "#track-set">track set</a>, then abort these steps.</p>
+        </li>
+
+        <li>
+          <p>Add <var>track</var> to <var>stream</var>'s <a href=
+          "#track-set">track set</a>.</p>
+        </li>
+      </ol>
 
       <dl class="idl" title="interface MediaStream : EventTarget">
         <dt>Constructor()</dt>
@@ -505,26 +526,9 @@
 
           <p>When the <dfn id=
           "dom-mediastream-addtrack"><code>addTrack()</code></dfn> method is
-          invoked, the User Agent MUST run the following steps:</p>
-
-          <ol>
-            <li>
-              <p>Let <var>track</var> be the
-              <code><a>MediaStreamTrack</a></code> argument and
-              <var>stream</var> this <code><a>MediaStream</a></code>
-              object.</p>
-            </li>
-
-            <li>
-              <p>If <var>track</var> is already in <var>stream's</var> <a href=
-              "#track-set">track set</a>, then abort these steps.</p>
-            </li>
-
-            <li>
-              <p>Add <var>track</var> to <var>stream</var>'s <a href=
-              "#track-set">track set</a>.</p>
-            </li>
-          </ol>
+          invoked, the User Agent MUST <a href="#stream-add-track">add the
+          track</a>, specified by the methods first argument, to this
+          <code><a>MediaStream</a></code>.</p>
         </dd>
 
         <dt>void removeTrack(MediaStreamTrack track)</dt>
@@ -564,16 +568,9 @@
             </li>
 
             <li>
-              <p>Let <var>clonedTracks</var> be a list that contains the result
-              of running <code><a href=
-              "#dom-mediastreamtrack-clone">MediaStreamTrack.clone()</a></code>
-              on all the tracks in the stream on which this method was
-              called.</p>
-            </li>
-
-            <li>
-              <p>Let <var>clonedTracks</var> be <var>streamClone</var>'s
-              <a href="#track-set">track set</a>.</p>
+              <p><a href="#track-clone">Clone each track</a> in this
+              <code><a>MediaStream</a></code> object and add the result to
+              <var>streamClone</var>'s <a href="#track-set">track set</a>.</p>
             </li>
 
             <li>Return <var>streamClone</var>.</li>
@@ -650,6 +647,42 @@
 
       <p>If there is no stored permission to use that source, the User Agent
       SHOULD also remove the "permission granted" indicator for the source.</p>
+
+      <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST
+      run the following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>track</var> be the
+          <code><a>MediaStreamTrack</a></code> object to be cloned.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> be a newly constructed
+          <code><a>MediaStreamTrack</a></code> object.</p>
+        </li>
+
+        <li>
+          <p>Initialize <var>trackClone</var>'s <code><a href=
+          "#dom-mediastreamtrack-id">id</a></code> attribute to a newly
+          generated value.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> inherit <var>track</var>'s underlying
+          source, <code><a href=
+          "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
+          "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
+          "#dom-mediastreamtrack-readystate">readyState</a></code>, and
+          <code><a href=
+          "#dom-mediastreamtrack-enabled">enabled</a></code> attributes,
+          as well as its currently active constraints.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var> be the result of this algorithm.</p>
+        </li>
+      </ol>
 
       <section>
         <h3>Life-cycle and Media Flow</h3>
@@ -1001,35 +1034,8 @@
 
             <p>When the <dfn id=
             "dom-mediastreamtrack-clone"><code>MediaStreamTrack.clone()</code></dfn>
-            method is invoked, the User Agent MUST run the following steps:</p>
-
-            <ol>
-              <li>
-                <p>Let <var>trackClone</var> be a newly constructed
-                <code><a>MediaStreamTrack</a></code> object.</p>
-              </li>
-
-              <li>
-                <p>Initialize <var>trackClone</var>'s <code><a href=
-                "#dom-mediastreamtrack-id">id</a></code> attribute to a newly
-                generated value.</p>
-              </li>
-
-              <li>
-                <p>Let <var>trackClone</var> inherit this track's underlying
-                source, <code><a href=
-                "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
-                "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
-                "#dom-mediastreamtrack-readystate">readyState</a></code>, and
-                <code><a href=
-                "#dom-mediastreamtrack-enabled">enabled</a></code> attributes,
-                as well as its currently active constraints.</p>
-              </li>
-
-              <li>
-                <p>Return <var>trackClone</var>.</p>
-              </li>
-            </ol>
+            method is invoked, the User Agent MUST return the result of
+            <a href="#track-clone">cloning this track</a>.</p>
           </dd>
 
           <dt>void stop()</dt>
