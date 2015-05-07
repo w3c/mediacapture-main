@@ -109,9 +109,6 @@
         as downsampling, MAY be used to ensure that all tracks have appropriate
         media.</p>
 
-        <p>Sources are <a href="#track-detached">detached</a> from a track when
-        the track is ended for any reason.</p>
-
         <p>Sources have constrainable properties which have
         <code><a>capabilities</a></code> and <code><a>settings</a></code>. The
         constrainable properties are "owned" by the source and are common to
@@ -744,15 +741,9 @@
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
 
-        <p>A <code><a>MediaStreamTrack</a></code> can be <dfn id=
-        "track-detached">detached</dfn> from its source. It means that the
-        track is no longer dependent on the source for media data. If no other
-        <code><a>MediaStreamTrack</a></code> is using the same source, the
-        source will be <a href="#source-stopped">stopped</a>.
-        <code><a>MediaStreamTrack</a></code> attributes such as <code><a href=
-        "#dom-mediastreamtrack-kind">kind</a></code> and <code><a href=
-        "#dom-mediastreamtrack-label">label</a></code> MUST NOT change values
-        when the source is detached.</p>
+        <p>If all <code><a>MediaStreamTrack</a></code>s that are using
+        the same source are <a href= "#track-ended">ended</a>, the
+        source will be <a href="#source-stopped">stopped</a>.</p>
 
         <p>When a <code><a>MediaStreamTrack</a></code> object ends for any
         reason (e.g., because the user rescinds the permission for the page to
@@ -950,9 +941,7 @@
             "#track-enabled">enabled</a></code> state for the object.</p>
 
             <p>On getting, the attribute MUST return the value to which it was
-            last set. On setting, it MUST be set to the new value, regardless
-            of whether the <code><a>MediaStreamTrack</a></code> object has been
-            <a href="#track-detached">detached</a> from its source or not.</p>
+            last set. On setting, it MUST be set to the new value.</p>
 
             <p class="note">Thus, after a <code><a>MediaStreamTrack</a></code>
             is detached from its source, its <code><a href=
@@ -1060,11 +1049,6 @@
                 <p>Set <var>track's</var> <code><a href=
                 "#dom-mediastreamtrack-readystate">readyState</a></code>
                 attribute to <code>ended</code>.</p>
-              </li>
-
-              <li>
-                <p><a href="#track-detached">Detach</a> <var>track's</var>
-                source.</p>
               </li>
             </ol>
 
