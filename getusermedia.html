@@ -336,14 +336,6 @@
         </li>
 
         <li>
-          <p>If <var>stream</var>'s <a href="#track-set">track set</a> is empty
-          or only contains <a href="#track-ended">ended</a> tracks, set
-          <var>stream</var>'s <code><a href="#stream-active">active</a></code>
-          attribute to <code>false</code>, otherwise set it to
-          <code>true</code>.</p>
-        </li>
-
-        <li>
           <p>Return <var>stream</var>.</p>
         </li>
       </ol>
@@ -583,8 +575,11 @@
         <dt>readonly attribute boolean active</dt>
 
         <dd>
-          <p>This attribute is true if the <code><a>MediaStream</a></code> is
-          <a href="#stream-active">active</a> and false otherwise.</p>
+          <p>The <code><dfn id=
+          "dom-mediastream-active">MediaStream.active</dfn></code> attribute
+          MUST return <code>true</code> if this <code><a>MediaStream</a></code>
+          is <a href="#stream-active">active</a> and <code>false</code>
+            otherwise.</p>
         </dd>
 
         <dt>attribute EventHandler onactive</dt>
