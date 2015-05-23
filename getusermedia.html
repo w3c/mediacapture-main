@@ -2023,45 +2023,142 @@
   <section>
     <h2>Error Handling</h2>
 
-    <p>All promises in this specification, when they are rejected, are rejected
-    with an object that implements the <code><a>MediaStreamError</a></code>
-    interface.</p>
+    <p>This section and its subsections extend the list of Error
+    subclasses defined in [ES6] following the pattern for NativeError
+    in [ES6, sec 19.5.6].  Assume the following:</p>
+
+    <ul>
+      <li>that use of syntax such as [[something]] and %something% is
+      as used in [ES6].</li>
+      <li>that the rules for ECMAScript standard built-in objects
+      [ES6, sec 17] are in effect in this section.</li>
+      <li>that the new intrinsic objects %PermissionDeniedError% and
+      %PermissionDeniedErrorPrototype% are available as if they had
+      been included in [ES6, Table 7] and all referencing sections,
+      e.g. [ES6, sec 8.2.2], thus behave appropriately.</li>
+    </ul>
 
     <section>
-      <h3>MediaStreamError</h3>
+      <h2>PermissionDeniedError Object</h2>
 
-      <p>All errors defined in this specification implement the following
-      interface:</p>
+      <section>
+        <h2>PermissionDeniedError Constructor</h2>
 
-      <dl class="idl" title="[NoInterfaceObject] interface MediaStreamError">
-        <dt>readonly attribute DOMString name</dt>
+        <p>The PermissionDeniedError Constructor is the
+        %PermissionDeniedError% intrinsic object.  When the
+        PermissionDeniedError constructor is called as a function
+        rather than as a constructor, it creates and initializes a new
+        PermissionDeniedError object. A call of the object as a
+        function is equivalent to calling it as a constructor with the
+        same arguments. Thus the function call
+        PermissionDeniedError(...) is equivalent to the object
+        creation expression new PermissionDeniedError(...) with the
+        same arguments.</p>
 
-        <dd>
-          <p>The name of the error</p>
-        </dd>
+        <p>The PermissionDeniedError constructor is designed to be
+        subclassable. It may be used as the value of an extends clause
+        of a class definition. Subclass constructors that intend to
+        inherit the specified PermissionDeniedError behaviour must
+        include a super call to the PermissionDeniedError constructor
+        to create and initialize subclass instances with an
+        [[ErrorData]] internal slot.</p>
 
-        <dt>readonly attribute DOMString? message</dt>
+        <section>
+          <h2>PermissionDeniedError ( message )</h2>
 
-        <dd>
-          <p>A User Agent-dependent string offering extra human-readable
-          information about the error.</p>
-        </dd>
+          <p>When a PermissionDeniedError function is called with
+          argument message the following steps are taken:</p>
+          <ol>
+            <li>If NewTarget is undefined, let newTarget be the active
+            function object, else let newTarget be NewTarget.</li>
+            <li>Let O be OrdinaryCreateFromConstructor(newTarget,
+            "%PermissionDeniedErrorPrototype%", «[[ErrorData]]»
+            ).</li>
+            <li>ReturnIfAbrupt(O).</li>
+            <li>If message is not undefined, then</li>
+            <ol>
+              <li>Let msg be ToString(message).</li>
+              <li>Let msgDesc be the PropertyDescriptor{[[Value]]:
+              msg, [[Writable]]: true, [[Enumerable]]: false,
+              [[Configurable]]: true}.</li>
+              <li>Let status be DefinePropertyOrThrow(O, "message",
+              msgDesc).</li>
+              <li>Assert: status is not an abrupt completion.</li>
+            </ol>
+            <li>Return O.</li>
+          </ol>
+        </section>
+      </section>
 
-        <dt>readonly attribute DOMString? constraintName</dt>
+      <section>
+        <h2>Properties of the PermissionDeniedError Constructor</h2>
 
-        <dd>
-          <p>This attribute is only used for some types of errors. For
-          <code><a>MediaStreamError</a></code> with a name of
-          <code>ConstraintNotSatisfiedError</code> or of
-          <code>OverconstrainedError</code>, this attribute MUST be set to the
-          name of the constraint that caused the error.</p>
-        </dd>
-      </dl>
+        <p>The value of the [[Prototype]] internal slot of a
+        PermissionDeniedError constructor is the intrinsic object
+        %Error% [ES6, sec 19.5.1].</p>
+        <p>Besides the length property (whose value is 1), each
+        PermissionDeniedError constructor has the following
+        properties:</p>
+
+        <section>
+          <h2>PermissionDeniedError.prototype</h2>
+
+          <p>The initial value of PermissionDeniedError.prototype is
+          the PermissionDeniedError prototype object (next section). This
+          property has the attributes { [[Writable]]: false,
+          [[Enumerable]]: false, [[Configurable]]: false }.</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Properties of the PermissionDeniedError Prototype Object</h2>
+
+        <p>The PermissionDeniedError prototype object is an ordinary
+        object. It is not an Error instance and does not have an
+        [[ErrorData]] internal slot.</p>
+        <p>The value of the [[Prototype]] internal slot of the
+        PermissionDeniedError prototype object is the intrinsic object
+        %ErrorPrototype% [ES6, sec 19.5.3].</p>
+
+        <section>
+          <h2>PermissionDeniedError.prototype.constructor</h2>
+
+          <p>The initial value of the constructor property of the
+          prototype for the PermissionDeniedError constructor is the
+          intrinsic object %PermissionDeniedError% (7.1.1).</p>
+        </section>
+
+        <section>
+          <h2>PermissionDeniedError.prototype.message</h2>
+
+          <p>The initial value of the message property of the
+          prototype for the PermissionDeniedError constructor is the
+          empty String.</p>
+        </section>
+
+        <section>
+          <h2>PermissionDeniedError.prototype.name</h2>
+
+          <p>The initial value of the name property of the prototype
+          for the PermissionDeniedError constructor is
+          "PermissionDeniedError".</p>
+        </section>
+      </section>
+
+      <section>
+        <h2>Properties of PermissionDeniedError Instances</h2>
+
+        <p>PermissionDeniedError instances are ordinary objects that
+        inherit properties from the PermissionDeniedError prototype
+        object and have an [[ErrorData]] internal slot whose value is
+        undefined. The only specified use of [[ErrorData]] is by
+        Object.prototype.toString [ES6, sec 19.1.3.6] to identify instances of
+        Error or its various subclasses.</p>
+      </section>
 
       <div class="note">
-        We use MediaStreamError rather than deriving from Error until the
-        situation with adding additional information into an error has been
-        clarified.
+        The following will need to be updated when we finish out the
+        error definitions.
       </div>
 
       <p>The following interface is defined for cases when a MediaStreamError
@@ -2954,9 +3051,7 @@
 
                 <li>
                   <p><em>Permission Failure</em>: Let <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>PermissionDeniedError</code> and jump to the step
+                  <code><a>PermissionDeniedError</a></code> object and jump to the step
                   labeled <em>Error Task</em> below.</p>
                 </li>
 
