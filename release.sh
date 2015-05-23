@@ -16,7 +16,7 @@
 #
 # 2. Browse to the getusermedia.html source file and press Ctrl+Alt+Shift+s
 #    to show the respec save dialog. Click the "Save as HTML" option and save
-#    the resulting document at the location proposed this script.
+#    the resulting document at the location proposed by this script.
 #
 # 3. Continue the release (change last script argument)
 #    $ ./release.sh 20140817 20140909 continue
@@ -41,9 +41,11 @@
 # Done.
 #
 # If you made a release, pushed it to the github repo and notice that you missed
-# something that requires extra commits to fix. Then, after you fixed the issue
-# and pushed the fixes, run this script with the "retag" option to move the
-# release tag to point to the new top of the tree. Example:
+# something that requires extra commits to fix:
+# After fixing the issue and pushing the fixes, run this script with the "retag"
+# option to move the release tag to point to the new top of the tree.
+#
+# Example:
 # $ ./release.sh 20140817 20140909 retag
 #
 
