@@ -1194,6 +1194,10 @@
 
           <dd />
 
+          <dt>boolean latency</dt>
+
+          <dd />
+
           <dt>boolean deviceId</dt>
 
           <dd />
@@ -1250,6 +1254,10 @@
           <dd />
 
           <dt>sequence&lt;boolean&gt; echoCancellation</dt>
+
+          <dd />
+
+          <dt>(double or DoubleRange) latency</dt>
 
           <dd />
 
@@ -1318,6 +1326,10 @@
 
           <dd />
 
+          <dt>ConstrainDouble latency</dt>
+
+          <dd />
+
           <dt>ConstrainDOMString deviceId</dt>
 
           <dd />
@@ -1373,6 +1385,10 @@
           <dd />
 
           <dt>boolean echoCancellation</dt>
+
+          <dd />
+
+          <dt>double latency</dt>
 
           <dd />
 
@@ -4490,6 +4506,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
             cases where it is not needed and it is desirable to turn it off so
             that no audio artifacts are introduced. This allows applications to
             control this behavior.</td>
+          </tr>
+
+          <tr id="def-constraint-latency">
+            <td>latency</td>
+
+            <td><code><a>ConstrainDouble</a></code></td>
+
+            <td>The latency or latency range, in seconds.</td>
           </tr>
         </tbody>
       </table>
