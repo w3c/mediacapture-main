@@ -410,7 +410,7 @@
         </li>
       </ol>
 
-      <dl class="idl" title="interface MediaStream : EventTarget">
+      <dl class="idl" title="[Exposed=Window] interface MediaStream : EventTarget">
         <dt>Constructor()</dt>
 
         <dd>
@@ -883,7 +883,7 @@
       <section id="media-stream-track-interface-definition">
         <h3>Interface Definition</h3>
 
-        <dl class="idl" title="interface MediaStreamTrack : EventTarget">
+        <dl class="idl" title="[Exposed=Window] interface MediaStreamTrack : EventTarget">
           <dt>readonly attribute DOMString kind</dt>
 
           <dd>
@@ -1406,7 +1406,7 @@
       given target.</p>
 
       <dl class="idl" data-merge="MediaStreamTrackEventInit" title=
-      "interface MediaStreamTrackEvent : Event">
+      "[Exposed=Window] interface MediaStreamTrackEvent : Event">
         <dt>Constructor(DOMString type, MediaStreamTrackEventInit
         eventInitDict)</dt>
 
@@ -2033,7 +2033,7 @@
       <p>All errors defined in this specification implement the following
       interface:</p>
 
-      <dl class="idl" title="[NoInterfaceObject] interface MediaStreamError">
+      <dl class="idl" title="[Exposed=Window, NoInterfaceObject] interface MediaStreamError">
         <dt>readonly attribute DOMString name</dt>
 
         <dd>
@@ -2068,7 +2068,7 @@
       is raised as an event:</p>
 
       <dl class="idl" data-merge="MediaStreamErrorEventInit" title=
-      "interface MediaStreamErrorEvent : Event">
+      "[Exposed=Window] interface MediaStreamErrorEvent : Event">
         <dt>Constructor(DOMString type, MediaStreamErrorEventInit
         eventInitDict)</dt>
 
@@ -2354,7 +2354,7 @@
     <section>
       <h3>NavigatorUserMedia</h3>
 
-      <dl class="idl" title="[NoInterfaceObject] interface NavigatorUserMedia">
+      <dl class="idl" title="[Exposed=Window, NoInterfaceObject] interface NavigatorUserMedia">
         <dt>readonly attribute MediaDevices mediaDevices</dt>
 
         <dd>
@@ -2377,7 +2377,7 @@
       "#event-mediadevices-devicechange">devicechange</a></code> at the
       <code><a>MediaDevices</a></code> object.</p>
 
-      <dl class="idl" title="interface MediaDevices : EventTarget">
+      <dl class="idl" title="[Exposed=Window] interface MediaDevices : EventTarget">
         <dt>attribute EventHandler ondevicechange</dt>
 
         <dd>
@@ -2518,7 +2518,7 @@
     <section>
       <h2>Device Info</h2>
 
-      <dl class="idl" title="interface MediaDeviceInfo">
+      <dl class="idl" title="[Exposed=Window] interface MediaDeviceInfo">
         <dt>readonly attribute DOMString deviceId</dt>
 
         <dd>
