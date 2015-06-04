@@ -4513,7 +4513,15 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
             <td><code><a>ConstrainDouble</a></code></td>
 
-            <td>The latency or latency range, in seconds.</td>
+            <td>The latency or latency range, in seconds.  The latency
+            is the time between start of processing (for instance,
+            when sound occurs in the real world) to the data being
+            available to the next step in the process. Low latency is
+            critical for some applications; high latency may be
+            acceptable for other applications because it helps with
+            power constraints. The number is expected to be the target
+            latency of the configuration; the actual latency may show
+            some variation from that.</td>
           </tr>
         </tbody>
       </table>
