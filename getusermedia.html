@@ -1395,6 +1395,15 @@
       "#event-mediastream-removetrack">removetrack</a></code> events use the
       <code><a>MediaStreamTrackEvent</a></code> interface.</p>
 
+      <p>The <code>addtrack</code> and <code>removetrack</code> events notify
+      the script that the <a href="#track-set">track set</a> of a
+      <code><a>MediaStream</a></code> has been updated by the User Agent. This
+      specification does not specify any such cases, but other specifications
+      using the MediaStream API may. One such example is the WebRTC 1.0
+      [[WEBRTC10]] specification where the <a href="#track-set">track set</a>
+      of a  <code><a>MediaStream</a></code>, received from another peer, can be
+      updated as a result of changes to the media session.</p>
+
       <p><dfn title="Fire a track event">Firing a track event named
       <var>e</var></dfn> with a <code><a>MediaStreamTrack</a></code>
       <var>track</var> means that an event with the name <var>e</var>, which
