@@ -2934,12 +2934,16 @@
                   responds, this algorithm stalls on this step.</p>
 
                   <p>If the user grants permission but a hardware error such as
-                  an OS/program/webpage lock prevents access, jump to the step
-                  labeled <em>Unavailable Failure</em> below.</p>
+                  an OS/program/webpage lock prevents access, reject
+                  <var>p</var> with a new <code><a>MediaStreamError</a></code>
+                  object whose <code><a>name</a></code> attribute has the value
+                  <code>SourceUnavailableError</code> and abort these steps.</p>
 
                   <p>If the user grants permission but device access fails for
-                  any reason other than those listed above, jump to the step
-                  labeled <em>General Failure</em> below.</p>
+                  any reason other than those listed above, reject <var>p</var>
+                  with a new <code><a>MediaStreamError</a></code> object whose
+                  <code><a>name</a></code> attribute has the value
+                  <code>AbortError</code> and abort these steps.</p>
                 </li>
 
                 <li>
@@ -2963,32 +2967,10 @@
                 </li>
 
                 <li>
-                  <p><em>Permission Failure</em>: Let <var>error</var> be a new
+                  <p><em>Permission Failure</em>: Reject <var>p</var> with a new
                   <code><a>MediaStreamError</a></code> object whose
                   <code><a>name</a></code> attribute has the value
-                  <code>PermissionDeniedError</code> and jump to the step
-                  labeled <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>Unavailable Failure</em>: Let <var>error</var> be a
-                  new <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>SourceUnavailableError</code> and jump to the step
-                  labeled <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>General Failure</em>: Let <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>AbortError</code> and jump to the step labeled
-                  <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>Error Task:</em> Reject <var>p</var> with
-                  <var>error</var>.</p>
+                  <code>PermissionDeniedError</code>.</p>
                 </li>
               </ol>
             </li>
