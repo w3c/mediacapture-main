@@ -2041,47 +2041,47 @@
       as used in [ES6].</li>
       <li>that the rules for ECMAScript standard built-in objects
       [ES6, sec 17] are in effect in this section.</li>
-      <li>that the new intrinsic objects %PermissionDeniedError% and
-      %PermissionDeniedErrorPrototype% are available as if they had
+      <li>that the new intrinsic objects %OverconstrainedError% and
+      %OverconstrainedErrorPrototype% are available as if they had
       been included in [ES6, Table 7] and all referencing sections,
       e.g. [ES6, sec 8.2.2], thus behave appropriately.</li>
     </ul>
 
     <section>
-      <h2>PermissionDeniedError Object</h2>
+      <h2>OverconstrainedError Object</h2>
 
       <section>
-        <h2>PermissionDeniedError Constructor</h2>
+        <h2>OverconstrainedError Constructor</h2>
 
-        <p>The PermissionDeniedError Constructor is the
-        %PermissionDeniedError% intrinsic object.  When the
-        PermissionDeniedError constructor is called as a function
+        <p>The OverconstrainedError Constructor is the
+        %OverconstrainedError% intrinsic object.  When the
+        OverconstrainedError constructor is called as a function
         rather than as a constructor, it creates and initializes a new
-        PermissionDeniedError object. A call of the object as a
+        OverconstrainedError object. A call of the object as a
         function is equivalent to calling it as a constructor with the
         same arguments. Thus the function call
-        PermissionDeniedError(...) is equivalent to the object
-        creation expression new PermissionDeniedError(...) with the
+        OverconstrainedError(...) is equivalent to the object
+        creation expression new OverconstrainedError(...) with the
         same arguments.</p>
 
-        <p>The PermissionDeniedError constructor is designed to be
+        <p>The OverconstrainedError constructor is designed to be
         subclassable. It may be used as the value of an extends clause
         of a class definition. Subclass constructors that intend to
-        inherit the specified PermissionDeniedError behaviour must
-        include a super call to the PermissionDeniedError constructor
+        inherit the specified OverconstrainedError behaviour must
+        include a super call to the OverconstrainedError constructor
         to create and initialize subclass instances with an
         [[ErrorData]] internal slot.</p>
 
         <section>
-          <h2>PermissionDeniedError ( message )</h2>
+          <h2>OverconstrainedError ( message )</h2>
 
-          <p>When a PermissionDeniedError function is called with
+          <p>When a OverconstrainedError function is called with
           argument message the following steps are taken:</p>
           <ol>
             <li>If NewTarget is undefined, let newTarget be the active
             function object, else let newTarget be NewTarget.</li>
             <li>Let O be OrdinaryCreateFromConstructor(newTarget,
-            "%PermissionDeniedErrorPrototype%", «[[ErrorData]]»
+            "%OverconstrainedErrorPrototype%", «[[ErrorData]]»
             ).</li>
             <li>ReturnIfAbrupt(O).</li>
             <li>If message is not undefined, then</li>
@@ -2100,65 +2100,65 @@
       </section>
 
       <section>
-        <h2>Properties of the PermissionDeniedError Constructor</h2>
+        <h2>Properties of the OverconstrainedError Constructor</h2>
 
         <p>The value of the [[Prototype]] internal slot of a
-        PermissionDeniedError constructor is the intrinsic object
+        OverconstrainedError constructor is the intrinsic object
         %Error% [ES6, sec 19.5.1].</p>
         <p>Besides the length property (whose value is 1), each
-        PermissionDeniedError constructor has the following
+        OverconstrainedError constructor has the following
         properties:</p>
 
         <section>
-          <h2>PermissionDeniedError.prototype</h2>
+          <h2>OverconstrainedError.prototype</h2>
 
-          <p>The initial value of PermissionDeniedError.prototype is
-          the PermissionDeniedError prototype object (next section). This
+          <p>The initial value of OverconstrainedError.prototype is
+          the OverconstrainedError prototype object (next section). This
           property has the attributes { [[Writable]]: false,
           [[Enumerable]]: false, [[Configurable]]: false }.</p>
         </section>
       </section>
 
       <section>
-        <h2>Properties of the PermissionDeniedError Prototype Object</h2>
+        <h2>Properties of the OverconstrainedError Prototype Object</h2>
 
-        <p>The PermissionDeniedError prototype object is an ordinary
+        <p>The OverconstrainedError prototype object is an ordinary
         object. It is not an Error instance and does not have an
         [[ErrorData]] internal slot.</p>
         <p>The value of the [[Prototype]] internal slot of the
-        PermissionDeniedError prototype object is the intrinsic object
+        OverconstrainedError prototype object is the intrinsic object
         %ErrorPrototype% [ES6, sec 19.5.3].</p>
 
         <section>
-          <h2>PermissionDeniedError.prototype.constructor</h2>
+          <h2>OverconstrainedError.prototype.constructor</h2>
 
           <p>The initial value of the constructor property of the
-          prototype for the PermissionDeniedError constructor is the
-          intrinsic object %PermissionDeniedError% (7.1.1).</p>
+          prototype for the OverconstrainedError constructor is the
+          intrinsic object %OverconstrainedError% (7.1.1).</p>
         </section>
 
         <section>
-          <h2>PermissionDeniedError.prototype.message</h2>
+          <h2>OverconstrainedError.prototype.message</h2>
 
           <p>The initial value of the message property of the
-          prototype for the PermissionDeniedError constructor is the
+          prototype for the OverconstrainedError constructor is the
           empty String.</p>
         </section>
 
         <section>
-          <h2>PermissionDeniedError.prototype.name</h2>
+          <h2>OverconstrainedError.prototype.name</h2>
 
           <p>The initial value of the name property of the prototype
-          for the PermissionDeniedError constructor is
-          "PermissionDeniedError".</p>
+          for the OverconstrainedError constructor is
+          "OverconstrainedError".</p>
         </section>
       </section>
 
       <section>
-        <h2>Properties of PermissionDeniedError Instances</h2>
+        <h2>Properties of OverconstrainedError Instances</h2>
 
-        <p>PermissionDeniedError instances are ordinary objects that
-        inherit properties from the PermissionDeniedError prototype
+        <p>OverconstrainedError instances are ordinary objects that
+        inherit properties from the OverconstrainedError prototype
         object and have an [[ErrorData]] internal slot whose value is
         undefined. The only specified use of [[ErrorData]] is by
         Object.prototype.toString [ES6, sec 19.1.3.6] to identify instances of
