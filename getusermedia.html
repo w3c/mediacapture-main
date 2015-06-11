@@ -2823,49 +2823,26 @@
             </li>
 
             <li>
+              <p>Let <var>requestedMediaTypes</var> be the set of media
+              types in <var>constraints</var> with either a dictionary
+              value or a value of "true".</p>
+            </li>
+
+            <li>
+              <p>If <var>requestedMediaTypes</var> is the empty set, reject
+              <var>p</var> with a new
+              <code><a>MediaStreamError</a></code> object whose
+              <code><a>name</a></code> attribute has the value
+              <code>NotSupportedError</code> and return <var>p</var>.</p>
+            </li>
+
+            <li>
               <p>Run the following steps asynchronously:</p>
 
               <ol>
                 <li>
-                  <p>Let <var>requestedMediaTypes</var> be the set of media
-                  types in <var>constraints</var> with either a dictionary
-                  value or a value of "true".</p>
-                </li>
-
-                <li>
-                  <p>If <var>requestedMediaTypes</var> is the empty set, let
-                  <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>NotSupportedError</code> and jump to the step labeled
-                  <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
                   <p>Let <var>finalSet</var> be an (initially) empty set.</p>
-                </li><!-- we could throw an exception instead (that's
-   why the method doesn't return until later: so that we can add an
-   exception here, or for /options/ below, without changing the
-   algorithm) -->
-                <!--
-            <li>
-              <p>For each member of the <code><a>MediaStreamOptions</a></code>
-              dictionary create a local representation and set it to false.</p>
-            </li>
-
-            <li>
-              <p>For each property in <var>options</var> that is present and
-              set to true, let the corresponding local representation be
-              true.</p>
-            </li>
-
-            <li>
-              <p>If none of the local representations of the
-              <code><a>MediaStreamOptions</a></code> dictionary members is set
-              to true, then throw a <code>NOT_SUPPORTED_ERR</code> exception
-              and abort these steps.</p>
-            </li>
--->
+                </li>
 
                 <li>
                   <p>For each media type <var>T</var> in
@@ -2951,12 +2928,16 @@
                   responds, this algorithm stalls on this step.</p>
 
                   <p>If the user grants permission but a hardware error such as
-                  an OS/program/webpage lock prevents access, jump to the step
-                  labeled <em>Unavailable Failure</em> below.</p>
+                  an OS/program/webpage lock prevents access, reject
+                  <var>p</var> with a new <code><a>MediaStreamError</a></code>
+                  object whose <code><a>name</a></code> attribute has the value
+                  <code>SourceUnavailableError</code> and abort these steps.</p>
 
                   <p>If the user grants permission but device access fails for
-                  any reason other than those listed above, jump to the step
-                  labeled <em>General Failure</em> below.</p>
+                  any reason other than those listed above, reject <var>p</var>
+                  with a new <code><a>MediaStreamError</a></code> object whose
+                  <code><a>name</a></code> attribute has the value
+                  <code>AbortError</code> and abort these steps.</p>
                 </li>
 
                 <li>
@@ -2972,51 +2953,15 @@
                 </li>
 
                 <li>
-                  <p>Resolve <var>p</var> with <var>stream</var>.</p>
+                  <p>Resolve <var>p</var> with <var>stream</var> and abort
+                  these steps.</p>
                 </li>
 
                 <li>
-                  <p>Abort these steps.</p>
-                </li>
-
-                <li>
-                  <p><em>Permission Failure</em>: Let <var>error</var> be a new
+                  <p><em>Permission Failure</em>: Reject <var>p</var> with a new
                   <code><a>MediaStreamError</a></code> object whose
                   <code><a>name</a></code> attribute has the value
-                  <code>PermissionDeniedError</code> and jump to the step
-                  labeled <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>Constraint Failure</em>: Let <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>ConstraintNotSatisfiedError</code> and whose
-                  <code><a href=
-                  "#widl-MediaStreamError-constraintName">constraintName</a></code>
-                  attribute is set to the name of the constraint that caused
-                  the error.</p>
-                </li>
-
-                <li>
-                  <p><em>Unavailable Failure</em>: Let <var>error</var> be a
-                  new <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>SourceUnavailableError</code> and jump to the step
-                  labeled <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>General Failure</em>: Let <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>AbortError</code> and jump to the step labeled
-                  <em>Error Task</em> below.</p>
-                </li>
-
-                <li>
-                  <p><em>Error Task:</em> Reject <var>p</var> with
-                  <var>error</var>.</p>
+                  <code>PermissionDeniedError</code>.</p>
                 </li>
               </ol>
             </li>
