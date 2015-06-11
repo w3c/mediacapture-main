@@ -768,8 +768,10 @@
           </li>
 
           <li>
-            <p><a href="#track-detached">Detach</a> <var>track's</var>
-            source.</p>
+            <p>Notify <var>track</var>'s source that <var>track</var> is
+            <a href="#track-ended">ended</a> so that the source may be
+            <a href="#source-stopped">stopped</a>, unless other
+            <code><a>MediaStreamTrack</a></code> objects depend on it.</p>
           </li>
 
           <li>
@@ -939,7 +941,7 @@
             last set. On setting, it MUST be set to the new value.</p>
 
             <p class="note">Thus, after a <code><a>MediaStreamTrack</a></code>
-            is detached from its source, its <code><a href=
+            has <a href="#track-ended">ended</a>, its <code><a href=
             "#dom-mediastreamtrack-enabled">enabled</a></code> attribute still
             changes value when set; it just doesn't do anything with that new
             value.</p>
@@ -1038,6 +1040,13 @@
               <li>
                 <p>If <var>track</var> is sourced by a non-local source, then
                 abort these steps.</p>
+              </li>
+
+              <li>
+                <p>Notify <var>track</var>'s source that <var>track</var> is
+                <a href="#track-ended">ended</a> so that the source may be
+                <a href="#source-stopped">stopped</a>, unless other
+                <code><a>MediaStreamTrack</a></code> objects depend on it.</p>
               </li>
 
               <li>
