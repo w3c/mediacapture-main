@@ -3197,14 +3197,13 @@
                 </li>
 
                 <li>
-                  <p><em>Constraint Failure</em>: Let <var>error</var> be a new
-                  <code><a>MediaStreamError</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
-                  <code>ConstraintNotSatisfiedError</code> and whose
-                  <code><a href=
-                  "#widl-MediaStreamError-constraintName">constraintName</a></code>
-                  attribute is set to the name of the constraint that caused
-                  the error.</p>
+                  <p><em>Constraint Failure</em>:
+                  Let <var>constraint</var> be the name of the
+                  constraint that caused the error, and
+                  let <var>error</var> be the result of creating a
+                  new <code><a>OverconstrainedError</a></code> by
+                  calling
+                  OverconstrainedError(<var>constraint</var>).</p>
                 </li>
 
                 <li>
@@ -3828,12 +3827,8 @@ if(!supports["width"] || !supports["height"]) {
 
                 <li>
                   <p>If <var>successfulSettings</var> is
-                  <code>undefined</code>, reject <var>p</var> with a new
-                  <code>MediaStreamError</code> with name
-                  <code>ConstraintNotSatisfied</code> and
-                  <code>constraintName</code> set to any of the required
-                  constraints that could not be satisfied, and abort these
-                  steps. <var>existingConstraints</var> remain in effect in
+                  <code>undefined</code>, let <var>failedConstraint</var> be any one of the required constraints that could not be satisfied, and reject <var>p</var> with a new
+                  <code>OverconstrainedError</code> created by calling <code>OverconstrainedError(failedConstraint). <var>existingConstraints</var> remain in effect in
                   this case.</p>
                 </li>
 
