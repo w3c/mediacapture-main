@@ -2203,7 +2203,7 @@
           </tr>
 
           <tr>
-            <th><code><dfn>SourceUnavailableError</dfn></code></th>
+            <th><code><dfn>NotReadableError</dfn></code></th>
 
             <td>The source of the MediaStream could not be accessed due to a
             hardware error (e.g. lock from another process).</td>
@@ -2938,9 +2938,9 @@
 
                   <p>If the user grants permission but a hardware error such as
                   an OS/program/webpage lock prevents access, reject
-                  <var>p</var> with a new <code><a>MediaStreamError</a></code>
+                  <var>p</var> with a new <code><a>DOMException</a></code>
                   object whose <code><a>name</a></code> attribute has the value
-                  <code>SourceUnavailableError</code> and abort these steps.</p>
+                  <code>NotReadableError</code> and abort these steps.</p>
 
                   <p>If the user grants permission but device access fails for
                   any reason other than those listed above, reject <var>p</var>
@@ -2986,7 +2986,7 @@
         <p>In the algorithm above, constraints are checked twice - once at
         device selection, and once after access approval. Time may have passed
         between those checks, so it is concievable that the selected device is
-        no longer suitable. In this case, a SourceUnavailable error will
+        no longer suitable. In this case, a NotReadableError will
         result.</p>
       </div>
     </section>
