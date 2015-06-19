@@ -3199,11 +3199,15 @@
                 <li>
                   <p><em>Constraint Failure</em>:
                   Let <var>constraint</var> be the name of the
-                  constraint that caused the error, and
-                  let <var>error</var> be the result of creating a
+                  constraint that caused the error,
+                  let <var>message</var> be
+                  either <code>undefined</code> or an informative
+                  human-readable message, and let <var>error</var> be
+                  the result of creating a
                   new <code><a>OverconstrainedError</a></code> by
                   calling
-                  OverconstrainedError(<var>constraint</var>).</p>
+                  <code>OverconstrainedError(<var>constraint</var>,
+                  <var>message</var>)</code>.</p>
                 </li>
 
                 <li>
@@ -3830,9 +3834,14 @@ if(!supports["width"] || !supports["height"]) {
                   <code>undefined</code>,
                   let <var>failedConstraint</var> be any one of the
                   required constraints that could not be satisfied,
-                  and reject <var>p</var> with a new
+                  let <var>message</var> be
+                  either <code>undefined</code> or an informative
+                  human-readable message, and reject <var>p</var> with
+                  a new
                   <code>OverconstrainedError</code> created by
-                  calling <code>OverconstrainedError(failedConstraint).
+                  calling
+                  <code>OverconstrainedError(<var>failedConstraint</var>,
+                  <var>message</var>)</code>.
                   <var>existingConstraints</var> remain in effect in
                   this case.</p>
                 </li>
