@@ -2193,15 +2193,17 @@
             <code>"%OverconstrainedErrorPrototype%"</code>, «[[\ErrorData]]»
             ).</li>
             <li>ReturnIfAbrupt(<i>O</i>).</li>
-            <li>Assert: Type(<i>constraint</i>) is String.</li>
-            <li>Let <i>constraintDesc</i> be the
-            PropertyDescriptor{[[\Value]]:
-            <i>constraint</i>, [[\Writable]]: <b>false</b>,
-            [[\Enumerable]]: <b>false</b>,
-            [[\Configurable]]: <b>false</b>}.</li>
-            <li>Let <i>cStatus</i> be DefinePropertyOrThrow(O,
-            "<code>constraint</code>", <i>constraintDesc</i>).</li>
-            <li>Assert: <i>cStatus</i> is not an abrupt completion.</li>
+            <li>If <i>constraint</i> is not <b>undefined</b>, then</li>
+            <ol>
+              <li>Let <i>constraintDesc</i> be the
+              PropertyDescriptor{[[\Value]]:
+              <i>constraint</i>, [[\Writable]]: <b>false</b>,
+              [[\Enumerable]]: <b>false</b>,
+              [[\Configurable]]: <b>false</b>}.</li>
+              <li>Let <i>cStatus</i> be DefinePropertyOrThrow(O,
+              "<code>constraint</code>", <i>constraintDesc</i>).</li>
+              <li>Assert: <i>cStatus</i> is not an abrupt completion.</li>
+            </ol>
             <li>If <i>message</i> is not <b>undefined</b>, then</li>
             <ol>
               <li>Let <i>msg</i> be ToString(<i>message</i>).</li>
