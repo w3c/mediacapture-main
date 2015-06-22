@@ -91,7 +91,7 @@ var respecConfig = {
    localBiblio: {
      ES6: {
        title:  "ECMAScript 2015",
-       href: "http://wiki.ecmascript.org/lib/exe/fetch.php?id=harmony%3Aspecification_drafts&cache=cache&media=harmony:ecma-262_6th_edition_final_draft_-04-14-15.pdf",
+       href: "http://www.ecma-international.org/ecma-262/6.0/",
        authors: ["Allen Wirfs-Brock"],
        status: "Standard",
        publisher: "Ecma International"
