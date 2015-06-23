@@ -1655,249 +1655,213 @@
     <code>MediaStream</code> is playing. The timeline does not increment when
     the playout of the <code>MediaStream</code> is paused.</p>
 
+    
+
     <p>User Agents that support this specification MUST support
-    the <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#dom-media-srcobject">srcObject</a></code>
+    the <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-srcobject">srcObject</a></code>
     attribute of the <code>HTMLMediaElement</code> interface defined
     in [[!HTML51]], which includes support for playing <code>MediaStream</code>
-    objects. Any <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#audiotrack">AudioTrack</a></code>
-    or  <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#videotrack">VideoTrack</a></code> created in the <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#media-data-processing-steps-list">media-data-processing-steps-list</a></code>
-    defined in [[!HTML51]] must be initialized as follows:</p>
+    objects.</p>
+
+    <p>The [[!HTML51]] document outlines how the <code>HTMLMediaElement</code>
+    works with <code><a>MediaStream</a></code>'s. For clarity: </p>
 
     <ul>
-      <li>
-        <p><code>AudioTrack.id</code> and <code>VideoTrack.id</code> to
-        the value of the corresponding <code><a href=
-        "#dom-mediastreamtrack-id">MediaStreamTrack.id</a></code>
-        attribute</p>
-      </li>
+      <li><p>Whenever an [[!HTML51]] <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#audiotrack">AudioTrack</a></code> or a <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#videotrack">VideoTrack</a></code> is created, the <code>id</code> and <code>label</code>
+      attributes must be initilized to the corresponding attributes of the
+      <code>MediaStreamTrack</code>, the <code>kind</code> attribute
+      must be initiliszed to "main" and the <code>language</code> attribute to the
+      empty string</p></li>
 
-      <li>
-        <p><code>AudioTrack.kind</code> and <code>VideoTrack.kind</code>
-        to <code>"main"</code></p>
-      </li>
+      <li><p>The User Agent MUST NOT buffer data from a MediaStream. When playing
+      using a <code>HTMLMediaElement</code> the User Agent MUST always play
+      the current data from the stream</p></li>
 
-      <li>
-        <p><code>AudioTrack.label</code> and
-        <code>VideoTrack.label</code> to the value of the corresponding
-        <code><a href=
-        "#dom-mediastreamtrack-label">MediaStreamTrack.label</a></code>
-        attribute</p>
-      </li>
+      <li><p>Since the order in the <code><a>MediaStream</a></code> 's
+      <a href="#track-set">track set</a> is undefined, no requirements are
+      put on how the <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#audiotracklist">
+      AudioTrackList</a></code> and <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#videotracklist"> VideoTrackList</a></code> is ordered</p></li>
 
-      <li>
-        <p><code>AudioTrack.language</code> and
-        <code>VideoTrack.language</code> to the empty string</p>
-      </li>
+      <li><p>When the <code><a>MediaStream</a></code> state moves from the active to the <a href=
+      "#stream-inactive">inactive</a> state, the User Agent MUST raise an
+      <a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#event-media-ended">
+      ended</a> event on the <code>HTMLMediaElement</code> and set its <a href=
+      "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-ended">ended</a>
+      attribute to <code>true</code>. Note that once <a href=
+      "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-ended">ended</a>
+      equals <code>true</code> the <code>HTMLMediaElement</code> will not play media even
+      if new <code><a>MediaStreamTrack</a></code>'s are added to the
+      <code><a>MediaStream</a></code> (causing it to return to the active state) unless
+      <code>autoplay</code> is <code>true</code> or the web application restarts the
+      element, e.g., by calling <a href=
+      "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-play">play()</a></p></li>
+
+      <li><p>Any calls to the <code> <a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-fastseek">fastSeek</a></code> method on a <code>HTMLMediaElement</code> 
+      must be ignored</p></li>
     </ul>
 
-    <p>Since the order in the <code><a>MediaStream</a></code> 's
-    <a href="#track-set">track set</a> is undefined, no requirements are
-    put on how the <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#audiotracklist">
-    AudioTrackList</a></code> and <code><a href="http://www.w3.org/html/wg/drafts/html/master/single-page.html#videotracklist">
-    VideoTrackList</a></code> are ordered.</p>
+    <p>
+  
+    <p>The nature of the <code><a>MediaStream</a></code> places certain restrictions
+    on the behavior and attribute values of the associated <code>HTMLMediaElement</code> and
+    on the operations that can be performed on it, as shown below:</p>
 
-    <section>
-      <h3>Media Element Attributes when Playing a MediaStream</h3>
+    <table class="simple">
+      <thead>
+        <tr>
+          <th scope="col">Attribute Name</th>
 
-      <p>The nature of the <code>MediaStream</code> places certain restrictions
-      on the behavior and attribute values of the associated media element and
-      on the operations that can be performed on it, as shown below:</p>
+          <th scope="col">Attribute Type</th>
 
-      <table class="simple">
-        <caption>
-          Legal values for the properties of a media element bound to a
-          MediaStream
-        </caption>
+          <th scope="col">Valid Values When Using a MediaStream</th>
 
-        <thead>
-          <tr>
-            <th scope="col">Attribute Name</th>
+          <th scope="col">Additional considerations</th>
+        </tr>
+      </thead>
 
-            <th scope="col">Attribute Type</th>
+      <tbody>
 
-            <th scope="col">Valid Values When Using a MediaStream</th>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#attr-media-preload">
+          <code>preload</code></a></td>
 
-            <th scope="col">Additional considerations</th>
-          </tr>
-        </thead>
+          <td><code>DOMString</code></td>
 
-        <tbody>
+          <td>On getting: <code>none</code>. On setting: ignored. </td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#attr-media-preload">
-            <code>preload</code></a></td>
+          <td>A MediaStream cannot be preloaded.</td>
+        </tr>
 
-            <td><code>DOMString</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-buffered">
+          <code>buffered</code></a></td>
 
-            <td><code>none</code></td>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#timeranges"><code>
+          TimeRanges</code></a></td>
 
-            <td>A MediaStream cannot be preloaded.</td>
-          </tr>
+          <td><code>buffered.length</code> MUST return <code>0</code>.</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-buffered">
-            <code>buffered</code></a></td>
+          <td>A MediaStream cannot be preloaded. Therefore, the amount
+          buffered is always an empty TimeRange.</td>
+        </tr>
 
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#timeranges"><code>
-            TimeRanges</code></a></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-currenttime">
+          <code>currentTime</code></a></td>
 
-            <td><code>buffered.length</code> MUST return <code>0</code>.</td>
+          <td><code>double</code></td>
 
-            <td>A MediaStream cannot be preloaded. Therefore, the amount
-            buffered is always an empty TimeRange.</td>
-          </tr>
+          <td>Any non-negative integer. The initial value is 0 and the values
+          increments linearly in real time whenever the stream is
+          playing.</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-networkstate">
-            <code>networkState</code></a></td>
+          <td>The value is the current stream position, in seconds. On any
+          attempt to set this attribute, the User Agent must throw an
+          <code>InvalidStateError</code> exception.</td>
+        </tr>
 
-            <td><code>unsigned short</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-seeking">
+          <code>seeking</code></a></td>
 
-            <td>NETWORK_IDLE</td>
+          <td><code>boolean</code></td>
 
-            <td>The media element does not fetch the MediaStream so there is no
-            network traffic.</td>
-          </tr>
+          <td>false</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-readystate">
-            <code>readyState</code></a></td>
+          <td>A MediaStream is not seekable. Therefore, this attribute MUST
+          always have the value <code>false</code>.</td>
+        </tr>
 
-            <td><code>unsigned short</code></td>
+      <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-defaultplaybackrate">
+          <code>defaultPlaybackRate</code></a></td>
 
-            <td>HAVE_NOTHING, HAVE_ENOUGH_DATA</td>
+          <td><code>double</code></td>
 
-            <td>A <code><a>MediaStream</a></code> may be created before there
-            is any data available, for example when a stream is received from a
-            remote peer. The value of the <code>readyState</code> of the media
-            element MUST be HAVE_NOTHING before the first media arrives and
-            HAVE_ENOUGH_DATA once the first media has arrived.</td>
-          </tr>
+          <td>On setting: ignored. On getting: return 1.0</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currenttime">
-            <code>currentTime</code></a></td>
+          <td>A MediaStream is not seekable. Therefore, this attribute MUST
+          always have the value <code>1.0</code> and any attempt to alter it
+          MUST be ignored. Note that this also means that the <code><a
+          href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#event-media-ratechange">
+          ratechange</a></code> event will not fire.</td>
+        </tr>
 
-            <td><code>double</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-playbackrate">
+          <code>playbackRate</code></a></td>
 
-            <td>Any non-negative integer. The initial value is 0 and the values
-            increments linearly in real time whenever the stream is
-            playing.</td>
+          <td><code>double</code></td>
 
-            <td>The value is the current stream position, in seconds. On any
-            attempt to set this attribute, the User Agent must throw an
-            <code>InvalidStateError</code> exception.</td>
-          </tr>
+          <td>1.0</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-duration">
-            <code>duration</code></a></td>
+          <td>A MediaStream is not seekable. Therefore, this attribute MUST
+          always have the value <code>1.0</code> and any attempt to alter it
+          MUST be ignored. Note that this also means that the <code><a
+          href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#event-media-ratechange">
+          ratechange</a></code> event will not fire.</td>
+        </tr>
 
-            <td><code>unrestricted double</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-played">
+          <code>played</code></a></td>
 
-            <td>Infinity</td>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#timeranges"><code>
+          TimeRanges</code></a></td>
 
-            <td>A MediaStream does not have a pre-defined duration.</td>
-          </tr>
+          <td><code>played.length</code> MUST return <code>1</code>.<br>
+          <code>played.start(0)</code> MUST return <code>0</code>.<br>
+          <code>played.end(0)</code> MUST return the last known <a class=
+          "externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-currenttime">
+          <code>currentTime</code></a> .</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seeking">
-            <code>seeking</code></a></td>
+          <td>A <code><a>MediaStream</a></code>'s timeline always consists of a single range,
+          starting at 0 and extending up to the currentTime.</td>
+        </tr>
 
-            <td><code>boolean</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-seekable">
+          <code>seekable</code></a></td>
 
-            <td>false</td>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#timeranges"><code>
+          TimeRanges</code></a></td>
 
-            <td>A MediaStream is not seekable. Therefore, this attribute MUST
-            always have the value <code>false</code>.</td>
-          </tr>
+          <td><code>seekable.length</code> MUST return <code>0</code>.</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-defaultplaybackrate">
-            <code>defaultPlaybackRate</code></a></td>
+          <td>A <code><a>MediaStream</a></code> is not seekable.</td>
+        </tr>
 
-            <td><code>double</code></td>
+        <tr>
+          <td><a class="externalDFN" href=
+          "http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#dom-media-loop">
+          <code>loop</code></a></td>
 
-            <td>1.0</td>
+          <td><code>boolean</code></td>
 
-            <td>A MediaStream is not seekable. Therefore, this attribute MUST
-            always have the value <code>1.0</code> and any attempt to alter it
-            MUST fail.</td>
-          </tr>
+          <td>true, false</td>
 
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-playbackrate">
-            <code>playbackRate</code></a></td>
+          <td>Setting the <code>loop</code> attribute has no effect since a
+          <code><a>MediaStream</a></code> has no defined end and therefore
+          cannot be looped.</td>
+        </tr>
+      </tbody>
+    </table>
 
-            <td><code>double</code></td>
-
-            <td>1.0</td>
-
-            <td>A MediaStream is not seekable. Therefore, this attribute MUST
-            always have the value <code>1.0</code> and any attempt to alter it
-            MUST fail.</td>
-          </tr>
-
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-played">
-            <code>played</code></a></td>
-
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#timeranges"><code>
-            TimeRanges</code></a></td>
-
-            <td><code>played.length</code> MUST return <code>1</code>.<br>
-            <code>played.start(0)</code> MUST return <code>0</code>.<br>
-            <code>played.end(0)</code> MUST return the last known <a class=
-            "externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-currenttime">
-            <code>currentTime</code></a> .</td>
-
-            <td>A MediaStream's timeline always consists of a single range,
-            starting at 0 and extending up to the currentTime.</td>
-          </tr>
-
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-seekable">
-            <code>seekable</code></a></td>
-
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#timeranges"><code>
-            TimeRanges</code></a></td>
-
-            <td><code>seekable.length</code> MUST return <code>0</code>.</td>
-
-            <td>A MediaStream is not seekable.</td>
-          </tr>
-
-          <tr>
-            <td><a class="externalDFN" href=
-            "http://www.w3.org/TR/html5/embedded-content-0.html#dom-media-loop">
-            <code>loop</code></a></td>
-
-            <td><code>boolean</code></td>
-
-            <td>true, false</td>
-
-            <td>Setting the <code>loop</code> attribute has no effect since a
-            <code><a>MediaStream</a></code> has no defined end and therefore
-            cannot be looped.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <p>When applicable, behavior outlined above for <code>HTMLMediaElement</code> 
+    carry over to <code> <a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#mediacontroller">
+    MediaController</a></code>'s.</p>
   </section>
 
   <section>
