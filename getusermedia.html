@@ -2144,31 +2144,33 @@
         error definitions.
       </div>
 
-      <p>The following interface is defined for cases when a MediaStreamError
-      is raised as an event:</p>
+      <p>The following interface is defined for cases when an
+      OverconstrainedError is raised as an event:</p>
 
-      <dl class="idl" data-merge="MediaStreamErrorEventInit" title=
-      "[Exposed=Window] interface MediaStreamErrorEvent : Event">
-        <dt>Constructor(DOMString type, MediaStreamErrorEventInit
+      <dl class="idl" data-merge="OverconstrainedErrorEventInit" title=
+      "[Exposed=Window] interface OverconstrainedErrorEvent : Event">
+        <dt>Constructor(DOMString type, OverconstrainedErrorEventInit
         eventInitDict)</dt>
 
         <dd>
-          <p>Constructs a new <code><a>MediaStreamErrorEvent</a></code>.</p>
+          <p>Constructs a
+          new <code><a>OverconstrainedErrorEvent</a></code>.</p>
         </dd>
 
-        <dt>readonly attribute MediaStreamError? error</dt>
+        <dt>readonly attribute OverconstrainedError? error</dt>
 
         <dd>
-          <p>The <code><a>MediaStreamError</a></code> describing the error that
-          triggered the event (if any).</p>
+          <p>The <code><a>OverconstrainedError</a></code> describing
+          the error that triggered the event (if any).</p>
         </dd>
       </dl>
 
-      <dl class="idl" title="dictionary MediaStreamErrorEventInit : EventInit">
-        <dt>MediaStreamError? error = null</dt>
+      <dl class="idl"
+          title="dictionary OverconstrainedErrorEventInit : EventInit">
+        <dt>OverconstrainedError? error = null</dt>
 
         <dd>
-          <p>The <code><a>MediaStreamError</a></code> describing the error
+          <p>The <code><a>OverconstrainedError</a></code> describing the error
           associated with the event (if any)</p>
         </dd>
       </dl>
@@ -2346,7 +2348,7 @@
           <td><dfn id=
           "event-mediastreamtrack-overconstrained"><code>overconstrained</code></dfn></td>
 
-          <td><code><a>MediaStreamErrorEvent</a></code></td>
+          <td><code><a>OverconstrainedErrorEvent</a></code></td>
 
           <td>
             <p>This error event fires for each affected track (when multiple
@@ -3689,18 +3691,20 @@ if(!supports["width"] || !supports["height"]) {
           <var>requiredConstraints</var> from the currently valid Constraints.
           <p>
 
-          <p>When executed, the event handler is passed a
-          <code>MediaStreamErrorEvent</code> as parameter, which references a
-          <code>MediaStreamError</code> whose <code>name</code> is
-          <code>OverconstrainedError</code>, and whose
-          <code>constraintName</code> attribute is set to one of the
+          <p>When executed, the event handler is passed an
+          <code>OverconstrainedErrorEvent</code> as parameter, which
+          references an
+          <code><a>OverconstrainedError</a></code> whose
+          <code>constraint</code> attribute is set to one of the
           <var>requiredConstraints</var> that can no longer be satisfied. The
-          <code>message</code> attribute of the MediaStreamError SHOULD contain
-          a string that is useful for debugging. The conditions under which
-          this error might occur are platform and application-specific. For
-          example, the user might physically manipulate a camera in a way that
-          makes it impossible to provide a resolution that satisfies the
-          constraints. The User Agent MAY take other actions as a result of the
+          <code>message</code> attribute of
+          the <code>OverconstrainedError</code> SHOULD contain a
+          string that is useful for debugging. The conditions under
+          which this error might occur are platform and
+          application-specific. For example, the user might physically
+          manipulate a camera in a way that makes it impossible to
+          provide a resolution that satisfies the constraints. The
+          User Agent MAY take other actions as a result of the
           overconstrained situation.</p>
           <p>
         </dd>
