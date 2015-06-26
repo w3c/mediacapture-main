@@ -1673,7 +1673,8 @@
     objects.</p>
 
     <p>The [[!HTML51]] document outlines how the <code>HTMLMediaElement</code>
-    works with <code><a>MediaStream</a></code>'s. For clarity: </p>
+    works with a <em>media provider object</em>. The following applies when
+    the <em>media provider object</em> is a <code><a>MediaStream</a></code>:</p>
 
     <ul>
       <li><p>Whenever an [[!HTML51]] <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#audiotrack">AudioTrack</a></code> or a <code><a href="http://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#videotrack">VideoTrack</a></code> is created, the <code>id</code> and <code>label</code>
@@ -1682,9 +1683,8 @@
       must be initiliszed to "main" and the <code>language</code> attribute to the
       empty string</p></li>
 
-      <li><p>The User Agent MUST NOT buffer data from a MediaStream. When playing
-      using a <code>HTMLMediaElement</code> the User Agent MUST always play
-      the current data from the stream</p></li>
+      <li>The User Agent MUST always play the current data from the
+      <code><a>MediaStream</a></code> and MUST NOT buffer.</p></li>
 
       <li><p>Since the order in the <code><a>MediaStream</a></code> 's
       <a href="#track-set">track set</a> is undefined, no requirements are
