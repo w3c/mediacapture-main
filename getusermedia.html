@@ -1415,9 +1415,11 @@
     <section>
       <h3>MediaStreamTrackEvent</h3>
 
-      <p>The <code><a href="#event-mediastream-addtrack">addtrack</a></code>
-      and <code title="event-MediaStreamTracklist-removetrack"><a href=
-      "#event-mediastream-removetrack">removetrack</a></code> events use the
+      <p>The <code><a href="#event-mediastream-addtrack">addtrack</a></code>,
+      <code title="event-MediaStreamTracklist-removetrack"><a href=
+      "#event-mediastream-removetrack">removetrack</a></code>, and
+      <code><a href="#event-mediastreamtrack-ended">ended</a></code>
+      events use the
       <code><a>MediaStreamTrackEvent</a></code> interface.</p>
 
       <p>The <code>addtrack</code> and <code>removetrack</code> events notify
@@ -1439,6 +1441,11 @@
       attribute set to <var>track</var>, MUST be created and dispatched at the
       given target.</p>
 
+      <p>If the <code><a href="event-mediastreamtrack-ended">ended</a></code>
+      event is thrown and the track ended because of an error, the
+      <code><a href="#dom-mediastreamtrackevent-error">error</a></code>
+      attribute SHOULD be set to an appropriate <code>Error</code> object.</p>
+
       <dl class="idl" data-merge="MediaStreamTrackEventInit" title=
       "[Exposed=Window] interface MediaStreamTrackEvent : Event">
         <dt>Constructor(DOMString type, MediaStreamTrackEventInit
@@ -1456,10 +1463,29 @@
           represents the <code><a>MediaStreamTrack</a></code> object associated
           with the event.</p>
         </dd>
+
+        <dt>readonly attribute Error? error</dt>
+
+        <dd>
+          <p>The optional <dfn id=
+          "dom-mediastreamtrackevent-error"><code>error</code></dfn>
+          attribute can be set appropriately if the given track ended
+          because of an error.</p>
+        </dd>
       </dl>
 
       <dl class="idl" title="dictionary MediaStreamTrackEventInit : EventInit">
         <dt>required MediaStreamTrack track</dt>
+        <dd>
+          <p>The <code><a>MediaStreamTrack</a></code> object associated
+          with the event.</p>
+        </dd>
+
+        <dt>Error error</dt>
+        <dd>
+          <p>The optional <code>Error</code> object if the given track ended
+          because of an error.</p>
+        </dd>
       </dl>
     </section>
   </section>
@@ -2159,7 +2185,7 @@
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
 
-          <td><code><a>MediaStreamErrorEvent</a></code></td>
+          <td><code><a>MediaStreamTrackEvent</a></code></td>
 
           <td>
             <p>The <code><a>MediaStreamTrack</a></code> object's source will no
