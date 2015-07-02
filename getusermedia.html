@@ -579,34 +579,29 @@
         <dt>attribute EventHandler onactive</dt>
 
         <dd>
-          <p>This event handler, of type <code><a href=
-          "#event-mediastream-active">active</a></code>, is executed when the
-          MediaStream becomes active.</p>
+          <p>The event type of this event handler is <code><a href=
+          "#event-mediastream-active">active</a></code>.</p>
         </dd>
 
         <dt>attribute EventHandler oninactive</dt>
 
         <dd>
-          <p>This event handler, of type <code><a href=
-          "#event-mediastream-inactive">inactive</a></code>, is executed when
-          the MediaStream becomes inactive.</p>
+          <p>The event type of this event handler is <code><a href=
+          "#event-mediastream-inactive">inactive</a></code>.</p>
         </dd>
 
         <dt>attribute EventHandler onaddtrack</dt>
 
         <dd>
-          <p>This event handler, of type <code><a href=
-          "#event-mediastream-addtrack">addtrack</a></code>, is executed when a
-          <code><a>MediaStreamTrack</a></code> is added to the MediaStream.</p>
+          <p>The event type of this event handler is <code><a href=
+          "#event-mediastream-addtrack">addtrack</a></code>.</p>
         </dd>
 
         <dt>attribute EventHandler onremovetrack</dt>
 
         <dd>
-          <p>This event handler, of type <code><a href=
-          "#event-mediastream-removetrack">removetrack</a></code>, is executed
-          when a <code><a>MediaStreamTrack</a></code> is removed from the
-          MediaStream.</p>
+          <p>The event type of this event handler is <code><a href=
+          "#event-mediastream-removetrack">removetrack</a></code>.</p>
         </dd>
       </dl>
     </section>
@@ -959,19 +954,15 @@
           <dt>attribute EventHandler onmute</dt>
 
           <dd>
-            <p>This event handler, of type <code><a href=
-            "#event-mediastreamtrack-mute">mute</a></code>, is executed when
-            the <code>MediaStreamTrack</code> source is temporarily unable to
-            provide data.</p>
+            <p>The event type of this event handler is <code><a href=
+            "#event-mediastreamtrack-mute">mute</a></code>.</p>
           </dd>
 
           <dt>attribute EventHandler onunmute</dt>
 
           <dd>
-            <p>This event handler, of type <code><a href=
-            "#event-mediastreamtrack-unmute">unmute</a></code>, is executed
-            when the <code>MediaStreamTrack</code> source is live again after
-            having been temporarily unable to provide data.</p>
+            <p>The event type of this event handler is <code><a href=
+            "#event-mediastreamtrack-unmute">unmute</a></code>.</p>
           </dd>
 
           <dt>readonly attribute boolean _readonly</dt>
@@ -1006,11 +997,8 @@
           <dt>attribute EventHandler onended</dt>
 
           <dd>
-            <p>This event handler, of type <code><a href=
-            "#event-mediastreamtrack-ended">ended</a></code>, is executed when
-            the <code>MediaStreamTrack</code> source will no longer provide any
-            data, either due to a user action (revoked permission, removal of
-            capture device) or due to an error.</p>
+            <p>The event type of this event handler is <code><a href=
+            "#event-mediastreamtrack-ended">ended</a></code>.</p>
           </dd>
 
           <dt>MediaStreamTrack clone()</dt>
@@ -1099,8 +1087,11 @@
           <dt>attribute EventHandler onoverconstrained</dt>
 
           <dd>
+            <p>The event type of this event handler is <code><a href=
+            "#event-mediastreamtrack-overconstrained">overconstrained</a></code>.</p>
+
             <p>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this event handler.</p>
+            Interface</a> for more information about the <code>overconstrained</code> event.</p>
           </dd>
         </dl>
 
@@ -2241,10 +2232,8 @@
         <dt>attribute EventHandler ondevicechange</dt>
 
         <dd>
-          <p>This event handler, of type <code><a href=
-          "#event-mediadevices-devicechange">devicechange</a></code>, is
-          executed when the set of media devices available to the user agent
-          has changed.</p>
+          <p>The event type of this event handler is <code><a href=
+          "#event-mediadevices-devicechange">devicechange</a></code>.</p>
         </dd>
 
         <dt>Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices
