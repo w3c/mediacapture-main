@@ -1968,13 +1968,6 @@
           <p>Constructs a new <code><a>EndedEvent</a></code>.</p>
         </dd>
 
-        <dt>readonly attribute MediaStreamTrack track</dt>
-
-        <dd>
-          <p>The <code><a>MediaStreamTrack</a></code> that has
-          <a href="#track-ended">ended</a>.</p>
-        </dd>
-
         <dt>readonly attribute Error? error</dt>
 
         <dd>
@@ -1985,14 +1978,7 @@
 
       <dl class="idl"
           title="dictionary EndedEventInit : EventInit">
-        <dt>MediaStreamTrack track = null</dt>
-
-        <dd>
-          <p>The <code><a>MediaStreamTrack</a></code> that has
-          <a href="#track-ended">ended</a>.</p>
-        </dd>
-
-        <dt>readonly attribute Error? error</dt>
+        <dt>Error? error = null</dt>
 
         <dd>
           <p>If the track <a href="#tarck-ended">ended</a> as a result of
