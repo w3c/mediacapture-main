@@ -1198,6 +1198,10 @@
 
           <dd />
 
+          <dt>boolean channelCount</dt>
+
+          <dd />
+
           <dt>boolean deviceId</dt>
 
           <dd />
@@ -1258,6 +1262,10 @@
           <dd />
 
           <dt>(double or DoubleRange) latency</dt>
+
+          <dd />
+
+          <dt>(long or LongRange) channelCount</dt>
 
           <dd />
 
@@ -1330,6 +1338,10 @@
 
           <dd />
 
+          <dt>ConstrainLong channelCount</dt>
+
+          <dd />
+
           <dt>ConstrainDOMString deviceId</dt>
 
           <dd />
@@ -1389,6 +1401,10 @@
           <dd />
 
           <dt>double latency</dt>
+
+          <dd />
+
+          <dt>long channelCount</dt>
 
           <dd />
 
@@ -4302,6 +4318,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
             power constraints. The number is expected to be the target
             latency of the configuration; the actual latency may show
             some variation from that.</td>
+          </tr>
+
+          <tr id="def-constraint-channelCount">
+            <td>channelCount</td>
+
+            <td><code><a>ConstrainLong</a></code></td>
+
+            <td>The number of independent channels of sound that the audio data contains, i.e. the number of audio samples per sample frame.</td>
           </tr>
         </tbody>
       </table>
