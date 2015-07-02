@@ -2329,7 +2329,8 @@
                   a copy of <var>resultList</var>, and all its elements, where
                   the <code><a href=
                   "#widl-MediaDeviceInfo-label">label</a></code> member is the
-                  empty string.</p>
+                  empty string and the <code><a href=
+                  "#widl-MediaDeviceInfo-capabilities">capabilities</a></code> member is <code>null</code>.</p>
                 </li>
 
                 <li>
@@ -2360,7 +2361,7 @@
 
         <p>If access has been granted for a media device, the
         <code><a>MediaDeviceInfo</a></code> dictionary will contain the
-        deviceId, kind, label, and groupId.</p>
+        deviceId, kind, label, capabilities and groupId.</p>
       </section>
     </section>
 
@@ -2402,6 +2403,19 @@
           <p>A label describing this device (for example "External USB
           Webcam"). If the device has no associated label, then this attribute
           MUST return the empty string.</p>
+        </dd>
+
+        <dt>readonly attribute MediaTrackCapabilities capabilities</dt>
+
+        <dd>
+          <p>Returns a default set of capabilities describing the device's audio or video track
+          (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
+          For input devices these capabilities will be identical to those that would have been obtained by calling
+          <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
+          <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
+          where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.
+          For output devices, the capabilities describe a hypothetical MediaStreamTrack whose characteristics
+          exactly match those of the device.</p>
         </dd>
 
         <dt>readonly attribute DOMString groupId</dt>
