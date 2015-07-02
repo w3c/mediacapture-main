@@ -3354,28 +3354,6 @@ if(!supports["width"] || !supports["height"]) {
       "#media-stream-track-interface-definition">MediaStreamTrack Interface
       Definition</a> for an example of this.</p>
 
-      <p>When the User Agent is no longer able to satisfy the
-      required constraints</var> from the currently valid Constraints, the User
-      Agent MUST queue a task that fires a <code>MediaStreamErrorEvent</code>
-      named <code>overconstrained</code>, initialized as described in the
-      following paragraph, at the constrainable object. The event firing task
-      MAY also be used to update the constrainable object as a result
-      of the overconstrained situation.</p>
-
-      <p>The <code>MediaStreamErrorEvent</code> associated with the
-      <code>overconstrained</code> event references a
-      <code>MediaStreamError</code> whose <code>name</code> is
-      <code>OverconstrainedError</code>, and whose
-      <code>constraintName</code> attribute is set to one of the
-      <var>requiredConstraints</var> that can no longer be satisfied. The
-      <code>message</code> attribute of the MediaStreamError SHOULD contain
-      a string that is useful for debugging. The conditions under which
-      this error might occur are platform and application-specific. For
-      example, the user might physically manipulate a camera in a way that
-      makes it impossible to provide a resolution that satisfies the
-      constraints. The User Agent MAY take other actions as a result of the
-      overconstrained situation.</p>
-
       <dl class="idl" title=
       "[NoInterfaceObject] interface ConstrainablePattern">
         <dt>Capabilities getCapabilities()</dt>
@@ -3670,7 +3648,25 @@ if(!supports["width"] || !supports["height"]) {
         <dt>attribute EventHandler onoverconstrained</dt>
 
         <dd>
-          The event type of this event handler is <code>overconstrained</code>.
+          This event handler, of type <code><a>overconstrained</a></code>, is
+          executed when the User Agent is no longer able to satisfy the
+          <var>requiredConstraints</var> from the currently valid Constraints.
+          <p>
+
+          <p>When executed, the event handler is passed a
+          <code>MediaStreamErrorEvent</code> as parameter, which references a
+          <code>MediaStreamError</code> whose <code>name</code> is
+          <code>OverconstrainedError</code>, and whose
+          <code>constraintName</code> attribute is set to one of the
+          <var>requiredConstraints</var> that can no longer be satisfied. The
+          <code>message</code> attribute of the MediaStreamError SHOULD contain
+          a string that is useful for debugging. The conditions under which
+          this error might occur are platform and application-specific. For
+          example, the user might physically manipulate a camera in a way that
+          makes it impossible to provide a resolution that satisfies the
+          constraints. The User Agent MAY take other actions as a result of the
+          overconstrained situation.</p>
+          <p>
         </dd>
       </dl>
 
