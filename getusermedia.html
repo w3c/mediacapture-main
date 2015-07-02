@@ -1955,6 +1955,53 @@
     </section>
 
     <section>
+      <h3>EndedEvent</h3>
+      <p>The following interface is defined for cases when an event
+      is raised because a track has <a href="#track-ended">ended</a>:</p>
+
+      <dl class="idl" data-merge="EndedEventInit" title=
+      "[Exposed=Window] interface EndedEvent : Event">
+        <dt>Constructor(DOMString type, EndedEventInit
+        eventInitDict)</dt>
+
+        <dd>
+          <p>Constructs a new <code><a>EndedEvent</a></code>.</p>
+        </dd>
+
+        <dt>readonly attribute MediaStreamTrack track</dt>
+
+        <dd>
+          <p>The <code><a>MediaStreamTrack</a></code> that has
+          <a href="#track-ended">ended</a>.</p>
+        </dd>
+
+        <dt>readonly attribute Error? error</dt>
+
+        <dd>
+          <p>If the track <a href="#tarck-ended">ended</a> as a result of
+          an error, this attribute may be set to that error object.</p>
+        </dd>
+      </dl>
+
+      <dl class="idl"
+          title="dictionary EndedEventInit : EventInit">
+        <dt>MediaStreamTrack track = null</dt>
+
+        <dd>
+          <p>The <code><a>MediaStreamTrack</a></code> that has
+          <a href="#track-ended">ended</a>.</p>
+        </dd>
+
+        <dt>readonly attribute Error? error</dt>
+
+        <dd>
+          <p>If the track <a href="#tarck-ended">ended</a> as a result of
+          an error, this attribute may be set to that error object.</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section>
       <h3>Error names</h3>
 
       <p>The table below lists the error names defined in this
@@ -2159,7 +2206,7 @@
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
 
-          <td><code><a>MediaStreamErrorEvent</a></code></td>
+          <td><code><a>EndedEvent</a></code></td>
 
           <td>
             <p>The <code><a>MediaStreamTrack</a></code> object's source will no
