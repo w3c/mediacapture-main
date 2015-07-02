@@ -3767,6 +3767,13 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>Note in the example above that the aspectRatio would make clear that
       arbitrary combination of widths and heights are not possible, although it
       would still suggest that more than two resolutions were available.</p>
+
+      A specification using the Constrainable Pattern should not subclass the
+      below dictionary, but instead provide its own definition. See
+      <code><a>MediaTrackCapabilities</a></code> for an example.
+
+      <dl class="idl" title="dictionary Capabilities"></dl>
+
     </section>
 
     <section>
@@ -3793,6 +3800,13 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
   facingMode: "user"
 }
 </pre>
+
+      A specification using the Constrainable Pattern should not subclass the
+      below dictionary, but instead provide its own definition. See
+      <code><a>MediaTrackSettings</a></code> for an example.
+
+      <dl class="idl" title="dictionary Settings"></dl>
+
     </section>
 
     <section id="constraints">
