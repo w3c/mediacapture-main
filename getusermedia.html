@@ -1955,45 +1955,45 @@
     </section>
 
     <section>
-      <h3>EndedEvent</h3>
+      <h3>ErrorEvent</h3>
       <p>The following interface is defined for cases when an event
-      is raised because a track has <a href="#track-ended">ended</a>:</p>
+      is raised that could have been caused by an error:</p>
 
-      <p><dfn title="Fire an ended event">Firing an ended event named
+      <p><dfn title="Fire an error event">Firing an error event named
       <var>e</var></dfn> with an <code>Error</code>
       <var>error</var> means that an event with the name <var>e</var>, which
       does not bubble (except where otherwise stated) and is not cancelable
       (except where otherwise stated), and which uses the
-      <code><a>EndedEvent</a></code> interface with the
-      <code><a href="#dom-endedevent-error">error</a></code>
+      <code><a>ErrorEvent</a></code> interface with the
+      <code><a href="#dom-errorevent-error">error</a></code>
       attribute set to <var>error</var>, MUST be created and dispatched at the
       given target. If no <code>Error</code> object is specified, the
-      <code><a href="#dom-endedevent-error">error</a></code> attribute defaults
+      <code><a href="#dom-errorevent-error">error</a></code> attribute defaults
       to null.</p>
 
-      <dl class="idl" data-merge="EndedEventInit" title=
-      "[Exposed=Window] interface EndedEvent : Event">
-        <dt>Constructor(DOMString type, EndedEventInit
+      <dl class="idl" data-merge="ErrorEventInit" title=
+      "[Exposed=Window] interface ErrorEvent : Event">
+        <dt>Constructor(DOMString type, ErrorEventInit
         eventInitDict)</dt>
 
         <dd>
-          <p>Constructs a new <code><a>EndedEvent</a></code>.</p>
+          <p>Constructs a new <code><a>ErrorEvent</a></code>.</p>
         </dd>
 
         <dt>readonly attribute Error? error</dt>
 
         <dd>
-          <p>If the track <a href="#track-ended">ended</a> as a result of
+          <p>If the event was raised because of
           an error, this attribute may be set to that error object.</p>
         </dd>
       </dl>
 
       <dl class="idl"
-          title="dictionary EndedEventInit : EventInit">
+          title="dictionary ErrorEventInit : EventInit">
         <dt>Error? error = null</dt>
 
         <dd>
-          <p>If the track <a href="#track-ended">ended</a> as a result of
+          <p>If the event was raised because of
           an error, this attribute may be set to that error object.</p>
         </dd>
       </dl>
@@ -2204,7 +2204,7 @@
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
 
-          <td><code><a>EndedEvent</a></code></td>
+          <td><code><a>ErrorEvent</a></code></td>
 
           <td>
             <p>The <code><a>MediaStreamTrack</a></code> object's source will no
