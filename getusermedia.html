@@ -2680,6 +2680,12 @@
 
                       <p>Call this set of tracks the
                       <var>candidateSet</var>.</p>
+
+                      <p>If <var>candidateSet</var> is the empty set,  reject
+                      <var>p</var> with a new
+                      <code><a>DOMException</a></code> object whose
+                      <code><a>name</a></code> attribute has the value
+                      <code>NotFoundError</code> and abort these steps.</p>
                     </li>
 
                     <li>If the value of the <var>T</var> entry of
