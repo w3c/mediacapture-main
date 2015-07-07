@@ -1959,6 +1959,18 @@
       <p>The following interface is defined for cases when an event
       is raised because a track has <a href="#track-ended">ended</a>:</p>
 
+      <p><dfn title="Fire an ended event">Firing an ended event named
+      <var>e</var></dfn> with an <code>Error</code>
+      <var>error</var> means that an event with the name <var>e</var>, which
+      does not bubble (except where otherwise stated) and is not cancelable
+      (except where otherwise stated), and which uses the
+      <code><a>EndedEvent</a></code> interface with the
+      <code><a href="#dom-endedevent-error">error</a></code>
+      attribute set to <var>error</var>, MUST be created and dispatched at the
+      given target. If no <code>Error</code> object is specified, the
+      <code><a href="#dom-endedevent-error">error</a></code> attribute defaults
+      to null.</p>
+
       <dl class="idl" data-merge="EndedEventInit" title=
       "[Exposed=Window] interface EndedEvent : Event">
         <dt>Constructor(DOMString type, EndedEventInit
