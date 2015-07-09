@@ -87,6 +87,15 @@ var respecConfig = {
         }
       ]
     }
-  ]
+  ],
+   localBiblio: {
+     ES6: {
+       title:  "ECMAScript 2015",
+       href: "http://www.ecma-international.org/ecma-262/6.0/",
+       authors: ["Allen Wirfs-Brock"],
+       status: "Standard",
+       publisher: "Ecma International"
+     }
+   }
 
 };
