@@ -2680,6 +2680,12 @@
 
                       <p>Call this set of tracks the
                       <var>candidateSet</var>.</p>
+
+                      <p>If <var>candidateSet</var> is the empty set,  reject
+                      <var>p</var> with a new
+                      <code><a>DOMException</a></code> object whose
+                      <code><a>name</a></code> attribute has the value
+                      <code>NotFoundError</code> and abort these steps.</p>
                     </li>
 
                     <li>If the value of the <var>T</var> entry of
@@ -2700,12 +2706,17 @@
                     </li>
                   </ol>
 
-                  <p>If <var>finalSet</var> is the empty set, let
-                  <var>error</var> be a new
-                  <code><a>DOMException</a></code> object whose
+                  <p>If <var>finalSet</var> is the empty set, reject
+                  <var>p</var> with a new
+                  <code><a>MediaStreamError</a></code> object whose
                   <code><a>name</a></code> attribute has the value
-                  <code>NotFoundError</code> and jump to the step labeled
-                  <em>Error Task</em> below.</p>
+                  <code>ConstraintNotSatisfiedError</code> and whose
+                  <code><a>constraintName</a></code> attribute is set
+                  to any required constraint whose fitness distance
+                  was infinity for all settings dictionaries examined
+                  while executing
+                  the <code><a>SelectSettings</a></code> algorithm, then
+                  abort these steps.</p>
                 </li>
 
                 <li>
