@@ -130,7 +130,7 @@
         source's settings must always conform to the current set of mandatory
         constraints on all attached tracks. A source that cannot conform to
         mandatory constraints causes affected tracks to become
-        <a>overconstrained</a> and therefore <a>muted</a>. A <a>user agent</a>
+        <a>overconstrained</a> and therefore <a>muted</a>. A <a>User Agent</a>
         attempts to ensure that sources adhere to optional constraints as
         closely as possible, see <a href="#constrainable-interface"></a>.</p>
 
@@ -195,7 +195,7 @@
         "#the-model-sources-sinks-constraints-and-settings"></a> explains how
         constraints interact in more detail.</p>
 
-        <p>In general, user agents will have more flexibility to optimize the
+        <p>In general, User Agents will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use mandatory
         constraints sparingly.</p>
@@ -459,7 +459,7 @@
           <a href="#track-set">track set</a> whose <code><a href=
           "#dom-mediastreamtrack-kind">kind</a></code> is equal to
           "<code>audio</code>". The conversion from the <a href=
-          "#track-set">track set</a> to the sequence is user agent defined and
+          "#track-set">track set</a> to the sequence is User Agent defined and
           the order does not have to be stable between calls.</p>
         </dd>
 
@@ -476,7 +476,7 @@
           <a href="#track-set">track set</a> whose <code><a href=
           "#dom-mediastreamtrack-kind">kind</a></code> is equal to
           "<code>video</code>". The conversion from the <a href=
-          "#track-set">track set</a> to the sequence is user agent defined and
+          "#track-set">track set</a> to the sequence is User Agent defined and
           the order does not have to be stable between calls.</p>
         </dd>
 
@@ -804,7 +804,7 @@
         mutes, etc.</p>
 
         <p>To <dfn id="update-track-muted">update a track's muted state</dfn> to
-        <var>newState</var>, the user agent MUST queue a task to run the
+        <var>newState</var>, the User Agent MUST queue a task to run the
         following steps:</p>
 
         <ol>
@@ -2305,7 +2305,7 @@
 
           <td>
             <p>This error event fires for each affected track (when multiple
-            tracks share the same source) after the user agent has evaluated
+            tracks share the same source) after the User Agent has evaluated
             the current constraints against a given
             <code><a>deviceId</a></code> and is not able to configure the
             source within the limitations established by the union of imposed
@@ -2397,8 +2397,8 @@
       API used to examine and get access to media devices available to the User
       Agent.</p>
 
-      <p>When a new media input or output device is made available, the user
-      agent MUST queue a task that fires a simple event named <code><a href=
+      <p>When a new media input or output device is made available, the User
+      Agent MUST queue a task that fires a simple event named <code><a href=
       "#event-mediadevices-devicechange">devicechange</a></code> at the
       <code><a>MediaDevices</a></code> object.</p>
 
@@ -2408,7 +2408,7 @@
         <dd>
           <p>This event handler, of type <code><a href=
           "#event-mediadevices-devicechange">devicechange</a></code>, is
-          executed when the set of media devices available to the user agent
+          executed when the set of media devices available to the User Agent
           has changed.</p>
         </dd>
 
@@ -2561,7 +2561,7 @@
           <p>Since <code>deviceId</code> persists across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>deviceId</code> is
           to be treated as other persistent storage mechanisms such as cookies
-          [[COOKIES]]. User agents <em class="rfc2119">should</em> reset
+          [[COOKIES]]. User Agents <em class="rfc2119">should</em> reset
           per-application device identifiers when other persistent storages are
           cleared.</p>
         </dd>
@@ -2622,11 +2622,11 @@
     <code><a>MediaDevices</a></code> with APIs to request permission to access
     media input devices available to the User Agent.</p>
 
-    <p>When on an insecure origin [[mixed-content]], user agents are encouraged
+    <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
     to warn about usage of <code>MediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
-    developer tools, error logs, etc. It is explicitly permitted for user
-    agents to remove these APIs entirely when on an insecure origin, as long as
+    developer tools, error logs, etc. It is explicitly permitted for User
+    Agents to remove these APIs entirely when on an insecure origin, as long as
     they remove all of them at once (e.g., they should not leave just the
     prefixed version available on insecure origins).</p>
 
@@ -2900,12 +2900,12 @@
                   <p>The provided media MUST include precisely one track of
                   each media type in requestedMediaTypes from the
                   <var>finalSet</var>. The decision of which tracks to choose
-                  from the <var>finalSet</var> is completely up to the user
-                  agent and may be determined by asking the user. Once
+                  from the <var>finalSet</var> is completely up to the User
+                  Agent and may be determined by asking the user. Once
                   selected, the source of a
                   <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
 
-                  <p>The user agent MAY use the value of the computed "fitness
+                  <p>The User Agent MAY use the value of the computed "fitness
                   distance" from the <a>SelectSettings</a> algorithm, or any
                   other internally-available information about the devices, as
                   an input to the selection algorithm.</p>
@@ -3066,7 +3066,7 @@
         any other) should treat the resource that was previously allocated, as
         well as resources held by other applications, as busy. Resources marked
         as busy should not be provided as sources to the current web page,
-        unless specified by the user. Optionally, the user agent may choose to
+        unless specified by the user. Optionally, the User Agent may choose to
         provide a stream sourced from a busy source but only to a page whose
         origin matches the owner of the original stream that is keeping the
         source busy.</p>
@@ -3214,7 +3214,7 @@
     will satisfy two if it can, or only one if not even two constraints can be
     satisfied together. Note that if not all three can be satisfied
     simultaneously, it is possible that there is more than one combination of
-    two constraints that could be satisfied. If so, the user agent will
+    two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
     <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
@@ -3344,7 +3344,7 @@ if(!supports["width"] || !supports["height"]) {
             property that ranges from -10 (min) to 10 (max), but there are
             common hardware devices that support only values of "off" "medium"
             and "full". The registry entry might specify that for such
-            hardware, the user agent should map the range value of -10 to
+            hardware, the User Agent should map the range value of -10 to
             "off", 10 to "full", and 0 to "medium". It might also indicate that
             given a ConstraintSet imposing a strict value of 3, the User Agent
             should attempt to set the value of "medium" on the hardware, 
