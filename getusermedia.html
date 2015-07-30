@@ -2183,6 +2183,51 @@
     </section>
 
     <section>
+      <h3>ErrorEvent</h3>
+      <p>The following interface is defined for cases when an event
+      is raised that could have been caused by an error:</p>
+
+      <p><dfn title="Fire an error event">Firing an error event named
+      <var>e</var></dfn> with an <code>Error</code>
+      <var>error</var> means that an event with the name <var>e</var>, which
+      does not bubble (except where otherwise stated) and is not cancelable
+      (except where otherwise stated), and which uses the
+      <code><a>ErrorEvent</a></code> interface with the
+      <code><a href="#dom-errorevent-error">error</a></code>
+      attribute set to <var>error</var>, MUST be created and dispatched at the
+      given target. If no <code>Error</code> object is specified, the
+      <code><a href="#dom-errorevent-error">error</a></code> attribute defaults
+      to null.</p>
+
+      <dl class="idl" data-merge="ErrorEventInit" title=
+      "[Exposed=Window] interface ErrorEvent : Event">
+        <dt>Constructor(DOMString type, ErrorEventInit
+        eventInitDict)</dt>
+
+        <dd>
+          <p>Constructs a new <code><a>ErrorEvent</a></code>.</p>
+        </dd>
+
+        <dt>readonly attribute Error? error</dt>
+
+        <dd>
+          <p>If the event was raised because of
+          an error, this attribute may be set to that error object.</p>
+        </dd>
+      </dl>
+
+      <dl class="idl"
+          title="dictionary ErrorEventInit : EventInit">
+        <dt>Error? error = null</dt>
+
+        <dd>
+          <p>If the event was raised because of
+          an error, this attribute may be set to that error object.</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section>
       <h3>Error names</h3>
 
       <p>The table below lists the error names defined in this
@@ -2377,7 +2422,7 @@
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
 
-          <td><code><a>MediaStreamErrorEvent</a></code></td>
+          <td><code><a>ErrorEvent</a></code></td>
 
           <td>
             <p>The <code><a>MediaStreamTrack</a></code> object's source will no
