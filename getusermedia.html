@@ -375,7 +375,15 @@
       User Agent MUST queue a task that sets the object's <code><a href=
       "#stream-active">active</a></code> attribute to <code>true</code> and
       fire a simple event named <code><a href=
-      "#event-mediastream-active">active</a></code> at the object.</p>
+      "#event-mediastream-active">active</a></code> at the object. If a
+      <code><a>MediaStream</a></code>'s active status changes as a result of a
+      <code><a>MediaStreamTrack</a></code> being added or removed by the User
+      Agent, the corresponding <code><a href=
+      "#event-mediastream-addtrack">addtrack</a></code> or <code><a href=
+      "#event-mediastream-removetrack">removetrack</a></code> event MUST be
+      fired before the <code><a href=
+      "#event-mediastream-active">active</a></code> or <code><a href=
+      "#event-mediastream-inactive">inactive</a></code> event.</p>
 
       <p>If the stream's activity status changed due to a user request, the
       <a href="http://www.w3.org/TR/html5/webappapis.html#task-source">task
