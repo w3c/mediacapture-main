@@ -130,7 +130,7 @@
         source's settings must always conform to the current set of mandatory
         constraints on all attached tracks. A source that cannot conform to
         mandatory constraints causes affected tracks to become
-        <a>overconstrained</a> and therefore <a>muted</a>. A <a>user agent</a>
+        <a>overconstrained</a> and therefore <a>muted</a>. A <a>User Agent</a>
         attempts to ensure that sources adhere to optional constraints as
         closely as possible, see <a href="#constrainable-interface"></a>.</p>
 
@@ -195,7 +195,7 @@
         "#the-model-sources-sinks-constraints-and-settings"></a> explains how
         constraints interact in more detail.</p>
 
-        <p>In general, user agents will have more flexibility to optimize the
+        <p>In general, User Agents will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use mandatory
         constraints sparingly.</p>
@@ -467,7 +467,7 @@
           <a href="#track-set">track set</a> whose <code><a href=
           "#dom-mediastreamtrack-kind">kind</a></code> is equal to
           "<code>audio</code>". The conversion from the <a href=
-          "#track-set">track set</a> to the sequence is user agent defined and
+          "#track-set">track set</a> to the sequence is User Agent defined and
           the order does not have to be stable between calls.</p>
         </dd>
 
@@ -484,7 +484,7 @@
           <a href="#track-set">track set</a> whose <code><a href=
           "#dom-mediastreamtrack-kind">kind</a></code> is equal to
           "<code>video</code>". The conversion from the <a href=
-          "#track-set">track set</a> to the sequence is user agent defined and
+          "#track-set">track set</a> to the sequence is User Agent defined and
           the order does not have to be stable between calls.</p>
         </dd>
 
@@ -524,7 +524,7 @@
           <p>When the <dfn id=
           "dom-mediastream-addtrack"><code>addTrack()</code></dfn> method is
           invoked, the User Agent MUST <a href="#stream-add-track">add the
-          track</a>, specified by the methods first argument, to this
+          track</a>, specified by the method's first argument, to this
           <code><a>MediaStream</a></code>.</p>
         </dd>
 
@@ -637,7 +637,7 @@
       "source-stopped">stopped</dfn>. If the data is being generated from a
       live source (e.g., a microphone or camera), then the User Agent SHOULD
       remove any active "on-air" indicator for that source. An implementation
-      may use a per source reference count to keep track of source usage, but
+      may use a per-source reference count to keep track of source usage, but
       the specifics are out of scope for this specification.</p>
 
       <p>If there is no stored permission to use that source, the User Agent
@@ -788,7 +788,7 @@
 
         <h4>Media Flow</h4>
 
-        <p>There are two concepts related to the media flow for a
+        <p>There are two dimensions related to the media flow for a
         <code>live</code> <code><a>MediaStreamTrack</a></code> : muted / not
         muted, and enabled / disabled.</p>
 
@@ -809,7 +809,7 @@
         mutes, etc.</p>
 
         <p>To <dfn id="update-track-muted">update a track's muted state</dfn> to
-        <var>newState</var>, the user agent MUST queue a task to run the
+        <var>newState</var>, the User Agent MUST queue a task to run the
         following steps:</p>
 
         <ol>
@@ -836,11 +836,11 @@
         </ol>
 
         <p><dfn id="track-enabled">Enabled/disabled</dfn> on the other hand is
-        available to application to control (and observe) via the
+        available to the application to control (and observe) via the
         <code><a href="#dom-mediastreamtrack-enabled">enabled</a></code>
         attribute.</p>
 
-        <p>The result for the consumer is the same in the meaning that whenever
+        <p>The result for the consumer is the same in the sense that whenever
         <code><a>MediaStreamTrack</a></code> is muted or disabled (or both) the
         consumer gets zero-information-content, which means silence for audio
         and black frames for video. In other words, media from the source only
@@ -1160,7 +1160,7 @@
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
         object.</p>
 
-        <p>Future specification can extend the MediaTrackSupportedConstraints
+        <p>Future specifications can extend the MediaTrackSupportedConstraints
         dictionary by defining a partial dictionary with dictionary members of
         type boolean and an identifier that is a Property Name registered in
         the [[!RTCWEB-CONSTRAINTS]] registry.</p>
@@ -1223,7 +1223,7 @@
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
         object.</p>
 
-        <p>Future specification can extend the MediaTrackCapabilities
+        <p>Future specifications can extend the MediaTrackCapabilities
         dictionary by defining a partial dictionary with dictionary members of
         appropriate type and an identifier that is a Property Name registered
         in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
@@ -1292,7 +1292,7 @@
           </dd>
         </dl>
 
-        <p>Future specification can extend the MediaTrackConstraintSet
+        <p>Future specifications can extend the MediaTrackConstraintSet
         dictionary by defining a partial dictionary with dictionary members of
         appropriate type and an identifier that is a Property Name registered
         in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
@@ -1354,7 +1354,7 @@
         <p><code><a>MediaTrackSettings</a></code> represents the
         <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
 
-        <p>Future specification can extend the MediaTrackSettings dictionary by
+        <p>Future specifications can extend the MediaTrackSettings dictionary by
         defining a partial dictionary with dictionary members of appropriate
         type and an identifier that is a Property Name registered in the
         [[!RTCWEB-CONSTRAINTS]] registry.</p>
@@ -1574,7 +1574,7 @@
 
     <p>It is fairly obvious that changes to a given source will impact sink
     consumers. However, in some situations changes to a given sink may also
-    cause mplementations to adjust a source's settings. This is illustrated in
+    cause implementations to adjust a source's settings. This is illustrated in
     the following figures. In the first figure below, the home client's video
     source is sending a video stream sized at 1920 by 1200 pixels. The video
     source is also unconstrained, such that the exact source dimensions are
@@ -2273,14 +2273,14 @@
             <td>One of the mandatory <a>Constraints</a> could not be
             satisfied.</td>
 
-            <td>The <code>constraint</code> attribute gets set to the name
+            <td>The <code>constraint</code> attribute is set to the name
             of the constraint that caused the error</td>
           </tr>
 
           <tr>
             <th><code><dfn>NotFoundError</dfn></code></th>
 
-            <td>The object can not be found here.</td>
+            <td>The object cannot be found here.</td>
 
             <td>Same as defined in [[DOM4]]</td>
           </tr>
@@ -2309,7 +2309,7 @@
   <section class="informative">
     <h2>Event summary</h2>
 
-    <p>The following event fires on <code><a>MediaStream</a></code>
+    <p>The following events fire on <code><a>MediaStream</a></code>
     objects:</p>
 
     <table>
@@ -2364,7 +2364,7 @@
       </tbody>
     </table>
 
-    <p>The following event fires on <code><a>MediaStreamTrack</a></code>
+    <p>The following events fire on <code><a>MediaStreamTrack</a></code>
     objects:</p>
 
     <table>
@@ -2405,7 +2405,7 @@
 
           <td>
             <p>This error event fires for each affected track (when multiple
-            tracks share the same source) after the user agent has evaluated
+            tracks share the same source) after the User Agent has evaluated
             the current constraints against a given
             <code><a>deviceId</a></code> and is not able to configure the
             source within the limitations established by the union of imposed
@@ -2440,7 +2440,7 @@
       </tbody>
     </table>
 
-    <p>The following event fires on <code><a>MediaDevices</a></code>
+    <p>The following events fire on <code><a>MediaDevices</a></code>
     objects:</p>
 
     <table>
@@ -2493,12 +2493,12 @@
     <section>
       <h3>MediaDevices</h3>
 
-      <p>The <code>MediaDevices</code> object which is the entry point to the
+      <p>The <code>MediaDevices</code> object is the entry point to the
       API used to examine and get access to media devices available to the User
       Agent.</p>
 
-      <p>When a new media input or output device is made available, the user
-      agent MUST queue a task that fires a simple event named <code><a href=
+      <p>When a new media input or output device is made available, the User
+      Agent MUST queue a task that fires a simple event named <code><a href=
       "#event-mediadevices-devicechange">devicechange</a></code> at the
       <code><a>MediaDevices</a></code> object.</p>
 
@@ -2514,10 +2514,10 @@
         ()</dt>
 
         <dd>
-          <p>Collects information about the User Agents available media input
+          <p>Collects information about the User Agent's available media input
           and output devices.</p>
 
-          <p>Returns a promise. The promise will be fulfilled with a sequence
+          <p>This method returns a promise. The promise will be fulfilled with a sequence
           of <code><a>MediaDeviceInfo</a></code> dictionaries representing the
           User Agent's available media input and output devices if enumeration
           is successful.</p>
@@ -2574,7 +2574,7 @@
 
                     <li>
                       <p>If <var>device</var> belongs to the same physical
-                      device as a device, already represented in
+                      device as a device already represented in
                       <var>oldList</var> or <var>resultList</var>, initialize
                       <var>deviceInfo</var>'s <code><a href=
                       "#widl-MediaDeviceInfo-groupId">groupId</a></code> member
@@ -2598,7 +2598,7 @@
                   <p>If none of the local devices are attached to an active
                   <code><a>MediaStreamTrack</a></code> in the current browsing
                   context, and if no <a href="#stored-permissions">persistent
-                  permission</a> to access these local devices have been
+                  permission</a> to access these local devices has been
                   granted to the page's origin, let <var>filteredList</var> be
                   a copy of <var>resultList</var>, and all its elements, where
                   the <code><a href=
@@ -2659,7 +2659,7 @@
           <p>Since <code>deviceId</code> persists across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>deviceId</code> is
           to be treated as other persistent storage mechanisms such as cookies
-          [[COOKIES]]. User agents <em class="rfc2119">should</em> reset
+          [[COOKIES]]. User Agents <em class="rfc2119">should</em> reset
           per-application device identifiers when other persistent storages are
           cleared.</p>
         </dd>
@@ -2683,7 +2683,7 @@
         <dd>
           <p>Returns the group identifier of the represented device. Two
           devices have the same group identifier if they belong to the same
-          physical device; for example a monitor with a built in camera and
+          physical device; for example a monitor with a built-in camera and
           microphone.</p>
         </dd>
 
@@ -2720,13 +2720,13 @@
     <code><a>MediaDevices</a></code> with APIs to request permission to access
     media input devices available to the User Agent.</p>
 
-    <p>When on an insecure origin [[mixed-content]], user agents are encouraged
+    <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
     to warn about usage of <code>MediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
-    developer tools, error logs, etc. It is explicitly permitted for user
-    agents to remove these APIs entirely when on an insecure origin, as long as
+    developer tools, error logs, etc. It is explicitly permitted for User
+    Agents to remove these APIs entirely when on an insecure origin, as long as
     they remove all of them at once (e.g., they should not leave just the
-    prefixed version available on insecure origins.)</p>
+    prefixed version available on insecure origins).</p>
 
     <section>
       <h3>NavigatorUserMedia Interface Extensions</h3>
@@ -2884,7 +2884,7 @@
           properties known to the User Agent. A supported constrainable
           property MUST be represented by a member whose name is the constraint
           name and whose value is <code>true</code>. Any constrainable
-          properties not supported by the User Agent MUST not be present in the
+          properties not supported by the User Agent MUST NOT be present in the
           returned dictionary. The values returned represent what the browser
           implements and will not change during a browsing session.</p>
         </dd>
@@ -2899,7 +2899,7 @@
           <p>The <var>constraints</var> argument is a dictionary of type
           <code><a>MediaStreamConstraints</a></code>.</p>
 
-          <p>Returns a promise. The promise will be fulfilled with a suitable
+          <p>This method returns a promise. The promise will be fulfilled with a suitable
           <code><a>MediaStream</a></code> object if the user accepts valid
           tracks as described below.</p>
 
@@ -3011,12 +3011,12 @@
                   <p>The provided media MUST include precisely one track of
                   each media type in requestedMediaTypes from the
                   <var>finalSet</var>. The decision of which tracks to choose
-                  from the <var>finalSet</var> is completely up to the user
-                  agent and may be determined by asking the user. Once
+                  from the <var>finalSet</var> is completely up to the User
+                  Agent and may be determined by asking the user. Once
                   selected, the source of a
-                  <code><a>MediaStreamTrack</a></code> MUST not change.</p>
+                  <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
 
-                  <p>The user agent MAY use the value of the computed "fitness
+                  <p>The User Agent MAY use the value of the computed "fitness
                   distance" from the <a>SelectSettings</a> algorithm, or any
                   other internally-available information about the devices, as
                   an input to the selection algorithm.</p>
@@ -3121,7 +3121,7 @@
           <a>MediaStream</a> contain a video track. If a <a>Constraints</a>
           structure is provided, it further specifies the nature and settings
           of the video Track. If <code>false</code>, the <a>MediaStream</a>
-          MUST not contain a video Track.</p>
+          MUST NOT contain a video Track.</p>
         </dd>
 
         <dt>(boolean or MediaTrackConstraints) audio = false</dt>
@@ -3131,7 +3131,7 @@
           <a>MediaStream</a> contain an audio track. If a <a>Constraints</a>
           structure is provided, it further specifies the nature and settings
           of the audio Track. If <code>false</code>, the <a>MediaStream</a>
-          MUST not contain an audio Track.</p>
+          MUST NOT contain an audio Track.</p>
         </dd>
       </dl>
     </section>
@@ -3177,7 +3177,7 @@
         any other) should treat the resource that was previously allocated, as
         well as resources held by other applications, as busy. Resources marked
         as busy should not be provided as sources to the current web page,
-        unless specified by the user. Optionally, the user agent may choose to
+        unless specified by the user. Optionally, the User Agent may choose to
         provide a stream sourced from a busy source but only to a page whose
         origin matches the owner of the original stream that is keeping the
         source busy.</p>
@@ -3237,7 +3237,7 @@
 
         <p class="practicedesc">It is recommended for multiple calls to
         <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> from the
-        same page be allowed as a way for pages to request multiple discrete
+        same page to be allowed as a way for pages to request multiple discrete
         video and/or audio streams.</p>
 
         <p class="practicedesc">Note also that if multiple <a href=
@@ -3325,7 +3325,7 @@
     will satisfy two if it can, or only one if not even two constraints can be
     satisfied together. Note that if not all three can be satisfied
     simultaneously, it is possible that there is more than one combination of
-    two constraints that could be satisfied. If so, the user agent will
+    two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
     <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
@@ -3400,8 +3400,8 @@ if(!supports["width"] || !supports["height"]) {
     that ConstraintSet and attempt to set the framerate above 400. If that
     fails, it will then try to set it above 300. If the User Agent cannot
     satisfy any of the three ConstraintSets, it will set the framerate to any
-    value it can get. If the developer wanted to insist on 300 as a lower
-    bound, he could provide that as a 'min' value in the basic ConstraintSet.
+    value it can get. If the developers wanted to insist on 300 as a lower
+    bound, they could provide that as a 'min' value in the basic ConstraintSet.
     In that case, the User Agent would fail altogether if it couldn't get a
     value over 300, but would choose a value over 500 if possible, then try for
     a value over 400.</p>
@@ -3455,10 +3455,10 @@ if(!supports["width"] || !supports["height"]) {
             property that ranges from -10 (min) to 10 (max), but there are
             common hardware devices that support only values of "off" "medium"
             and "full". The registry entry might specify that for such
-            hardware, the user agent should map the range value of -10 to
+            hardware, the User Agent should map the range value of -10 to
             "off", 10 to "full", and 0 to "medium". It might also indicate that
             given a ConstraintSet imposing a strict value of 3, the User Agent
-            should attempt to set the value of "medium" on the hardware, and
+            should attempt to set the value of "medium" on the hardware, 
             and that <code><a>getSettings()</a></code> should return a
             fluxCapacitance of 0, since that is the value defined as
             corresponding to "medium".</p>
@@ -3687,7 +3687,7 @@ if(!supports["width"] || !supports["height"]) {
                   <code>OverconstrainedError</code> created by
                   calling
                   <code>OverconstrainedError(<var>failedConstraint</var>,
-                  <var>message</var>)</code>.
+                  <var>message</var>)</code>.  The
                   <var>existingConstraints</var> remain in effect in
                   this case.</p>
                 </li>
@@ -4119,7 +4119,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <dt>sequence&lt;ConstraintSet&gt; advanced</dt>
 
         <dd>
-          <p>The list of ConstraintSets that the User Agent MUST attempt to
+          <p>This is the list of ConstraintSets that the User Agent MUST attempt to
           satisfy, in order, skipping only those that cannot be satisfied. The
           order of these ConstraintSets is significant. In particular, when
           they are passed as an argument to <code>applyConstraints</code>, the
