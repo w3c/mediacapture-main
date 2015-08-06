@@ -1902,10 +1902,13 @@
 
       <p>The following terms used in this section are defined in [[!ES6]].</p>
       <table>
+        <thead>
         <tr>
           <th>Term/Notation</th>
           <th>Section in [[!ES6]]</th>
-        <tr>
+        </tr>
+        </thead>
+        <tbody>
         <tr>
           <td>Type(X)</td>
           <td>6</td>
@@ -1997,6 +2000,7 @@
           <td>Object.prototype.toString</td>
           <td>19.1.3.6</td>
         </tr>
+        </tbody>
       </table>
     </section>
 
@@ -2043,7 +2047,7 @@
             <code>"%OverconstrainedErrorPrototype%"</code>, «[[\ErrorData]]»
             ).</li>
             <li>ReturnIfAbrupt(<i>O</i>).</li>
-            <li>If <i>constraint</i> is not <b>undefined</b>, then</li>
+            <li>If <i>constraint</i> is not <b>undefined</b>, then
             <ol>
               <li>Let <i>constraintDesc</i> be the
               PropertyDescriptor{[[\Value]]:
@@ -2053,8 +2057,8 @@
               <li>Let <i>cStatus</i> be DefinePropertyOrThrow(O,
               "<code>constraint</code>", <i>constraintDesc</i>).</li>
               <li>Assert: <i>cStatus</i> is not an abrupt completion.</li>
-            </ol>
-            <li>If <i>message</i> is not <b>undefined</b>, then</li>
+            </ol></li>
+            <li>If <i>message</i> is not <b>undefined</b>, then
             <ol>
               <li>Let <i>msg</i> be ToString(<i>message</i>).</li>
               <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[\Value]]:
@@ -2064,7 +2068,7 @@
               <li>Let <i>mStatus</i> be DefinePropertyOrThrow(O,
               "<code>message</code>", <i>msgDesc</i>).</li>
               <li>Assert: <i>mStatus</i> is not an abrupt completion.</li>
-            </ol>
+            </ol></li>
             <li>Return <i>O</i>.</li>
           </ol>
         </section>
