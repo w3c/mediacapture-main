@@ -1444,7 +1444,7 @@
       of a  <code><a>MediaStream</a></code>, received from another peer, can be
       updated as a result of changes to the media session.</p>
 
-      <p><dfn title="Fire a track event">Firing a track event named
+      <p><dfn data-lt="Fire a track event">Firing a track event named
       <var>e</var></dfn> with a <code><a>MediaStreamTrack</a></code>
       <var>track</var> means that an event with the name <var>e</var>, which
       does not bubble (except where otherwise stated) and is not cancelable
@@ -2209,7 +2209,7 @@
       <p>The following interface is defined for cases when an event
       is raised that could have been caused by an error:</p>
 
-      <p><dfn title="Fire an error event">Firing an error event named
+      <p><dfn data-lt="Fire an error event">Firing an error event named
       <var>e</var></dfn> with an <code>Error</code>
       <var>error</var> means that an event with the name <var>e</var>, which
       does not bubble (except where otherwise stated) and is not cancelable
@@ -2256,10 +2256,6 @@
       specification.</p>
 
       <table>
-        <caption>
-          <code><a>MediaStreamError</a></code> names
-        </caption>
-
         <thead>
           <tr>
             <th>Name</th>
@@ -3602,7 +3598,7 @@ if(!supports["width"] || !supports["height"]) {
           <p>We define the <dfn>SelectSettings</dfn> algorithm as follows:</p>
 
           <ol>
-            <li>Each <a title="constraints">constraint</a> specifies one or
+            <li>Each <a data-lt="constraints">constraint</a> specifies one or
             more values (or a range of values) for its property. A property MAY
             appear more than once in the list of 'advanced' ConstraintSets. If
             an empty object or list has been given as the value for a
@@ -3628,7 +3624,7 @@ if(!supports["width"] || !supports["height"]) {
               <p>For every possible <a>settings dictionary</a> of
               <var>copy</var> compute its <a>fitness distance, treating bare
               values of properties as ideal values</a>. Let
-              <var>candidates</var> be the set of <a title=
+              <var>candidates</var> be the set of <a data-lt=
               "settings dictionary">settings dictionaries</a> for which the
               <a>fitness distance</a> is finite.</p>
             </li>
