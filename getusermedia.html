@@ -1463,7 +1463,7 @@
           <p>Constructs a new <code><a>MediaStreamTrackEvent</a></code>.</p>
         </dd>
 
-        <dt>readonly attribute MediaStreamTrack track</dt>
+        <dt>[SameObject] readonly attribute MediaStreamTrack track</dt>
 
         <dd>
           <p>The <dfn id=
@@ -2496,7 +2496,7 @@
       <h3>NavigatorUserMedia</h3>
 
       <dl class="idl" title="[Exposed=Window, NoInterfaceObject] interface NavigatorUserMedia">
-        <dt>readonly attribute MediaDevices mediaDevices</dt>
+        <dt>[SameObject] readonly attribute MediaDevices mediaDevices</dt>
 
         <dd>
           <p>Returns the <code>MediaDevices</code> object associated with this
@@ -4651,6 +4651,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     <h2>Changes since June 29, 2015</h2>
 
     <ol>
+        <li>[#204] Use WebIDL [SameObject] extended attribute</li>
     </ol>
 
     <h2>Changes since May 23, 2015</h2>
