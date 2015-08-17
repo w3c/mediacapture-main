@@ -4613,6 +4613,115 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     </section>
   </section>
 
+  <section class="appendix informative">
+    <h2>Self-Review Questionnaire: Security and Privacy</h2>
+    <ol>
+
+    <li>Does this specification deal with personally-identifiable information?
+
+     <p>Video and audio captured using this API provides personally-identifiable information.</p>
+
+
+
+    </li><li>Does this specification deal with high-value data?
+
+     <p>Not beyond the one identified above.</p>
+
+
+
+    </li><li>Does this specification introduce new state for an origin that persists across browsing sessions?
+
+        <p>Yes: information on available media input and out devices, in particular <code>deviceId</code>, exposed in <code><a>MediaDeviceInfo</a></code>, persists across browsing sessions. In addition, the information described in the answer to the next question is also available in the single-origin case.</p>
+
+
+
+    </li><li>Does this specification expose persistent, cross-origin state to the web?
+     <p>The number and grouping of media devices provided by <code>navigator.mediaDevices.enumerateDevices()</code> persist across browsing sessions and origins.</p>
+     <p>Device labels exposed by <code>MediaDeviceInfo</code> once the user has granted access to one of their capture devices persist across browsing sessions and origins.</p>
+     <p><a>MediaTrackCapabilities</a> exposed by <code><a>MediaStreamTrack</a>.getCapabilities</code> (after the user has granted access to a particular device) are in general also persistent across browsing sessions and origins.</p>
+
+
+    </li><li>Does this specification expose any other data to an origin that it doesn’t currently have access to?
+
+     <p>No.</p>
+
+
+
+    </li><li>Does this specification enable new script execution/loading mechanisms?
+
+  <p>No.</p>
+
+
+
+    </li><li>Does this specification allow an origin access to a user’s location?
+
+     <p>The video and audio captured via <code>getUserMedia</code> can presumably be used in some cases to identify one's user location.</p>
+
+
+
+    </li><li>Does this specification allow an origin access to sensors on a user’s device?
+
+     <p>Yes, it allows access to the camera and microphone.</p>
+
+
+
+    </li><li>Does this specification allow an origin access to aspects of a user’s local computing environment?
+
+     <p>Yes, it allows access to the list of available media devices without user consent; it also allows access to more detailed information about these media devices after the user has granted access to one of these devices for media capture.</p>
+
+
+
+    </li><li>Does this specification allow an origin access to other devices?
+
+     <p>While some cameras and microphones that this specification gives access to will be separate devices, the specification doesn't expose this distinction, nor does it expose new ways of interacting with these devices..</p>
+
+
+
+    </li><li>Does this specification allow an origin some measure of control over a user agent’s native UI?
+
+     <p>No.</p>
+
+
+
+    </li><li>Does this specification expose temporary identifiers to the web?
+
+     <p><code><a>MediaDeviceInfo</a>.groupId</code>?</p>
+
+
+
+    </li><li>Does this specification distinguish between behavior in first-party and third-party contexts?
+
+     <p>No.</p>
+
+
+
+    </li><li>How should this specification work in the context of a user agent’s "incognito" mode?
+  <p>TBD</p>
+  <!--<p><code>deviceId</code> should not persist across browsing sessions.</p>
+  <p><code>enumerateDevices()</code> should return an empty list (?)</p>
+  <p>what about <code><a>MediaStreamTrack</a>.getCapabilities()?</code>-->
+
+
+
+    </li><li>Does this specification persist data to a user’s local device?
+
+     <p>Yes, <code>deviceId</code> is persisted on the user’s local device; the specification requires that data to be cleared along with other browsing data.</p>
+
+
+
+    </li><li>Does this specification have a "Security Considerations" and "Privacy Considerations" section?
+
+     <p>Yes.</p>
+
+
+
+    </li><li>Does this specification allow downgrading default security characteristics?
+
+     <p>No.</p>
+
+</li></ol>
+  </section>
+
   <section>
     <h2>Change Log</h2>
 
