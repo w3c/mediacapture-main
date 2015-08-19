@@ -2634,19 +2634,30 @@
           <p>A unique identifier for the represented device.</p>
 
           <p>All enumerable devices have an identifier that MUST be unique to
-          the application and persistent across browsing sessions. Unique and stable
-          identifiers let the application save, identify the availability of,
-          and directly request specific sources.</p>
+          the page's origin. As long as no local device has been attached to an
+          active MediaStreamTrack in a page from this origin, and no
+          <a href="#stored-permissions">persistent permission</a> to access
+          local devices has been granted to this origin, then this identifier
+          MUST NOT be reusable after the end of the current browsing session.</p>
 
-          <p>This identifier MUST be un-guessable by other applications to
-          prevent the identifier being used to correlate the same user across
-          different applications.</p>
+          <p>However, if any local devices have been attached to an active
+          MediaStreamTrack in a page from this origin, or
+          <a href="#stored-permissions">persistent permission</a> to access
+          local devices has been granted to this origin, then this identifier
+          MUST be persisted across browsing sessions.</p>
 
-          <p>Since <code>deviceId</code> persists across browsing sessions and to reduce
+          <p>Unique and stable identifiers let the application save, identify the
+          availability of, and directly request specific sources.</p>
+
+          <p>This identifier MUST be un-guessable by applications of other
+          origins to prevent the identifier being used to correlate the same
+          user across different origins.</p>
+
+          <p>Since <code>deviceId</code> may persist across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>deviceId</code> is
           to be treated as other persistent storage mechanisms such as cookies
-          [[COOKIES]]. User Agents <em class="rfc2119">should</em> reset
-          per-application device identifiers when other persistent storages are
+          [[COOKIES]]. User agents MUST reset per-origin device identifiers when
+          other persistent storages are
           cleared.</p>
         </dd>
 
