@@ -2405,17 +2405,18 @@
           MUST return the empty string.</p>
         </dd>
 
-        <dt>readonly attribute MediaTrackCapabilities capabilities</dt>
+        <dt>readonly attribute Object capabilities</dt>
 
         <dd>
-          <p>Returns a default set of capabilities describing the device's audio or video track
+          <p>For input devices, contains a <code><a>MediaTrackCapabilities</a></code> object describing the device's audio or video track
           (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
           For input devices these capabilities will be identical to those that would have been obtained by calling
           <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
           <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
-          where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.
-          For output devices, the capabilities describe a hypothetical MediaStreamTrack whose characteristics
-          exactly match those of the device.</p>
+          where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.</p>
+
+          <p>For output devices, this attribute will always be <code>null</code>. Future changes to this API will address
+          the acquisition of output device capabilities.</p>
         </dd>
 
         <dt>readonly attribute DOMString groupId</dt>
