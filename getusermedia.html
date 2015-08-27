@@ -548,8 +548,7 @@
           <p>Clones the given <code><a>MediaStream</a></code> and all its
           tracks.</p>
 
-          <p>When the <dfn id=
-          "dom-mediastream-clone"><code>MediaStream.clone()</code></dfn> method
+          <p>When the <code>clone()</code> method
           is invoked, the User Agent MUST run the following steps:</p>
 
           <ol>
@@ -577,8 +576,7 @@
         <dt>readonly attribute boolean active</dt>
 
         <dd>
-          <p>The <code><dfn id=
-          "dom-mediastream-active">MediaStream.active</dfn></code> attribute
+          <p>The <code>active</code> attribute
           MUST return <code>true</code> if this <code><a>MediaStream</a></code>
           is <a href="#stream-active">active</a> and <code>false</code>
             otherwise.</p>
@@ -629,9 +627,10 @@
       User Agents to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
 
-      <p>A script can indicate that a track no longer needs its source with the
+      <p>A script can indicate that a <code><a>MediaStreamTrack</a></code> no
+      longer needs its source with the
       <code><a href=
-      "#dom-mediastreamtrack-stop">MediaStreamTrack.stop()</a></code> method.
+      "#dom-mediastreamtrack-stop">stop()</a></code> method.
       When all tracks using a source have been stopped, the given permission
       for that source is revoked and the source is <dfn id=
       "source-stopped">stopped</dfn>. If the data is being generated from a
@@ -893,7 +892,7 @@
 
           <dd>
             <p>The <dfn id=
-            "dom-mediastreamtrack-kind"><code>MediaStreamTrack.kind</code></dfn>
+            "dom-mediastreamtrack-kind"><code>kind</code></dfn>
             attribute MUST return the string "<code>audio</code>" if the object
             represents an audio track or "<code>video</code>" if object
             represents a video track.</p>
@@ -907,7 +906,8 @@
             track id must be initialized, the User Agent MUST generate an
             identifier string and initialize the object's <code><a href=
             "#dom-mediastreamtrack-id">id</a></code> attribute to that string.
-            See <code><a href="#dom-mediastream-id">MediaStream.id</a></code>
+            See <code><a>MediaStream</a></code>'s <code><a href=
+            "#dom-mediastream-id">id</a></code> attribute
             for guidelines on how to generate such an identifier.</p>
 
             <p>An example of an algorithm that specifies how the track id must
@@ -915,8 +915,8 @@
             component with a <code><a>MediaStreamTrack</a></code> object.
             [[WEBRTC10]]</p>
 
-            <p><dfn id=
-            "dom-mediastreamtrack-id"><code>MediaStreamTrack.id</code></dfn>
+            <p><code id=
+            "dom-mediastreamtrack-id">id</code>
             attribute MUST return the value to which it was initialized when
             the object was created.</p>
           </dd>
@@ -926,7 +926,7 @@
           <dd>
             <p>User Agents MAY label audio and video sources (e.g., "Internal
             microphone" or "External USB Webcam"). The <dfn id=
-            "dom-mediastreamtrack-label"><code>MediaStreamTrack.label</code></dfn>
+            "dom-mediastreamtrack-label"><code>label</code></dfn>
             attribute MUST return the label of the object's corresponding
             source, if any. If the corresponding source has or had no label,
             the attribute MUST instead return the empty string.</p>
@@ -936,7 +936,7 @@
 
           <dd>
             <p>The <dfn id=
-            "dom-mediastreamtrack-enabled"><code>MediaStreamTrack.enabled</code></dfn>
+            "dom-mediastreamtrack-enabled"><code>enabled</code></dfn>
             attribute controls the <code><a href=
             "#track-enabled">enabled</a></code> state for the object.</p>
 
@@ -953,8 +953,8 @@
           <dt>readonly attribute boolean muted</dt>
 
           <dd>
-            <p>The <dfn id=
-            "dom-mediastreamtrack-muted"><code>MediaStreamTrack.muted</code></dfn>
+            <p>The <code id=
+            "dom-mediastreamtrack-muted">muted</code>
             attribute MUST return <code>true</code> if the track is <a href=
             "#track-muted">muted</a>, and <code>false</code> otherwise.</p>
           </dd>
@@ -1014,8 +1014,7 @@
           <dd>
             <p>Clones the given <code><a>MediaStreamTrack</a></code>.</p>
 
-            <p>When the <dfn id=
-            "dom-mediastreamtrack-clone"><code>MediaStreamTrack.clone()</code></dfn>
+            <p>When the <code>clone()</code>
             method is invoked, the User Agent MUST return the result of
             <a href="#track-clone">cloning this track</a>.</p>
           </dd>
