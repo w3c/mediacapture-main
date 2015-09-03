@@ -130,7 +130,7 @@
         source's settings must always conform to the current set of mandatory
         constraints on all attached tracks. A source that cannot conform to
         mandatory constraints causes affected tracks to become
-        <a>overconstrained</a> and therefore <a>muted</a>. A <a>User Agent</a>
+        <a>overconstrained</a> and therefore <a href="#track-muted">muted</a>. A <a>User Agent</a>
         attempts to ensure that sources adhere to optional constraints as
         closely as possible, see <a href="#constrainable-interface"></a>.</p>
 
@@ -449,7 +449,7 @@
           to that string. A good practice is to use a UUID [[rfc4122]], which
           is 36 characters long in its canonical form.</p>
 
-          <p>The <dfn id="dom-mediastream-id"><code>id</code></dfn> attribute
+          <p>The <dfn data-lt-noDefault id="dom-mediastream-id"><code>id</code></dfn> attribute
           MUST return the value to which it was initialized when the object was
           created.</p>
         </dd>
@@ -791,7 +791,8 @@
         <code>live</code> <code><a>MediaStreamTrack</a></code> : muted / not
         muted, and enabled / disabled.</p>
 
-        <p><dfn id="track-muted">Muted</dfn> refers to the input to the
+        <p><dfn data-lt-noDefault data-lt="track-muted"
+        id="track-muted">Muted</dfn> refers to the input to the
         <code><a>MediaStreamTrack</a></code>. If live samples are not made
         available to the <code><a>MediaStreamTrack</a></code> it is muted.</p>
 
@@ -915,8 +916,8 @@
             component with a <code><a>MediaStreamTrack</a></code> object.
             [[WEBRTC10]]</p>
 
-            <p><code id=
-            "dom-mediastreamtrack-id">id</code>
+            <p><dfn data-lt-noDefault id="dom-mediastreamtrack-id" data-lt=
+            "dom-mediastreamtrack-id"><code>id</code></dfn>
             attribute MUST return the value to which it was initialized when
             the object was created.</p>
           </dd>
@@ -953,8 +954,8 @@
           <dt>readonly attribute boolean muted</dt>
 
           <dd>
-            <p>The <code id=
-            "dom-mediastreamtrack-muted">muted</code>
+            <p>The <dfn data-lt-noDefault id=
+            "dom-mediastreamtrack-muted"><code>muted</code></dfn>
             attribute MUST return <code>true</code> if the track is <a href=
             "#track-muted">muted</a>, and <code>false</code> otherwise.</p>
           </dd>
