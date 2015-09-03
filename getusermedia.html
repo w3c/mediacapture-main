@@ -2718,7 +2718,7 @@
     media input devices available to the User Agent.</p>
 
     <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
-    to warn about usage of <code>MediaDevices.getUserMedia</code>,
+    to warn about usage of <code>navigator.mediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
     developer tools, error logs, etc. It is explicitly permitted for User
     Agents to remove these APIs entirely when on an insecure origin, as long as
@@ -2735,7 +2735,7 @@
 
         <p>First, the official definition for the getUserMedia() method, and
         the one which developers are encouraged to use, is now at <a href=
-        "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>. This
+        "#dom-mediadevices-getusermedia">MediaDevices</a>. This
         decision reflected consensus as long as the original API remained
         available here under the Navigator object for backwards compatibility
         reasons, since the working group acknowledges that early users of these
@@ -2748,8 +2748,8 @@
 
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
-        Navigator.getUserMedia() definition reflect this in its use of the
-        MediaDevices.getUserMedia() method. Because Navigator.getUserMedia() is
+        navigator.getUserMedia() definition reflect this in its use of the
+        method on MediaDevices with the same name. Because navigator.getUserMedia() is
         now the only callback-based method remaining in the specification,
         there is ongoing discussion as to a) whether it still belongs in the
         specification, and b) if it does, whether its syntax should remain
@@ -2778,12 +2778,14 @@
           <p>The <var>successCallback</var> will be invoked with a suitable
           <code><a>MediaStream</a></code> object as its argument if the user
           accepts valid tracks as described in <a href=
-          "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          "#dom-mediadevices-getusermedia">getUserMedia()</a> on
+          <code><a>MediaDevices</a></code>.</p>
 
           <p>The <var>errorCallback</var> will be invoked if there is a failure
           in finding valid tracks or if the user denies permission, as
           described in <a href=
-          "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          "#dom-mediadevices-getusermedia">getUserMedia()</a> on
+          <code><a>MediaDevices</a></code>.</p>
 
           <p>When the <code id=
           "dom-navigatorusermedia-getusermedia">getUserMedia()</code> method is
