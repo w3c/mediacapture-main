@@ -2051,7 +2051,7 @@
         <section>
           <h2>OverconstrainedError ( constraint, message )</h2>
 
-          <p>When the <code>OverconstrainedError</code> function is
+          <p>When the <code><dfn>OverconstrainedError</dfn></code> function is
           called with arguments <i>constraint</i> and <i>message</i>
           the following steps are taken:</p>
           <ol>
@@ -2279,7 +2279,7 @@
 
         <tbody>
           <tr>
-            <th><code><dfn>OverconstrainedError</dfn></code></th>
+            <th><code>OverconstrainedError</code></th>
 
             <td>One of the mandatory <a>Constraints</a> could not be
             satisfied.</td>
@@ -3154,6 +3154,12 @@
 
         <dd>
           Error in obtaining a <code><a>MediaStream</a></code> as described in the failure steps of the <a href="#widl-NavigatorUserMedia-getUserMedia-void-MediaStreamConstraints-constraints-NavigatorUserMediaSuccessCallback-successCallback-NavigatorUserMediaErrorCallback-errorCallback"><code>navigator.getUserMedia()</code></a> algorithm.
+        </dd>
+      </dl>
+      <dl class="idl" title="typedef object MediaStreamError">
+        <dd>
+          A MediaStreamError object is either a <code><a>DOMException</a></code>
+          object or an <code><a>OverconstrainedError</a></code> object.
         </dd>
       </dl>
     </section>
