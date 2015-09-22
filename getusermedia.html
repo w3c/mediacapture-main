@@ -1559,8 +1559,9 @@
     network. On the remote client, sink Y is scaling the video <em>way</em>
     down, while sink Z is not applying any scaling.</p>
 
-    <p>Using the <a>ConstrainablePattern</a> interface, one of the tracks
-    requests a higher resolution (1920 by 1200 pixels) from the home client's
+    <p>In response to <code><a>applyConstraints()</a></code> being called,
+    one of the tracks
+    wants a higher resolution (1920 by 1200 pixels) from the home client's
     video source.</p><img alt=
     "Changing media stream source effects: after the requested change" src=
     "images/change_states_after.png">
