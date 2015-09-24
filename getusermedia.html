@@ -4634,6 +4634,27 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
     <p>This section will be removed before publication.</p>
 
+    <h2>Changes since August 26, 2015</h2>
+
+    <ol>
+        <li>[#226] Typedef MediaStreamError to be an object.</li>
+
+        <li>[#253] Clarify in section 5 that tracks don't request changes,
+            but they can want different settings based on application
+            use of applyConstraints.</li>
+
+        <li>[#239] Reject gUM promise with a TypeError if no media
+            types are given.</li>
+
+        <li>[#240] Specify that groupid is origin-unique.</li>
+
+        <li>[#241] Reference WebIDL-1.</li>
+
+        <li>[#245] Make applyConstraints argument optional.</li>
+
+        <li>[#247] Clean up language in SelectSettings.</li>
+    </ol>
+
     <h2>Changes since June 29, 2015</h2>
 
     <ol>
