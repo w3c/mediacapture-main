@@ -3616,7 +3616,8 @@ if(!supports["width"] || !supports["height"]) {
 
             <li>
               <p>If <var>candidates</var> is empty, return
-              <code>undefined</code> as the result of the function.</p>
+              <code>undefined</code> as the result of the
+              <code>SelectSettings()</code> algorithm.</p>
             </li>
 
             <li>Iterate over the 'advanced' ConstraintSets in
@@ -3643,8 +3644,8 @@ if(!supports["width"] || !supports["height"]) {
             </li>
 
             <li>
-              <p>Select one settings dictionary from the list of possible
-              settings, and return this as the result of the
+              <p>Select one settings dictionary from <var>candidates</var>,
+              and return it as the result of the
               <code>SelectSettings()</code> algorithm. The UA SHOULD use the
               one with the smallest <code>fitness distance</code>, as
               calculated in step 3.</p>
