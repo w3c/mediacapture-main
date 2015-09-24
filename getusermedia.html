@@ -2248,6 +2248,10 @@
           User Agent's available media input and output devices if enumeration
           is successful.</p>
 
+          <p>Elements of this sequence which represent input devices will be of type
+          <code><a>InputDeviceInfo</a></code> which extends <code><a>MediaDeviceInfo</a></code>
+          with input-specific elements.</p>
+
           <p>Camera and microphone sources <em class="rfc2119">should</em> be
           enumerable. Specifications that add additional types of source will
           provide recommendations about whether the source type should be
@@ -2361,7 +2365,7 @@
 
         <p>If access has been granted for a media device, the
         <code><a>MediaDeviceInfo</a></code> dictionary will contain the
-        deviceId, kind, label, capabilities and groupId.</p>
+        deviceId, kind, label, and groupId.</p>
       </section>
     </section>
 
@@ -2405,19 +2409,6 @@
           MUST return the empty string.</p>
         </dd>
 
-        <dt>readonly attribute Object capabilities</dt>
-
-        <dd>
-          <p>For input devices, contains a <code><a>MediaTrackCapabilities</a></code> object describing the device's audio or video track
-          (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
-          For input devices these capabilities will be identical to those that would have been obtained by calling
-          <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
-          <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
-          where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.</p>
-
-          <p>For output devices, this attribute has the value <code>null</code>.</p>
-        </dd>
-
         <dt>readonly attribute DOMString groupId</dt>
 
         <dd>
@@ -2429,7 +2420,6 @@
 
         <dt>serializer = { attribute }</dt>
       </dl>
-
       <dl class="idl" title="enum MediaDeviceKind">
         <dt>audioinput</dt>
 
@@ -2450,6 +2440,24 @@
           <p>Represents a video input device; for example a webcam.</p>
         </dd>
       </dl>
+    </section>
+    <section>
+      <h2>Input-Specific Device Info</h2>
+      <dl class="idl" title="interface InputDeviceInfo : MediaDeviceInfo">
+        <dt>MediaTrackCapabilities getCapabilities()</dt>
+
+        <dd>
+          <p>Returns a <code><a>MediaTrackCapabilities</a></code> object describing the device's audio or video track
+          (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
+          For input devices these capabilities will be identical to those that would have been obtained by calling
+          <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
+          <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
+          where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.</p>
+          <p>If no access has been granted to any local devices and this <code>InputDeviceInfo</code> has been filtered
+          with respect to unique identifying information (see above description of <code>enumerateDevices()</code> result), then this method returns <code>null</code>.
+        </dd>
+      </dl>
+
     </section>
   </section>
 
