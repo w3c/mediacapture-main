@@ -86,6 +86,12 @@
         event handler event types</a></dfn> are defined in [[!HTML5]].</p>
       </dd>
 
+      <dt><code><dfn>DOMException</dfn></code></dt>
+
+      <dd>The term <code>DOMException</code> is defined
+      in <a href="https://www.w3.org/TR/WebIDL-1/#idl-DOMException">WebIDL</a>
+        [[!WEBIDL-1]]</dd>
+
       <dt><dfn>source</dfn></dt>
 
       <dd>
@@ -3154,12 +3160,10 @@
           Error in obtaining a <code><a>MediaStream</a></code> as described in the failure steps of the <a href="#widl-NavigatorUserMedia-getUserMedia-void-MediaStreamConstraints-constraints-NavigatorUserMediaSuccessCallback-successCallback-NavigatorUserMediaErrorCallback-errorCallback"><code>navigator.getUserMedia()</code></a> algorithm.
         </dd>
       </dl>
-      <dl class="idl" title="typedef object MediaStreamError">
-        <dd>
+      <div class="idl" title="typedef object MediaStreamError">
           A MediaStreamError object is either a <code><a>DOMException</a></code>
           object or an <code><a>OverconstrainedError</a></code> object.
-        </dd>
-      </dl>
+      </div>
     </section>
 
     <section>
