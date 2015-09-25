@@ -2333,8 +2333,7 @@
                   a copy of <var>resultList</var>, and all its elements, where
                   the <code><a href=
                   "#widl-MediaDeviceInfo-label">label</a></code> member is the
-                  empty string and the <code><a href=
-                  "#widl-MediaDeviceInfo-capabilities">capabilities</a></code> member is <code>null</code>.</p>
+                  empty string.</p>
                 </li>
 
                 <li>
@@ -2449,7 +2448,7 @@
         <dd>
           <p>Returns a <code><a>MediaTrackCapabilities</a></code> object describing the device's audio or video track
           (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
-          For input devices these capabilities will be identical to those that would have been obtained by calling
+          These capabilities will be identical to those that would have been obtained by calling
           <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
           <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
           where <i>id</i> is the value of the <code>deviceId</code> attribute of this <code>MediaDeviceInfo</code>.</p>
