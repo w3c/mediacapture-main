@@ -627,8 +627,8 @@
       User Agents to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
 
-      <p>A script can indicate that a <code><a>MediaStreamTrack</a></code> no
-      longer needs its source with the
+      <p>A script can indicate that a <code><a>MediaStreamTrack</a></code>
+      object no longer needs its source with the
       <code><a href=
       "#dom-mediastreamtrack-stop">stop()</a></code> method.
       When all tracks using a source have been stopped, the given permission
@@ -894,8 +894,8 @@
           <dd>
             <p>The <dfn id=
             "dom-mediastreamtrack-kind"><code>kind</code></dfn>
-            attribute MUST return the string "<code>audio</code>" if the object
-            represents an audio track or "<code>video</code>" if object
+            attribute MUST return the string "<code>audio</code>" if this object
+            represents an audio track or "<code>video</code>" if this object
             represents a video track.</p>
           </dd>
 
@@ -1013,7 +1013,7 @@
           <dt>MediaStreamTrack clone()</dt>
 
           <dd>
-            <p>Clones the given <code><a>MediaStreamTrack</a></code>.</p>
+            <p>Clones this <code><a>MediaStreamTrack</a></code>.</p>
 
             <p>When the <code>clone()</code>
             method is invoked, the User Agent MUST return the result of
@@ -2748,8 +2748,8 @@
 
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
-        navigator.getUserMedia() definition reflect this in its use of the
-        method on MediaDevices with the same name. Because navigator.getUserMedia() is
+        navigator.getUserMedia() definition reflect this in its use of
+        navigator.mediaDevices.getUserMedia(). Because navigator.getUserMedia() is
         now the only callback-based method remaining in the specification,
         there is ongoing discussion as to a) whether it still belongs in the
         specification, and b) if it does, whether its syntax should remain
