@@ -1986,7 +1986,7 @@
       empty string</p></li>
 
       <li>The User Agent MUST always play the current data from the
-      <code><a>MediaStream</a></code> and MUST NOT buffer.</p></li>
+      <code><a>MediaStream</a></code> and MUST NOT buffer.</li>
 
       <li><p>Since the order in the <code><a>MediaStream</a></code> 's
       <a href="#track-set">track set</a> is undefined, no requirements are
@@ -2011,8 +2011,6 @@
       must be ignored</p></li>
     </ul>
 
-    <p>
-  
     <p>The nature of the <code><a>MediaStream</a></code> places certain restrictions
     on the behavior and attribute values of the associated <code>HTMLMediaElement</code> and
     on the operations that can be performed on it, as shown below:</p>
@@ -2495,10 +2493,10 @@
       does not bubble (except where otherwise stated) and is not cancelable
       (except where otherwise stated), and which uses the
       <code><a>ErrorEvent</a></code> interface with the
-      <code><a href="#dom-errorevent-error">error</a></code>
+      <code><a href="#widl-ErrorEvent-error">error</a></code>
       attribute set to <var>error</var>, MUST be created and dispatched at the
       given target. If no <code>Error</code> object is specified, the
-      <code><a href="#dom-errorevent-error">error</a></code> attribute defaults
+      <code><a href="#widl-ErrorEvent-error">error</a></code> attribute defaults
       to null.</p>
 
       <dl class="idl" data-merge="ErrorEventInit" title=
@@ -2753,7 +2751,7 @@
           <code>Navigator</code> object.</p>
         </dd>
       </dl>
-      <div class="idl" title="Navigator implements NavigatorUserMedia">
+      <div class="idl" title="Navigator implements NavigatorUserMedia"></div>
     </section>
 
     <section>
@@ -3937,7 +3935,6 @@ if(!supports["width"] || !supports["height"]) {
             an empty object or list has been given as the value for a
             constraint, it MUST be interpreted as if the constraint were not
             specified (in other words, an empty constraint == no constraint).
-              <p>
 
               <p>Note that unknown properties are discarded by WebIDL, which
               means that unknown/unsupported required constraints will silently
@@ -4052,7 +4049,6 @@ if(!supports["width"] || !supports["height"]) {
                 getConstraints() <em class="rfc2119" title="must">must</em>
                 return the <var>newConstraints</var> that were passed as an
                 argument to this call.
-                  <p>
                 </li>
               </ol>
             </li>
@@ -4311,14 +4307,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
           <p>The ideal (target) value for this property.</p>
         </dd>
       </dl>
-      <dl class="idl" title=
-      "typedef (long or ConstrainLongRange) ConstrainLong">
-      <dl class="idl" title=
-      "typedef (double or ConstrainDoubleRange) ConstrainDouble">
-      <dl class="idl" title=
-      "typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean">
-      <dl class="idl" title=
-      "typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString">
+      <div class="idl" title=
+      "typedef (long or ConstrainLongRange) ConstrainLong"></div>
+      <div class="idl" title=
+      "typedef (double or ConstrainDoubleRange) ConstrainDouble"></div>
+      <div class="idl" title=
+      "typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean"></div>
+      <div class="idl" title=
+      "typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString"></div>
     </section>
 
     <section id="capabilities">
@@ -4684,7 +4680,6 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <li>Whether or not any of the devices are presently recording ("on air")
       indicator</li>
     </ul>
-    <p>
 
     <div class="note">
       <p>Developers of sites with persistent permissions should be careful that
