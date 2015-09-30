@@ -2515,6 +2515,9 @@
           User Agent's available media input and output devices if enumeration
           is successful.</p>
 
+          <p>Elements of this sequence that represent input devices will be of type
+          <code><a>InputDeviceInfo</a></code> which extends <code><a>MediaDeviceInfo</a></code>.</p>
+
           <p>Camera and microphone sources <em class="rfc2119">should</em> be
           enumerable. Specifications that add additional types of source will
           provide recommendations about whether the source type should be
@@ -2693,7 +2696,6 @@
 
         <dt>serializer = { attribute }</dt>
       </dl>
-
       <dl class="idl" title="enum MediaDeviceKind">
         <dt>audioinput</dt>
 
@@ -2714,6 +2716,27 @@
           <p>Represents a video input device; for example a webcam.</p>
         </dd>
       </dl>
+    </section>
+    <section>
+      <h2>Input-specific Device Info</h2>
+      <dl class="idl" title="interface InputDeviceInfo : MediaDeviceInfo">
+        <dt>MediaTrackCapabilities getCapabilities()</dt>
+
+        <dd>
+          <p>Returns a <code><a>MediaTrackCapabilities</a></code> object describing the primary
+          audio or video track of a device's <code><a>MediaStream</a></code>
+          (according to its <code>kind</code> value), in the absence of any user-supplied constraints.
+          These capabilities MUST be identical to those that would have been obtained by calling
+          <code>getCapabilities()</code> on the first <code><a>MediaStreamTrack</a></code> of this type in a
+          <code><a>MediaStream</a></code> returned by <code>getUserMedia({deviceId: <i>id</i>})</code>
+          where <i>id</i> is the value of the <code>deviceId</code> attribute
+          of this <code>MediaDeviceInfo</code>.</p>
+          <p>If no access has been granted to any local devices and this <code>InputDeviceInfo</code>
+          has been filtered with respect to unique identifying information (see above description of <code>
+          enumerateDevices()</code> result), then this method returns <code>null</code>.
+        </dd>
+      </dl>
+
     </section>
   </section>
 
