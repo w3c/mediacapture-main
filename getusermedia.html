@@ -136,7 +136,7 @@
         source's settings must always conform to the current set of mandatory
         constraints on all attached tracks. A source that cannot conform to
         mandatory constraints causes affected tracks to become
-        <a>overconstrained</a> and therefore <a>muted</a>. A <a>User Agent</a>
+        <a>overconstrained</a> and therefore <a href="#track-muted">muted</a>. A <a>User Agent</a>
         attempts to ensure that sources adhere to optional constraints as
         closely as possible, see <a href="#constrainable-interface"></a>.</p>
 
@@ -455,7 +455,7 @@
           to that string. A good practice is to use a UUID [[rfc4122]], which
           is 36 characters long in its canonical form.</p>
 
-          <p>The <dfn id="dom-mediastream-id"><code>id</code></dfn> attribute
+          <p>The <dfn data-lt-noDefault id="dom-mediastream-id"><code>id</code></dfn> attribute
           MUST return the value to which it was initialized when the object was
           created.</p>
         </dd>
@@ -554,8 +554,7 @@
           <p>Clones the given <code><a>MediaStream</a></code> and all its
           tracks.</p>
 
-          <p>When the <dfn id=
-          "dom-mediastream-clone"><code>MediaStream.clone()</code></dfn> method
+          <p>When the <code>clone()</code> method
           is invoked, the User Agent MUST run the following steps:</p>
 
           <ol>
@@ -583,8 +582,7 @@
         <dt>readonly attribute boolean active</dt>
 
         <dd>
-          <p>The <code><dfn id=
-          "dom-mediastream-active">MediaStream.active</dfn></code> attribute
+          <p>The <code>active</code> attribute
           MUST return <code>true</code> if this <code><a>MediaStream</a></code>
           is <a href="#stream-active">active</a> and <code>false</code>
             otherwise.</p>
@@ -635,9 +633,10 @@
       User Agents to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
 
-      <p>A script can indicate that a track no longer needs its source with the
+      <p>A script can indicate that a <code><a>MediaStreamTrack</a></code>
+      object no longer needs its source with the
       <code><a href=
-      "#dom-mediastreamtrack-stop">MediaStreamTrack.stop()</a></code> method.
+      "#dom-mediastreamtrack-stop">stop()</a></code> method.
       When all tracks using a source have been stopped, the given permission
       for that source is revoked and the source is <dfn id=
       "source-stopped">stopped</dfn>. If the data is being generated from a
@@ -798,7 +797,8 @@
         <code>live</code> <code><a>MediaStreamTrack</a></code> : muted / not
         muted, and enabled / disabled.</p>
 
-        <p><dfn id="track-muted">Muted</dfn> refers to the input to the
+        <p><dfn data-lt-noDefault data-lt="track-muted"
+        id="track-muted">Muted</dfn> refers to the input to the
         <code><a>MediaStreamTrack</a></code>. If live samples are not made
         available to the <code><a>MediaStreamTrack</a></code> it is muted.</p>
 
@@ -899,9 +899,9 @@
 
           <dd>
             <p>The <dfn id=
-            "dom-mediastreamtrack-kind"><code>MediaStreamTrack.kind</code></dfn>
-            attribute MUST return the string "<code>audio</code>" if the object
-            represents an audio track or "<code>video</code>" if object
+            "dom-mediastreamtrack-kind"><code>kind</code></dfn>
+            attribute MUST return the string "<code>audio</code>" if this object
+            represents an audio track or "<code>video</code>" if this object
             represents a video track.</p>
           </dd>
 
@@ -913,7 +913,8 @@
             track id must be initialized, the User Agent MUST generate an
             identifier string and initialize the object's <code><a href=
             "#dom-mediastreamtrack-id">id</a></code> attribute to that string.
-            See <code><a href="#dom-mediastream-id">MediaStream.id</a></code>
+            See <code><a>MediaStream</a></code>'s <code><a href=
+            "#dom-mediastream-id">id</a></code> attribute
             for guidelines on how to generate such an identifier.</p>
 
             <p>An example of an algorithm that specifies how the track id must
@@ -921,8 +922,8 @@
             component with a <code><a>MediaStreamTrack</a></code> object.
             [[WEBRTC10]]</p>
 
-            <p><dfn id=
-            "dom-mediastreamtrack-id"><code>MediaStreamTrack.id</code></dfn>
+            <p><dfn data-lt-noDefault id="dom-mediastreamtrack-id" data-lt=
+            "dom-mediastreamtrack-id"><code>id</code></dfn>
             attribute MUST return the value to which it was initialized when
             the object was created.</p>
           </dd>
@@ -932,7 +933,7 @@
           <dd>
             <p>User Agents MAY label audio and video sources (e.g., "Internal
             microphone" or "External USB Webcam"). The <dfn id=
-            "dom-mediastreamtrack-label"><code>MediaStreamTrack.label</code></dfn>
+            "dom-mediastreamtrack-label"><code>label</code></dfn>
             attribute MUST return the label of the object's corresponding
             source, if any. If the corresponding source has or had no label,
             the attribute MUST instead return the empty string.</p>
@@ -942,7 +943,7 @@
 
           <dd>
             <p>The <dfn id=
-            "dom-mediastreamtrack-enabled"><code>MediaStreamTrack.enabled</code></dfn>
+            "dom-mediastreamtrack-enabled"><code>enabled</code></dfn>
             attribute controls the <code><a href=
             "#track-enabled">enabled</a></code> state for the object.</p>
 
@@ -959,8 +960,8 @@
           <dt>readonly attribute boolean muted</dt>
 
           <dd>
-            <p>The <dfn id=
-            "dom-mediastreamtrack-muted"><code>MediaStreamTrack.muted</code></dfn>
+            <p>The <dfn data-lt-noDefault id=
+            "dom-mediastreamtrack-muted"><code>muted</code></dfn>
             attribute MUST return <code>true</code> if the track is <a href=
             "#track-muted">muted</a>, and <code>false</code> otherwise.</p>
           </dd>
@@ -1018,10 +1019,9 @@
           <dt>MediaStreamTrack clone()</dt>
 
           <dd>
-            <p>Clones the given <code><a>MediaStreamTrack</a></code>.</p>
+            <p>Clones this <code><a>MediaStreamTrack</a></code>.</p>
 
-            <p>When the <dfn id=
-            "dom-mediastreamtrack-clone"><code>MediaStreamTrack.clone()</code></dfn>
+            <p>When the <code>clone()</code>
             method is invoked, the User Agent MUST return the result of
             <a href="#track-clone">cloning this track</a>.</p>
           </dd>
@@ -2748,7 +2748,7 @@
     media input devices available to the User Agent.</p>
 
     <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
-    to warn about usage of <code>MediaDevices.getUserMedia</code>,
+    to warn about usage of <code>navigator.mediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
     developer tools, error logs, etc. It is explicitly permitted for User
     Agents to remove these APIs entirely when on an insecure origin, as long as
@@ -2765,7 +2765,7 @@
 
         <p>First, the official definition for the getUserMedia() method, and
         the one which developers are encouraged to use, is now at <a href=
-        "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>. This
+        "#dom-mediadevices-getusermedia">MediaDevices</a>. This
         decision reflected consensus as long as the original API remained
         available here under the Navigator object for backwards compatibility
         reasons, since the working group acknowledges that early users of these
@@ -2778,8 +2778,8 @@
 
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
-        Navigator.getUserMedia() definition reflect this in its use of the
-        MediaDevices.getUserMedia() method. Because Navigator.getUserMedia() is
+        navigator.getUserMedia() definition reflect this in its use of
+        navigator.mediaDevices.getUserMedia(). Because navigator.getUserMedia() is
         now the only callback-based method remaining in the specification,
         there is ongoing discussion as to a) whether it still belongs in the
         specification, and b) if it does, whether its syntax should remain
@@ -2808,12 +2808,14 @@
           <p>The <var>successCallback</var> will be invoked with a suitable
           <code><a>MediaStream</a></code> object as its argument if the user
           accepts valid tracks as described in <a href=
-          "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          "#dom-mediadevices-getusermedia">getUserMedia()</a> on
+          <code><a>MediaDevices</a></code>.</p>
 
           <p>The <var>errorCallback</var> will be invoked if there is a failure
           in finding valid tracks or if the user denies permission, as
           described in <a href=
-          "#dom-mediadevices-getusermedia">MediaDevices.getUserMedia()</a>.</p>
+          "#dom-mediadevices-getusermedia">getUserMedia()</a> on
+          <code><a>MediaDevices</a></code>.</p>
 
           <p>When the <code id=
           "dom-navigatorusermedia-getusermedia">getUserMedia()</code> method is
