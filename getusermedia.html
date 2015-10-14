@@ -4331,9 +4331,12 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     explicit user consent before sharing it.</p>
 
     <p>Without authorization (to the "drive-by web"), it offers the ability to
-    tell how many devices there are of each class. The identifiers for the
+    tell how many devices there are of each class, and how they are grouped
+    together (e.g. a microphone and camera belonging to a single Web cam). The
+    identifiers for the
     devices are designed to not be useful for a fingerprint that can track the
-    user between origins, but the number of devices adds to the fingerprint
+    user between origins, but the number and grouping of devices adds to the
+    fingerprint
     surface. It recommends to treat the per-origin persistent identifier
     <code>deviceId</code> as other persistent storages (e.g. cookies) are
     treated.</p>
@@ -4349,6 +4352,19 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     able to say "no" in a way that prevents the UI from blocking user
     interaction until permission is given - either by offering a way to say a
     "persistent NO" or by not using a modal permissions dialog.</p>
+
+    <p>When authorization is given, application developers gain access to the
+    labels of all available media capture devices. In most cases, the labels
+    are persistent across browsing sessions and across origins that have also
+    been granted authorization, and thus potentially provide a way to track a
+    given device across time and origins.</p>
+
+    <p>Once a developer gains access to a media stream from a capture device,
+    the developer also gains access to detailed information about the device,
+    including its range of operating capabilities (e.g. available resolutions
+    for a camera). These operating capabilities are for the most part
+    persistent across browsing sessions and origins, and thus provide a way to
+    track a given device across time and origins.</p>
 
     <p>It is possible to use constraints so that the failure of a getUserMedia
     call will return information about devices on the system without prompting
