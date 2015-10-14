@@ -3770,13 +3770,17 @@ if(!supports["width"] || !supports["height"]) {
         <dt>attribute EventHandler onoverconstrained</dt>
 
         <dd>
-          This event handler, of type <code><a>overconstrained</a></code>, is
-          executed when the User Agent is no longer able to satisfy the
-          <var>requiredConstraints</var> from the currently valid Constraints.
-          <p>
+          The event type of this event handler is <code><a>overconstrained</a></code>.
+          <p>When the User Agent is no longer able to satisfy the
+          <var>requiredConstraints</var> from the currently valid
+          Constraints, the User Agent MUST queue a task that fires
+          an <code>OverconstrainedErrorEvent</code>, initialized
+          as described in the following paragraph, at the constrainable object.
+          The event firing task MAY also be used to update the
+          constrainable object as a result of the overconstrained
+          situation.</p>
 
-          <p>When executed, the event handler is passed an
-          <code>OverconstrainedErrorEvent</code> as parameter, which
+          <p>The <code>OverconstrainedErrorEvent</code>
           references an
           <code><a>OverconstrainedError</a></code> whose
           <code>constraint</code> attribute is set to one of the
