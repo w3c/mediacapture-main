@@ -453,7 +453,9 @@
           Agent MUST generate an identifier string, and MUST initialize the
           object's <code><a href="#dom-mediastream-id">id</a></code> attribute
           to that string. A good practice is to use a UUID [[rfc4122]], which
-          is 36 characters long in its canonical form.</p>
+          is 36 characters long in its canonical form. To avoid fingerprinting,
+          implementations SHOULD use the forms in section 4.4 or 4.5 of
+          RFC 4122 when generating UUIDs.</p>
 
           <p>The <dfn data-lt-noDefault id="dom-mediastream-id"><code>id</code></dfn> attribute
           MUST return the value to which it was initialized when the object was
