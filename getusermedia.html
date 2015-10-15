@@ -3,6 +3,16 @@
    To publish this document, see instructions in README
    -->
 
+<!-- Note: I am authoring this PR so that the WG con consider what it would -->
+<!-- look like to remove the IANA registry. I do not support making -->
+<!-- this change even thought I wrote the PR. I feel that this would -->
+<!-- offer no pratical advantages, introduce several new problems, and -->
+<!-- set us back several months on resolving what mechanism we would -->
+<!-- use as a replacement for the IANA registry. The IANA registry -->
+<!-- will follow whatever instructions we wish to give them about what -->
+<!-- and how new things are registered and can be adapted to meet our -->
+<!-- needs. -->
+
 <html lang="en-us">
 <head>
   <link href="getusermedia.css" rel="stylesheet" type="text/css">
@@ -1166,10 +1176,8 @@
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
         object.</p>
 
-        <p>Future specifications can extend the MediaTrackSupportedConstraints
-        dictionary by defining a partial dictionary with dictionary members of
-        type boolean and an identifier that is a Property Name registered in
-        the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        <p> Open Issue: How can the future specifications extend the
+        MediaTrackSupportedConstraints dictionary.</p>
 
         <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
           <dt>boolean width = true</dt>
@@ -1233,10 +1241,8 @@
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
         object.</p>
 
-        <p>Future specifications can extend the MediaTrackCapabilities
-        dictionary by defining a partial dictionary with dictionary members of
-        appropriate type and an identifier that is a Property Name registered
-        in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        <p>Open Issue: How can future specifications extend the MediaTrackCapabilities
+        dictionary.</p>
 
         <dl class="idl" title="dictionary MediaTrackCapabilities">
           <dt>(long or LongRange) width</dt>
@@ -1306,10 +1312,7 @@
           </dd>
         </dl>
 
-        <p>Future specifications can extend the MediaTrackConstraintSet
-        dictionary by defining a partial dictionary with dictionary members of
-        appropriate type and an identifier that is a Property Name registered
-        in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        <p>Open Issue: How can future specifications extend the MediaTrackConstraintSet.</p>
 
         <dl class="idl" title="dictionary MediaTrackConstraintSet">
           <dt>ConstrainLong width</dt>
@@ -1372,10 +1375,7 @@
         <p><code><a>MediaTrackSettings</a></code> represents the
         <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
 
-        <p>Future specifications can extend the MediaTrackSettings dictionary by
-        defining a partial dictionary with dictionary members of appropriate
-        type and an identifier that is a Property Name registered in the
-        [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        <p>Open Issue: How can future specifications extend the MediaTrackSettings dictionary.</p>
 
         <dl class="idl" title="dictionary MediaTrackSettings">
           <dt>long width</dt>
@@ -3921,7 +3921,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     <section id="registry">
       <h2>The Property Registry</h2>
 
-      <p>There is a single <a href="#sec-iana">IANA registry</a> that defines
+      <p>There is a single (OPEN ISSUE - To Be defined place) that defines
       the constrainable properties of all objects that implement the
       Constrainable pattern. The registry entries MUST contain the name of each
       property along with its set of legal values. The registry entries for
@@ -4040,7 +4040,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 
       <p><dfn>Capabilities</dfn> is a dictionary containing one or more
       key-value pairs, where each key MUST be a constrainable property defined
-      in the registry, and each value MUST be a subset of the set of values
+      in the (OPEN ISSUE - to be defined) registry, and each value MUST be a subset of the set of values
       defined for that property in the registry. The exact syntax of the value
       expression depends on the type of the property, and its type is as
       defined in the Values column of the registry. The Capabilities dictionary
@@ -4401,14 +4401,21 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
   </section>
 
   <section>
-    <h1 id="sec-iana">IANA Registrations</h1>
+    <h1 id="sec-iana">Registrations</h1>
 
+    <p>Open Issue: Where do we record the infomation provided in this 
+    section and how are extentions to it allowed. <p>
+
+    <p>Open Issue: How do implementors find the list of extentions. <p>
+    
+    <p>Open Issue: How do we prevent name collisions as people extend
+    theses while at the same time encouraging implemenation to use the
+    same name for common things. <p>
+
+    
     <section>
       <h2 id="sec-track-properties">Track Constrainable Property
       Registrations</h2>
-
-      <p>IANA is requested to register the following constrainable properties
-      as specified in [[!RTCWEB-CONSTRAINTS]]:</p>
 
       <p>The following constrainable properties are defined to apply to both
       video and audio <code><a>MediaStreamTrack</a></code> objects:</p>
