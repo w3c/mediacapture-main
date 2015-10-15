@@ -2692,7 +2692,14 @@
           <p>Returns the group identifier of the represented device. Two
           devices have the same group identifier if they belong to the same
           physical device; for example a monitor with a built-in camera and
-          microphone.</p>
+            microphone.</p>
+
+          <p>Since <code>groupId</code> may persist across browsing sessions and to reduce
+          its potential as a fingerprinting mechanism, <code>groupId</code> is
+          to be treated as other persistent storage mechanisms such as cookies
+          [[COOKIES]]. User agents MUST reset per-origin device identifiers when
+          other persistent storages are
+          cleared.</p>
         </dd>
 
         <dt>serializer = { attribute }</dt>
@@ -4334,8 +4341,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     devices are designed to not be useful for a fingerprint that can track the
     user between origins, but the number of devices adds to the fingerprint
     surface. It recommends to treat the per-origin persistent identifier
-    <code>deviceId</code> as other persistent storages (e.g. cookies) are
-    treated.</p>
+    <code>deviceId</code> and <code>groupId</code> as other persistent
+    storages (e.g. cookies) are treated.</p>
 
     <p>When authorization is given, this document describes how to get access
     to, and use, media data from the devices mentioned. This data may be
