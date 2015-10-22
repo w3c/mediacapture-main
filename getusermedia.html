@@ -1071,6 +1071,10 @@
           <dd>
             <p>See <a href="#constrainable-interface">ConstrainablePattern
             Interface</a> for the definition of this method.</p>
+
+            <p class="fingerprint">Since this method gives likely persistent,
+            cross-origin information about the underlying device, it adds to
+            the fingerprint surface of the device.</p>
           </dd>
 
           <dt>MediaTrackConstraints getConstraints()</dt>
@@ -2617,6 +2621,16 @@
               <p>Return <var>p</var>.</p>
             </li>
           </ol>
+
+          <p class="fingerprint">Since this method returns persistent
+          information across browsing sessions and origins via the number and
+          grouping of media capture devices, it adds to the fingerprinting
+          surface exposed by the user agent.</p>
+
+          <p class="fingerprint">Once authorization has been granted to one of
+          the capture devices, it provides additional persistent cross-origin
+          information via the human readable labels associated with available
+          capture devices, which furhter adds to the fingerprinting surface.</p>
         </dd>
       </dl>
 
@@ -2666,7 +2680,7 @@
           origins to prevent the identifier being used to correlate the same
           user across different origins.</p>
 
-          <p>Since <code>deviceId</code> may persist across browsing sessions and to reduce
+          <p class="fingerprint">Since <code>deviceId</code> may persist across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>deviceId</code> is
           to be treated as other persistent storage mechanisms such as cookies
           [[COOKIES]]. User agents MUST reset per-origin device identifiers when
@@ -2696,7 +2710,7 @@
           physical device; for example a monitor with a built-in camera and
             microphone.</p>
 
-          <p>Since <code>groupId</code> may persist across browsing sessions and to reduce
+          <p class="fingerprint">Since <code>groupId</code> may persist across browsing sessions and to reduce
           its potential as a fingerprinting mechanism, <code>groupId</code> is
           to be treated as other persistent storage mechanisms such as cookies
           [[COOKIES]]. User agents MUST reset per-origin device identifiers when
@@ -3029,6 +3043,11 @@
                   <code>OverconstrainedError(<var>constraint</var>,
                   <var>message</var>)</code>, then
                   abort these steps.</p>
+
+                  <p class="fingerprint">This error gives information about
+                  what the underlying device is not capable of producing,
+                  before the user has given any authorization to any device,
+                  and can thus be used as a fingerprinting surface.</p>
                 </li>
 
                 <li>
