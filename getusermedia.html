@@ -423,6 +423,29 @@
           "#track-set">track set</a>.</p>
         </li>
       </ol>
+      
+            <p>To <dfn id="stream-remove-track">remove a track</dfn> from a
+      <code><a>MediaStream</a></code>, the User Agent MUST run the
+      following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>track</var> be the
+          <code><a>MediaStreamTrack</a></code> in question and
+          <var>stream</var> the <code><a>MediaStream</a></code>
+          object from which <var>track</var> is to be removed.</p>
+        </li>
+
+        <li>
+          <p>If <var>track</var> is not in <var>stream's</var> <a href=
+          "#track-set">track set</a>, then abort these steps.</p>
+        </li>
+
+        <li>
+          <p>Remove <var>track</var> from <var>stream</var>'s <a href=
+          "#track-set">track set</a>.</p>
+        </li>
+      </ol>
 
       <dl class="idl" title="[Exposed=Window] interface MediaStream : EventTarget">
         <dt>Constructor()</dt>
