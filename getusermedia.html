@@ -1174,8 +1174,7 @@
 
         <p>Future specifications can extend the MediaTrackSupportedConstraints
         dictionary by defining a partial dictionary with dictionary members of
-        type boolean and an identifier that is a Property Name registered in
-        the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        type boolean.</p>
 
         <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
           <dt>boolean width = true</dt>
@@ -1241,8 +1240,7 @@
 
         <p>Future specifications can extend the MediaTrackCapabilities
         dictionary by defining a partial dictionary with dictionary members of
-        appropriate type and an identifier that is a Property Name registered
-        in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        appropriate type.</p>
 
         <dl class="idl" title="dictionary MediaTrackCapabilities">
           <dt>(long or LongRange) width</dt>
@@ -1314,8 +1312,7 @@
 
         <p>Future specifications can extend the MediaTrackConstraintSet
         dictionary by defining a partial dictionary with dictionary members of
-        appropriate type and an identifier that is a Property Name registered
-        in the [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        appropriate type.</p>
 
         <dl class="idl" title="dictionary MediaTrackConstraintSet">
           <dt>ConstrainLong width</dt>
@@ -1380,8 +1377,7 @@
 
         <p>Future specifications can extend the MediaTrackSettings dictionary by
         defining a partial dictionary with dictionary members of appropriate
-        type and an identifier that is a Property Name registered in the
-        [[!RTCWEB-CONSTRAINTS]] registry.</p>
+        type.</p>
 
         <dl class="idl" title="dictionary MediaTrackSettings">
           <dt>long width</dt>
@@ -1436,6 +1432,267 @@
 
           <dd />
         </dl>
+      </section>
+      <section>
+        <h2>Constrainable Properties</h2>
+
+        <p>The names of the initial set of constrainable properties for
+          MediaStreamTrack are defined below.</p>
+
+        <p>The following constrainable properties are defined to apply to both
+          video and audio <code><a>MediaStreamTrack</a></code> objects:</p>
+
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+
+              <th>Values</th>
+
+              <th>Notes</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr id="def-constraint-sourceType">
+              <td><dfn>sourceType</dfn></td>
+
+              <td><code><a>SourceTypeEnum</a></code></td>
+
+              <td>The type of the source of the <a>MediaStreamTrack</a>. Note
+                that the setting of this property is uniquely determined by the
+                source that is attached to the Track. In particular,
+                <a>getCapabilities()</a> will return only a single value for
+                sourceType. This property can therefore be used for initial media
+                selection with <a>getUserMedia()</a>. However, it is not useful for
+                subsequent media control with <a>applyConstraints()</a>, since any
+                attempt to set a different value will result in an unsatisfiable
+                <a>ConstraintSet</a>.</td>
+            </tr>
+
+            <tr id="def-constraint-deviceId">
+              <td><dfn>deviceId</dfn></td>
+
+              <td>DOMString</td>
+
+              <td>The origin-unique identifier for the source of the
+                <a>MediaStreamTrack</a>. The same identifier MUST be valid between
+                browsing sessions of this origin, but MUST also be different for other
+                origins. Some sort of GUID is recommended for the identifier.
+                Note that the setting of this property is uniquely determined by
+                the source that is attached to the Track. In particular,
+                <a>getCapabilities()</a> will return only a single value for
+                deviceId. This property can therefore be used for initial media
+                selection with <a>getUserMedia()</a>. However, it is not useful for
+                subsequent media control with <a>applyConstraints()</a>, since any
+                attempt to set a different value will result in an unsatisfiable
+                <a>ConstraintSet</a>.</td>
+            </tr>
+
+            <tr id="def-constraint-groupId">
+              <td><dfn>groupId</dfn></td>
+
+              <td>DOMString</td>
+
+              <td>The origin-unique group identifier for the source of the
+                <a>MediaStreamTrack</a>. Two devices have the same group identifier
+                if they belong to the same physical device; for example, the audio
+                input and output devices representing the speaker and microphone of
+                the same headset would have the same groupId.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>The following constrainable properties are defined to apply only to
+          video <code><a>MediaStreamTrack</a></code> objects:</p>
+
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+
+              <th>Values</th>
+
+              <th>Notes</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr id="def-constraint-width">
+              <td><dfn>width</dfn></td>
+
+              <td><code><a>ConstrainLong</a></code></td>
+
+              <td>The width or width range, in pixels. As a capability, the range
+                should span the video source's pre-set width values with min being
+                the smallest width and max being the largest width.</td>
+            </tr>
+
+            <tr id="def-constraint-height">
+              <td><dfn>height</dfn></td>
+
+              <td><code><a>ConstrainLong</a></code></td>
+
+              <td>The height or height range, in pixels. As a capability, the
+                range should span the video source's pre-set height values with min
+                being the smallest height and max being the largest height.</td>
+            </tr>
+
+            <tr id="def-constraint-frameRate">
+              <td><dfn>frameRate</dfn></td>
+
+              <td><code><a>ConstrainDouble</a></code></td>
+
+              <td>The exact frame rate (frames per second) or frame rate range.
+                If this frame rate cannot be determined (e.g. the source does not
+                natively provide a frame rate, or the frame rate cannot be
+                determined from the source stream), then this value MUST refer to
+                the User Agent's vsync display rate.</td>
+            </tr>
+
+            <tr id="def-constraint-aspect">
+              <td><dfn>aspectRatio</dfn></td>
+
+              <td><code><a>ConstrainDouble</a></code></td>
+
+              <td>The exact aspect ratio (width in pixels divided by height in
+                pixels, represented as a double rounded to the tenth decimal place)
+                or aspect ratio range.</td>
+            </tr>
+
+            <tr id="def-constraint-facingMode">
+              <td><dfn>facingMode</dfn></td>
+
+              <td><code><a>ConstrainDOMString</a></code></td>
+
+              <td>This string (or each string, when a list) should be one of the
+                members of <code><a>VideoFacingModeEnum</a></code>. The members
+                describe the directions that the camera can face, as seen from the
+                user's perspective. Note that <code><a>getConstraints</a></code>
+                may not return exactly the same string for strings not in this
+                enum. This preserves the possibility of using a future version of
+                WebIDL enum for this property.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <dl class="idl" title="enum VideoFacingModeEnum">
+          <dt>user</dt>
+
+          <dd>
+            <p>The source is facing toward the user (a self-view camera).</p>
+          </dd>
+
+          <dt>environment</dt>
+
+          <dd>
+            <p>The source is facing away from the user (viewing the
+              environment).</p>
+          </dd>
+
+          <dt>left</dt>
+
+          <dd>
+            <p>The source is facing to the left of the user.</p>
+          </dd>
+
+          <dt>right</dt>
+
+          <dd>
+            <p>The source is facing to the right of the user.</p>
+          </dd>
+        </dl>
+
+        <p>Below is an illustration of the video facing modes in relation to the
+          user.<br>
+          <img alt="Illustration of video facing modes in relation to user" src=
+               "images/camera-names-exp.svg" style="width:40%"></p>
+
+        <p>The following constrainable properties are defined to apply only to
+          audio <code><a>MediaStreamTrack</a></code> objects:</p>
+
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>Property Name</th>
+
+              <th>Values</th>
+
+              <th>Notes</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr id="def-constraint-volume">
+              <td>volume</td>
+
+              <td><code><a>ConstrainDouble</a></code></td>
+
+              <td>The volume or volume range, as a multiplier of the linear audio
+                sample values. A volume of 0.0 is silence, while a volume of 1.0 is
+                the maximum supported volume. A volume of 0.5 will result in an
+                approximately 6 dB<sub>SPL</sub> change in the sound pressure level
+                from the maximum volume. Note that any ConstraintSet that specifies
+                values outside of this range of 0 to 1 can never be satisfied.</td>
+            </tr>
+
+            <tr id="def-constraint-sampleRate">
+              <td>sampleRate</td>
+
+              <td><code><a>ConstrainLong</a></code></td>
+
+              <td>The sample rate in samples per second for the audio data.</td>
+            </tr>
+
+            <tr id="def-constraint-sampleSize">
+              <td>sampleSize</td>
+
+              <td><code><a>ConstrainLong</a></code></td>
+
+              <td>The linear sample size in bits. This constraint can only be
+                satisfied for audio devices that produce linear samples.</td>
+            </tr>
+
+            <tr id="def-constraint-echoCancellation">
+              <td>echoCancellation</td>
+
+              <td><code>boolean</code></td>
+
+              <td>When one or more audio streams is being played in the processes
+                of various microphones, it is often desirable to attempt to remove
+                the sound being played from the input signals recorded by the
+                microphones. This is referred to as echo cancellation. There are
+                cases where it is not needed and it is desirable to turn it off so
+                that no audio artifacts are introduced. This allows applications to
+                control this behavior.</td>
+            </tr>
+
+            <tr id="def-constraint-latency">
+              <td>latency</td>
+
+              <td><code><a>ConstrainDouble</a></code></td>
+
+              <td>The latency or latency range, in seconds.  The latency
+                is the time between start of processing (for instance,
+                when sound occurs in the real world) to the data being
+                available to the next step in the process. Low latency is
+                critical for some applications; high latency may be
+                acceptable for other applications because it helps with
+                power constraints. The number is expected to be the target
+                latency of the configuration; the actual latency may show
+                some variation from that.</td>
+            </tr>
+
+            <tr id="def-constraint-channelCount">
+              <td>channelCount</td>
+
+              <td><code><a>ConstrainLong</a></code></td>
+
+              <td>The number of independent channels of sound that the audio data contains, i.e. the number of audio samples per sample frame.</td>
+            </tr>
+          </tbody>
+        </table>
+
       </section>
     </section>
 
@@ -3531,13 +3788,13 @@ if(!supports["width"] || !supports["height"]) {
 
           <div class="note">
             <p>It is possible that the underlying hardware may not exactly map
-            to the range defined in the registry entry. Where this is possible,
+            to the range defined for the constrainable property. Where this is possible,
             the entry SHOULD define how to translate and scale the hardware's
-            setting onto the values defined in the entry. For example, suppose
-            that a registry entry defines a hypothetical fluxCapacitance
-            property that ranges from -10 (min) to 10 (max), but there are
+            setting onto the values defined for the property. For example, suppose
+            that a hypothetical fluxCapacitance
+            property ranges from -10 (min) to 10 (max), but there are
             common hardware devices that support only values of "off" "medium"
-            and "full". The registry entry might specify that for such
+            and "full". The constrainable property definition might specify that for such
             hardware, the User Agent should map the range value of -10 to
             "off", 10 to "full", and 0 to "medium". It might also indicate that
             given a ConstraintSet imposing a strict value of 3, the User Agent
@@ -3829,8 +4086,9 @@ if(!supports["width"] || !supports["height"]) {
 
       <p>An example of Constraints that could be passed into
       <code><a>applyConstraints()</a></code> or returned as a value of
-      <code><a>constraints</a></code> is below. It uses the properties defined
-      in <a href="#sec-track-properties">the Track property registry</a>.</p>
+      <code><a>constraints</a></code> is below. It uses the
+      <a href="#constrainable-properties">constrainable properties defined for
+        <code>MediaStreamTrack</code></a>.</p>
       <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["facingMode"]) {
@@ -3943,15 +4201,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 </pre>
     </section>
 
-    <section id="registry">
-      <h2>The Property Registry</h2>
-
-      <p>There is a single <a href="#sec-iana">IANA registry</a> that defines
-      the constrainable properties of all objects that implement the
-      Constrainable pattern. The registry entries MUST contain the name of each
-      property along with its set of legal values. The registry entries for
-      MediaStreamTrack are defined <a href="#sec-track-properties">below</a>.
-      The syntax for the specification of the set of legal values depends on
+    <section>
+      <h2>Types for Constrainable Properties</h2>
+      <p>The syntax for the specification of the set of legal values depends on
       the type of the values. In addition to the standard atomic types
       (boolean, long, double, DOMString), legal values include lists of any of
       the atomic types, plus min-max ranges, as defined below.</p>
@@ -4064,14 +4316,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <h3>Capabilities</h3>
 
       <p><dfn>Capabilities</dfn> is a dictionary containing one or more
-      key-value pairs, where each key MUST be a constrainable property defined
-      in the registry, and each value MUST be a subset of the set of values
-      defined for that property in the registry. The exact syntax of the value
-      expression depends on the type of the property, and its type is as
-      defined in the Values column of the registry. The Capabilities dictionary
-      specifies the subset of the constrainable properties and values from the
-      registry that the User Agent supports. Note that a User Agent MAY support
-      only a subset of the properties that are defined in the registry, and MAY
+      key-value pairs, where each key MUST be a constrainable property,
+      and each value MUST be a subset of the set of values
+      allowed for that property. The exact syntax of the value
+      expression depends on the type of the property.
+      The Capabilities dictionary
+      specifies the subset of the constrainable properties and values
+      that the User Agent supports. Note that a User Agent MAY support
+      only a subset of the properties defined in the Web platform, and MAY
       support a subset of the set values for those properties that it does
       support. Note that Capabilities are returned from the User Agent to the
       application, and cannot be specified by the application. However, the
@@ -4445,272 +4697,6 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       link or being redirected to
       <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
     </div>
-  </section>
-
-  <section>
-    <h1 id="sec-iana">IANA Registrations</h1>
-
-    <section>
-      <h2 id="sec-track-properties">Track Constrainable Property
-      Registrations</h2>
-
-      <p>IANA is requested to register the following constrainable properties
-      as specified in [[!RTCWEB-CONSTRAINTS]]:</p>
-
-      <p>The following constrainable properties are defined to apply to both
-      video and audio <code><a>MediaStreamTrack</a></code> objects:</p>
-
-      <table class="simple">
-        <thead>
-          <tr>
-            <th>Property Name</th>
-
-            <th>Values</th>
-
-            <th>Notes</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr id="def-constraint-sourceType">
-            <td><dfn>sourceType</dfn></td>
-
-            <td><code><a>SourceTypeEnum</a></code></td>
-
-            <td>The type of the source of the <a>MediaStreamTrack</a>. Note
-            that the setting of this property is uniquely determined by the
-            source that is attached to the Track. In particular,
-            <a>getCapabilities()</a> will return only a single value for
-            sourceType. This property can therefore be used for initial media
-            selection with <a>getUserMedia()</a>. However, it is not useful for
-            subsequent media control with <a>applyConstraints()</a>, since any
-            attempt to set a different value will result in an unsatisfiable
-            <a>ConstraintSet</a>.</td>
-          </tr>
-
-          <tr id="def-constraint-deviceId">
-            <td><dfn>deviceId</dfn></td>
-
-            <td>DOMString</td>
-
-            <td>The origin-unique identifier for the source of the
-            <a>MediaStreamTrack</a>. The same identifier MUST be valid between
-            browsing sessions of this origin, but MUST also be different for other
-            origins. Some sort of GUID is recommended for the identifier.
-            Note that the setting of this property is uniquely determined by
-            the source that is attached to the Track. In particular,
-            <a>getCapabilities()</a> will return only a single value for
-            deviceId. This property can therefore be used for initial media
-            selection with <a>getUserMedia()</a>. However, it is not useful for
-            subsequent media control with <a>applyConstraints()</a>, since any
-            attempt to set a different value will result in an unsatisfiable
-            <a>ConstraintSet</a>.</td>
-          </tr>
-
-          <tr id="def-constraint-groupId">
-            <td><dfn>groupId</dfn></td>
-
-            <td>DOMString</td>
-
-            <td>The origin-unique group identifier for the source of the
-            <a>MediaStreamTrack</a>. Two devices have the same group identifier
-            if they belong to the same physical device; for example, the audio
-            input and output devices representing the speaker and microphone of
-            the same headset would have the same groupId.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>The following constrainable properties are defined to apply only to
-      video <code><a>MediaStreamTrack</a></code> objects:</p>
-
-      <table class="simple">
-        <thead>
-          <tr>
-            <th>Property Name</th>
-
-            <th>Values</th>
-
-            <th>Notes</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr id="def-constraint-width">
-            <td><dfn>width</dfn></td>
-
-            <td><code><a>ConstrainLong</a></code></td>
-
-            <td>The width or width range, in pixels. As a capability, the range
-            should span the video source's pre-set width values with min being
-            the smallest width and max being the largest width.</td>
-          </tr>
-
-          <tr id="def-constraint-height">
-            <td><dfn>height</dfn></td>
-
-            <td><code><a>ConstrainLong</a></code></td>
-
-            <td>The height or height range, in pixels. As a capability, the
-            range should span the video source's pre-set height values with min
-            being the smallest height and max being the largest height.</td>
-          </tr>
-
-          <tr id="def-constraint-frameRate">
-            <td><dfn>frameRate</dfn></td>
-
-            <td><code><a>ConstrainDouble</a></code></td>
-
-            <td>The exact frame rate (frames per second) or frame rate range.
-            If this frame rate cannot be determined (e.g. the source does not
-            natively provide a frame rate, or the frame rate cannot be
-            determined from the source stream), then this value MUST refer to
-            the User Agent's vsync display rate.</td>
-          </tr>
-
-          <tr id="def-constraint-aspect">
-            <td><dfn>aspectRatio</dfn></td>
-
-            <td><code><a>ConstrainDouble</a></code></td>
-
-            <td>The exact aspect ratio (width in pixels divided by height in
-            pixels, represented as a double rounded to the tenth decimal place)
-            or aspect ratio range.</td>
-          </tr>
-
-          <tr id="def-constraint-facingMode">
-            <td><dfn>facingMode</dfn></td>
-
-            <td><code><a>ConstrainDOMString</a></code></td>
-
-            <td>This string (or each string, when a list) should be one of the
-            members of <code><a>VideoFacingModeEnum</a></code>. The members
-            describe the directions that the camera can face, as seen from the
-            user's perspective. Note that <code><a>getConstraints</a></code>
-            may not return exactly the same string for strings not in this
-            enum. This preserves the possibility of using a future version of
-            WebIDL enum for this property.</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <dl class="idl" title="enum VideoFacingModeEnum">
-        <dt>user</dt>
-
-        <dd>
-          <p>The source is facing toward the user (a self-view camera).</p>
-        </dd>
-
-        <dt>environment</dt>
-
-        <dd>
-          <p>The source is facing away from the user (viewing the
-          environment).</p>
-        </dd>
-
-        <dt>left</dt>
-
-        <dd>
-          <p>The source is facing to the left of the user.</p>
-        </dd>
-
-        <dt>right</dt>
-
-        <dd>
-          <p>The source is facing to the right of the user.</p>
-        </dd>
-      </dl>
-
-      <p>Below is an illustration of the video facing modes in relation to the
-      user.<br>
-      <img alt="Illustration of video facing modes in relation to user" src=
-      "images/camera-names-exp.svg" style="width:40%"></p>
-
-      <p>The following constrainable properties are defined to apply only to
-      audio <code><a>MediaStreamTrack</a></code> objects:</p>
-
-      <table class="simple">
-        <thead>
-          <tr>
-            <th>Property Name</th>
-
-            <th>Values</th>
-
-            <th>Notes</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr id="def-constraint-volume">
-            <td>volume</td>
-
-            <td><code><a>ConstrainDouble</a></code></td>
-
-            <td>The volume or volume range, as a multiplier of the linear audio
-            sample values. A volume of 0.0 is silence, while a volume of 1.0 is
-            the maximum supported volume. A volume of 0.5 will result in an
-            approximately 6 dB<sub>SPL</sub> change in the sound pressure level
-            from the maximum volume. Note that any ConstraintSet that specifies
-            values outside of this range of 0 to 1 can never be satisfied.</td>
-          </tr>
-
-          <tr id="def-constraint-sampleRate">
-            <td>sampleRate</td>
-
-            <td><code><a>ConstrainLong</a></code></td>
-
-            <td>The sample rate in samples per second for the audio data.</td>
-          </tr>
-
-          <tr id="def-constraint-sampleSize">
-            <td>sampleSize</td>
-
-            <td><code><a>ConstrainLong</a></code></td>
-
-            <td>The linear sample size in bits. This constraint can only be
-            satisfied for audio devices that produce linear samples.</td>
-          </tr>
-
-          <tr id="def-constraint-echoCancellation">
-            <td>echoCancellation</td>
-
-            <td><code>boolean</code></td>
-
-            <td>When one or more audio streams is being played in the processes
-            of various microphones, it is often desirable to attempt to remove
-            the sound being played from the input signals recorded by the
-            microphones. This is referred to as echo cancellation. There are
-            cases where it is not needed and it is desirable to turn it off so
-            that no audio artifacts are introduced. This allows applications to
-            control this behavior.</td>
-          </tr>
-
-          <tr id="def-constraint-latency">
-            <td>latency</td>
-
-            <td><code><a>ConstrainDouble</a></code></td>
-
-            <td>The latency or latency range, in seconds.  The latency
-            is the time between start of processing (for instance,
-            when sound occurs in the real world) to the data being
-            available to the next step in the process. Low latency is
-            critical for some applications; high latency may be
-            acceptable for other applications because it helps with
-            power constraints. The number is expected to be the target
-            latency of the configuration; the actual latency may show
-            some variation from that.</td>
-          </tr>
-
-          <tr id="def-constraint-channelCount">
-            <td>channelCount</td>
-
-            <td><code><a>ConstrainLong</a></code></td>
-
-            <td>The number of independent channels of sound that the audio data contains, i.e. the number of audio samples per sample frame.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
   </section>
 
   <section>
