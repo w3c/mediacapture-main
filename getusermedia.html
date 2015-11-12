@@ -671,14 +671,23 @@
         </li>
 
         <li>
-          <p>Let <var>trackClone</var> inherit <var>track</var>'s underlying
-          source, <code><a href=
+          <p>Initialize <var>trackClone</var>'s <code><a href=
           "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
           "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
           "#dom-mediastreamtrack-readystate">readyState</a></code>, and
           <code><a href=
-          "#dom-mediastreamtrack-enabled">enabled</a></code> attributes,
-          as well as its currently active constraints.</p>
+          "#dom-mediastreamtrack-enabled">enabled</a></code> attributes by
+          copying the corresponding values from <var>track</var>.</p>
+        </li>
+
+        <li>
+          <p>Let <var>trackClone</var>'s underlying source be the source of
+          <var>track</var>.</p>
+        </li>
+
+        <li>
+          <p>Set <var>trackClone</var>'s constraints to the active constrains
+          of <var>track</var>.</p>
         </li>
 
         <li>
