@@ -3536,7 +3536,8 @@
         <p class="practicedesc">When permission is requested for a device, the
         User Agent may choose to store that permission, if granted, for later
         use by the same origin, so that the user does not need to grant
-        permission again at a later time. Such storing MUST only be done when
+        permission again at a later time. [[!RTCWEB-SECURITY-ARCH]] 
+        Section 5.2 requires that such storing MUST only be done when
         the page is secure (served over HTTPS and having no mixed content). It
         is a User Agent choice whether it offers functionality to store
         permission to each device separately, all devices of a given class, or
@@ -4705,6 +4706,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       audio/video streams to an attacker <code>EvilSpy</code> by following a
       link or being redirected to
       <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
+
+      <p>Although [[!RTCWEB-SECURITY-ARCH]] Section 5.2 indicates that 
+      implementations may refuse all access permissions for HTTP origins,
+      it recommends that implementations allow one-time camera/microphone 
+      access. While allowing one-time access for HTTP origins is 
+      convenient, this makes it possible for an attacker to obtain access
+      to the camera/microphone of an unsuspecting user.  Therefore this 
+      cannot be considered a sound security practice.</p>
     </div>
   </section>
 
