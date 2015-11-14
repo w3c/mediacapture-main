@@ -4032,12 +4032,12 @@ if(!supports["width"] || !supports["height"]) {
                   the <code><a>SelectSettings</a></code> algorithm,
                   let <var>message</var> be
                   either <code>undefined</code> or an informative
-                  human-readable message, and reject <var>p</var> with
+                  human-readable message, reject <var>p</var> with
                   a new
                   <code>OverconstrainedError</code> created by
                   calling
                   <code>OverconstrainedError(<var>failedConstraint</var>,
-                  <var>message</var>)</code>.  The
+                  <var>message</var>)</code>, and abort these steps.  The
                   existing constraints remain in effect in this case.</p>
                 </li>
 
