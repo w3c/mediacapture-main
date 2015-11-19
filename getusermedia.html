@@ -660,18 +660,16 @@
 
       <p>A script can indicate that a <code><a>MediaStreamTrack</a></code>
       object no longer needs its source with the
-      <code><a href=
-      "#dom-mediastreamtrack-stop">stop()</a></code> method.
-      When all tracks using a source have been stopped, the given permission
-      for that source is revoked and the source is <dfn id=
-      "source-stopped">stopped</dfn>. If the data is being generated from a
+      <code><a href="#dom-mediastreamtrack-stop">stop()</a></code> method.
+      When all tracks using a source have been stopped or ended by some other
+      means, the source is <dfn id="source-stopped">stopped</dfn>. Unless there
+      is a stored permission for the source in question, the given permission is
+      revoked and the User Agent SHOULD also remove the "permission granted"
+      indicator for the source. If the data is being generated from a
       live source (e.g., a microphone or camera), then the User Agent SHOULD
       remove any active "on-air" indicator for that source. An implementation
       may use a per-source reference count to keep track of source usage, but
       the specifics are out of scope for this specification.</p>
-
-      <p>If there is no stored permission to use that source, the User Agent
-      SHOULD also remove the "permission granted" indicator for the source.</p>
 
       <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST
       run the following steps:</p>
