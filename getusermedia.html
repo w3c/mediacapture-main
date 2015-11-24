@@ -3555,7 +3555,8 @@
         <p class="practicedesc">When permission is requested for a device, the
         User Agent may choose to store that permission, if granted, for later
         use by the same origin, so that the user does not need to grant
-        permission again at a later time. Such storing MUST only be done when
+        permission again at a later time.  [[!RTCWEB-SECURITY-ARCH]]
+        Section 5.2 requires that such storing MUST only be done when
         the page is secure (served over HTTPS and having no mixed content). It
         is a User Agent choice whether it offers functionality to store
         permission to each device separately, all devices of a given class, or
