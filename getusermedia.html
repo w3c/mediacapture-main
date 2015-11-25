@@ -3873,6 +3873,10 @@ if(!supports["width"] || !supports["height"]) {
           <p>We use the term <dfn>settings dictionary</dfn> for the set of
           values that might be applied as settings to the object.</p>
 
+          <p>For string valued constraints, we define "==" below to be true if
+          one of the values in the sequence is exactly the same as the value
+          being compared against.</p>
+
           <p>We define the <dfn>fitness distance</dfn> between a <a>settings
           dictionary</a> and a constraint set <var>CS</var> as the sum, for
           each constraint provided for a constraint name in <var>CS</var>, of
