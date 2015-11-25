@@ -3692,7 +3692,7 @@ if(!supports["aspectRatio"]) {
     then resolve the promise.  Note that the frameRate minimum might be 
     within the capabilities of the camera and satisfiable in ideal lighting conditions, 
     but not in low light, and could therefore result in firing of the 
-    <code><a>onovercontrained</a></code> event handler under poor lighting conditions.</p>
+    <code>onovercontrained</code> event handler under poor lighting conditions.</p>
     <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"] || !supports["frameRate"]) {
