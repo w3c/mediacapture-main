@@ -3426,7 +3426,7 @@
       <div class="note">
         <p>In the algorithm above, constraints are checked twice - once at
         device selection, and once after access approval. Time may have passed
-        between those checks, so it is concievable that the selected device is
+        between those checks, so it is conceivable that the selected device is
         no longer suitable. In this case, a NotReadableError will
         result.</p>
       </div>
@@ -3686,17 +3686,21 @@ if(!supports["aspectRatio"]) {
 
     <p>This next example adds a small bit of complexity. The ideal values are
     still given for width and height, but this time with minimum requirements
-    on each as well that must be satisfied. If it cannot satisfy either the
-    width or height minimum it will reject the promise. Otherwise, it will try
+    on each as well as a minimum frameRate that must be satisfied. If it cannot satisfy the
+    frameRate, width or height minimum it will reject the promise. Otherwise, it will try
     to satisfy the width, height, and aspectRatio target values as well and
-    then resolve the promise.</p>
+    then resolve the promise.  Note that the frameRate minimum might be 
+    within the capabilities of the camera and satisfiable in ideal lighting conditions, 
+    but not in low light, and could therefore result in firing of the 
+    <code>onoverconstrained</code> event handler under poor lighting conditions.</p>
     <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["aspectRatio"]) {
+if(!supports["aspectRatio"] || !supports["frameRate"]) {
   // Treat like an error.
 }
  var constraints =
   {
+    frameRate: {min: 20},
     width: {min: 640, ideal: 1280},
     height: {min: 480, ideal: 720},
     aspectRatio: 1.5
@@ -3736,14 +3740,14 @@ if(!supports["width"] || !supports["height"]) {
     Application authors can therefore implement a backoff strategy by
     specifying multiple optional ConstraintSets for the same property. For
     example, an application might specify three optional ConstraintSets, the
-    first asking for a framerate greater than 500, the second asking for a
-    framerate greater than 400, and the third asking for one greater than 300.
-    If the User Agent is capable of setting a framerate greater than 500, it
+    first asking for a frame rate greater than 500, the second asking for a
+    frame rate greater than 400, and the third asking for one greater than 300.
+    If the User Agent is capable of setting a frame rate greater than 500, it
     will (and the subsequent two ConstraintSets will be trivially satisfied).
-    However, if the User Agent cannot set the framerate above 500, it will skip
-    that ConstraintSet and attempt to set the framerate above 400. If that
+    However, if the User Agent cannot set the frame rate above 500, it will skip
+    that ConstraintSet and attempt to set the frame rate above 400. If that
     fails, it will then try to set it above 300. If the User Agent cannot
-    satisfy any of the three ConstraintSets, it will set the framerate to any
+    satisfy any of the three ConstraintSets, it will set the frame rate to any
     value it can get. If the developers wanted to insist on 300 as a lower
     bound, they could provide that as a 'min' value in the basic ConstraintSet.
     In that case, the User Agent would fail altogether if it couldn't get a
@@ -3762,7 +3766,7 @@ if(!supports["width"] || !supports["height"]) {
 
     <p>The specific value that the User Agent chooses for a constrainable
     property is referred to as a Setting. For example, if the application
-    applies a ConstraintSet specifying that the framerate must be at least 30
+    applies a ConstraintSet specifying that the frameRate must be at least 30
     frames per second, and no greater than 40, the Setting can be any
     intermediate value, e.g., 32, 35, or 37 frames per second. The application
     can query the current settings of the object's constrainable properties via
@@ -3801,7 +3805,7 @@ if(!supports["width"] || !supports["height"]) {
           which this error might occur are platform and
           application-specific. For example, the user might physically
           manipulate a camera in a way that makes it impossible to
-          provide a resolution that satisfies the constraints. The
+          provide a resolution or frameRate that satisfies the constraints. The
           User Agent MAY take other actions as a result of the
           overconstrained situation.</p>
 
@@ -4196,7 +4200,7 @@ var gotten = navigator.mediaDevices.getUserMedia({
   video: {
     width: {min: 320, ideal: 1280, max: 1920},
     height: {min: 240, ideal: 720, max: 1080},
-    framerate: 30,     // Shorthand for ideal.
+    frameRate: 30,     // Shorthand for ideal.
     // facingMode: "environment" would be optional.
     facingMode: {exact: "environment"}
   }});
