@@ -3692,7 +3692,7 @@ if(!supports["aspectRatio"]) {
     then resolve the promise.  Note that the frameRate minimum might be 
     within the capabilities of the camera and satisfiable in ideal lighting conditions, 
     but not in low light, and could therefore result in firing of the 
-    <code>onovercontrained</code> event handler under poor lighting conditions.</p>
+    <code>onoverconstrained</code> event handler under poor lighting conditions.</p>
     <pre class="example highlight">
 var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"] || !supports["frameRate"]) {
@@ -3740,14 +3740,14 @@ if(!supports["width"] || !supports["height"]) {
     Application authors can therefore implement a backoff strategy by
     specifying multiple optional ConstraintSets for the same property. For
     example, an application might specify three optional ConstraintSets, the
-    first asking for a frameRate greater than 500, the second asking for a
-    frameRate greater than 400, and the third asking for one greater than 300.
-    If the User Agent is capable of setting a frameRate greater than 500, it
+    first asking for a frame rate greater than 500, the second asking for a
+    frame rate greater than 400, and the third asking for one greater than 300.
+    If the User Agent is capable of setting a frame rate greater than 500, it
     will (and the subsequent two ConstraintSets will be trivially satisfied).
-    However, if the User Agent cannot set the frameRate above 500, it will skip
-    that ConstraintSet and attempt to set the frameRate above 400. If that
+    However, if the User Agent cannot set the frame rate above 500, it will skip
+    that ConstraintSet and attempt to set the frame rate above 400. If that
     fails, it will then try to set it above 300. If the User Agent cannot
-    satisfy any of the three ConstraintSets, it will set the frameRate to any
+    satisfy any of the three ConstraintSets, it will set the frame rate to any
     value it can get. If the developers wanted to insist on 300 as a lower
     bound, they could provide that as a 'min' value in the basic ConstraintSet.
     In that case, the User Agent would fail altogether if it couldn't get a
