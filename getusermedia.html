@@ -456,8 +456,9 @@
       updated as a result of changes to the media session.</p>
 
       <p>When the User Agent initiates adding a track to a <code>
-      <a>MediaStream</a></code>, the User Agent MUST queue a task that runs the
-      following steps:</p>
+      <a>MediaStream</a></code>, with the exception of initializing a newly
+      created <code><a>MediaStream</a></code> with tracks, the User Agent MUST
+      queue a task that runs the following steps:</p>
 
       <ol>
         <li>
