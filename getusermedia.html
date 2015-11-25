@@ -566,11 +566,10 @@
           this <code><a>MediaStream</a></code>.</p>
 
           <p>When the <dfn id=
-          "dom-mediastream-removetrack"><code>removeTrack()</code></dfn> method
-          is invoked, the User Agent MUST remove the
-          <code><a>MediaStreamTrack</a></code> object, indicated by the
-          method's argument, from the stream's <a href="#track-set">track
-          set</a>, if present.</p>
+          "dom-mediastream-removetrack"><code>removeTrack()</code></dfn> method is
+          invoked, the User Agent MUST <a href="#stream-remove-track">remove the
+          track</a>, specified by the method's first argument, from this
+          <code><a>MediaStream</a></code>.</p>
         </dd>
 
         <dt>MediaStream clone()</dt>
