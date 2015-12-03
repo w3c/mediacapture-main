@@ -971,18 +971,6 @@
         retrieval and manipulation of the constraints currently established on
         a track.</p>
 
-        <p>Each track maintains an internal version of the
-        <code><a>Constraints</a></code> structure, namely a mandatory set of
-        constraints (no duplicates) and an optional ordered list of individual
-        constraint objects (may contain duplicates). The internal stored
-        constraint structure is exposed to the application by the
-        <code><a>constraints</a></code> attribute, and may be modified by the
-        <code><a>applyConstraints()</a></code> method.</p>
-
-        <p>When <code><a>applyConstraints()</a></code> is called, a User Agent
-        MUST queue a task to evaluate those changes when the task queue is next
-        serviced.</p>
-
         <p>If the <code><a>overconstrained</a></code> event is thrown,
         the track MUST be muted
         until either new satisfiable constraints are applied or the existing
