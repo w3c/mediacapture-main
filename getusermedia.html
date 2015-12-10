@@ -4738,6 +4738,90 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
   </section>
 
   <section>
+    <h2>Extensibility</h2>
+
+    <p>This section is informative.</p>
+
+    <p>Although new versions of this specification may be produced in
+    the future, it is also expected that other standards will need to
+    define new capabilities that build upon those in this
+    specification.  The purpose of this section is to provide guidance
+    to creators of such extensions.</p>
+
+    <p>Any WebIDL-defined interfaces, methods, or attributes in the
+    specification may be extended.  Two likely extension points are
+    defining a new media type and defining a new constrainable
+    property.</p>
+
+    <section>
+      <h2> Defining a new media type (beyond the existing Audio and
+      Video types)</h2>
+
+      <p>At a minimum, defining a new media type would require</p>
+      <ul>
+        <li>adding a new getXXXXTracks() method for the type to the
+        MediaStream interface,</li>
+        <li>describing what a muted or disabled track of that type
+        will render (sec 4.3.1),</li>
+        <li>adding the new type as an additional legal value for the
+        kind atttribute on the MediaStreamTrack interface,</li>
+        <li>updating the description of the readonly attribute of the
+        MediaStreamTrack interface,</li>
+        <li>adding at least one track source type
+        (SourceTypeEnum),</li>
+        <li>defining any constrainable properties that are applicable
+        to the media type,</li>
+        <li>updating how the HTMLMediaElement works with a MediaStream
+        containing a track of the new media type,</li>
+        <li>updating MediaDeviceKind,</li>
+        <li>updating the getCapabilities and getUserMedia
+        descriptions,<li>
+        <li>adding the new type to the MediaStreamConstraints
+        dictionary, and</li>
+        <li>describing any new security and/or privacy considerations
+        introduced by the new type.</li>
+      </ul>
+
+      <p>Additionally, it should include updating</p>
+      <ul>
+        <li>the source definition,</li>
+        <li>the list of media stream consumers,</li>
+        <li>the description of the label attribute on the
+        MediaStreamTrack interface,</li>
+        <li>the list of sinks (section 5), and</li>
+        <li>the best practice statements referring to video and
+        audio.</li>
+      </ul>
+
+      <p>It might also include</p>
+      <ul>
+        <li>explaining how the media is expected to be used by
+        elements to which one might assign it (<video> as example for
+        audio and video), and</li>
+        <li>giving examples in sec 4.3.3 of how such a track might
+        become ended.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Defining a new constrainable property</h2>
+
+      <p>This will require thinking through and defining how
+      Constraints, Capabilities, and Settings for the property will
+      work.  The relevant text in sections 4.3 and 10.3 are the model
+      to use.</p>
+
+      <p>Creators of extension specifications are strongly encouraged
+      to notify the Media Capture Task Force of their extension by
+      emailing the list at public-media-capture@w3.org.<br/>
+      Future versions of this specification and others created by the
+      Media Capture Task Force will take into consideration all
+      extensions they are aware of in an attempt to reduce potential
+      usage conflicts.</p>
+    </section>
+  </section>
+
+  <section>
     <h2>Change Log</h2>
 
     <p>This section will be removed before publication.</p>
