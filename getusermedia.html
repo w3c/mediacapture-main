@@ -1343,9 +1343,14 @@
 
           <dd />
 
-          <dt>DOMString facingMode</dt>
+          <dt>sequence&lt;DOMString&gt; facingMode</dt>
 
-          <dd />
+          <dd>
+            <p>A camera can report multiple facing modes. For example, in a
+            high-end telepresence solution with several cameras facing the user,
+            a camera to the left of the user can report both "left" and
+            "user".</p>
+          </dd>
 
           <dt>(double or DoubleRange) volume</dt>
 
@@ -4422,7 +4427,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     min: 1.0,
     max: 60.0
   },
-  facingMode: ["user", "environment"]
+  facingMode: [ "user", "left" ]
 }
 </pre>
 
