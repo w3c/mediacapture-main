@@ -372,35 +372,6 @@
       have any tracks or only has tracks that are <a href=
       "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
 
-      <p>When a <code><a>MediaStream</a></code> goes from being active to
-      inactive, the User Agent MUST queue a task that sets the object's
-      <code><a href="#stream-active">active</a></code> attribute to
-      <code>false</code> and fire a simple event named <code><a href=
-      "#event-mediastream-inactive">inactive</a></code> at the object. When a
-      <code><a>MediaStream</a></code> goes from being inactive to active, the
-      User Agent MUST queue a task that sets the object's <code><a href=
-      "#stream-active">active</a></code> attribute to <code>true</code> and
-      fire a simple event named <code><a href=
-      "#event-mediastream-active">active</a></code> at the object. If a
-      <code><a>MediaStream</a></code>'s active status changes as a result of a
-      <code><a>MediaStreamTrack</a></code> being added or removed by the User
-      Agent, the corresponding <code><a href=
-      "#event-mediastream-addtrack">addtrack</a></code> or <code><a href=
-      "#event-mediastream-removetrack">removetrack</a></code> event MUST be
-      fired before the <code><a href=
-      "#event-mediastream-active">active</a></code> or <code><a href=
-      "#event-mediastream-inactive">inactive</a></code> event.</p>
-
-      <p>If the stream's activity status changed due to a user request, the
-      <a href="http://www.w3.org/TR/html5/webappapis.html#task-source">task
-      source</a> [[!HTML5]] for this <span title="concept-task">task</span> is
-      the <a href=
-      "http://www.w3.org/TR/html5/webappapis.html#user-interaction-task-source">
-      user interaction task source</a> [[!HTML5]]. Otherwise the task source
-      for this <span title="concept-task">task</span> is the <a href=
-      "http://www.w3.org/TR/html5/webappapis.html#networking-task-source">networking
-      task source</a> [[!HTML5]].</p>
-
       <p>To <dfn id="stream-add-track">add a track</dfn> to a
       <code><a>MediaStream</a></code>, the User Agent MUST run the
       following steps:</p>
@@ -677,20 +648,6 @@
           MUST return <code>true</code> if this <code><a>MediaStream</a></code>
           is <a href="#stream-active">active</a> and <code>false</code>
             otherwise.</p>
-        </dd>
-
-        <dt>attribute EventHandler onactive</dt>
-
-        <dd>
-          <p>The event type of this event handler is <code><a href=
-          "#event-mediastream-active">active</a></code>.</p>
-        </dd>
-
-        <dt>attribute EventHandler oninactive</dt>
-
-        <dd>
-          <p>The event type of this event handler is <code><a href=
-          "#event-mediastream-inactive">inactive</a></code>.</p>
         </dd>
 
         <dt>attribute EventHandler onaddtrack</dt>
@@ -2668,24 +2625,6 @@
 
       <tbody>
         <tr>
-          <td><code id="event-mediastream-active">active</code></td>
-
-          <td><code>Event</code></td>
-
-          <td>The <code><a>MediaStream</a></code> became active (see <a href=
-          "#stream-inactive">inactive</a>).</td>
-        </tr>
-
-        <tr>
-          <td><code id="event-mediastream-inactive">inactive</code></td>
-
-          <td><code>Event</code></td>
-
-          <td>The <code><a>MediaStream</a></code> became <a href=
-          "#stream-inactive">inactive</a>.</td>
-        </tr>
-
-        <tr>
           <td><dfn id=
           "event-mediastream-addtrack"><code>addtrack</code></dfn></td>
 
@@ -4568,9 +4507,11 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
  }
 
  function gotStream(stream) {
-     stream.oninactive = function () {
-         startBtn.disabled = false;
-     };
+     stream.getTracks().forEach(function (track) {
+         track.onended = function () {
+             startBtn.disabled = stream.active;
+         };
+     });
  }
 
  function logError(error) {
@@ -4672,7 +4613,6 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
      video: true
  }).then(function (stream) {
      video.srcObject = stream;
-     stream.oninactive = noStream;
      video.onloadedmetadata = function () {
          canvas.width = video.videoWidth;
          canvas.height = video.videoHeight;
