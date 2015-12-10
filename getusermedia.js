@@ -108,6 +108,6 @@ var respecConfig = {
                 img.height = 21;
                 el.appendChild(img);
             });
-    }
-
+    },
+    useExperimentalStyles: true
 };
