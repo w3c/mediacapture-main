@@ -4737,10 +4737,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
     </div>
   </section>
 
-  <section>
+  <section class="informative">
     <h2>Extensibility</h2>
-
-    <p>This section is informative.</p>
 
     <p>Although new versions of this specification may be produced in
     the future, it is also expected that other standards will need to
@@ -4760,46 +4758,52 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>At a minimum, defining a new media type would require</p>
       <ul>
         <li>adding a new getXXXXTracks() method for the type to the
-        MediaStream interface,</li>
+        <code><a>MediaStream</a></code> interface,</li>
         <li>describing what a muted or disabled track of that type
-        will render (sec 4.3.1),</li>
+        will render (see <a href="#life-cycle-and-media-flow"/></a>),</li>
         <li>adding the new type as an additional legal value for the
-        kind atttribute on the MediaStreamTrack interface,</li>
-        <li>updating the description of the readonly attribute of the
-        MediaStreamTrack interface,</li>
+        <code><a href="#dom-mediastreamtrack-kind">kind</a></code> attribute
+        on the <code><a>MediaStreamTrack</a></code> interface,</li>
+        <li>updating the description of the
+        <code><a href="#dom-mediastreamtrack-readonly">readonly</a></code>
+        attribute on the <code><a>MediaStreamTrack</a></code> interface,</li>
         <li>adding at least one track source type
-        (SourceTypeEnum),</li>
-        <li>defining any constrainable properties that are applicable
+        (<code><a>SourceTypeEnum</a></code>),</li>
+        <li>defining any constrainable properties (see
+        <a href="#constrainable-properties"></a>) that are applicable
         to the media type,</li>
-        <li>updating how the HTMLMediaElement works with a MediaStream
-        containing a track of the new media type,</li>
-        <li>updating MediaDeviceKind,</li>
-        <li>updating the getCapabilities and getUserMedia
-        descriptions,<li>
-        <li>adding the new type to the MediaStreamConstraints
+        <li>updating how the <code>HTMLMediaElement</code> works with a
+        <code><a>MediaStream</a></code> containing a track of the new media
+        type (see <a href="#mediastreams-in-media-elements"></a>),</li>
+        <li>updating <code><a>MediaDeviceKind</a></code>,</li>
+        <li>updating the <code>getCapabilities()</code> and <code>getUserMedia()</code>
+        descriptions,</li>
+        <li>adding the new type to the <code><a>MediaStreamConstraints</a></code>
         dictionary, and</li>
-        <li>describing any new security and/or privacy considerations
+        <li>describing any new security and/or privacy considerations (see
+        <a href="#privacy-and-security-considerations"></a>)
         introduced by the new type.</li>
       </ul>
 
       <p>Additionally, it should include updating</p>
       <ul>
-        <li>the source definition,</li>
-        <li>the list of media stream consumers,</li>
-        <li>the description of the label attribute on the
-        MediaStreamTrack interface,</li>
-        <li>the list of sinks (section 5), and</li>
+        <li>the <a>source</a> definition,</li>
+        <li>the list of media stream <a>consumer</a>s,</li>
+        <li>the description of the
+         <code><a href="#dom-mediastreamtrack-label">label</a></code> attribute
+        on the <code><a>MediaStreamTrack</a></code> interface,</li>
+        <li>the list of sinks
+        (see <a href="#the-model-sources-sinks-constraints-and-settings"></a>), and</li>
         <li>the best practice statements referring to video and
-        audio.</li>
+        audio (see <a href="#implementation-suggestions"></a>).</li>
       </ul>
 
       <p>It might also include</p>
       <ul>
         <li>explaining how the media is expected to be used by
-        elements to which one might assign it (<video> as example for
-        audio and video), and</li>
-        <li>giving examples in sec 4.3.3 of how such a track might
-        become ended.</li>
+        potential <a>consumer</a>s, and</li>
+        <li>giving examples in <code><a>MediaStreamTrackState</a></code> of how
+        such a track might become ended.</li>
       </ul>
     </section>
 
@@ -4807,8 +4811,14 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <h2>Defining a new constrainable property</h2>
 
       <p>This will require thinking through and defining how
-      Constraints, Capabilities, and Settings for the property will
-      work.  The relevant text in sections 4.3 and 10.3 are the model
+      Constraints, Capabilities, and Settings for the property
+      (see <a href="#terminology"></a>) will
+      work.  The relevant text in <code><a>MediaTrackSupportedConstraints</a></code>,
+      <code><a>MediaTrackCapabilities</a></code>,
+      <code><a>MediaTrackConstraints</a></code>,
+      <code><a>MediaTrackSettings</a></code>,
+      <a href="#constrainable-properties"></a>, and
+      <code><a>MediaStreamConstraints</a></code> are the model
       to use.</p>
 
       <p>Creators of extension specifications are strongly encouraged
