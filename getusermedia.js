@@ -37,7 +37,7 @@ var respecConfig = {
    editors:  [
        // { name: "Your Name", url: "http://example.org/",
        // company: "Your Company", companyURL: "http://example.com/" },
-       { name: "Daniel C. Burnett", company: "Voxeo" },
+       { name: "Daniel C. Burnett", company: "Invited Expert" },
        { name: "Adam Bergkvist", company: "Ericsson" },
        { name: "Cullen Jennings", company: "Cisco" },
        { name: "Anant Narayanan", company: "Mozilla (until November 2012)" }
