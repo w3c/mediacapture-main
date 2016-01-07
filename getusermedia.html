@@ -979,7 +979,9 @@
         <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
         list of constraints recognized by a User Agent for controlling the
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
-        object.</p>
+        object. This dictionary is used as a function return value, and never
+        as an operation argument.</p>
+
         <p>Future specifications can extend the MediaTrackSupportedConstraints
         dictionary by defining a partial dictionary with dictionary members of
         type boolean.</p>
@@ -2600,8 +2602,7 @@
         <dd>
           <p>Returns a dictionary whose members are the constrainable
           properties known to the User Agent. A supported constrainable
-          property MUST be represented by a member whose name is the constraint
-          name and whose value is <code>true</code>. Any constrainable
+          property MUST be represented and any constrainable
           properties not supported by the User Agent MUST NOT be present in the
           returned dictionary. The values returned represent what the browser
           implements and will not change during a browsing session.</p>
