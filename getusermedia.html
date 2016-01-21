@@ -3569,7 +3569,9 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       constrainable properties and values that the User Agent supports. Note
       that a User Agent MAY support only a subset of the properties defined in
       the Web platform, and MAY support a subset of the set values for those
-      properties that it does support. Note that Capabilities are returned from
+      properties that it does support. A constrainable property, representing a
+      particular feature, is considered supported even if the only allowed
+      value is to have said feature turned off. Capabilities are returned from
       the User Agent to the application, and cannot be specified by the
       application. However, the application can control the Settings that the
       User Agent chooses for constrainable properties by means of
