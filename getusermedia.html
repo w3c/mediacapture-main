@@ -903,6 +903,7 @@
           <dd>
             <p>See <a href="#constrainable-interface">ConstrainablePattern
             Interface</a> for the definition of this method.</p>
+
             <p class="fingerprint">Since this method gives likely persistent,
             cross-origin information about the underlying device, it adds to
             the fingerprint surface of the device.</p>
@@ -924,8 +925,28 @@
               <dd>
                 <p>A new constraint structure to apply to this object.</p>
               </dd>
-            </dl>See <a href="#constrainable-interface">ConstrainablePattern
-            Interface</a> for the definition of this method.
+            </dl>
+            <p>See <a href="#constrainable-interface">ConstrainablePattern
+            Interface</a> for the definition of this method, where</p>
+            <ul>
+              <li>In the SelectSettings algorithm,
+                <ul>
+                  <li><var>object</var> is
+                  the <a><code>MediaStreamTrack</code></a> on which
+                  this method was called, and</li>
+                  <li><a>settings dictionary</a> refers to a possible
+                  instance of
+                  the <a><code>MediaTrackSettings</code></a>
+                  dictionary.</li>
+                </ul>
+              </li>
+              <li>In step 3 of the applyConstraints algorithm, all
+              changes listed are to be made to <var>object</var>,
+              and</li>
+              <li>In step 4 of the applyConstraints algorithm, the
+              requirement on getConstraints() applies to the
+              getConstraints() method of <var>object</var>.</li>
+            </ul>
           </dd>
           <dt>attribute EventHandler onoverconstrained</dt>
           <dd>
