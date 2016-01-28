@@ -24,3 +24,5 @@ mailing list.
 
 Find more information about the joint task force at our
 [wiki](http://www.w3.org/wiki/Media_Capture#Mailing_lists).
+
+[Contribution Guidelines](CONTRIBUTING.md)
