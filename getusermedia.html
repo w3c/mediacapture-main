@@ -2718,8 +2718,26 @@
                   Failure</em> below.</p>
                 </li>
                 <li>
+                  <p>Let <var>originIdentifier</var> be the [[!HTML51]]
+                  <a href="https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#top-level-browsing-context">
+                  top-level browsing context</a>'s origin.</p>
+                </li>
+                <li>
+                  <p>If the current [[!HTML51]] <a href=
+                  "https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#browsing-context">
+                  browsing context</a> is a [[!HTML51]] <a href=
+                  "https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#nested-browsing-context">
+                  nested browsing context</a> whose origin is different from
+                  <var>originIdentifier</var>, let <var>originIdentifier</var>
+                  be the result of combining <var>originIdentifier</var> and
+                  the current <a href=
+                  "https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#browsing-context">
+                  browsing context</a>'s origin.</p>
+                </li>
+                <li>
                   <p>Prompt the user in a User Agent specific manner for
-                  permission to provide the entry script's origin with a
+                  permission to provide the origin, identified by
+                  <var>originIdentifier</var>, with a
                   <code><a>MediaStream</a></code> object representing a media
                   stream.</p>
                   <p>The provided media MUST include precisely one track of
