@@ -3086,13 +3086,14 @@ if(!supports["width"] || !supports["height"]) {
     the <code><a>getSettings()</a></code> accessor.</p>
     <section>
       <h2>Interface Definition</h2>
-      <p>Due to the limitations of the interface definition language used in
-      this specification, it is not possible for other interfaces to inherit or
-      implement ConstrainablePattern. Therefore the WebIDL definitions given
-      are only templates to be copied. Each interface that wishes to make use
-      of the functionality defined here will have to provide its own copy of
-      the WebIDL for the functions and interfaces given here. However it can
-      refer to the semantics defined here, which will not change. See <a href=
+      <p>Although this specification formally defines ConstrainablePattern as a
+      WebIDL interface, it is actually a template or pattern for other
+      interfaces and cannot be inherited directly since the return values of
+      the methods need to be extended, something WebIDL cannot do. Thus, each
+      interface that wishes to make use of the functionality defined here will
+      have to provide its own copy of the WebIDL for the functions and
+      interfaces given here. However it can refer to the semantics defined
+      here, which will not change. See <a href=
       "#media-stream-track-interface-definition">MediaStreamTrack Interface
       Definition</a> for an example of this.</p>
       <p>When the User Agent is no longer able to satisfy the
