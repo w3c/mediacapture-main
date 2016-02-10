@@ -2660,10 +2660,12 @@
               "https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#browsing-context">
               browsing context</a> is a <a href=
               "https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#nested-browsing-context">
-              nested browsing context</a> which is not <a>allowed to use user
-              media</a>, return a promise rejected with a
-              <code><a>DOMException</a></code> object whose
-              <code><a>name</a></code> attribute has the value
+              nested browsing context</a> whose origin is different from the
+              <a href="https://www.w3.org/TR/2015/WD-html51-20150506/browsers.html#top-level-browsing-context">
+              top-level browsing context</a>'s origin and the nested browsing
+              context is not <a>allowed to access user media</a>, return a
+              promise rejected with a <code><a>DOMException</a></code> object
+              whose <code><a>name</a></code> attribute has the value
               <code>SecurityError</code>.</p>
             </li>
             <li>
@@ -2891,19 +2893,19 @@
       <h2>User Media in an IFrame</h2>
       <div class="note">The topic of this section is under discussion and may
       be subject to change.</div>
-      <p>There are some special circumstances when an [[!HTML51]]
+      <p>There are some special circumstances when a cross-origin [[!HTML51]]
       <code><a href="https://www.w3.org/TR/2015/WD-html51-20150506/semantics.html#the-iframe-element">
-      iframe</a></code> wants to access user media. The iframe needs explicit
-      permission from the embedding page and it needs to identify itself in the
-      security prompt presented to the user. This section, together with the
-      <code><a>getUserMedia()</a></code> algorithm, specifies that
-      behavior.</p>
+      iframe</a></code> wants to access user media. A cross-origin iframe needs
+      explicit permission from the embedding page and it needs to identify
+      itself in the security prompt presented to the user. This section,
+      together with the <code><a>getUserMedia()</a></code> algorithm, specifies
+      that behavior.</p>
       <p>The <code><a>HTMLIFrameElement</a></code> is extended with an <dfn id=
       "iframe-allowusermedia"><code>allowusermedia</code></dfn> content
       attribute. <code>allowusermedia</code> is a [[!HTML51]] <code><a href=
       "https://www.w3.org/TR/2015/WD-html51-20150506/infrastructure.html#boolean-attribute">
       boolean attribute</a></code>. When specified, it indicates that scripts
-      in the iframe element's browsing context are <dfn>allowed to use user
+      in the iframe element's browsing context are <dfn>allowed to access user
       media</dfn> (if it's not blocked for other reasons, e.g. there is another
       ancestor iframe without this attribute set).</p>
       <p>The iframe DOM interface is extended as described by the partial
