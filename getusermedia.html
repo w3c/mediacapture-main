@@ -753,7 +753,10 @@
       </section>
       <section>
         <h3>Tracks and Constraints</h3>
-        <p>Constraints are set on tracks and may affect sources.</p>
+        <p><code><a>MediaStreamTrack</a></code> is a <a>constrainable
+        object</a> as defined in the <a href=
+        "#constrainable-interface">Constrainable Pattern</a> section.
+        Constraints are set on tracks and may affect sources.</p>
         <p>Whether <code><a>Constraints</a></code> were provided at track
         initialization time or need to be established later at runtime, the
         APIs defined in the <a>ConstrainablePattern</a> Interface allow the
@@ -901,6 +904,9 @@
           </dd>
           <dt>MediaTrackCapabilities getCapabilities()</dt>
           <dd>
+            <p>Returns the capabilites of the source that this
+            <code><a>MediaStreamTrack</a></code>, the <a>constrainable
+            object</a>, represents.</p>
             <p>See <a href="#constrainable-interface">ConstrainablePattern
             Interface</a> for the definition of this method.</p>
             <p class="fingerprint">Since this method gives likely persistent,
@@ -1065,10 +1071,10 @@
           <dd></dd>
           <dt>sequence&lt;boolean&gt; echoCancellation</dt>
           <dd>
-            <p>If the User Agent cannot do echo cancellation a single
+            <p>If the source cannot do echo cancellation a single
             <code>false</code> is reported. If echo cancellation cannot be
             turned off, a single <code>true</code> is reported. If the script
-            can control the feature, the User Agent reports a list with both
+            can control the feature, the source reports a list with both
             <code>true</code> and <code>false</code> as possible values.</p>
           </dd>
           <dt>(double or DoubleRange) latency</dt>
@@ -2965,7 +2971,8 @@
   <section id="constrainable-interface">
     <h2>Constrainable Pattern</h2>
     <p>The Constrainable pattern allows applications to inspect and adjust the
-    properties of objects implementing it. It is broken out as a separate set
+    properties of objects implementing it (the <dfn>constrainable object</dfn>).
+    It is broken out as a separate set
     of definitions so that it can be referred to by other specifications. The
     core concept is the Capability, which consists of a constrainable property
     of an object and the set of its possible values, which may be specified
@@ -3138,9 +3145,9 @@ if(!supports["width"] || !supports["height"]) {
       <var>requiredConstraints</var> from the currently valid Constraints, the
       User Agent MUST queue a task that fires an
       <code>OverconstrainedErrorEvent</code>, initialized as described in the
-      following paragraph, at the constrainable object. The event firing task
-      MAY also be used to update the constrainable object as a result of the
-      overconstrained situation.</p>
+      following paragraph, at the <a>constrainable object</a>. The event firing
+      task MAY also be used to update the <a>constrainable object</a> as a
+      result of the overconstrained situation.</p>
       <p>The <code>OverconstrainedErrorEvent</code> references an
       <code><a>OverconstrainedError</a></code> whose <code>constraint</code>
       attribute is set to one of the <var>requiredConstraints</var> that can no
@@ -3604,18 +3611,19 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       key-value pairs, where each key MUST be a constrainable property, and
       each value MUST be a subset of the set of values allowed for that
       property. The exact syntax of the value expression depends on the type of
-      the property. The Capabilities dictionary specifies the subset of the
-      constrainable properties and values that the User Agent supports. Note
-      that a User Agent MAY support only a subset of the properties defined in
-      the Web platform, and MAY support a subset of the set values for those
-      properties that it does support. Note that Capabilities are returned from
-      the User Agent to the application, and cannot be specified by the
+      the property. The Capabilities dictionary specifies which constrainable
+      properties that can be applied, as constraints, to the
+      <a>constrainable object</a>. Note that the Capabilities of a
+      <a>constrainable object</a> MAY be a subset of the properties defined in
+      the Web platform, with a subset of the set values for those properties.
+      Note that Capabilities are returned from the User Agent to the
+      application, and cannot be specified by the
       application. However, the application can control the Settings that the
       User Agent chooses for constrainable properties by means of
       Constraints.</p>
-      <p>An example of a Capabilities dictionary is shown below. This example
-      is not very realistic in that a browser would actually be required to
-      support more constrainable properties than just these.</p>
+      <p>An example of a Capabilities dictionary is shown below. In this case,
+      the <a>constrainable object</a> is a video source with a very limited set
+      of Capabilities.</p>
       <pre class="example highlight">
 {
   frameRate: {
