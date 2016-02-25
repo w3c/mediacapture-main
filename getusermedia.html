@@ -545,9 +545,8 @@
     <section>
       <h2>MediaStreamTrack</h2>
       <p>A <code><a>MediaStreamTrack</a></code> object represents a media
-      source in the User Agent. A source, unless stated otherwise, is a
-      <dfn>local source</dfn> representing a device connected to the User
-      Agent. Other specifications may define sources for <code>
+      source in the User Agent. An example source is a device connected to the
+      User Agent. Other specifications may define sources for <code>
       <a>MediaStreamTrack</a></code> that override the behavior specified here.
       Several <code><a>MediaStreamTrack</a></code>
       objects can represent the same media source, e.g., when the user chooses
@@ -888,9 +887,9 @@
               <li>
                 <p>Notify <var>track</var>'s source that <var>track</var> is
                 <a href="#track-ended">ended</a>.</p>
-                <p>A <a>local source</a> that is notified of a track ending
-                will be <a href="#source-stopped">stopped</a>, unless other
-                <code><a>MediaStreamTrack</a></code> objects depend on it.</p>
+                <p>A source that is notified of a track ending will be <a href=
+                "#source-stopped">stopped</a>, unless other <code>
+                <a>MediaStreamTrack</a></code> objects depend on it.</p>
               </li>
               <li>
                 <p>Set <var>track's</var> <code><a href=
