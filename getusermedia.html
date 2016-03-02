@@ -177,6 +177,16 @@
       <dt><code>RTCPeerConnection</code></dt>
       <dd><dfn><code>RTCPeerConnection</code></dfn> is defined in
       [[WEBRTC10]].</dd>
+      <dt>Permissions</dt>
+      <dd>The terms <dfn>permission</dfn>, <dfn>retrieve the permission
+      state</dfn>, <dfn id="request-permission">request
+      permission</dfn>, <dfn>remove
+      permission</dfn> and <dfn>create a PermissionStatus</dfn> are
+      defined in [[!permissions]].
+      <p class="note">"request permission" isn't defined yet.
+	https://github.com/w3c/permissions/issues/62
+      </p>
+      </dd>
     </dl>
   </section>
   <section id="stream-api">
@@ -561,14 +571,18 @@
       object no longer needs its source with the <code><a href=
       "#dom-mediastreamtrack-stop">stop()</a></code> method. When all tracks
       using a source have been stopped or ended by some other means, the source
-      is <dfn id="source-stopped">stopped</dfn>. Unless there is a stored
-      permission for the source in question, the given permission is revoked
+      is <dfn id="source-stopped">stopped</dfn>. If
+      the <a>permission</a> for the source is marked "transient", the
+      User Agent will <a href="#remove-permission">remove permission</a>,
       and the User Agent SHOULD also remove the "permission granted" indicator
       for the source. If the data is being generated from a live source (e.g.,
       a microphone or camera), then the User Agent SHOULD remove any active
       "on-air" indicator for that source. An implementation may use a
       per-source reference count to keep track of source usage, but the
       specifics are out of scope for this specification.</p>
+      <p class="note">The "transient" flag for permissions isn't
+      present in the spec
+      yet. https://github.com/w3c/permissions/issues/63</p>
       <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST run
       the following steps:</p>
       <ol>
@@ -2326,15 +2340,21 @@
                     </li>
                   </ol>
                 </li>
+		<li>
+		  <a>Retrieve the permission state</a> of the "list-devices"
+		  permission.
+		</li>
                 <li>
-                  <p>If none of the local devices are attached to an active
-                  <code><a>MediaStreamTrack</a></code> in the current browsing
-                  context, and if no <a href="#stored-permissions">persistent
-                  permission</a> to access these local devices has been granted
-                  to the page's origin, let <var>filteredList</var> be a copy
+		  <p>If the state of the "list-devices" permission is
+		  not "granted", let <var>filteredList</var> be a copy
                   of <var>resultList</var>, and all its elements, where the
                   <code><a href="#widl-MediaDeviceInfo-label">label</a></code>
                   member is the empty string.</p>
+		  <p>Note that if any of the local devices are
+		  attached to an
+		  active <code><a>MediaStreamTrack</a></code> in the
+		  current browsing context, the permission will always
+		  be "granted".</p>
                 </li>
                 <li>
                   <p>If <var>filteredList</var> is a non-empty list, then
@@ -2362,7 +2382,7 @@
         <h2>Access control model</h2>
         <p>The algorithm described above means that the access to media device
         information depends on whether or not permission has been granted to
-        the page's origin to use media devices.</p>
+        the page's origin.</p>
         <p>If no such access has been granted, the
         <code><a>MediaDeviceInfo</a></code> dictionary will contain the
         deviceId, kind, and groupId.</p>
@@ -2712,6 +2732,16 @@
                   before the user has given any authorization to any device,
                   and can thus be used as a fingerprinting surface.</p>
                 </li>
+		<li>
+		  <p><a>Retrieve the permission state</a> for all the
+		    candidate devices. Remove from the set any device for
+		    which the permission state is "denied".
+		  </p>
+		  <p>
+		    If the set is now empty, jump to the step labeled
+		    <em>Permission Failure</em> below.
+		  </p>
+		</li>
                 <li>
                   <p>Optionally, e.g., based on a previously-established user
                   preference, for security reasons, or due to platform
@@ -2736,11 +2766,8 @@
                   browsing context</a>'s origin.</p>
                 </li>
                 <li>
-                  <p>Prompt the user in a User Agent specific manner for
-                  permission to provide the origin, identified by
-                  <var>originIdentifier</var>, with a
-                  <code><a>MediaStream</a></code> object representing a media
-                  stream.</p>
+		  <p>Choose a device of each requested media type from
+		  <var>finalSet</var>.
                   <p>The provided media MUST include precisely one track of
                   each media type in requestedMediaTypes from the
                   <var>finalSet</var>. The decision of which tracks to choose
@@ -2757,13 +2784,14 @@
                   possible) to generate the media stream. User Agents MAY allow
                   users to use any media source, including pre-recorded media
                   files.</p>
-                  <p>If the user grants permission to use local recording
-                  devices, User Agents are encouraged to include a prominent
+		  <p><a>Request permission</a> for use of the devices.</p>
+                  <p>If the result of the request is "granted", User
+		  Agents are encouraged to include a prominent
                   indicator that the devices are "hot" (i.e. an "on-air" or
                   "recording" indicator), as well as a "device accessible"
                   indicator indicating that the page has been granted access to
                   the source.</p>
-                  <p>If the user denies permission, jump to the step labeled
+                  <p>If the result is "denied", jump to the step labeled
                   <em>Permission Failure</em> below. If the user never
                   responds, this algorithm stalls on this step.</p>
                   <p>If the user grants permission but a hardware error such as
@@ -2771,7 +2799,7 @@
                   <var>p</var> with a new <code><a>DOMException</a></code>
                   object whose <code><a>name</a></code> attribute has the value
                   <code>NotReadableError</code> and abort these steps.</p>
-                  <p>If the user grants permission but device access fails for
+                  <p>If the result is "granted" but device access fails for
                   any reason other than those listed above, reject <var>p</var>
                   with a new <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
@@ -2965,6 +2993,9 @@
         <p class="practicedesc">When permission is not stored, permission
         should last only until such time as all MediaStreamTracks sourced from
         that device have been stopped.</p>
+	<!-- <p class="note">This recommendation may be subsumed by general
+	  recommendations for permissions from [[permissions]].
+	</p> -->
       </div>
       <div class="practice">
         <span class="practicelab" id="handling-devices">Handling multiple
