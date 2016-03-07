@@ -839,22 +839,6 @@
             <p>The event type of this event handler is <code><a href=
             "#event-mediastreamtrack-unmute">unmute</a></code>.</p>
           </dd>
-          <dt>readonly attribute boolean _readonly</dt>
-          <dd>
-            <p>If the track (audio or video) source is a local microphone or
-            camera that is shared so that constraints applied to the track
-            cannot modify the source's settings, the <dfn id=
-            "dom-mediastreamtrack-readonly"><code>readonly</code></dfn>
-            attribute MUST return the value <code>true</code>. Otherwise, it
-            must return the value <code>false</code>.</p>
-          </dd>
-          <dt>readonly attribute boolean remote</dt>
-          <dd>
-            <p>If the track is sourced by a non-local source, the <dfn id=
-            "dom-mediastreamtrack-remote"><code>remote</code></dfn> attribute
-            MUST return the value <code>true</code>. Otherwise, it must return
-            the value <code>false</code>.</p>
-          </dd>
           <dt>readonly attribute MediaStreamTrackState readyState</dt>
           <dd>
             <p>The <dfn id=
@@ -1458,9 +1442,7 @@
     over-the-network streams. As a sink, it has source transformational
     capabilities (e.g., lowering bit-rates, scaling-up / down resolutions, and
     adjusting frame-rates), and as a source it could have its own settings
-    changed by a track source (though in this specification sources with the
-    <code><a>remote</a></code> attribute set to true do not consider the
-    current constraints applied to a track).</p>
+    changed by a track source.</p>
     <p>To illustrate how changes to a given source impact various sinks,
     consider the following example. This example only uses width and height,
     but the same principles apply to all of the <a>Settings</a> exposed in this
@@ -4019,9 +4001,6 @@ below dictionary, but instead provide its own definition. See
         <li>adding the new type as an additional legal value for the
         <code><a href="#dom-mediastreamtrack-kind">kind</a></code> attribute on
         the <code><a>MediaStreamTrack</a></code> interface,</li>
-        <li>updating the description of the <code><a href=
-        "#dom-mediastreamtrack-readonly">readonly</a></code> attribute on the
-        <code><a>MediaStreamTrack</a></code> interface,</li>
         <li>adding at least one track source type
         (<code><a>SourceTypeEnum</a></code>),</li>
         <li>defining any constrainable properties (see <a href=
