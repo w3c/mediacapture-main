@@ -19,10 +19,10 @@ var respecConfig = {
    // copyrightStart: "2005",
 
    // if there is a previously published draft, uncomment this and set its YYYY-MM-DD
-   prevED: "http://w3c.github.io/mediacapture-main/archives/20151223/getusermedia.html",
+   prevED: "https://w3c.github.io/mediacapture-main/archives/20151223/getusermedia.html",
 
    // if there a publicly available Editor's Draft, this is the link
-   edDraftURI: "http://w3c.github.io/mediacapture-main/",
+   edDraftURI: "https://w3c.github.io/mediacapture-main/",
 
    // if this is a LCWD, uncomment and set the end of its review period
    // lcEnd: "2009-08-05",
@@ -57,7 +57,7 @@ var respecConfig = {
    wg: ["Web Real-Time Communication Working Group", "Device APIs Working Group"]          ,
 
    // URI of the public WG page
-   wgURI:["http://www.w3.org/2011/04/webrtc/","http://www.w3.org/2009/dap"],
+   wgURI:["https://www.w3.org/2011/04/webrtc/","https://www.w3.org/2009/dap"],
 
    // name (without the @w3.org) of the public mailing to which comments are due
    wgPublicList: "public-media-capture",
@@ -67,7 +67,7 @@ var respecConfig = {
    // This is important for Rec-track documents, do not copy a patent URI from a random
    // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
    // Team Contact.
-   wgPatentURI:   ["http://www.w3.org/2004/01/pp-impl/47318/status","http://www.w3.org/2004/01/pp-impl/43696/status"],
+   wgPatentURI:   ["https://www.w3.org/2004/01/pp-impl/47318/status","https://www.w3.org/2004/01/pp-impl/43696/status"],
    // This spec remains on process 2005 for now
    processVersion: "2005",
    otherLinks: [
@@ -76,7 +76,7 @@ var respecConfig = {
       data: [
         {
           value: "Mailing list",
-          href: "http://lists.w3.org/Archives/Public/public-media-capture/"
+          href: "https://lists.w3.org/Archives/Public/public-media-capture/"
         },
         {
           value: "Browse open issues",
