@@ -2434,6 +2434,19 @@
           devices have the same group identifier if they belong to the same
           physical device; for example a monitor with a built-in camera and
           microphone.</p>
+          <p>This identifier MUST be unique to
+          the page's origin. As long as no local device has been attached to an
+          active MediaStreamTrack in a page from this origin, and no <a href=
+          "#stored-permissions">persistent permission</a> to access local
+          devices has been granted to this origin, then this identifier MUST
+          NOT be reusable after the end of the current browsing session.</p>
+          <p>However, if any local devices have been attached to an active
+          MediaStreamTrack in a page from this origin, or <a href=
+          "#stored-permissions">persistent permission</a> to access local
+          devices has been granted to this origin, then this identifier MUST be
+          persisted across browsing sessions.</p>
+
+
           <p class="fingerprint">Since <code>groupId</code> may persist across
           browsing sessions and to reduce its potential as a fingerprinting
           mechanism, <code>groupId</code> is to be treated as other persistent
