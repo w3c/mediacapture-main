@@ -1217,7 +1217,7 @@
               <td><dfn>groupId</dfn></td>
               <td>DOMString</td>
               <td>
-                The origin and browsing session unique group identifier for
+                The browsing session-unique group identifier for
                 the source of the <a>MediaStreamTrack</a>. Two devices have
                 the same group identifier if they belong to the same physical
                 device; for example, the audio input and output devices
@@ -2323,6 +2323,17 @@
                       <p>Let <var>deviceInfo</var> be a new
                       <code><a>MediaDeviceInfo</a></code> object to represent
                       <var>device</var>.</p>
+                    </li>
+                    <li>
+                      <p>If a stored <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code>
+                      exists for <var>device</var>, initialize
+                      <var>deviceInfo</var>'s <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code> to
+                      that value. Otherwise, let 
+                      <var>deviceInfo</var>'s <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code> 
+                      member be a newly generated unique identifier.</p>
                     </li>
                     <li>
                       <p>If <var>device</var> belongs to the same physical
