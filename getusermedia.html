@@ -2378,12 +2378,8 @@
         <dd>
           <p>A unique identifier for the represented device.</p>
           <p>All enumerable devices have an identifier that MUST be unique to
-          the page's origin. As long as no local device has been attached to an
-          active MediaStreamTrack in a page from this origin, and no <a href=
-          "#stored-permissions">persistent permission</a> to access local
-          devices has been granted to this origin, then this identifier MUST
-          NOT be reusable after the end of the current browsing session.</p>
-          <p>However, if any local devices have been attached to an active
+          the page's origin.</p>
+          <p>If any local devices have been attached to an active
           MediaStreamTrack in a page from this origin, or <a href=
           "#stored-permissions">persistent permission</a> to access local
           devices has been granted to this origin, then this identifier MUST be
