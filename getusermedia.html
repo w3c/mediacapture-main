@@ -2342,8 +2342,9 @@
                   </ol>
                 </li>
                 <li>
-                  If any of the local devices are attached to an active
-                  MediaStream in the current browsing context, set
+                  If any of the local devices are attached to a
+		  <code>live</code>
+                  MediaStreamTrack in the current browsing context, set
                   <var>list-permission</var> to "granted".
 		<li>
 		  If no such device is attached, <a>retrieve the permission
@@ -2740,7 +2741,9 @@
                 </li>
                 <li>
 		  <p><a>Retrieve the permission state</a> for all
-		    candidate devices that are not open in the current
+		    candidate devices that are not attached to a
+		    <code>live</code>
+		    MediaStreamTrack in the current
                     browsing context. Remove from the set any device for
 		    which the permission state is "denied".
 		  </p>
@@ -2774,7 +2777,10 @@
                 </li>
                 <li>
 		  <p><a>Request permission</a> for use of the devices,
-                  resulting in a set of provided media.</p>
+                  while considering
+		  all devices attached to a <code>live</code> MediaStreamTrack
+		  to have permission status "granted", resulting in a set of
+		  provided media.</p>
                   <p>The provided media MUST include precisely one track of
                   each media type in requestedMediaTypes from the
                   <var>finalSet</var>. The decision of which devices to choose
