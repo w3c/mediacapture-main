@@ -2357,11 +2357,6 @@
                   of <var>resultList</var>, and all its elements, where the
                   <code><a href="#widl-MediaDeviceInfo-label">label</a></code>
                   member is the empty string.</p>
-		  <p>Note that if any of the local devices are
-		  attached to an
-		  active <code><a>MediaStreamTrack</a></code> in the
-		  current browsing context, the permission will always
-		  be "granted".</p>
                 </li>
                 <li>
                   <p>If <var>filteredList</var> is a non-empty list, then
@@ -2405,12 +2400,12 @@
         <dd>
           <p>A unique identifier for the represented device.</p>
           <p>All enumerable devices have an identifier that MUST be unique to
-          the page's origin. As long as no local device has been attached to an
-          active MediaStreamTrack in a page from this origin, and no <a href=
+          the page's origin. As long as no local device has been attached to a
+          live MediaStreamTrack in a page from this origin, and no <a href=
           "#stored-permissions">persistent permission</a> to access local
           devices has been granted to this origin, then this identifier MUST
           NOT be reusable after the end of the current browsing session.</p>
-          <p>However, if any local devices have been attached to an active
+          <p>However, if any local devices have been attached to a live
           MediaStreamTrack in a page from this origin, or <a href=
           "#stored-permissions">persistent permission</a> to access local
           devices has been granted to this origin, then this identifier MUST be
