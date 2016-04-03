@@ -1204,24 +1204,34 @@
                 different for other origins. Some sort of GUID is recommended
                 for the identifier. Note that the setting of this property is
                 uniquely determined by the source that is attached to the
-                Track. In particular, <a>getCapabilities()</a> will return only
-                a single value for deviceId. This property can therefore be
-                used for initial media selection with <a>getUserMedia()</a>.
-                However, it is not useful for subsequent media control with
-                <a>applyConstraints()</a>, since any attempt to set a different
-                value will result in an unsatisfiable <a>ConstraintSet</a>.
+                <a>MediaStreamTrack</a>. In particular,
+                <a>getCapabilities()</a> will return only a single value for
+                deviceId. This property can therefore be used for initial media
+                selection with <a>getUserMedia()</a>. However, it is not useful
+                for subsequent media control with <a>applyConstraints()</a>,
+                since any attempt to set a different value will result in an
+                unsatisfiable <a>ConstraintSet</a>.
               </td>
             </tr>
             <tr id="def-constraint-groupId">
               <td><dfn>groupId</dfn></td>
               <td>DOMString</td>
               <td>
-                The origin-unique group identifier for the source of the
-                <a>MediaStreamTrack</a>. Two devices have the same group
-                identifier if they belong to the same physical device; for
-                example, the audio input and output devices representing the
-                speaker and microphone of the same headset would have the same
-                groupId.
+                The browsing session-unique group identifier for
+                the source of the <a>MediaStreamTrack</a>. Two devices have
+                the same group identifier if they belong to the same physical
+                device; for example, the audio input and output devices
+                representing the speaker and microphone of the same headset
+                would have the same groupId. Note that the setting of this
+                property is uniquely determined by the source that is attached
+                to the <a>MediaStreamTrack</a>. In particular,
+                <a>getCapabilities()</a> will return only a single value for
+                groupId. Since this property is not stable between browsing
+                sessions its usefulness for initial media selection with
+                <a>getUserMedia()</a> is limited. It is not useful for
+                subsequent media control with <a>applyConstraints()</a>,
+                since any attempt to set a different value will result in an
+                unsatisfiable <a>ConstraintSet</a>.
               </td>
             </tr>
           </tbody>
@@ -2322,6 +2332,17 @@
                       <var>device</var>.</p>
                     </li>
                     <li>
+                      <p>If a stored <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code>
+                      exists for <var>device</var>, initialize
+                      <var>deviceInfo</var>'s <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code> to
+                      that value. Otherwise, let 
+                      <var>deviceInfo</var>'s <code><a href=
+                      "#widl-MediaDeviceInfo-deviceId">deviceId</a></code> 
+                      member be a newly generated unique identifier.</p>
+                    </li>
+                    <li>
                       <p>If <var>device</var> belongs to the same physical
                       device as a device already represented in
                       <var>oldList</var> or <var>resultList</var>, initialize
@@ -2438,13 +2459,7 @@
           devices have the same group identifier if they belong to the same
           physical device; for example a monitor with a built-in camera and
           microphone.</p>
-          <p class="fingerprint">Since <code>groupId</code> may persist across
-          browsing sessions and to reduce its potential as a fingerprinting
-          mechanism, <code>groupId</code> is to be treated as other persistent
-          storage mechanisms such as cookies [[COOKIES]]. User agents MUST
-          reset per-origin device identifiers when other persistent storages
-          are cleared.</p>
-        </dd>
+       </dd>
         <dt>serializer = { attribute }</dt>
       </dl>
       <dl class="idl" title="enum MediaDeviceKind">
@@ -3951,9 +3966,9 @@ below dictionary, but instead provide its own definition. See
     identifiers for the devices are designed to not be useful for a fingerprint
     that can track the user between origins, but the number and grouping of
     devices adds to the fingerprint surface. It recommends to treat the
-    per-origin persistent identifier <code>deviceId</code> and
-    <code>groupId</code> as other persistent storages (e.g. cookies) are
-    treated.</p>
+    per-origin persistent identifier <code>deviceId</code> as other persistent
+    storages (e.g. cookies) are treated.</p>
+
     <p>When authorization is given, this document describes how to get access
     to, and use, media data from the devices mentioned. This data may be
     sensitive; advice is given that indicators should be supplied to indicate
