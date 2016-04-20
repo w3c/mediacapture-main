@@ -1068,42 +1068,62 @@
         appropriate type.</p>
         <dl class="idl" title="dictionary MediaTrackCapabilities">
           <dt>(long or LongRange) width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>(long or LongRange) height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>sequence&lt;DOMString&gt; facingMode</dt>
           <dd>
             <p>A camera can report multiple facing modes. For example, in a
             high-end telepresence solution with several cameras facing the
             user, a camera to the left of the user can report both "left" and
-            "user".</p>
+            "user".  See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+            for additional details.</p>
           </dd>
           <dt>(double or DoubleRange) volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>sequence&lt;boolean&gt; echoCancellation</dt>
           <dd>
             <p>If the source cannot do echo cancellation a single
             <code>false</code> is reported. If echo cancellation cannot be
             turned off, a single <code>true</code> is reported. If the script
             can control the feature, the source reports a list with both
-            <code>true</code> and <code>false</code> as possible values.</p>
+            <code>true</code> and <code>false</code> as possible values.
+            See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for additional details.</dd>
           </dd>
           <dt>(double or DoubleRange) latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>(long or LongRange) channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>DOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>DOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-constraints">
