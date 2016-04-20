@@ -2422,12 +2422,12 @@
           <p>All enumerable devices have an identifier that MUST be unique to
           the page's origin. As long as no local device has been attached to a
           live MediaStreamTrack in a page from this origin, and no <a href=
-          "#stored-permissions">persistent permission</a> to access local
+          "#stored-permissions">stored permission</a> to access local
           devices has been granted to this origin, then this identifier MUST
           NOT be reusable after the end of the current browsing session.</p>
           <p>However, if any local devices have been attached to a live
           MediaStreamTrack in a page from this origin, or <a href=
-          "#stored-permissions">persistent permission</a> to access local
+          "#stored-permissions">stored permission</a> to access local
           devices has been granted to this origin, then this identifier MUST be
           persisted across browsing sessions.</p>
           <p>Unique and stable identifiers let the application save, identify
@@ -3997,7 +3997,8 @@ below dictionary, but instead provide its own definition. See
     the user, which increases the surface available for fingerprinting. The
     User Agent should consider limiting the rate at which failed getUserMedia
     calls are allowed in order to limit this additional surface.</p>
-    <p>In the case of persistent authorization, it is important that it is easy
+    <p>In the case of persistent authorization via a stored permission,
+    it is important that it is easy
     to find the list of granted permissions and revoke permissions that the
     user wishes to revoke.</p>
     <p>Once permission has been granted, the User Agent should make two things
@@ -4019,7 +4020,7 @@ below dictionary, but instead provide its own definition. See
       automatically set up calls and transmit audio/video to
       <code><var>user</var></code>, it would be open for instance to the
       following abuse:</p>
-      <p>Users who have granted permanent permissions to
+      <p>Users who have granted stored permissions to
       <code>https://webrtc.example.org/</code> could be tricked to send their
       audio/video streams to an attacker <code>EvilSpy</code> by following a
       link or being redirected to
