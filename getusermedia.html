@@ -2267,10 +2267,15 @@
       <p>The <code>MediaDevices</code> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
-      <p>When a new media input or output device is made available, the User
+      <p>When a new media input or output device is made available, and if
+      the <a data-lt="retrieve the permission state">permission state</a> of
+      the "list-devices" permission is "granted", the User
       Agent MUST queue a task that fires a simple event named <code><a href=
       "#event-mediadevices-devicechange">devicechange</a></code> at the
-      <code><a>MediaDevices</a></code> object.</p>
+      <code><a>MediaDevices</a></code> object. These events are potentially
+      triggered simultaneously across browsing contexts on different origins;
+      user agents can add fuzzing on the timing of events to avoid cross-origin
+      activity correlation.</p>
       <dl class="idl" title=
       "[Exposed=Window] interface MediaDevices : EventTarget">
         <dt>attribute EventHandler ondevicechange</dt>
@@ -3984,6 +3989,11 @@ below dictionary, but instead provide its own definition. See
     cases, the labels are persistent across browsing sessions and across
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
+    <p>For origins to which permission has been granted, the <code><a>devicechange</a></code>
+    event will be emitted across browsing contexts and origins each time a new
+    media device is added or removed; user agents can mitigate the risk of
+    correlation of browsing activity across origins by fuzzing the timing of
+    these events.</p>
     <p>Once a developer gains access to a media stream from a capture device,
     the developer also gains access to detailed information about the device,
     including its range of operating capabilities (e.g. available resolutions
@@ -4124,7 +4134,7 @@ below dictionary, but instead provide its own definition. See
     <p>This section will be removed before publication.</p>
     <h2>Changes since April 6, 2016</h2>
     <ol>
-      <li></li>
+      <li>[#333] Restrict devicechange event to apps with list-devices permission</li>
     </ol>
     <h2>Changes since February 22, 2016</h2>
     <ol>
