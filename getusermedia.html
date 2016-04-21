@@ -1011,31 +1011,51 @@
         type boolean.</p>
         <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
           <dt>boolean width = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>boolean height = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>boolean aspectRatio = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>boolean frameRate = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>boolean facingMode = true</dt>
-          <dd></dd>
+          <dd>See
+	    <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>boolean volume = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>boolean sampleRate = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>boolean sampleSize = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>boolean echoCancellation = true</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code>
+          for details.</dd>
           <dt>boolean latency = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>boolean channelCount = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>boolean deviceId = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>boolean groupId = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-capabilities">
@@ -1048,42 +1068,62 @@
         appropriate type.</p>
         <dl class="idl" title="dictionary MediaTrackCapabilities">
           <dt>(long or LongRange) width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>(long or LongRange) height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>sequence&lt;DOMString&gt; facingMode</dt>
           <dd>
             <p>A camera can report multiple facing modes. For example, in a
             high-end telepresence solution with several cameras facing the
             user, a camera to the left of the user can report both "left" and
-            "user".</p>
+            "user".  See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+            for additional details.</p>
           </dd>
           <dt>(double or DoubleRange) volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>sequence&lt;boolean&gt; echoCancellation</dt>
           <dd>
             <p>If the source cannot do echo cancellation a single
             <code>false</code> is reported. If echo cancellation cannot be
             turned off, a single <code>true</code> is reported. If the script
             can control the feature, the source reports a list with both
-            <code>true</code> and <code>false</code> as possible values.</p>
+            <code>true</code> and <code>false</code> as possible values.
+            See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for additional details.</p>
           </dd>
           <dt>(double or DoubleRange) latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>(long or LongRange) channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>DOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>DOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-constraints">
@@ -1101,31 +1141,50 @@
         appropriate type.</p>
         <dl class="idl" title="dictionary MediaTrackConstraintSet">
           <dt>ConstrainLong width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>ConstrainLong height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>ConstrainDouble aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>ConstrainDouble frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString facingMode</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>ConstrainDouble volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>ConstrainLong sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>ConstrainLong sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>ConstrainBoolean echoCancellation</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for details.</dd>
           <dt>ConstrainDouble latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>ConstrainLong channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-settings">
@@ -1137,31 +1196,50 @@
         type.</p>
         <dl class="idl" title="dictionary MediaTrackSettings">
           <dt>long width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>long height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>double aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>double frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>DOMString facingMode</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>double volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>long sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>long sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>boolean echoCancellation</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for details.</dd>
           <dt>double latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>long channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>DOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>DOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section>
