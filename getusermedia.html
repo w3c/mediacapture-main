@@ -2147,41 +2147,6 @@
         </dd>
       </dl>
     </section>
-    <section>
-      <h3>Error names</h3>
-      <p class="note">There is a known issue with this table of error names,
-      because <code>MediaStreamError</code> has been removed but is still
-      needed in the legacy, callback-based getUserMedia interface. This issue
-      will be fixed through resolution of <a href=
-      "https://github.com/w3c/mediacapture-main/pull/216">PR #216</a>.</p>
-      <p>The table below lists the error names defined in this
-      specification.</p>
-      <table>
-        <caption>
-          Error names
-        </caption>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><code>OverconstrainedError</code></th>
-            <td>
-              One of the mandatory <a>Constraints</a> could not be satisfied.
-            </td>
-            <td>
-              The <code>constraint</code> attribute is set to the name of any
-              one of the constraints that caused the error, if any, as
-              described in the <a>SelectSettings</a> algorithm
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
   </section>
   <section class="informative">
     <h2>Event summary</h2>
@@ -4178,6 +4143,7 @@ below dictionary, but instead provide its own definition. See
     <ol>
       <li>[#333] Restrict devicechange event to apps with list-devices permission</li>
       <li>[#338] Make ended event a simple event</li>
+      <li>[#342] Remove obsolte error names table</li>
     </ol>
     <h2>Changes since February 22, 2016</h2>
     <ol>
