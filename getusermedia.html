@@ -1010,31 +1010,51 @@
         type boolean.</p>
         <dl class="idl" title="dictionary MediaTrackSupportedConstraints">
           <dt>boolean width = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>boolean height = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>boolean aspectRatio = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>boolean frameRate = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>boolean facingMode = true</dt>
-          <dd></dd>
+          <dd>See
+	    <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>boolean volume = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>boolean sampleRate = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>boolean sampleSize = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>boolean echoCancellation = true</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code>
+          for details.</dd>
           <dt>boolean latency = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>boolean channelCount = true</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>boolean deviceId = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>boolean groupId = true</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-capabilities">
@@ -1047,42 +1067,62 @@
         appropriate type.</p>
         <dl class="idl" title="dictionary MediaTrackCapabilities">
           <dt>(long or LongRange) width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>(long or LongRange) height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>(double or DoubleRange) frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>sequence&lt;DOMString&gt; facingMode</dt>
           <dd>
             <p>A camera can report multiple facing modes. For example, in a
             high-end telepresence solution with several cameras facing the
             user, a camera to the left of the user can report both "left" and
-            "user".</p>
+            "user".  See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+            for additional details.</p>
           </dd>
           <dt>(double or DoubleRange) volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>(long or LongRange) sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>sequence&lt;boolean&gt; echoCancellation</dt>
           <dd>
             <p>If the source cannot do echo cancellation a single
             <code>false</code> is reported. If echo cancellation cannot be
             turned off, a single <code>true</code> is reported. If the script
             can control the feature, the source reports a list with both
-            <code>true</code> and <code>false</code> as possible values.</p>
+            <code>true</code> and <code>false</code> as possible values.
+            See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for additional details.</p>
           </dd>
           <dt>(double or DoubleRange) latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>(long or LongRange) channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>DOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>DOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-constraints">
@@ -1100,31 +1140,50 @@
         appropriate type.</p>
         <dl class="idl" title="dictionary MediaTrackConstraintSet">
           <dt>ConstrainLong width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>ConstrainLong height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>ConstrainDouble aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>ConstrainDouble frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString facingMode</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>ConstrainDouble volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>ConstrainLong sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>ConstrainLong sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>ConstrainBoolean echoCancellation</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for details.</dd>
           <dt>ConstrainDouble latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>ConstrainLong channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>ConstrainDOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section id="media-track-settings">
@@ -1136,31 +1195,50 @@
         type.</p>
         <dl class="idl" title="dictionary MediaTrackSettings">
           <dt>long width</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-width">width</a></code>
+          for details.</dd>
           <dt>long height</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-height">height</a></code>
+          for details.</dd>
           <dt>double aspectRatio</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-aspect">aspectRatio</a></code>
+          for details.</dd>
           <dt>double frameRate</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-frameRate">frameRate</a></code>
+          for details.</dd>
           <dt>DOMString facingMode</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-facingMode">facingMode</a></code>
+          for details.</dd>
           <dt>double volume</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-volume">volume</a></code>
+          for details.</dd>
           <dt>long sampleRate</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleRate">sampleRate</a></code>
+          for details.</dd>
           <dt>long sampleSize</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-sampleSize">sampleSize</a></code>
+          for details.</dd>
           <dt>boolean echoCancellation</dt>
-          <dd></dd>
+          <dd>See
+            <code>
+              <a href="#def-constraint-echoCancellation">echoCancellation</a>
+            </code> for details.</dd>
           <dt>double latency</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-latency">latency</a></code>
+          for details.</dd>
           <dt>long channelCount</dt>
-          <dd></dd>
+          <dd>See
+            <code><a href="#def-constraint-channelCount">channelCount</a></code>
+          for details.</dd>
           <dt>DOMString deviceId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-deviceId">deviceId</a></code>
+          for details.</dd>
           <dt>DOMString groupId</dt>
-          <dd></dd>
+          <dd>See <code><a href="#def-constraint-groupId">groupId</a></code>
+          for details.</dd>
         </dl>
       </section>
       <section>
@@ -2068,74 +2146,6 @@
         </dd>
       </dl>
     </section>
-    <section>
-      <h3>ErrorEvent</h3>
-      <p>The following interface is defined for cases when an event is raised
-      that could have been caused by an error:</p>
-      <p><dfn data-lt="Fire an error event">Firing an error event named
-      <var>e</var></dfn> with an <code>Error</code> <var>error</var> means that
-      an event with the name <var>e</var>, which does not bubble (except where
-      otherwise stated) and is not cancelable (except where otherwise stated),
-      and which uses the <code><a>ErrorEvent</a></code> interface with the
-      <code><a href="#widl-ErrorEvent-error">error</a></code> attribute set to
-      <var>error</var>, MUST be created and dispatched at the given target. If
-      no <code>Error</code> object is specified, the <code><a href=
-      "#widl-ErrorEvent-error">error</a></code> attribute defaults to null.</p>
-      <dl class="idl" data-merge="ErrorEventInit" title=
-      "[Exposed=Window] interface ErrorEvent : Event">
-        <dt>Constructor(DOMString type, ErrorEventInit eventInitDict)</dt>
-        <dd>
-          <p>Constructs a new <code><a>ErrorEvent</a></code>.</p>
-        </dd>
-        <dt>readonly attribute Error? error</dt>
-        <dd>
-          <p>If the event was raised because of an error, this attribute may be
-          set to that error object.</p>
-        </dd>
-      </dl>
-      <dl class="idl" title="dictionary ErrorEventInit : EventInit">
-        <dt>Error? error = null</dt>
-        <dd>
-          <p>If the event was raised because of an error, this attribute may be
-          set to that error object.</p>
-        </dd>
-      </dl>
-    </section>
-    <section>
-      <h3>Error names</h3>
-      <p class="note">There is a known issue with this table of error names,
-      because <code>MediaStreamError</code> has been removed but is still
-      needed in the legacy, callback-based getUserMedia interface. This issue
-      will be fixed through resolution of <a href=
-      "https://github.com/w3c/mediacapture-main/pull/216">PR #216</a>.</p>
-      <p>The table below lists the error names defined in this
-      specification.</p>
-      <table>
-        <caption>
-          Error names
-        </caption>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th><code>OverconstrainedError</code></th>
-            <td>
-              One of the mandatory <a>Constraints</a> could not be satisfied.
-            </td>
-            <td>
-              The <code>constraint</code> attribute is set to the name of any
-              one of the constraints that caused the error, if any, as
-              described in the <a>SelectSettings</a> algorithm
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
   </section>
   <section class="informative">
     <h2>Event summary</h2>
@@ -2209,15 +2219,12 @@
         </tr>
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
-          <td><code><a>ErrorEvent</a></code></td>
+          <td><code>Event</code></td>
           <td>
             <p>The <code><a>MediaStreamTrack</a></code> object's source will no
             longer provide any data, either because the user revoked the
             permissions, or because the source device has been ejected, or
             because the remote peer permanently stopped sending data.</p>
-            <p>When the end of MediaStreamTrack is the result of an error, the
-            <code>error</code> attribute of the event object is set to describe
-            the said error.</p>
           </td>
         </tr>
       </tbody>
@@ -2266,10 +2273,15 @@
       <p>The <code>MediaDevices</code> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
-      <p>When a new media input or output device is made available, the User
+      <p>When a new media input or output device is made available, and if
+      the <a data-lt="retrieve the permission state">permission state</a> of
+      the "list-devices" permission is "granted", the User
       Agent MUST queue a task that fires a simple event named <code><a href=
       "#event-mediadevices-devicechange">devicechange</a></code> at the
-      <code><a>MediaDevices</a></code> object.</p>
+      <code><a>MediaDevices</a></code> object. These events are potentially
+      triggered simultaneously across browsing contexts on different origins;
+      user agents can add fuzzing on the timing of events to avoid cross-origin
+      activity correlation.</p>
       <dl class="idl" title=
       "[Exposed=Window] interface MediaDevices : EventTarget">
         <dt>attribute EventHandler ondevicechange</dt>
@@ -3983,6 +3995,11 @@ below dictionary, but instead provide its own definition. See
     cases, the labels are persistent across browsing sessions and across
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
+    <p>For origins to which permission has been granted, the <code><a>devicechange</a></code>
+    event will be emitted across browsing contexts and origins each time a new
+    media device is added or removed; user agents can mitigate the risk of
+    correlation of browsing activity across origins by fuzzing the timing of
+    these events.</p>
     <p>Once a developer gains access to a media stream from a capture device,
     the developer also gains access to detailed information about the device,
     including its range of operating capabilities (e.g. available resolutions
@@ -4125,7 +4142,10 @@ below dictionary, but instead provide its own definition. See
     <p>This section will be removed before publication.</p>
     <h2>Changes since April 6, 2016</h2>
     <ol>
-      <li>[#334] Clarify language around stored permission and revocation</li>
+      <li>[#333] Restrict devicechange event to apps with list-devices permission</li>
+      <li>[#338] Make ended event a simple event</li>
+      <li>[#342] Remove obsolte error names table</li>
+      <li>[#343] Clarify language around stored permission and revocation</li>
     </ol>
     <h2>Changes since February 22, 2016</h2>
     <ol>
