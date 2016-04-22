@@ -182,8 +182,7 @@
         <p>
           The terms <dfn>permission</dfn>, <dfn>retrieve the permission
             state</dfn>, <dfn id="request-permission">request
-            permission</dfn>, <dfn id="delete-permission">delete a
-            permission storage entry</dfn> and <dfn id="create-permission">
+            permission</dfn> and <dfn id="create-permission">
             create a permission storage entry</dfn> are
           defined in [[!permissions]].
           </p>
@@ -2435,12 +2434,12 @@
           <p>All enumerable devices have an identifier that MUST be unique to
           the page's origin. As long as no local device has been attached to a
           live MediaStreamTrack in a page from this origin, and no <a href=
-          "#stored-permissions">persistent permission</a> to access local
+          "#stored-permissions">stored permission</a> to access local
           devices has been granted to this origin, then this identifier MUST
           NOT be reusable after the end of the current browsing session.</p>
           <p>However, if any local devices have been attached to a live
           MediaStreamTrack in a page from this origin, or <a href=
-          "#stored-permissions">persistent permission</a> to access local
+          "#stored-permissions">stored permission</a> to access local
           devices has been granted to this origin, then this identifier MUST be
           persisted across browsing sessions.</p>
           <p>Unique and stable identifiers let the application save, identify
@@ -4015,7 +4014,8 @@ below dictionary, but instead provide its own definition. See
     the user, which increases the surface available for fingerprinting. The
     User Agent should consider limiting the rate at which failed getUserMedia
     calls are allowed in order to limit this additional surface.</p>
-    <p>In the case of persistent authorization, it is important that it is easy
+    <p>In the case of persistent authorization via a stored permission,
+    it is important that it is easy
     to find the list of granted permissions and revoke permissions that the
     user wishes to revoke.</p>
     <p>Once permission has been granted, the User Agent should make two things
@@ -4027,8 +4027,9 @@ below dictionary, but instead provide its own definition. See
       indicator</li>
     </ul>
     <div class="note">
-      <p>Developers of sites with persistent permissions should be careful that
-      these permissions not be abused.</p>
+      <p>Developers of sites with stored permissions should be careful that
+        these permissions not be abused. These permissions can be revoked using
+        the [[permissions]] API.</p>
       <p>In particular, they should not make it possible to automatically send
       audio or video streams from authorized media devices to an end point that
       a third party can select.</p>
@@ -4037,7 +4038,7 @@ below dictionary, but instead provide its own definition. See
       automatically set up calls and transmit audio/video to
       <code><var>user</var></code>, it would be open for instance to the
       following abuse:</p>
-      <p>Users who have granted permanent permissions to
+      <p>Users who have granted stored permissions to
       <code>https://webrtc.example.org/</code> could be tricked to send their
       audio/video streams to an attacker <code>EvilSpy</code> by following a
       link or being redirected to
@@ -4144,6 +4145,7 @@ below dictionary, but instead provide its own definition. See
       <li>[#333] Restrict devicechange event to apps with list-devices permission</li>
       <li>[#338] Make ended event a simple event</li>
       <li>[#342] Remove obsolte error names table</li>
+      <li>[#343] Clarify language around stored permission and revocation</li>
     </ol>
     <h2>Changes since February 22, 2016</h2>
     <ol>
