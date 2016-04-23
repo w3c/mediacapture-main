@@ -981,23 +981,6 @@
           </dd>
         </dl>
       </section>
-      <section>
-        <h2>Track Source Types</h2>
-        <dl class="idl" title="enum SourceTypeEnum">
-          <dt>camera</dt>
-          <dd>
-            <p>A valid source type only for video
-            <code><a>MediaStreamTrack</a></code> s. The source is a local
-            video-producing camera source.</p>
-          </dd>
-          <dt>microphone</dt>
-          <dd>
-            <p>A valid source type only for audio
-            <code><a>MediaStreamTrack</a></code> s. The source is a local
-            audio-producing microphone source.</p>
-          </dd>
-        </dl>
-      </section>
       <section id="media-track-supported-constraints">
         <h2>MediaTrackSupportedConstraints</h2>
         <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
@@ -1256,21 +1239,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr id="def-constraint-sourceType">
-              <td><dfn>sourceType</dfn></td>
-              <td><code><a>SourceTypeEnum</a></code></td>
-              <td>
-                The type of the source of the <a>MediaStreamTrack</a>. Note
-                that the setting of this property is uniquely determined by the
-                source that is attached to the Track. In particular,
-                <a>getCapabilities()</a> will return only a single value for
-                sourceType. This property can therefore be used for initial
-                media selection with <a>getUserMedia()</a>. However, it is not
-                useful for subsequent media control with
-                <a>applyConstraints()</a>, since any attempt to set a different
-                value will result in an unsatisfiable <a>ConstraintSet</a>.
-              </td>
-            </tr>
             <tr id="def-constraint-deviceId">
               <td><dfn>deviceId</dfn></td>
               <td>DOMString</td>
@@ -4073,8 +4041,6 @@ below dictionary, but instead provide its own definition. See
         <li>adding the new type as an additional legal value for the
         <code><a href="#dom-mediastreamtrack-kind">kind</a></code> attribute on
         the <code><a>MediaStreamTrack</a></code> interface,</li>
-        <li>adding at least one track source type
-        (<code><a>SourceTypeEnum</a></code>),</li>
         <li>defining any constrainable properties (see <a href=
         "#constrainable-properties"></a>) that are applicable to the media
         type,
