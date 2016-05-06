@@ -2711,36 +2711,42 @@
                       satisfy the constraints, by verifying that at least one
                       settings dictionary exists that satisfies the
                       constraints.</p>
+                      <p>If <var>finalSet</var> is the empty set, let
+			<var>constraint</var> be any required constraint whose
+			fitness distance was infinity for all settings
+			dictionaries examined while executing the
+			<code><a>SelectSettings</a></code> algorithm, let
+			<var>message</var> be either <code>undefined</code>
+			or an informative human-readable message, and reject
+			<var>p</var> with a new
+			<code><a>OverconstrainedError</a></code> created
+			by calling 
+			<code>OverconstrainedError(<var>constraint</var>,
+			  <var>message</var>)</code>, then abort these steps.
+		      </p>
+                      <p class="fingerprint">This error gives information about
+			what the underlying device is not capable of producing,
+			before the user has given any authorization to any
+			device,
+			and can thus be used as a fingerprinting surface.
+		      </p>
                     </li>
+		    <li>
+		    <p><a>Retrieve the permission state</a> for all
+		      candidate devices that are not attached to a
+		      <code>live</code>
+		      MediaStreamTrack in the current
+                      browsing context. Remove from <var>finalSet</var> any
+		      device for which the permission state is "denied".
+		    </p>
+		    <p>
+		      If <var>finalSet</var> is now empty, indicating that
+		      all devices of this type are in state "denied", jump
+		      to the step labeled <em>PermissionFailure</em> below.
+		    </p>
+		    </li>
                   </ol>
-                  <p>If <var>finalSet</var> is the empty set, let
-                  <var>constraint</var> be any required constraint whose
-                  fitness distance was infinity for all settings dictionaries
-                  examined while executing the
-                  <code><a>SelectSettings</a></code> algorithm, let
-                  <var>message</var> be either <code>undefined</code> or an
-                  informative human-readable message, and reject <var>p</var>
-                  with a new <code><a>OverconstrainedError</a></code> created
-                  by calling <code>OverconstrainedError(<var>constraint</var>,
-                  <var>message</var>)</code>, then abort these steps.</p>
-                  <p class="fingerprint">This error gives information about
-                  what the underlying device is not capable of producing,
-                  before the user has given any authorization to any device,
-                  and can thus be used as a fingerprinting surface.</p>
                 </li>
-                <li>
-		  <p><a>Retrieve the permission state</a> for all
-		    candidate devices that are not attached to a
-		    <code>live</code>
-		    MediaStreamTrack in the current
-                    browsing context. Remove from the set any device for
-		    which the permission state is "denied".
-		  </p>
-		  <p>
-		    If the set is now empty, jump to the step labeled
-		    <em>Permission Failure</em> below.
-		  </p>
-		</li>
                 <li>
                   <p>Optionally, e.g., based on a previously-established user
                   preference, for security reasons, or due to platform
