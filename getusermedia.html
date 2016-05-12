@@ -2706,12 +2706,12 @@
                       <p>Run the <code><a>SelectSettings</a></code> algorithm
                       on each track in <var>CandidateSet</var> with
                       <var>CS</var> as the constraint set. If the algorithm
-                      does not return <code>undefined</code>, add the track to
-                      <var>finalSet</var>. This eliminates devices unable to
+                      returns <code>undefined</code>, remove the track from
+                      <var>candidateSet</var>. This eliminates devices unable to
                       satisfy the constraints, by verifying that at least one
                       settings dictionary exists that satisfies the
                       constraints.</p>
-                      <p>If <var>finalSet</var> is the empty set, let
+                      <p>If <var>candidateSet</var> is the empty set, let
 			<var>constraint</var> be any required constraint whose
 			fitness distance was infinity for all settings
 			dictionaries examined while executing the
@@ -2733,17 +2733,22 @@
                     </li>
 		    <li>
 		    <p><a>Retrieve the permission state</a> for all
-		      candidate devices that are not attached to a
-		      <code>live</code>
+		      candidate devices in <var>candidateSet</var> that are
+		      not attached to a <code>live</code>
 		      MediaStreamTrack in the current
-                      browsing context. Remove from <var>finalSet</var> any
+                      browsing context. Remove from <var>candidateSet</var> any
 		      device for which the permission state is "denied".
 		    </p>
 		    <p>
-		      If <var>finalSet</var> is now empty, indicating that
+		      If <var>candidateSet</var> is now empty, indicating that
 		      all devices of this type are in state "denied", jump
 		      to the step labeled <em>PermissionFailure</em> below.
 		    </p>
+		    </li>
+		    <li>
+		      <p>Add all tracks from <var>candidateSet</var> to
+			<var>finalSet</var>.
+		      </p>
 		    </li>
                   </ol>
                 </li>
