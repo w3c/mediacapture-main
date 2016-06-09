@@ -1529,7 +1529,7 @@
     connected to two <code>&lt;video&gt;</code> element sinks (Y and
     Z).</p><img alt=
     "Changing media stream source effects: before the requested change" src=
-    "images/change_states_before.png">
+    "images/change_states_before.svg">
     <p>Note that at this moment, all of the sinks on the home client must apply
     a transformation to the original source's provided dimension settings. B is
     scaling the video down, A is scaling the video up (resulting in loss of
@@ -1540,7 +1540,7 @@
     of the tracks wants a higher resolution (1920 by 1200 pixels) from the home
     client's video source.</p><img alt=
     "Changing media stream source effects: after the requested change" src=
-    "images/change_states_after.png">
+    "images/change_states_after.svg">
     <p>Note that the source change immediately affects all of the tracks and
     sinks on the home client, but does not impact any of the sinks (or sources)
     on the remote client. With the increase in the home client source video's
@@ -1577,7 +1577,7 @@
     result, is scaling the video down to fit its rectangle of 320 pixels across
     by 200 pixels down.</p><img alt=
     "Changing media stream sinks may affect sources: before the requested change"
-    src="images/change_states_before2.png">
+    src="images/change_states_before2.svg">
     <p>When the application changes sink A to a smaller dimension (from 1920 to
     1024 pixels wide and from 1200 to 768 pixels tall), the browser's media
     pipeline may recognize that none of its sinks require the higher source
@@ -1586,7 +1586,7 @@
     source to continue producing the higher resolution video, the media
     pipeline MAY change the source resolution:</p><img alt=
     "Changing media stream sinks may affect sources: after the requested change"
-    src="images/change_states_after2.png">
+    src="images/change_states_after2.svg">
     <p>In the above figure, the home client's video source resolution was
     changed to the greater of that from sink A and B in order to optimize
     playback. While not shown above, the same behavior could apply to peer
@@ -1607,7 +1607,7 @@
     connected to sink P. Sink P has a width and height equal to that of the
     source.</p>
     <p><img alt="Overconstrained application" src=
-    "images/overconstrained_apply.png"></p>
+    "images/overconstrained_apply.svg"></p>
     <p>Now, the first track adds a mandatory constraint that the fill light
     should be forced on. At this point, both mandatory constraints cannot be
     satisfied by the source (the fill light cannot be simultaneously on and off
@@ -1626,7 +1626,7 @@
     adjusts its resolution down to match (this is an optional optimization that
     the User Agent is allowed to make given the situation).</p>
     <p><img alt="Overconstrained occurrence" src=
-    "images/overconstrained_occurrence.png"></p>
+    "images/overconstrained_occurrence.svg"></p>
     <p>At this point, it is the responsibility of the application to address
     the problem that led to the overconstrained situation, perhaps by removing
     the fill light mandatory constraint on the second track or by closing the

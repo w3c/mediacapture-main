@@ -1,11 +1,11 @@
 getusermedia.html?specStatus=WD;shortName=mediacapture-streams respec
 getusermedia.js
 getusermedia.css
-images/change_states_before.png
-images/change_states_after.png
-images/change_states_before2.png
-images/change_states_after2.png
-images/overconstrained_apply.png
-images/overconstrained_occurrence.png
+images/change_states_before.svg
+images/change_states_after.svg
+images/change_states_before2.svg
+images/change_states_after2.svg
+images/overconstrained_apply.svg
+images/overconstrained_occurrence.svg
 images/camera-names-exp.svg
 images/fingerprint.png
