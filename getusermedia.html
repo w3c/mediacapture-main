@@ -2870,9 +2870,11 @@ interface NavigatorUserMedia {
       <p>The <code>MediaDevices</code> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
-      <p>When new media input and/or output devices are made available, and if the
+      <p>When new media input and/or output devices are made available, and if either the
       <a data-lt="retrieve the permission state">permission state</a> of the
-      "list-devices" permission is "granted", the User Agent MUST queue a task
+      "list-devices" permission is "granted" or any of the local devices are
+      attached to an active MediaStream in the current browsing context, then
+      the User Agent MUST queue a task
       that fires a simple event named <code><a href=
       "#event-mediadevices-devicechange">devicechange</a></code> at the
       <code><a>MediaDevices</a></code> object. The User Agent MAY fire just a
