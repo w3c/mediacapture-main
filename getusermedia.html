@@ -3069,29 +3069,33 @@ interface MediaDeviceInfo {
             <dd>
               <p>A unique identifier for the represented device.</p>
               <p>All enumerable devices have an identifier that MUST be unique
-              to the page's origin. As long as no local device has been
-              attached to a live MediaStreamTrack in a page from this origin,
-              and no <a href="#stored-permissions">stored permission</a> to
-              access local devices has been granted to this origin, then this
-              identifier MUST NOT be reusable after the end of the current
-              browsing session.</p>
-              <p>However, if any local devices have been attached to a live
-              MediaStreamTrack in a page from this origin, or <a href=
-              "#stored-permissions">stored permission</a> to access local
-              devices has been granted to this origin, then this identifier
-              MUST be persisted across browsing sessions.</p>
-              <p>Unique and stable identifiers let the application save,
-              identify the availability of, and directly request specific
-              sources.</p>
-              <p>This identifier MUST be un-guessable by applications of other
-              origins to prevent the identifier being used to correlate the
-              same user across different origins.</p>
+              to the page's origin. This identifier MUST be un-guessable by
+              applications of other origins to prevent the identifier from being
+              used to correlate the same user across different origins.</p>
+              <p>If any local devices have been attached to a live
+              MediaStreamTrack in a page from this origin, or
+              <a href="#stored-permissions">stored permission</a> to access
+              local devices has been granted to this origin, then this
+              identifier MUST be persisted, except as detailed below.
+              Unique and stable identifiers let
+              the application save, identify the availability of, and directly
+              request specific sources, across multiple visits.</p>
+              <p>However, as long as no local device has been attached to a live
+              MediaStreamTrack in a page from this origin, and no
+              <a href="#stored-permissions">stored permission</a> to access
+              local devices has been granted to this origin, then the user agent
+              MAY clear this identifier once the last browsing session from this
+              origin has been closed.  If the user agent chooses not to clear the
+              identifier in this condition, then it MUST provide for the user to
+              visibly inspect and delete the identifier, like a cookie.</p>
               <p class="fingerprint">Since <code>deviceId</code> may persist
               across browsing sessions and to reduce its potential as a
               fingerprinting mechanism, <code>deviceId</code> is to be treated
               as other persistent storage mechanisms such as cookies
-              [[COOKIES]]. User agents MUST reset per-origin device identifiers
-              when other persistent storages are cleared.</p>
+              [[COOKIES]], in that user agents MUST NOT persist device identifiers for
+              sites that are blocked from using cookies, and user agents MUST
+              reset per-origin device identifiers when other persistent storage
+              are cleared.</p>
             </dd>
             <dt><dfn><code>kind</code></dfn> of type <span class=
             "idlAttrType"><a>MediaDeviceKind</a></span>, readonly</dt>
@@ -4947,7 +4951,7 @@ below dictionary, but instead provide its own definition. See
     that can track the user between origins, but the number and grouping of
     devices adds to the fingerprint surface. It recommends to treat the
     per-origin persistent identifier <code>deviceId</code> as other persistent
-    storages (e.g. cookies) are treated.</p>
+    storage (e.g. cookies) are treated.</p>
     <p>When authorization is given, this document describes how to get access
     to, and use, media data from the devices mentioned. This data may be
     sensitive; advice is given that indicators should be supplied to indicate
