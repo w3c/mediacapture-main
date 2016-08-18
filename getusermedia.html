@@ -3402,7 +3402,7 @@ interface MediaDeviceInfo {
       <div>
         <pre class="idl">partial interface MediaDevices {
     MediaTrackSupportedConstraints getSupportedConstraints ();
-    Promise&lt;MediaStream&gt;           getUserMedia (MediaStreamConstraints constraints);
+    Promise&lt;MediaStream&gt;           getUserMedia (optional MediaStreamConstraints constraints);
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -3451,8 +3451,12 @@ interface MediaDeviceInfo {
                   value or a value of "true".</p>
                 </li>
                 <li>
-                  <p>If <var>requestedMediaTypes</var> is the empty set, return
-                  a promise rejected with a <code>TypeError</code>.</p>
+                  <p>If <var>requestedMediaTypes</var> is the empty
+                  set, return a promise rejected with
+                  a <code>TypeError</code>.  The word "optional"
+                  occurs in the WebIDL due to WebIDL rules, but the
+                  argument MUST be supplied in order for the call to
+                  succeed.</p>
                 </li>
                 <li>
                   <p>If the current [[!HTML51]] Document's <a>user media
