@@ -4984,7 +4984,13 @@ below dictionary, but instead provide its own definition. See
     track a given device across time and origins.</p>
     <p>Once access to a video stream from a capture device is obtained, that
     stream can most likely be used to fingerprint uniquely the said device
-    (e.g. via dead pixel detection).</p>
+    (e.g. via dead pixel detection).  Similarly, once access to an audio
+    stream is obtained, that stream can most likely be used to fingerprint
+    user location down to the level of a room or even simultaneous occupation
+    of a room by disparate users (e.g. via analysis of ambient audio or of
+    unique audio purposely played out of the device speaker).  User-level
+    mitigation for both audio and video consists of covering up the camera
+    and/or microphone or revoking permission via browser chrome controls.</p>
     <p>It is possible to use constraints so that the failure of a getUserMedia
     call will return information about devices on the system without prompting
     the user, which increases the surface available for fingerprinting. The
