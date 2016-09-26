@@ -2890,30 +2890,36 @@ interface NavigatorUserMedia {
       <p>The <code>MediaDevices</code> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
-      <p>On page load, on the <a href=
-      "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
-      relevant global object</a>, create a [[\kindsAccessibleMap]] internal slot
-      initialized to an empty object, and then for each kind of device,
-      <var>kind</var>, that <a>getUserMedia()</a> exposes, set
-      [[\kindsAccessibleMap]]<var>[kind]</var> either to <code>true</code> if
-      the result of
-      <a data-lt="retrieve the permission state">retrieving the permission state
-      </a> of the permission associated with <var>kind</var> (e.g. "camera",
-      "microphone"), is "granted", or to <code>false</code> otherwise.</p>
-
-      <p>On page load, on the <a href=
-      "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
-      relevant global object</a>, create both a [[\devicesLiveMap]] internal
-      slot initialized to an empty object, and a [[\devicesAccessibleMap]]
-      internal slot initialized to another empty object, and then for each
-      individual device, <var>device</var>, that <a>getUserMedia()</a> exposes,
-      using <var>device</var>'s deviceId, <var>deviceId</var>,
-      set [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>, and
-      set [[\devicesAccessibleMap]]<var>[deviceId]</var> either to
-      <code>true</code> if the result of
-      <a data-lt="retrieve the permission state">retrieving the permission state
-      </a> of the permission associated with <var>device</var>’s kind and
-      <var>deviceId</var>, is “granted”, or to false otherwise.
+      <p>On page load, run the following steps:<p>
+      <ol>
+        <li>
+          <p>On the <a href=
+          "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
+          relevant global object</a>, create three internal slots:
+          [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
+          [[\kindsAccessibleMap]], each initialized to a different empty object.
+          </p>
+        </li>
+        <li>
+          <p>For each kind of device, <var>kind</var>, that
+          <a>getUserMedia()</a> exposes, set
+          [[\kindsAccessibleMap]]<var>[kind]</var> either to <code>true</code>
+          if the result of <a data-lt="retrieve the permission state">retrieving
+            the permission state</a> of the permission associated with
+          <var>kind</var> (e.g. "camera", "microphone"), is "granted", or to
+          <code>false</code> otherwise.</p>
+        </li>
+        <li>
+          <p>For each individual device that <a>getUserMedia()</a> exposes,
+          using the device's deviceId, <var>deviceId</var>, set
+          [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>, and
+          set [[\devicesAccessibleMap]]<var>[deviceId]</var> either to
+          <code>true</code> if the result of
+          <a data-lt="retrieve the permission state">retrieving the permission
+          state</a> of the permission associated with the device’s kind
+          and <var>deviceId</var>, is “granted”, or to false otherwise.</p>
+        </li>
+      </ol>
 
       <p>For each kind of device, <var>kind</var>, that <a>getUserMedia()</a>
       exposes, <a data-lt="retrieve the permission state">
@@ -2930,10 +2936,10 @@ interface NavigatorUserMedia {
         </li>
       </ol>
 
-      <p>For each device, <var>device</var>, that <a>getUserMedia()</a> exposes,
+      <p>For each device that <a>getUserMedia()</a> exposes,
       <a data-lt="retrieve the permission state">
       whenever a transition occurs of the permission state</a> of the permission
-      associated with <var>device</var>'s kind and <var>device</var>'s deviceId,
+      associated with the device's kind and the device's deviceId,
       <var>deviceId</var>, run the following steps:
       <ol>
         <li>
