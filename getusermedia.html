@@ -5150,15 +5150,20 @@ below dictionary, but instead provide its own definition. See
           <a>MediaStream</a></code> containing a track of the new media type
           (see <a href="#mediastreams-in-media-elements"></a>),
         </li>
-        <li>updating <code><a>MediaDeviceKind</a></code>,</li>
+        <li>updating <code><a>MediaDeviceKind</a></code> if the new type has
+        enumerable devices,</li>
         <li>updating the <code>getCapabilities()</code> and
         <code>getUserMedia()</code> descriptions,</li>
         <li>adding the new type to the
-        <code><a>MediaStreamConstraints</a></code> dictionary, and</li>
+        <code><a>MediaStreamConstraints</a></code> dictionary,</li>
         <li>describing any new security and/or privacy considerations (see
         <a href="#privacy-and-security-considerations"></a>) introduced by the
-        new type.
-        </li>
+        new type, and</li>
+        <li>if the new type requires user authorization, defining new
+        permissions for it, and defining how they, along with access starting
+        and ending, as well as muting/disabling, affect any new and/or existing
+        "on-air" and "device accessible" indicator states (see
+        <a href="#mediadevices"></a>).</li>
       </ul>
       <p>Additionally, it should include updating</p>
       <ul>
