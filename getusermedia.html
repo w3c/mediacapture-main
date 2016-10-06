@@ -285,8 +285,18 @@
           </ul>
         </li>
         <li>
-          <p><a href="#stream-add-track">Add each track</a> in
-          <var>tracks</var> to <var>stream</var>.</p>
+          <p>For each <code><a>MediaStreamTrack</a></code>, <var>track</var>,
+          in <var>tracks</var>, run the following steps:</p>
+          <ol>
+            <li>
+              <p>If <var>track</var> is already in <var>stream</var>'s <a href=
+              "#track-set">track set</a>, skip <var>track</var>.</p>
+            </li>
+            <li>
+              <p>Otherwise, add <var>track</var> to <var>stream</var>'s <a href=
+              "#track-set">track set</a>.</p>
+            </li>
+          </ol>
         </li>
         <li>
           <p>Return <var>stream</var>.</p>
@@ -319,42 +329,6 @@
       "#track-ended">ended</a>. A <code><a>MediaStream</a></code> that does not
       have any tracks or only has tracks that are <a href=
       "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
-      <p>To <dfn id="stream-add-track">add a track</dfn> to a
-      <code><a>MediaStream</a></code>, the User Agent MUST run the following
-      steps:</p>
-      <ol>
-        <li>
-          <p>Let <var>track</var> be the <code><a>MediaStreamTrack</a></code>
-          in question and <var>stream</var> the <code><a>MediaStream</a></code>
-          object to which <var>track</var> is to be added.</p>
-        </li>
-        <li>
-          <p>If <var>track</var> is already in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
-        </li>
-        <li>
-          <p>Add <var>track</var> to <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
-        </li>
-      </ol>
-      <p>To <dfn id="stream-remove-track">remove a track</dfn> from a
-      <code><a>MediaStream</a></code>, the User Agent MUST run the following
-      steps:</p>
-      <ol>
-        <li>
-          <p>Let <var>track</var> be the <code><a>MediaStreamTrack</a></code>
-          in question and <var>stream</var> the <code><a>MediaStream</a></code>
-          object from which <var>track</var> is to be removed.</p>
-        </li>
-        <li>
-          <p>If <var>track</var> is not in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
-        </li>
-        <li>
-          <p>Remove <var>track</var> from <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
-        </li>
-      </ol>
       <p>The User Agent may update a <code><a>MediaStream</a></code>'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -374,14 +348,13 @@
           object to which <var>track</var> is to be added.</p>
         </li>
         <li>
-          <p><a href="#stream-add-track">Add</a> <var>track</var> to
-          <var>stream</var>.</p>
+          <p>If <var>track</var> is already in <var>stream's</var> <a href=
+          "#track-set">track set</a>, then abort these steps.</p>
         </li>
         <li>
-          <p>If the operation in the previous step was aborted prematurely,
-          then abort these steps.</p>
-        </li>
-        <li>
+          <p>Add <var>track</var> to <var>stream</var>'s <a href=
+          "#track-set">track set</a>.</p>
+        </li>        <li>
           <p>Fire a track event named <code><a href=
           "#event-mediastream-addtrack">addtrack</a></code> with
           <var>track</var> at <var>stream</var>.</p>
@@ -397,12 +370,12 @@
           object to which <var>track</var> is to be added.</p>
         </li>
         <li>
-          <p><a href="#stream-remove-track">Remove</a> <var>track</var> from
-          <var>stream</var>.</p>
+          <p>If <var>track</var> is not in <var>stream's</var> <a href=
+          "#track-set">track set</a>, then abort these steps.</p>
         </li>
         <li>
-          <p>If the operation in the previous step was aborted prematurely,
-          then abort these steps.</p>
+          <p>Remove <var>track</var> from <var>stream</var>'s <a href=
+          "#track-set">track set</a>.</p>
         </li>
         <li>
           <p>Fire a track event named <code><a href=
@@ -641,9 +614,23 @@ interface MediaStream : EventTarget {
               <code><a>MediaStream</a></code>.</p>
               <p>When the <dfn id=
               "dom-mediastream-addtrack"><code>addTrack</code></dfn> method
-              is invoked, the User Agent MUST <a href="#stream-add-track">add
-              the track</a>, specified by the method's first argument, to this
-              <code><a>MediaStream</a></code>.</p>
+              is invoked, the User Agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>track</var> be the methods argument and
+                  <var>stream</var> the <code><a>MediaStream</a></code>
+                  object on which the method was called.</p>
+                </li>
+                <li>
+                  <p>If <var>track</var> is already in <var>stream</var>'s
+                  <a href="#track-set">track set</a>, then abort these
+                  steps.</p>
+                </li>
+                <li>
+                  <p>Add <var>track</var> to <var>stream</var>'s <a href=
+                  "#track-set">track set</a>.</p>
+                </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -674,10 +661,23 @@ interface MediaStream : EventTarget {
               from this <code><a>MediaStream</a></code>.</p>
               <p>When the <dfn id=
               "dom-mediastream-removetrack"><code>removeTrack</code></dfn>
-              method is invoked, the User Agent MUST <a href=
-              "#stream-remove-track">remove the track</a>, specified by the
-              method's first argument, from this
-              <code><a>MediaStream</a></code>.</p>
+              method is invoked, the User Agent MUST run the following
+              steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>track</var> be the methods argument and
+                  <var>stream</var> the <code><a>MediaStream</a></code>
+                  object on which the method was called.</p>
+                </li>
+                <li>
+                  <p>If <var>track</var> is not in <var>stream's</var> <a href=
+                  "#track-set">track set</a>, then abort these steps.</p>
+                </li>
+                <li>
+                  <p>Remove <var>track</var> from <var>stream</var>'s <a href=
+                  "#track-set">track set</a>.</p>
+                </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
