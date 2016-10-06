@@ -2956,14 +2956,19 @@ interface NavigatorUserMedia {
         </li>
       </ol>
 
-      <p>When new media input and/or output devices are made available, and if either the
-      <a data-lt="retrieve the permission state">permission state</a> of the
-      "list-devices" permission is "granted" or any of the local devices are
-      attached to an active MediaStream in the current browsing context, then
-      the User Agent MUST queue a task
-      that fires a simple event named <code><a href=
-      "#event-mediadevices-devicechange">devicechange</a></code> at the
-      <code><a>MediaDevices</a></code> object. The User Agent MAY fire just a
+      <p>When new media input and/or output devices are made available, 
+      the User Agent MUST run the following steps:</p>
+      <ol>
+        <li>
+          <p>If <var>storedDeviceList</var> exists, then delete <var>storedDeviceList</var>.</p>
+        </li>
+        <li>
+          <p>Queue a task that fires a simple event named <code><a href=
+             "#event-mediadevices-devicechange">devicechange</a></code> at the
+             <code><a>MediaDevices</a></code> object.</p>
+        </li>
+      </ol>
+      <p>The User Agent MAY fire just a
       single event when several devices are added at the same time, e.g. a
       camera with a microphone. These events are potentially
       triggered simultaneously across browsing contexts on different origins;
@@ -3017,6 +3022,10 @@ interface MediaDevices : EventTarget {
                 <li>
                   <p>Run the following steps in parallel:</p>
                   <ol>
+                    <li>
+                      <p>If <var>storedDeviceList</var> exists, then let <var>resultList</var> 
+                        be a copy of <var>storedDeviceList</var>, and skip steps 2-5 below.</p>
+                    </li>
                     <li>
                       <p>Let <var>resultList</var> be an empty list.</p>
                     </li>
@@ -3075,6 +3084,10 @@ interface MediaDevices : EventTarget {
                           <var>resultList</var>.</p>
                         </li>
                       </ol>
+                    </li>
+                    <li>
+                      <p>Update <var>storedDeviceList</var> to be same as 
+                        <var>resultList</var>.</p>
                     </li>
                     <li>If any of the local devices are attached to a
                     <code>live</code> MediaStreamTrack in the current browsing
