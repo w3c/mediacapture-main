@@ -756,12 +756,27 @@ interface MediaStream : EventTarget {
       object no longer needs its source with the <code><a href=
       "#dom-mediastreamtrack-stop">stop()</a></code> method. When all tracks
       using a source have been stopped or ended by some other means, the source
-      is <dfn id="source-stopped">stopped</dfn>. If there is no stored
-      permission for the source, the User Agent SHOULD also remove the
-      "permission granted" indicator for the source. If the data is being
-      generated from a live source (e.g., a microphone or camera), then the
-      User Agent SHOULD remove any active "on-air" indicator for that source.
-      An implementation may use a per-source reference count to keep track of
+      is <dfn id="source-stopped">stopped</dfn>.
+      If the source is a device exposed by <a>getUserMedia()</a>, then when the
+      source is stopped, the UA MUST run the following steps:</p>
+      <ol>
+        <li>
+          <p>Let <var>deviceId</var> be the device's deviceId.</p>
+        </li>
+        <li>
+          <p>Set [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>.
+          </p>
+        </li>
+        <li>
+          <p>If the result of <a data-lt="retrieve the permission state">
+          retrieving the permission state</a> of the permission associated with
+          the device's kind and <var>deviceId</var>, is not “granted”, then set
+          [[\devicesAccessibleMap]]<var>[deviceId]</var> to <code>false</code>.
+          </p>
+        </li>
+      </ol>
+
+      <p>An implementation may use a per-source reference count to keep track of
       source usage, but the specifics are out of scope for this
       specification.</p>
       <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST run
@@ -821,10 +836,15 @@ interface MediaStream : EventTarget {
         zero-information-content equivalent. For example, a video element
         sourced by a muted or disabled <code><a>MediaStreamTrack</a></code>
         (contained within a <code><a>MediaStream</a></code> ), is playing but
-        the rendered content is the muted output. When all tracks connected to
-        a source are muted or disabled, the "on-air" or "recording" indicator
-        for that source can be turned off; when the track is no longer muted or
-        disabled, it MUST be turned back on.</p>
+        the rendered content is the muted output.</p>
+        <p>If the source is a device exposed by <a>getUserMedia()</a>, then when
+        a track becomes either muted or disabled, and this brings all tracks
+        connected to the device to be either muted, disabled, or stopped, then
+        the UA MAY, using the device's deviceId, <var>deviceId</var>, set
+        [[\devicesLiveMap]]<var>[deviceId]</var> to
+        <code>false</code>, provided the UA sets it back to <code>true</code>
+        as soon as any unstopped track connected to this device becomes
+        un-muted or enabled again.</p>
         <p>The muted/unmuted state of a track reflects whether the source
         provides any media at this moment. The enabled/disabled state is under
         application control and determines whether the track outputs media (to
@@ -2870,6 +2890,72 @@ interface NavigatorUserMedia {
       <p>The <code>MediaDevices</code> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
+      <p>On page load, run the following steps:<p>
+      <ol>
+        <li>
+          <p>On the <a href=
+          "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
+          relevant global object</a>, create three internal slots:
+          [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
+          [[\kindsAccessibleMap]], each initialized to a different empty object.
+          </p>
+        </li>
+        <li>
+          <p>For each kind of device, <var>kind</var>, that
+          <a>getUserMedia()</a> exposes, set
+          [[\kindsAccessibleMap]]<var>[kind]</var> either to <code>true</code>
+          if the result of <a data-lt="retrieve the permission state">retrieving
+            the permission state</a> of the permission associated with
+          <var>kind</var> (e.g. "camera", "microphone"), is "granted", or to
+          <code>false</code> otherwise.</p>
+        </li>
+        <li>
+          <p>For each individual device that <a>getUserMedia()</a> exposes,
+          using the device's deviceId, <var>deviceId</var>, set
+          [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>, and
+          set [[\devicesAccessibleMap]]<var>[deviceId]</var> either to
+          <code>true</code> if the result of
+          <a data-lt="retrieve the permission state">retrieving the permission
+          state</a> of the permission associated with the device’s kind
+          and <var>deviceId</var>, is “granted”, or to false otherwise.</p>
+        </li>
+      </ol>
+
+      <p>For each kind of device, <var>kind</var>, that <a>getUserMedia()</a>
+      exposes, <a data-lt="retrieve the permission state">
+      whenever a transition occurs of the permission state</a> of the permission
+      associated with <var>kind</var>, run the following steps:
+      <ol>
+        <li>
+          <p>If the transition is to “granted” from another value, then set
+          [[\kindsAccessibleMap]]<var>[kind]</var> to <code>true</code>.</p>
+        </li>
+        <li>
+          <p>If the transition is from “granted” to another value, then set
+          [[\kindsAccessibleMap]]<var>[kind]</var> to <code>false</code>.</p>
+        </li>
+      </ol>
+
+      <p>For each device that <a>getUserMedia()</a> exposes,
+      <a data-lt="retrieve the permission state">
+      whenever a transition occurs of the permission state</a> of the permission
+      associated with the device's kind and the device's deviceId,
+      <var>deviceId</var>, run the following steps:
+      <ol>
+        <li>
+          <p>If the transition is to “granted” from another value, then set
+          [[\devicesAccessibleMap]]<var>[deviceId]</var> to <code>true</code>,
+          if it isn’t already <code>true</code>.</p>
+        </li>
+        <li>
+          <p>If the transition is from “granted” to another value, and
+          the device is currently <a href="#source-stopped">stopped</a>,
+          then set [[\devicesAccessibleMap]]<var>[deviceId]</var> to
+          <code>false</code>.
+          </p>
+        </li>
+      </ol>
+
       <p>When new media input and/or output devices are made available, and if either the
       <a data-lt="retrieve the permission state">permission state</a> of the
       "list-devices" permission is "granted" or any of the local devices are
@@ -3592,12 +3678,14 @@ interface MediaDeviceInfo {
                       (when possible) to generate the media stream. User Agents
                       MAY allow users to use any media source, including
                       pre-recorded media files.</p>
-                      <p>If the result of the request is "granted", User Agents
-                      are encouraged to include a prominent indicator that the
-                      devices are "hot" (i.e. an "on-air" or "recording"
-                      indicator), as well as a "device accessible" indicator
-                      indicating that the page has been granted access to the
-                      source.</p>
+                      <p>If the result of the request is "granted", then for
+                      each device that is sourcing the provided media, using the
+                      device's deviceId, <var>deviceId</var>, set
+                      [[\devicesLiveMap]]<var>[deviceId]</var> to
+                      <code>true</code>, if it isn’t already <code>true</code>,
+                      and set the [[\devicesAccessibleMap]]<var>[deviceId]</var>
+                      to <code>true</code>, if it isn’t already
+                      <code>true</code>.</p>
                       <p>If the result is "denied", jump to the step labeled
                       <em>Permission Failure</em> below. If the user never
                       responds, this algorithm stalls on this step.</p>
@@ -5062,15 +5150,20 @@ below dictionary, but instead provide its own definition. See
           <a>MediaStream</a></code> containing a track of the new media type
           (see <a href="#mediastreams-in-media-elements"></a>),
         </li>
-        <li>updating <code><a>MediaDeviceKind</a></code>,</li>
+        <li>updating <code><a>MediaDeviceKind</a></code> if the new type has
+        enumerable devices,</li>
         <li>updating the <code>getCapabilities()</code> and
         <code>getUserMedia()</code> descriptions,</li>
         <li>adding the new type to the
-        <code><a>MediaStreamConstraints</a></code> dictionary, and</li>
+        <code><a>MediaStreamConstraints</a></code> dictionary,</li>
         <li>describing any new security and/or privacy considerations (see
         <a href="#privacy-and-security-considerations"></a>) introduced by the
-        new type.
-        </li>
+        new type, and</li>
+        <li>if the new type requires user authorization, defining new
+        permissions for it, and defining how they, along with access starting
+        and ending, as well as muting/disabling, affect any new and/or existing
+        "on-air" and "device accessible" indicator states (see
+        <a href="#mediadevices"></a>).</li>
       </ul>
       <p>Additionally, it should include updating</p>
       <ul>
