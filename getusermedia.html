@@ -2966,7 +2966,8 @@ interface NavigatorUserMedia {
       the User Agent MUST run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>storedDeviceList</var> exists, then delete <var>storedDeviceList</var>.</p>
+          <p>If <var>storedDeviceList</var> is not undefined, then delete <var>storedDeviceList</var>
+          so it becomes undefined.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <code><a href=
@@ -3029,7 +3030,7 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>If <var>storedDeviceList</var> exists, then let <var>resultList</var> 
+                      <p>If <var>storedDeviceList</var> is not undefined, then let <var>resultList</var> 
                         be a copy of <var>storedDeviceList</var>, and skip steps 2-5 below.</p>
                     </li>
                     <li>
