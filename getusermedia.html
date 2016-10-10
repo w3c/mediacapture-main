@@ -2895,10 +2895,16 @@ interface NavigatorUserMedia {
         <li>
           <p>On the <a href=
           "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
-          relevant global object</a>, create three internal slots:
-          [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
-          [[\kindsAccessibleMap]], each initialized to a different empty object.
-          </p>
+          relevant global object</a>, run the following steps:</p>
+          <ol>
+            <li>
+              <p>create three internal slots: [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
+              [[\kindsAccessibleMap]], each initialized to a different empty object.</p>
+            </li>
+            <li>
+              <p>create one internal slot: [[\storedDeviceList]], initialized to null.</p>
+            </li>
+          </ol>
         </li>
         <li>
           <p>For each kind of device, <var>kind</var>, that
@@ -2966,8 +2972,8 @@ interface NavigatorUserMedia {
       the User Agent MUST run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>storedDeviceList</var> is not undefined, then delete <var>storedDeviceList</var>
-          so it becomes undefined.</p>
+          <p>If [[\storedDeviceList]] is not null, then set [[\storedDeviceList]]
+          to null.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <code><a href=
@@ -3030,8 +3036,8 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>If <var>storedDeviceList</var> is not undefined, then let <var>resultList</var> 
-                        be a copy of <var>storedDeviceList</var>, and skip steps 2-5 below.</p>
+                      <p>If [[\storedDeviceList]] is not null, then let <var>resultList</var> 
+                        be a copy of [[\storedDeviceList]], and skip steps 2-5 below.</p>
                     </li>
                     <li>
                       <p>Let <var>resultList</var> be an empty list.</p>
@@ -3093,7 +3099,7 @@ interface MediaDevices : EventTarget {
                       </ol>
                     </li>
                     <li>
-                      <p>Update <var>storedDeviceList</var> to be same as 
+                      <p>Update [[\storedDeviceList]]  to be same as 
                         <var>resultList</var>.</p>
                     </li>
                     <li>If any of the local devices are attached to a
