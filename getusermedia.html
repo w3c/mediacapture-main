@@ -3078,10 +3078,10 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>If any of the local devices are attached to a
                     <code>live</code> MediaStreamTrack in the current browsing
-                    context, set <var>list-permission</var> to "granted".</li>
-                    <li>If no such device is attached, <a>retrieve the
-                    permission state</a> of the "device-info" permission, and
-                    assign it to <var>list-permission</var>.
+                    context, set <var>list-permission</var> to "granted",
+                    otherwise set <var>list-permission</var> to the result of
+                    <a data-lt="retrieve the permission state"> retrieving the
+                    permission state</a> of the "device-info" permission.
                     </li>
                     <li>
                       <p>If <var>list-permission</var> is not "granted", let
