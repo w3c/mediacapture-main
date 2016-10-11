@@ -2972,8 +2972,7 @@ interface NavigatorUserMedia {
       the User Agent MUST run the following steps:</p>
       <ol>
         <li>
-          <p>If [[\storedDeviceList]] is not null, then set [[\storedDeviceList]]
-          to null.</p>
+          <p>Set [[\storedDeviceList]] to null.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <code><a href=
@@ -3099,8 +3098,7 @@ interface MediaDevices : EventTarget {
                       </ol>
                     </li>
                     <li>
-                      <p>Update [[\storedDeviceList]]  to be same as 
-                        <var>resultList</var>.</p>
+                      <p>Set [[\storedDeviceList]] to <var>resultList</var>.</p>
                     </li>
                     <li>If any of the local devices are attached to a
                     <code>live</code> MediaStreamTrack in the current browsing
