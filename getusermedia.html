@@ -2898,11 +2898,11 @@ interface NavigatorUserMedia {
           relevant global object</a>, run the following steps:</p>
           <ol>
             <li>
-              <p>create three internal slots: [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
+              <p>Create three internal slots: [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
               [[\kindsAccessibleMap]], each initialized to a different empty object.</p>
             </li>
             <li>
-              <p>create one internal slot: [[\storedDeviceList]], initialized to null.</p>
+              <p>Create one internal slot: [[\storedDeviceList]], initialized to null.</p>
             </li>
           </ol>
         </li>
@@ -2964,7 +2964,7 @@ interface NavigatorUserMedia {
 
       <p>When new media input and/or output devices are made available, if either the 
       <a data-lt="retrieve the permission state">permission state</a> of the 
-      "list-devices" permission is "granted", or any of the local devices are 
+      "device-info" permission is "granted", or any of the local devices are 
       attached to an active MediaStream in the current browsing context, 
       or the <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-document">active document</a> 
       in the current browsing context is <a href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active">fully active</a>
@@ -3036,7 +3036,8 @@ interface MediaDevices : EventTarget {
                   <ol>
                     <li>
                       <p>If [[\storedDeviceList]] is not null, then let <var>resultList</var> 
-                        be a copy of [[\storedDeviceList]], and skip steps 2-5 below.</p>
+                      be a copy of [[\storedDeviceList]], and jump to the step labeled
+                        <em>Complete Enumeration</em>.</p>
                     </li>
                     <li>
                       <p>Let <var>resultList</var> be an empty list.</p>
@@ -3100,25 +3101,32 @@ interface MediaDevices : EventTarget {
                     <li>
                       <p>Set [[\storedDeviceList]] to <var>resultList</var>.</p>
                     </li>
-                    <li>If any of the local devices are attached to a
-                    <code>live</code> MediaStreamTrack in the current browsing
-                    context, set <var>list-permission</var> to "granted".</li>
-                    <li>If no such device is attached, <a>retrieve the
-                    permission state</a> of the "list-devices" permission, and
-                    assign it to <var>list-permission</var>.
-                    </li>
                     <li>
-                      <p>If <var>list-permission</var> is not "granted", let
-                      <var>filteredList</var> be a copy of
-                      <var>resultList</var>, and all its elements, where the
-                      <code><a data-link-for="MediaDeviceInfo">label</a></code>
-                      member is the empty string.</p>
-                    </li>
-                    <li>
-                      <p>If <var>filteredList</var> is a non-empty list, then
-                      resolve <var>p</var> with <var>filteredList</var>.
-                      Otherwise, resolve <var>p</var> with
-                      <var>resultList</var>.</p>
+                      <p><em>Complete Enumeration</em>: run the following sub steps to 
+                      resolve <var>p</var>:</p>
+                      <ol>
+                        <li>
+                          <p>If any of the local devices are attached to a
+                          <code>live</code> MediaStreamTrack in the current browsing
+                          context, set <var>list-permission</var> to "granted",
+                          otherwise set <var>list-permission</var> to the result of
+                          <a data-lt="retrieve the permission state"> retrieving the
+                          permission state</a> of the "device-info" permission.</p>
+                        </li>
+                        <li>
+                          <p>If <var>list-permission</var> is not "granted", let
+                          <var>filteredList</var> be a copy of
+                          <var>resultList</var>, and all its elements, where the
+                          <code><a data-link-for="MediaDeviceInfo">label</a></code>
+                          member is the empty string.</p>
+                        </li>
+                        <li>
+                          <p>If <var>filteredList</var> is a non-empty list, then
+                          resolve <var>p</var> with <var>filteredList</var>.
+                          Otherwise, resolve <var>p</var> with
+                          <var>resultList</var>.</p>
+                        </li>
+                      </ol>
                     </li>
                   </ol>
                 </li>
