@@ -2958,7 +2958,7 @@ interface NavigatorUserMedia {
 
       <p>When new media input and/or output devices are made available, and if either the
       <a data-lt="retrieve the permission state">permission state</a> of the
-      "list-devices" permission is "granted" or any of the local devices are
+      "device-info" permission is "granted" or any of the local devices are
       attached to an active MediaStream in the current browsing context, then
       the User Agent MUST queue a task
       that fires a simple event named <code><a href=
@@ -3078,10 +3078,10 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>If any of the local devices are attached to a
                     <code>live</code> MediaStreamTrack in the current browsing
-                    context, set <var>list-permission</var> to "granted".</li>
-                    <li>If no such device is attached, <a>retrieve the
-                    permission state</a> of the "list-devices" permission, and
-                    assign it to <var>list-permission</var>.
+                    context, set <var>list-permission</var> to "granted",
+                    otherwise set <var>list-permission</var> to the result of
+                    <a data-lt="retrieve the permission state"> retrieving the
+                    permission state</a> of the "device-info" permission.
                     </li>
                     <li>
                       <p>If <var>list-permission</var> is not "granted", let
@@ -5241,7 +5241,7 @@ below dictionary, but instead provide its own definition. See
     </ol>
     <h2>Changes since April 6, 2016</h2>
     <ol>
-      <li>[#333] Restrict devicechange event to apps with list-devices
+      <li>[#333] Restrict devicechange event to apps with device-info
       permission</li>
       <li>[#338] Make ended event a simple event</li>
       <li>[#342] Remove obsolte error names table</li>
