@@ -2895,10 +2895,16 @@ interface NavigatorUserMedia {
         <li>
           <p>On the <a href=
           "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">
-          relevant global object</a>, create three internal slots:
-          [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
-          [[\kindsAccessibleMap]], each initialized to a different empty object.
-          </p>
+          relevant global object</a>, run the following steps:</p>
+          <ol>
+            <li>
+              <p>Create three internal slots: [[\devicesLiveMap]], [[\devicesAccessibleMap]], and
+              [[\kindsAccessibleMap]], each initialized to a different empty object.</p>
+            </li>
+            <li>
+              <p>Create one internal slot: [[\storedDeviceList]], initialized to null.</p>
+            </li>
+          </ol>
         </li>
         <li>
           <p>For each kind of device, <var>kind</var>, that
@@ -2956,14 +2962,25 @@ interface NavigatorUserMedia {
         </li>
       </ol>
 
-      <p>When new media input and/or output devices are made available, and if either the
-      <a data-lt="retrieve the permission state">permission state</a> of the
-      "device-info" permission is "granted" or any of the local devices are
-      attached to an active MediaStream in the current browsing context, then
-      the User Agent MUST queue a task
-      that fires a simple event named <code><a href=
-      "#event-mediadevices-devicechange">devicechange</a></code> at the
-      <code><a>MediaDevices</a></code> object. The User Agent MAY fire just a
+      <p>When new media input and/or output devices are made available, if either the 
+      <a data-lt="retrieve the permission state">permission state</a> of the 
+      "device-info" permission is "granted", or any of the local devices are 
+      attached to an active MediaStream in the current browsing context, 
+      or the <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-document">active document</a> 
+      in the current browsing context is <a href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active">fully active</a>
+      and <a href="https://html.spec.whatwg.org/#gains-focus">has focus</a>, then
+      the User Agent MUST run the following steps:</p>
+      <ol>
+        <li>
+          <p>Set [[\storedDeviceList]] to null.</p>
+        </li>
+        <li>
+          <p>Queue a task that fires a simple event named <code><a href=
+             "#event-mediadevices-devicechange">devicechange</a></code> at the
+             <code><a>MediaDevices</a></code> object.</p>
+        </li>
+      </ol>
+      <p>The User Agent MAY fire just a
       single event when several devices are added at the same time, e.g. a
       camera with a microphone. These events are potentially
       triggered simultaneously across browsing contexts on different origins;
@@ -3017,6 +3034,11 @@ interface MediaDevices : EventTarget {
                 <li>
                   <p>Run the following steps in parallel:</p>
                   <ol>
+                    <li>
+                      <p>If [[\storedDeviceList]] is not null, then let <var>resultList</var> 
+                      be a copy of [[\storedDeviceList]], and jump to the step labeled
+                        <em>Complete Enumeration</em>.</p>
+                    </li>
                     <li>
                       <p>Let <var>resultList</var> be an empty list.</p>
                     </li>
@@ -3076,25 +3098,35 @@ interface MediaDevices : EventTarget {
                         </li>
                       </ol>
                     </li>
-                    <li>If any of the local devices are attached to a
-                    <code>live</code> MediaStreamTrack in the current browsing
-                    context, set <var>list-permission</var> to "granted",
-                    otherwise set <var>list-permission</var> to the result of
-                    <a data-lt="retrieve the permission state"> retrieving the
-                    permission state</a> of the "device-info" permission.
+                    <li>
+                      <p>Set [[\storedDeviceList]] to <var>resultList</var>.</p>
                     </li>
                     <li>
-                      <p>If <var>list-permission</var> is not "granted", let
-                      <var>filteredList</var> be a copy of
-                      <var>resultList</var>, and all its elements, where the
-                      <code><a data-link-for="MediaDeviceInfo">label</a></code>
-                      member is the empty string.</p>
-                    </li>
-                    <li>
-                      <p>If <var>filteredList</var> is a non-empty list, then
-                      resolve <var>p</var> with <var>filteredList</var>.
-                      Otherwise, resolve <var>p</var> with
-                      <var>resultList</var>.</p>
+                      <p><em>Complete Enumeration</em>: run the following sub steps to 
+                      resolve <var>p</var>:</p>
+                      <ol>
+                        <li>
+                          <p>If any of the local devices are attached to a
+                          <code>live</code> MediaStreamTrack in the current browsing
+                          context, set <var>list-permission</var> to "granted",
+                          otherwise set <var>list-permission</var> to the result of
+                          <a data-lt="retrieve the permission state"> retrieving the
+                          permission state</a> of the "device-info" permission.</p>
+                        </li>
+                        <li>
+                          <p>If <var>list-permission</var> is not "granted", let
+                          <var>filteredList</var> be a copy of
+                          <var>resultList</var>, and all its elements, where the
+                          <code><a data-link-for="MediaDeviceInfo">label</a></code>
+                          member is the empty string.</p>
+                        </li>
+                        <li>
+                          <p>If <var>filteredList</var> is a non-empty list, then
+                          resolve <var>p</var> with <var>filteredList</var>.
+                          Otherwise, resolve <var>p</var> with
+                          <var>resultList</var>.</p>
+                        </li>
+                      </ol>
                     </li>
                   </ol>
                 </li>
