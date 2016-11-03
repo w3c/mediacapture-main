@@ -1414,19 +1414,19 @@ interface MediaStreamTrack : EventTarget {
         appropriate type.</p>
         <div>
           <pre class="idl">dictionary MediaTrackCapabilities {
-             (long or LongRange)     width;
-             (long or LongRange)     height;
-             (double or DoubleRange) aspectRatio;
-             (double or DoubleRange) frameRate;
-             sequence&lt;DOMString&gt;     facingMode;
-             (double or DoubleRange) volume;
-             (long or LongRange)     sampleRate;
-             (long or LongRange)     sampleSize;
-             sequence&lt;boolean&gt;       echoCancellation;
-             (double or DoubleRange) latency;
-             (long or LongRange)     channelCount;
-             DOMString               deviceId;
-             DOMString               groupId;
+             LongRange           width;
+             LongRange           height;
+             DoubleRange         aspectRatio;
+             DoubleRange         frameRate;
+             sequence&lt;DOMString&gt; facingMode;
+             DoubleRange         volume;
+             LongRange           sampleRate;
+             LongRange           sampleSize;
+             sequence&lt;boolean&gt;   echoCancellation;
+             DoubleRange         latency;
+             LongRange           channelCount;
+             DOMString           deviceId;
+             DOMString           groupId;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackCapabilities</a>
@@ -1434,19 +1434,19 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaTrackCapabilities" data-dfn-for=
             "MediaTrackCapabilities" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>(long or LongRange)</a></span></dt>
+              "idlMemberType"><a>LongRange</a></span></dt>
               <dd>See <code><a href="#def-constraint-width">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>(long or LongRange)</a></span></dt>
+              "idlMemberType"><a>LongRange</a></span></dt>
               <dd>See <code><a href="#def-constraint-height">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
-              "idlMemberType"><a>(double or DoubleRange)</a></span></dt>
+              "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
-              "idlMemberType"><a>(double or DoubleRange)</a></span></dt>
+              "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-frameRate">frameRate</a></code> for
               details.</dd>
@@ -1461,16 +1461,16 @@ interface MediaStreamTrack : EventTarget {
                 additional details.</p>
               </dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType"><a>(double or DoubleRange)</a></span></dt>
+              "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href="#def-constraint-volume">volume</a></code>
               for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>(long or LongRange)</a></span></dt>
+              "idlMemberType"><a>LongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleRate">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>(long or LongRange)</a></span></dt>
+              "idlMemberType"><a>LongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
@@ -1487,11 +1487,11 @@ interface MediaStreamTrack : EventTarget {
                 for additional details.</p>
               </dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
-              "idlMemberType"><a>(double or DoubleRange)</a></span></dt>
+              "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-latency">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>(long or LongRange)</a></span></dt>
+              "idlMemberType"><a>LongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
