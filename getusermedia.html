@@ -5059,6 +5059,83 @@ below dictionary, but instead provide its own definition. See
     </div>
   </section>
   <section>
+    <h1>User Experience Requirements</h1>
+    <p>For each <var>device</var> for which there is a
+    [[\devicesAccessibleMap]]<var>[device]</var> internal slot,
+    define <var>&lt;device&gt;Accessible</var> to be On whenever the
+    slot has a value of true and Off otherwise.</p>
+    <p>For each <var>device</var> for which there is a
+    [[\devicesLiveMap]]<var>[device]</var> internal slot,
+    define <var>&lt;device&gt;Live</var> to be On whenever the
+    slot has a value of true and Off otherwise.</p>
+    <p>For each <var>kind</var> of device that <a>getUserMedia()</a>
+    exposes,</p>
+      <ul>
+        <li>Define <var>&lt;kind&gt;Accessible</var> to be On
+        whenever <var>&lt;device&gt;Accessible</var> is On for
+        any <var>device</var> of that <var>kind</var>, On whenever
+        [[\kindsAccessibleMap]]<var>[kind]</var> is true, and Off
+        otherwise.</li>
+        <li>Define <var>&lt;kind&gt;Live</var> to be On
+        whenever <var>&lt;device&gt;Live</var> is On for
+        any <var>device</var> of that <var>kind</var> and
+        Off otherwise.</li>
+      </ul>
+    <p>Define <var>Accessible</var> to be On
+    whenever <var>&lt;kind&gt;Accessible</var> is On for
+    any <var>kind</var> and Off otherwise.</p>
+    <p>Define <var>Live</var> to be On
+    whenever <var>&lt;kind&gt;Live</var> is On for
+    any <var>kind</var> and Off otherwise.</p>
+    <p>Then the following are requirements on the User Agent:</p>
+    <ul>
+      <li>The User Agent MUST indicate to the user when the value
+      of <var>Accessible</var> changes.</li>
+      <li>The User Agent MUST indicate to the user when the value
+      of <var>Live</var> changes.</li>
+      <li>If the User Agent provides any indication of Accessible or
+      Live to the user per <var>kind</var>, then for each such
+      value at a minimum it MUST indicate when the value
+      changes.</li>
+      <li>If the User Agent provides any indication of Accessible or
+      Live to the user per <var>device</var>, then for each such
+      value at a minimum it MUST indicate when the value
+      changes.</li>
+      <li>Any off-to-on transition MUST remain observable for a
+      sufficient time that a reasonably-observant user could become
+      aware of it.</li>
+      <li>Any of the above indications MAY be combined as long as
+      the combined indication cannot transition to off if any of its
+      component indications are still on.</li>
+    </ul>
+    <p>and the following are encouraged behaviors for the User Agent:</p>
+    <ul>
+      <li>The User Agent is encouraged to provide ongoing indication
+      of the current state of <var>Accessible</var>.</li>
+      <li>The User Agent is encouraged to provide ongoing indication
+      of the current state of <var>Live</var> and to make any generic
+      hardware device indicator light match.</li>
+      <li>If the User Agent provides any indication
+      of <var>Accessible</var> or <var>Live</var> to the user
+      per <var>kind</var>, it is encouraged to provide ongoing
+      indication of the current state of each such value. It is
+      encouraged to make any device-type-specific hardware indicator
+      light match the corresponding <var>&lt;kind&gt;Live</var>
+      value.</li>
+      <li>If the User Agent provides any indication
+      of <var>Accessible</var> or <var>Live</var> to the user
+      per <var>device</var>, it is encouraged to provide ongoing
+      indication of the current state of each such value. It is
+      encouraged to make any device-specific hardware indicator light
+      match the corresponding <var>&lt;device&gt;Live</var>
+      value.</li>
+      <li>Any optional ongoing indication MAY be used instead of the
+      corresponding required transition indication provided the
+      off-to-on transition requirement is met.</li>
+    </ul>
+  </section>
+
+  <section>
     <h1>Privacy and Security Considerations</h1>
     <p>This section is non-normative; it specifies no new behavior, but instead
     summarizes information already present in other parts of the
