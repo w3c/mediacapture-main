@@ -5063,33 +5063,34 @@ below dictionary, but instead provide its own definition. See
     <p>For each <var>kind</var> of device that <a>getUserMedia()</a>
     exposes,</p>
       <ul>
-        <li>Define <var>&lt;kind&gt;Accessible</var> (e.g.
-        <var>audioAccessible</var>, <var>videoAccessible</var>) as the logical
-        OR of the [[\kindsAccessibleMap]]<var>[kind]</var> value and all the
-        [[\devicesAccessibleMap]]<var>[deviceId]</var> values for devices of that
-        kind.</li>
-        <li>Define <var>&lt;kind&gt;Live</var> (e.g.
-        <var>audioLive</var>, <var>videoLive</var>) to be the logical OR of the
-        [[\kindsLiveMap]]<var>[kind]</var> value and all the
+        <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
+        <var>anyAudioAccessible</var>, <var>anyVideoAccessible</var>) as the
+        logical OR of the [[\kindsAccessibleMap]]<var>[kind]</var> value and all
+        the [[\devicesAccessibleMap]]<var>[deviceId]</var> values for devices of
+        that kind.</li>
+        <li>Define any<var>&lt;kind&gt;Live</var> (e.g.
+        <var>anyAudioLive</var>, <var>anyVideoLive</var>) to be the logical OR
+        of the [[\kindsLiveMap]]<var>[kind]</var> value and all the
         [[\devicesLiveMap]]<var>[deviceId]</var> values for devices of that
         kind.</li>
       </ul>
-    <p>Define <var>Accessible</var> to be the logical OR or all
-    <var>&lt;kind&gt;Accessible</var> values.</p>
-    <p>Define <var>Live</var> to be the logical OR of all
-    <var>&lt;kind&gt;Live</var> values.</p>
+    <p>Define <var>anyAccessible</var> to be the logical OR of all
+    <var>any&lt;kind&gt;Accessible</var> values.</p>
+    <p>Define <var>anyLive</var> to be the logical OR of all
+    <var>any&lt;kind&gt;Live</var> values.</p>
     <p>Then the following are requirements on the User Agent:</p>
     <ul>
       <li>The User Agent MUST indicate to the user when the value
-      of <var>Accessible</var> changes.</li>
+      of <var>anyAccessible</var> changes.</li>
       <li>The User Agent MUST indicate to the user when the value
-      of <var>Live</var> changes.</li>
+      of <var>anyLive</var> changes.</li>
       <li>If the User Agent provides indication to the user per <var>kind</var>,
-      then for each <var>&lt;kind&gt;Accessible</var> value and
-      <var>&lt;kind&gt;Live</var> value, it MUST at minimum indicate when the
+      then for each <var>any&lt;kind&gt;Accessible</var> value and
+      <var>any&lt;kind&gt;Live</var> value, it MUST at minimum indicate when the
       value changes.</li>
-      <li>If the User Agent provides indication the user per <var>device</var>,
-      then for each [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
+      <li>If the User Agent provides indication to the user per
+      <var>device</var>, then for each
+      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
       [[\devicesLiveMap]]<var>[deviceId]</var> value, it MUST at minimum
       indicate when the value changes.</li>
       <li>Any false-to-true transition indicated MUST remain observable for a
@@ -5102,16 +5103,16 @@ below dictionary, but instead provide its own definition. See
     <p>and the following are encouraged behaviors for the User Agent:</p>
     <ul>
       <li>The User Agent is encouraged to provide ongoing indication
-      of the current state of <var>Accessible</var>.</li>
+      of the current state of <var>anyAccessible</var>.</li>
       <li>The User Agent is encouraged to provide ongoing indication
-      of the current state of <var>Live</var> and to make any generic
+      of the current state of <var>anyLive</var> and to make any generic
       hardware device indicator light match.</li>
       <li>If the User Agent provides indication to the user per <var>kind</var>,
-      then for each <var>&lt;kind&gt;Accessible</var> value and
-      <var>&lt;kind&gt;Live</var> value, it is encouraged to provide ongoing
+      then for each any<var>&lt;kind&gt;Accessible</var> value and
+      any<var>&lt;kind&gt;Live</var> value, it is encouraged to provide ongoing
       indication of the current state of the value. It is also
       encouraged to make any device-type-specific hardware indicator
-      light match the corresponding <var>&lt;kind&gt;Live</var>
+      light match the corresponding any<var>&lt;kind&gt;Live</var>
       value.</li>
       <li>If the User Agent provides indication to the user per
       <var>device</var>, then for each
