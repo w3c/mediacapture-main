@@ -5059,49 +5059,40 @@ below dictionary, but instead provide its own definition. See
     </div>
   </section>
   <section>
-    <h1>User Experience Requirements</h1>
-    <p>For each <var>device</var> for which there is a
-    [[\devicesAccessibleMap]]<var>[device]</var> internal slot,
-    define <var>&lt;device&gt;Accessible</var> to be On whenever the
-    slot has a value of true and Off otherwise.</p>
-    <p>For each <var>device</var> for which there is a
-    [[\devicesLiveMap]]<var>[device]</var> internal slot,
-    define <var>&lt;device&gt;Live</var> to be On whenever the
-    slot has a value of true and Off otherwise.</p>
+    <h1>Privacy Indicator Requirements</h1>
     <p>For each <var>kind</var> of device that <a>getUserMedia()</a>
     exposes,</p>
       <ul>
-        <li>Define <var>&lt;kind&gt;Accessible</var> to be On
-        whenever <var>&lt;device&gt;Accessible</var> is On for
-        any <var>device</var> of that <var>kind</var>, On whenever
-        [[\kindsAccessibleMap]]<var>[kind]</var> is true, and Off
-        otherwise.</li>
-        <li>Define <var>&lt;kind&gt;Live</var> to be On
-        whenever <var>&lt;device&gt;Live</var> is On for
-        any <var>device</var> of that <var>kind</var> and
-        Off otherwise.</li>
+        <li>Define <var>&lt;kind&gt;Accessible</var> (e.g.
+        <var>audioAccessible</var>, <var>videoAccessible</var>) as the logical
+        OR of the [[\kindsAccessibleMap]]<var>[kind]</var> value and all the
+        [[\devicesAccessibleMap]]<var>[deviceId]</var> values for devices of that
+        kind.</li>
+        <li>Define <var>&lt;kind&gt;Live</var> (e.g.
+        <var>audioLive</var>, <var>videoLive</var>) to be the logical OR of the
+        [[\kindsLiveMap]]<var>[kind]</var> value and all the
+        [[\devicesLiveMap]]<var>[deviceId]</var> values for devices of that
+        kind.</li>
       </ul>
-    <p>Define <var>Accessible</var> to be On
-    whenever <var>&lt;kind&gt;Accessible</var> is On for
-    any <var>kind</var> and Off otherwise.</p>
-    <p>Define <var>Live</var> to be On
-    whenever <var>&lt;kind&gt;Live</var> is On for
-    any <var>kind</var> and Off otherwise.</p>
+    <p>Define <var>Accessible</var> to be the logical OR or all
+    <var>&lt;kind&gt;Accessible</var> values.</p>
+    <p>Define <var>Live</var> to be the logical OR of all
+    <var>&lt;kind&gt;Live</var> values.</p>
     <p>Then the following are requirements on the User Agent:</p>
     <ul>
       <li>The User Agent MUST indicate to the user when the value
       of <var>Accessible</var> changes.</li>
       <li>The User Agent MUST indicate to the user when the value
       of <var>Live</var> changes.</li>
-      <li>If the User Agent provides any indication of Accessible or
-      Live to the user per <var>kind</var>, then for each such
-      value at a minimum it MUST indicate when the value
-      changes.</li>
-      <li>If the User Agent provides any indication of Accessible or
-      Live to the user per <var>device</var>, then for each such
-      value at a minimum it MUST indicate when the value
-      changes.</li>
-      <li>Any off-to-on transition MUST remain observable for a
+      <li>If the User Agent provides indication to the user per <var>kind</var>,
+      then for each <var>&lt;kind&gt;Accessible</var> value and
+      <var>&lt;kind&gt;Live</var> value, it MUST at minimum indicate when the
+      value changes.</li>
+      <li>If the User Agent provides indication the user per <var>device</var>,
+      then for each [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
+      [[\devicesLiveMap]]<var>[deviceId]</var> value, it MUST at minimum
+      indicate when the value changes.</li>
+      <li>Any false-to-true transition indicated MUST remain observable for a
       sufficient time that a reasonably-observant user could become
       aware of it.</li>
       <li>Any of the above indications MAY be combined as long as
@@ -5115,23 +5106,24 @@ below dictionary, but instead provide its own definition. See
       <li>The User Agent is encouraged to provide ongoing indication
       of the current state of <var>Live</var> and to make any generic
       hardware device indicator light match.</li>
-      <li>If the User Agent provides any indication
-      of <var>Accessible</var> or <var>Live</var> to the user
-      per <var>kind</var>, it is encouraged to provide ongoing
-      indication of the current state of each such value. It is
+      <li>If the User Agent provides indication to the user per <var>kind</var>,
+      then for each <var>&lt;kind&gt;Accessible</var> value and
+      <var>&lt;kind&gt;Live</var> value, it is encouraged to provide ongoing
+      indication of the current state of the value. It is also
       encouraged to make any device-type-specific hardware indicator
       light match the corresponding <var>&lt;kind&gt;Live</var>
       value.</li>
-      <li>If the User Agent provides any indication
-      of <var>Accessible</var> or <var>Live</var> to the user
-      per <var>device</var>, it is encouraged to provide ongoing
-      indication of the current state of each such value. It is
+      <li>If the User Agent provides indication to the user per
+      <var>device</var>, then for each
+      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
+      [[\devicesLiveMap]]<var>[deviceId]</var> value, it is encouraged to
+      provide ongoing indication of the current state of the value. It is also
       encouraged to make any device-specific hardware indicator light
-      match the corresponding <var>&lt;device&gt;Live</var>
+      match the corresponding [[\devicesLiveMap]]<var>[deviceId]</var>
       value.</li>
-      <li>Any optional ongoing indication MAY be used instead of the
+      <li>Any of the above ongoing indications MAY be used instead of the
       corresponding required transition indication provided the
-      off-to-on transition requirement is met.</li>
+      false-to-true transition requirement is met.</li>
     </ul>
   </section>
 
