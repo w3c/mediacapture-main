@@ -5059,6 +5059,76 @@ below dictionary, but instead provide its own definition. See
     </div>
   </section>
   <section>
+    <h1>Privacy Indicator Requirements</h1>
+    <p>For each <var>kind</var> of device that <a>getUserMedia()</a>
+    exposes,</p>
+      <ul>
+        <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
+        <var>anyAudioAccessible</var>, <var>anyVideoAccessible</var>) as the
+        logical OR of the [[\kindsAccessibleMap]]<var>[kind]</var> value and all
+        the [[\devicesAccessibleMap]]<var>[deviceId]</var> values for devices of
+        that kind.</li>
+        <li>Define any<var>&lt;kind&gt;Live</var> (e.g.
+        <var>anyAudioLive</var>, <var>anyVideoLive</var>) to be the logical OR
+        of the [[\kindsLiveMap]]<var>[kind]</var> value and all the
+        [[\devicesLiveMap]]<var>[deviceId]</var> values for devices of that
+        kind.</li>
+      </ul>
+    <p>Define <var>anyAccessible</var> to be the logical OR of all
+    <var>any&lt;kind&gt;Accessible</var> values.</p>
+    <p>Define <var>anyLive</var> to be the logical OR of all
+    <var>any&lt;kind&gt;Live</var> values.</p>
+    <p>Then the following are requirements on the User Agent:</p>
+    <ul>
+      <li>The User Agent MUST indicate to the user when the value
+      of <var>anyAccessible</var> changes.</li>
+      <li>The User Agent MUST indicate to the user when the value
+      of <var>anyLive</var> changes.</li>
+      <li>If the User Agent provides indication to the user per <var>kind</var>,
+      then for each <var>any&lt;kind&gt;Accessible</var> value and
+      <var>any&lt;kind&gt;Live</var> value, it MUST at minimum indicate when the
+      value changes.</li>
+      <li>If the User Agent provides indication to the user per
+      <var>device</var>, then for each
+      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
+      [[\devicesLiveMap]]<var>[deviceId]</var> value, it MUST at minimum
+      indicate when the value changes.</li>
+      <li>Any false-to-true transition indicated MUST remain observable for a
+      sufficient time that a reasonably-observant user could become
+      aware of it.</li>
+      <li>Any of the above transition indications MAY be combined as long as
+      the combined indication cannot transition to false if any of its
+      component indications are still true.</li>
+    </ul>
+    <p>and the following are encouraged behaviors for the User Agent:</p>
+    <ul>
+      <li>The User Agent is encouraged to provide ongoing indication
+      of the current state of <var>anyAccessible</var>.</li>
+      <li>The User Agent is encouraged to provide ongoing indication
+      of the current state of <var>anyLive</var> and to make any generic
+      hardware device indicator light match.</li>
+      <li>If the User Agent provides indication to the user per <var>kind</var>,
+      then for each any<var>&lt;kind&gt;Accessible</var> value and
+      any<var>&lt;kind&gt;Live</var> value, it is encouraged to provide ongoing
+      indication of the current state of the value. It is also
+      encouraged to make any device-type-specific hardware indicator
+      light match the corresponding any<var>&lt;kind&gt;Live</var>
+      value.</li>
+      <li>If the User Agent provides indication to the user per
+      <var>device</var>, then for each
+      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
+      [[\devicesLiveMap]]<var>[deviceId]</var> value, it is encouraged to
+      provide ongoing indication of the current state of the value. It is also
+      encouraged to make any device-specific hardware indicator light
+      match the corresponding [[\devicesLiveMap]]<var>[deviceId]</var>
+      value.</li>
+      <li>Any of the above ongoing indications MAY be used instead of the
+      corresponding required transition indication provided the
+      false-to-true transition requirement is met.</li>
+    </ul>
+  </section>
+
+  <section>
     <h1>Privacy and Security Considerations</h1>
     <p>This section is non-normative; it specifies no new behavior, but instead
     summarizes information already present in other parts of the
