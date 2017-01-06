@@ -2965,13 +2965,20 @@ interface NavigatorUserMedia {
       <p>When new media input and/or output devices are made available,
       or any available input and/or output device becomes unavailable, the User
       Agent MUST run the following steps only in browsing contexts where at
-      least one of the following criteria are met: The
-      <a data-lt="retrieve the permission state">permission state</a> of the
-      "device-info" permission is "granted", any of the input devices are
-      attached to an active MediaStream in the browsing context,
-      or the <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-document">active document</a> 
-       is <a href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active">fully active</a>
-      and <a href="https://html.spec.whatwg.org/#gains-focus">has focus</a>:</p>
+      least one of the following criteria are met:
+      <ul>
+        <li>The <a data-lt="retrieve the permission state">permission state</a>
+        of the "device-info" permission is "granted",</li>
+        <li>any of the input devices are attached to an active MediaStream in
+        the browsing context, or</li>
+        <li>the
+        <a href="https://html.spec.whatwg.org/multipage/browsers.html#active-document">
+        active document</a> is
+        <a href="https://html.spec.whatwg.org/multipage/browsers.html#fully-active">
+        fully active</a>
+        and <a href="https://html.spec.whatwg.org/#gains-focus">has focus.</a></li>
+      </ul>
+      The steps are:</p>
       <ol>
         <li>
           <p>Set [[\storedDeviceList]] to null.</p>
