@@ -2990,7 +2990,9 @@ interface NavigatorUserMedia {
         </li>
       </ol>
       <p>The User Agent MUST NOT execute the above steps in browsing contexts
-      where none of the criteria are met.</p>
+      where none of the criteria are met. If such a browsing context later
+      <a href="https://html.spec.whatwg.org/#gains-focus">gains focus</a>, the
+      User Agent MAY execute the steps at that time.</p>
       <p>The User Agent MAY combine firing multiple events into firing one event
       when several devices are added or removed at the same time,
       e.g. a camera with a microphone.</p>
