@@ -3338,8 +3338,6 @@ interface MediaDeviceInfo {
     Agents to remove these APIs entirely when on an insecure origin, as long as
     they remove all of them at once (e.g., they should not leave just the
     prefixed version available on insecure origins).</p>
-    <p>All Documents have a <dfn>user media enabled flag</dfn>. This
-    specification does not detail how or when this flag is set.</p>
     <section>
       <h3>NavigatorUserMedia Interface Extensions</h3>
       <div class="note">
@@ -3578,8 +3576,14 @@ interface MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If the current [[!HTML51]] Document's <a>user media
-                  enabled flag</a> is unset, return a promise rejected with a
+                  <p>If this <a href="https://dom.spec.whatwg.org/#context-object">
+                  context object</a>'s
+                  <a href="https://dom.spec.whatwg.org/#concept-node-document">
+                  node document</a> is NOT
+                  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#allowed-to-use">
+                  allowed to use</a> the feature indicated by attribute
+                  name <code>allowusermedia</code>, return
+                  a promise rejected with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
