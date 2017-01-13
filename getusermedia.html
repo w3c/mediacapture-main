@@ -66,9 +66,17 @@
         a simple event</a></dfn> are defined in [[!HTML5]].</p>
         <p>The terms <dfn><a href=
         "http://dev.w3.org/html5/spec/webappapis.html#event-handlers">event
-        handlers</a></dfn> and <dfn><a href=
+        handlers</a></dfn>, <dfn><a href=
         "http://dev.w3.org/html5/spec/webappapis.html#event-handler-event-type">
-        event handler event types</a></dfn> are defined in [[!HTML5]].</p>
+        event handler event types</a></dfn> and <dfn><a href=
+        "https://www.w3.org/TR/html5/webappapis.html#responsible-document">
+        responsible document</a></dnf> are defined in [[!HTML5]].</p>
+        <p>The term <dnf><a href="https://www.w3.org/TR/html51/webappapis.html#current-settings-object">
+        current settings object</a></dnf> is defined in [[!HTML51]].</p>
+        <p>The term <dnf><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#allowed-to-use">
+        allowed to use</a></dnf> is defined in WHATWG (note we don't have a proper
+        ref added, in addition it seems HTML5.1 will(?) add defintion
+        of this term).</p>
       </dd>
       <dt><code><dfn>DOMException</dfn></code></dt>
       <dd>
@@ -3576,10 +3584,10 @@ interface MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If this <a href="https://dom.spec.whatwg.org/#context-object">
-                  context object</a>'s
-                  <a href="https://dom.spec.whatwg.org/#concept-node-document">
-                  node document</a> is NOT
+                  <p>If the <dnf><a href="https://www.w3.org/TR/html51/webappapis.html#current-settings-object">
+                  current settings object</a></dnf>'s
+                  <dnf><a href="https://www.w3.org/TR/html5/webappapis.html#responsible-document">
+                  responsible document</a></dnf> is NOT
                   <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#allowed-to-use">
                   allowed to use</a> the feature indicated by attribute
                   name <code>allowusermedia</code>, return
