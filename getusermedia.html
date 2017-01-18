@@ -4225,7 +4225,10 @@ interface ConstrainablePattern {
               they were specified. Note that some of the optional
               ConstraintSets returned may not be currently satisfied. To check
               which ConstraintSets are currently in effect, the application
-              should use <code>getSettings</code>.</p>
+              should use <code>getSettings</code>.  The UA MAY return
+              normalized constraints with the identical effect in all
+              situations as the applied constraints, regardless of
+              source.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -4419,11 +4422,7 @@ interface ConstrainablePattern {
                     from <var>object</var>, apply <var>newConstraints</var>,
                     and apply <var>successfulSettings</var> as the current
                     settings.</li>
-                    <li>Finally, resolve <var>p</var>. From this point on until
-                    applyConstraints() is called successfully again,
-                    getConstraints() <em class="rfc2119" title="must">must</em>
-                    return the <var>newConstraints</var> that were passed as an
-                    argument to this call.</li>
+                    <li>Finally, resolve <var>p</var>.</li>
                   </ol>
                 </li>
                 <li>
