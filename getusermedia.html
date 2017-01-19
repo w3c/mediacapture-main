@@ -4434,6 +4434,10 @@ interface ConstrainablePattern {
                   <p>Return <var>p</var>.</p>
                 </li>
               </ol>
+              <p>The User Agent MAY choose new settings for the constrainable
+              properties of the object at any time. When it does so it MUST
+              attempt to satisfy all current Constraints, in the manner
+              described in the algorithm above.</p>
               <div class="note">
                 <p>Any implementation that has the same result as the algorithm
                 above is an allowed implementation. For instance, the
@@ -4451,10 +4455,6 @@ interface ConstrainablePattern {
                 dictionary will cause the device driver to apply
                 resampling.</p>
               </div>
-              <p>The User Agent MAY choose new settings for the constrainable
-              properties of the object at any time. When it does so it MUST
-              attempt to satisfy the current Constraints, in the manner
-              described in the algorithm above.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
