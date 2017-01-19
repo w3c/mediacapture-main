@@ -4225,10 +4225,10 @@ interface ConstrainablePattern {
               they were specified. Note that some of the optional
               ConstraintSets returned may not be currently satisfied. To check
               which ConstraintSets are currently in effect, the application
-              should use <code>getSettings</code>.  The UA MAY return
-              normalized constraints with the identical effect in all
-              situations as the applied constraints, regardless of
-              source.</p>
+              should use <code>getSettings</code>.  Instead of
+              returning the exact constraints as described above, the
+              UA MAY return a constraint set that has the identical
+              effect in all situations as the applied constraints.</p>
               <div>
                 <em>No parameters.</em>
               </div>
