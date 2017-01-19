@@ -66,9 +66,15 @@
         a simple event</a></dfn> are defined in [[!HTML5]].</p>
         <p>The terms <dfn><a href=
         "http://dev.w3.org/html5/spec/webappapis.html#event-handlers">event
-        handlers</a></dfn> and <dfn><a href=
+        handlers</a></dfn>, <dfn><a href=
         "http://dev.w3.org/html5/spec/webappapis.html#event-handler-event-type">
-        event handler event types</a></dfn> are defined in [[!HTML5]].</p>
+        event handler event types</a></dfn> and <dfn><a href=
+        "https://www.w3.org/TR/html5/webappapis.html#responsible-document">
+        responsible document</a></dfn> are defined in [[!HTML5]].</p>
+        <p>The term <dfn><a href="https://www.w3.org/TR/html51/webappapis.html#current-settings-object">
+        current settings object</a></dfn> is defined in [[!HTML51]].</p>
+        <p>The term <dfn><a href="https://html.spec.whatwg.org/multipage/embedded-content.html#allowed-to-use">
+        allowed to use</a></dfn> is defined in WHATWG HTML.</p>
       </dd>
       <dt><code><dfn>DOMException</dfn></code></dt>
       <dd>
@@ -3338,8 +3344,6 @@ interface MediaDeviceInfo {
     Agents to remove these APIs entirely when on an insecure origin, as long as
     they remove all of them at once (e.g., they should not leave just the
     prefixed version available on insecure origins).</p>
-    <p>All Documents have a <dfn>user media enabled flag</dfn>. This
-    specification does not detail how or when this flag is set.</p>
     <section>
       <h3>NavigatorUserMedia Interface Extensions</h3>
       <div class="note">
@@ -3578,10 +3582,11 @@ interface MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If the current [[!HTML51]] Document's <a>user media
-                  enabled flag</a> is unset, return a promise rejected with a
-                  <code><a>DOMException</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
+                  <p>If the <a> current settings object</a>'s <a>responsible
+                  document</a> is NOT <a>allowed to use</a> the feature
+                  indicated by attribute name <code>allowusermedia</code>,
+                  return a promise rejected with a <code><a>DOMException</a></code>
+                  object whose <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
                 </li>
                 <li>
