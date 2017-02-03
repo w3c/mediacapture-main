@@ -1228,7 +1228,7 @@ interface MediaStreamTrack : EventTarget {
                       </li>
                     </ul>
                   </li>
-                  <li>In step 3 of the applyConstraints algorithm, all changes
+                  <li>In step 3 of the <a>applyConstraints algorithm</a>, all changes
                   listed are to be made to <var>object</var>, and</li>
                   <li>In step 4 of the applyConstraints algorithm, the
                   requirement on getConstraints() applies to the
@@ -3767,7 +3767,7 @@ interface MediaDeviceInfo {
                       granted permission.</p>
                     </li>
                     <li>
-                      <p>Run the <code>ApplyConstraints()</code> algorithm on
+                      <p>Run the <a>ApplyConstraints algorithm</a> on
                       all tracks in <var>stream</var> with the appropriate
                       constraints.</p>
                     </li>
@@ -4247,9 +4247,10 @@ interface ConstrainablePattern {
             <dt><code>getConstraints</code></dt>
             <dd>
               <p>The <dfn>getConstraints()</dfn> method returns the Constraints
-              that were the argument to the most recent successful call of
-              <code>applyConstraints()</code>, maintaining the order in which
-              they were specified. Note that some of the optional
+              <p>The <dfn>getConstraints</dfn> method returns the Constraints
+              that were the argument to the most recent successful invocation of
+              the <code>applyConstraints algorithm</code>, maintaining the order in which
+              they were specified. Note that some of the advanced
               ConstraintSets returned may not be currently satisfied. To check
               which ConstraintSets are currently in effect, the application
               should use <code>getSettings</code>. Instead of returning the
@@ -4268,7 +4269,7 @@ interface ConstrainablePattern {
               <p>The <dfn>getSettings()</dfn> method returns the current
               settings of all the constrainable properties of the object,
               whether they are platform defaults or have been set by
-              <code>applyConstraints()</code>. Note that the actual setting of
+              the <a>applyConstraints algorithm</a>. Note that the actual setting of
               a property MUST be a single value.</p>
               <div>
                 <em>No parameters.</em>
@@ -4279,7 +4280,7 @@ interface ConstrainablePattern {
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
-              <p>The <dfn>applyConstraints()</dfn> algorithm for applying
+              <p>The <a>applyConstraints</a> algorithm for applying
               constraints is stated below. Here are some preliminary
               definitions that are used in the statement of the algorithm:</p>
               <p>We use the term <dfn>settings dictionary</dfn> for the set of
@@ -4413,8 +4414,9 @@ interface ConstrainablePattern {
                   calculated in step 3.</p>
                 </li>
               </ol>
-              <p>When <code>applyConstraints</code> is called, the User Agent
-              MUST run the following steps:</p>
+              <p>When the <dfn>applyConstraints algorithm</dfn> is called,
+                the User Agent MUST run the following steps:
+              </p>
               <ol>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
