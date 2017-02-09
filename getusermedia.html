@@ -4248,9 +4248,10 @@ interface ConstrainablePattern {
             <dd>
               <p>The <dfn>getConstraints()</dfn> method returns the Constraints
               <p>The <dfn>getConstraints</dfn> method returns the Constraints
-              that were the argument to the most recent successful invocation of
-              the <code>applyConstraints algorithm</code>, maintaining the order in which
-              they were specified. Note that some of the advanced
+                that were the argument to the most recent successful invocation of
+                the <code>applyConstraints algorithm</code> on the object,
+                maintaining the order in which
+                they were specified. Note that some of the advanced
               ConstraintSets returned may not be currently satisfied. To check
               which ConstraintSets are currently in effect, the application
               should use <code>getSettings</code>. Instead of returning the
