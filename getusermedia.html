@@ -137,7 +137,7 @@
         application via the <a>ConstrainablePattern</a> interface.</p>
         <p>The values of the supported capabilities must be normalized to the
         ranges and enumerated types defined in this specification.</p>
-        <p>A <a>getCapabilities()</a> call on a track returns the same
+        <p>A <a data-link-for="MediaStreamTrack">getCapabilities()</a> call on a track returns the same
         underlying per-source capabilities for all tracks connected to the
         source.</p>
         <p>Source capabilities are effectively constant. Applications should be
@@ -151,7 +151,7 @@
         complete range of each value. Interactions between constraints are
         exposed by attempting to apply constraints.</p>
       </dd>
-      <dt><dfn>Constraints</dfn></dt>
+      <dt><dfn data-lt="constraint" data-lt-noDefault>Constraints</dfn></dt>
       <dd>
         <p>Constraints provide a general control surface that allows
         applications to both select an appropriate source for a track and, once
@@ -162,12 +162,12 @@
         ranges of its supported capabilities. Implementations may also adjust
         source settings at any time within the bounds imposed by all applied
         constraints.</p>
-        <p><a>getUserMedia()</a> uses constraints to help select an appropriate
+        <p><a data-link-for="MediaDevices">getUserMedia()</a> uses constraints to help select an appropriate
         source for a track and configure it. Additionally, the
         <a>ConstrainablePattern</a> interface on tracks includes an API for
         dynamically changing the track's constraints at any later time.</p>
         <p>A track will not be connected to a source using
-        <a>getUserMedia()</a> if its initial constraints cannot be satisfied.
+        <a data-link-for="MediaDevices">getUserMedia()</a> if its initial constraints cannot be satisfied.
         However, the ability to meet the constraints on a track can change over
         time, and constraints can be changed. If circumstances change such that
         constraints cannot be met, the <a>ConstrainablePattern</a> interface
@@ -202,7 +202,7 @@
     <section>
       <h2>Introduction</h2>
       <p>The two main components in the MediaStream API are the
-      <code><a>MediaStreamTrack</a></code> and <code><a>MediaStream</a></code>
+      <dfn>MediaStreamTrack</dfn> and <dfn>MediaStream</dfn>
       interfaces. The <code><a>MediaStreamTrack</a></code> object represents
       media of a single type that originates from one media source in the User
       Agent, e.g. video produced by a web camera. A
@@ -256,7 +256,7 @@
     </section>
     <section>
       <h2>MediaStream</h2>
-      <p>The <dfn id="dom-mediastream"><code>MediaStream()</code></dfn>
+      <p>The <dfn><code>MediaStream()</code></dfn>
       constructor composes a new stream out of existing tracks. It takes an
       optional argument of type <code><a>MediaStream</a></code> or an array of
       <code><a>MediaStreamTrack</a></code> objects. <dfn id=
@@ -754,7 +754,7 @@ interface MediaStream : EventTarget {
       <code><a>MediaStreamTrack</a></code> that override the behavior specified
       here. Several <code><a>MediaStreamTrack</a></code> objects can represent
       the same media source, e.g., when the user chooses the same camera in the
-      UI shown by two consecutive calls to <code><a>getUserMedia()</a></code>
+      UI shown by two consecutive calls to <code><a data-link-for="MediaDevices">getUserMedia()</a></code>
       .</p>
       <p>The data from a <code><a>MediaStreamTrack</a></code> object does not
       necessarily have a canonical binary form; for example, it could just be
@@ -766,7 +766,7 @@ interface MediaStream : EventTarget {
       "#dom-mediastreamtrack-stop">stop()</a></code> method. When all tracks
       using a source have been stopped or ended by some other means, the source
       is <dfn id="source-stopped">stopped</dfn>. If the source is a device
-      exposed by <a>getUserMedia()</a>, then when the source is stopped, the UA
+      exposed by <a data-link-for="MediaDevices">getUserMedia()</a>, then when the source is stopped, the UA
       MUST run the following steps:</p>
       <ol>
         <li>
@@ -846,7 +846,7 @@ interface MediaStream : EventTarget {
         sourced by a muted or disabled <code><a>MediaStreamTrack</a></code>
         (contained within a <code><a>MediaStream</a></code> ), is playing but
         the rendered content is the muted output.</p>
-        <p>If the source is a device exposed by <a>getUserMedia()</a>, then
+        <p>If the source is a device exposed by <a data-link-for="MediaDevices">getUserMedia()</a>, then
         when a track becomes either muted or disabled, and this brings all
         tracks connected to the device to be either muted, disabled, or
         stopped, then the UA MAY, using the device's deviceId,
@@ -1043,8 +1043,7 @@ interface MediaStreamTrack : EventTarget {
                 must be initialized is the algorithm to represent an incoming
                 network component with a <code><a>MediaStreamTrack</a></code>
                 object. [[WEBRTC10]]</p>
-                <p><dfn data-lt-nodefault="" id="dom-mediastreamtrack-id"
-                data-lt="dom-mediastreamtrack-id"><code>id</code></dfn>
+                <p><dfn><code>id</code></dfn>
                 attribute MUST return the value to which it was initialized
                 when the object was created.</p>
               </dd>
@@ -1139,7 +1138,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><code>stop</code></dt>
               <dd>
                 <p>When a <code><a>MediaStreamTrack</a></code> object's
-                <dfn id="dom-mediastreamtrack-stop"><code>stop()</code></dfn>
+                <dfn><code id="dom-mediastreamtrack-stop">stop()</code></dfn>
                 method is invoked, the User Agent MUST run following steps:</p>
                 <ol>
                   <li>
@@ -1171,7 +1170,7 @@ interface MediaStreamTrack : EventTarget {
                   <em>Return type:</em> <code>void</code>
                 </div>
               </dd>
-              <dt><dfn><code>getCapabilities</code></dfn></dt>
+              <dt><dfn>getCapabilities()</dfn></dt>
               <dd>
                 <p>Returns the capabilites of the source that this
                 <code><a>MediaStreamTrack</a></code>, the <a>constrainable
@@ -1188,7 +1187,7 @@ interface MediaStreamTrack : EventTarget {
                   <em>Return type:</em> <code>MediaTrackCapabilities</code>
                 </div>
               </dd>
-              <dt><dfn><code>getConstraints</code></dfn></dt>
+              <dt><dfn><code>getConstraints()</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
@@ -1199,7 +1198,7 @@ interface MediaStreamTrack : EventTarget {
                   <em>Return type:</em> <code>MediaTrackConstraints</code>
                 </div>
               </dd>
-              <dt><dfn><code>getSettings</code></dfn></dt>
+              <dt><dfn><code>getSettings()</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
@@ -1210,7 +1209,7 @@ interface MediaStreamTrack : EventTarget {
                   <em>Return type:</em> <code>MediaTrackSettings</code>
                 </div>
               </dd>
-              <dt><dfn><code>applyConstraints</code></dfn></dt>
+              <dt><dfn><code>applyConstraints()</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method, where</p>
@@ -1275,7 +1274,7 @@ interface MediaStreamTrack : EventTarget {
           "MediaStreamTrackState" class="simple">
             <tbody>
               <tr>
-                <th colspan="2">Enumeration description</th>
+                <th colspan="2"><dfn>MediaStreamTrackState</dfn> Enumeration description</th>
               </tr>
               <tr>
                 <td><dfn><code id=
@@ -1308,7 +1307,7 @@ interface MediaStreamTrack : EventTarget {
         </div>
       </section>
       <section id="media-track-supported-constraints">
-        <h2>MediaTrackSupportedConstraints</h2>
+        <h2><dfn>MediaTrackSupportedConstraints</dfn></h2>
         <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
         list of constraints recognized by a User Agent for controlling the
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
@@ -1414,7 +1413,7 @@ interface MediaStreamTrack : EventTarget {
         </div>
       </section>
       <section id="media-track-capabilities">
-        <h2>MediaTrackCapabilities</h2>
+        <h2><dfn>MediaTrackCapabilities</dfn></h2>
         <p><code><a>MediaTrackCapabilities</a></code> represents the
         <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
         object.</p>
@@ -1517,7 +1516,7 @@ interface MediaStreamTrack : EventTarget {
         </div>
       </section>
       <section id="media-track-constraints">
-        <h2>MediaTrackConstraints</h2>
+        <h2><dfn>MediaTrackConstraints</dfn></h2>
         <div>
           <pre class="idl">
           dictionary MediaTrackConstraints : MediaTrackConstraintSet {
@@ -1537,7 +1536,7 @@ interface MediaStreamTrack : EventTarget {
             </dl>
           </section>
         </div>
-        <p>Future specifications can extend the MediaTrackConstraintSet
+        <p>Future specifications can extend the <dfn>MediaTrackConstraintSet</dfn>
         dictionary by defining a partial dictionary with dictionary members of
         appropriate type.</p>
         <div>
@@ -1624,7 +1623,7 @@ interface MediaStreamTrack : EventTarget {
         </div>
       </section>
       <section id="media-track-settings">
-        <h2>MediaTrackSettings</h2>
+        <h2><dfn>MediaTrackSettings</dfn></h2>
         <p><code><a>MediaTrackSettings</a></code> represents the
         <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
         <p>Future specifications can extend the MediaTrackSettings dictionary
@@ -1739,10 +1738,10 @@ interface MediaStreamTrack : EventTarget {
                 for the identifier. Note that the setting of this property is
                 uniquely determined by the source that is attached to the
                 <a>MediaStreamTrack</a>. In particular,
-                <a>getCapabilities()</a> will return only a single value for
+                <a data-link-for="MediaStreamTrack">getCapabilities()</a> will return only a single value for
                 deviceId. This property can therefore be used for initial media
-                selection with <a>getUserMedia()</a>. However, it is not useful
-                for subsequent media control with <a>applyConstraints()</a>,
+                selection with <a data-link-for="MediaDevices">getUserMedia()</a>. However, it is not useful
+                for subsequent media control with <a data-link-for="MediaStreamTrack">applyConstraints()</a>,
                 since any attempt to set a different value will result in an
                 unsatisfiable <a>ConstraintSet</a>.
               </td>
@@ -1759,11 +1758,11 @@ interface MediaStreamTrack : EventTarget {
                 groupId. Note that the setting of this property is uniquely
                 determined by the source that is attached to the
                 <a>MediaStreamTrack</a>. In particular,
-                <a>getCapabilities()</a> will return only a single value for
+                <a data-link-for="MediaStreamTrack">getCapabilities()</a> will return only a single value for
                 groupId. Since this property is not stable between browsing
                 sessions its usefulness for initial media selection with
-                <a>getUserMedia()</a> is limited. It is not useful for
-                subsequent media control with <a>applyConstraints()</a>, since
+                <a data-link-for="MediaDevices">getUserMedia()</a> is limited. It is not useful for
+                subsequent media control with <a data-link-for="MediaStreamTrack">applyConstraints()</a>, since
                 any attempt to set a different value will result in an
                 unsatisfiable <a>ConstraintSet</a>.
               </td>
@@ -1838,7 +1837,7 @@ interface MediaStreamTrack : EventTarget {
           "VideoFacingModeEnum" class="simple">
             <tbody>
               <tr>
-                <th colspan="2">Enumeration description</th>
+                <th colspan="2"><dfn>VideoFacingModeEnum</dfn> Enumeration description</th>
               </tr>
               <tr>
                 <td><dfn><code id=
@@ -2032,7 +2031,7 @@ interface MediaStreamTrackEvent : Event {
     required MediaStreamTrack track;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">MediaStreamTrackEventInit</a>
+          <h2>Dictionary <dfn>MediaStreamTrackEventInit</dfn>
           Members</h2>
           <dl data-link-for="MediaStreamTrackEventInit" data-dfn-for=
           "MediaStreamTrackEventInit" class="dictionary-members">
@@ -2112,7 +2111,7 @@ interface MediaStreamTrackEvent : Event {
     quality), and C is also scaling the video up slightly for sending over the
     network. On the remote client, sink Y is scaling the video <em>way</em>
     down, while sink Z is not applying any scaling.</p>
-    <p>In response to <code><a>applyConstraints()</a></code> being called, one
+    <p>In response to <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code> being called, one
     of the tracks wants a higher resolution (1920 by 1200 pixels) from the home
     client's video source.</p><img alt=
     "Changing media stream source effects: after the requested change" src=
@@ -2171,7 +2170,7 @@ interface MediaStreamTrackEvent : Event {
     source is unable to satisfy, either because the source itself cannot
     satisfy the constraint or because the source is already satisfying a
     conflicting constraint. When this happens, the promise returned from
-    <code><a>applyConstraints()</a></code> will be rejected, without applying
+    <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code> will be rejected, without applying
     any of the new constraints. Since no change in constraints occurs in this
     case, there is also no required change to the source itself as a result of
     this condition. Here is an example of this behavior.</p>
@@ -2733,7 +2732,7 @@ interface OverconstrainedErrorEvent : Event {
              OverconstrainedError? error = null;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">OverconstrainedErrorEventInit</a>
+          <h2>Dictionary <dfn>OverconstrainedErrorEventInit</dfn>
           Members</h2>
           <dl data-link-for="OverconstrainedErrorEventInit" data-dfn-for=
           "OverconstrainedErrorEventInit" class="dictionary-members">
@@ -2865,7 +2864,7 @@ interface OverconstrainedErrorEvent : Event {
     Agent about connected media input and output devices (for example a web
     camera or a headset).</p>
     <section>
-      <h3>NavigatorUserMedia</h3>
+      <h3><dfn>NavigatorUserMedia</dfn></h3>
       <div>
         <pre class="idl">[Exposed=Window, NoInterfaceObject]
 interface NavigatorUserMedia {
@@ -2896,7 +2895,7 @@ interface NavigatorUserMedia {
     </section>
     <section>
       <h3>MediaDevices</h3>
-      <p>The <code>MediaDevices</code> object is the entry point to the API
+      <p>The <dfn>MediaDevices</dfn> object is the entry point to the API
       used to examine and get access to media devices available to the User
       Agent.</p>
       <p>On page load, run the following steps:</p>
@@ -2920,7 +2919,7 @@ interface NavigatorUserMedia {
         </li>
         <li>
           <p>For each kind of device, <var>kind</var>, that
-          <a>getUserMedia()</a> exposes, set
+          <a data-link-for="MediaDevices">getUserMedia()</a> exposes, set
           [[\kindsAccessibleMap]]<var>[kind]</var> either to <code>true</code>
           if the result of <a data-lt=
           "retrieve the permission state">retrieving the permission state</a>
@@ -2928,7 +2927,7 @@ interface NavigatorUserMedia {
           "microphone"), is "granted", or to <code>false</code> otherwise.</p>
         </li>
         <li>
-          <p>For each individual device that <a>getUserMedia()</a> exposes,
+          <p>For each individual device that <a data-link-for="MediaDevices">getUserMedia()</a> exposes,
           using the device's deviceId, <var>deviceId</var>, set
           [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>, and
           set [[\devicesAccessibleMap]]<var>[deviceId]</var> either to
@@ -2938,7 +2937,7 @@ interface NavigatorUserMedia {
           <var>deviceId</var>, is “granted”, or to false otherwise.</p>
         </li>
       </ol>
-      <p>For each kind of device, <var>kind</var>, that <a>getUserMedia()</a>
+      <p>For each kind of device, <var>kind</var>, that <a data-link-for="MediaDevices">getUserMedia()</a>
       exposes, <a data-lt="retrieve the permission state">whenever a transition
       occurs of the permission state</a> of the permission associated with
       <var>kind</var>, run the following steps:</p>
@@ -2952,7 +2951,7 @@ interface NavigatorUserMedia {
           [[\kindsAccessibleMap]]<var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
-      <p>For each device that <a>getUserMedia()</a> exposes, <a data-lt=
+      <p>For each device that <a data-link-for="MediaDevices">getUserMedia()</a> exposes, <a data-lt=
       "retrieve the permission state">whenever a transition occurs of the
       permission state</a> of the permission associated with the device's kind
       and the device's deviceId, <var>deviceId</var>, run the following
@@ -3044,8 +3043,8 @@ interface MediaDevices : EventTarget {
               be enumerable. Specifications that add additional types of source
               will provide recommendations about whether the source type should
               be enumerable.</p>
-              <p>When the <dfn id=
-              "dom-mediadevices-enumeratedevices"><code>enumerateDevices()</code></dfn>
+              <p>When the <dfn><code id=
+              "dom-mediadevices-enumeratedevices">enumerateDevices()</code></dfn>
               method is called, the User Agent must run the following
               steps:</p>
               <ol>
@@ -3189,7 +3188,7 @@ interface MediaDevices : EventTarget {
         <code><a>MediaDeviceInfo</a></code> dictionary will contain the
         deviceId, kind, and groupId.</p>
         <p>If access has been granted for a media device, the
-        <code><a>MediaDeviceInfo</a></code> dictionary will contain the
+        <dfn>MediaDeviceInfo</dfn> dictionary will contain the
         deviceId, kind, label, and groupId.</p>
       </section>
     </section>
@@ -3265,8 +3264,8 @@ interface MediaDeviceInfo {
             </dd>
           </dl>
         </section>
-        <section>
-          <h2>Serializer</h2>
+        <section data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo">
+          <h2><dfn>Serializer</dfn></h2>
           <div>
             <p>Instances of this interface are serialized as a map with entries
             for each of the serializable attributes.</p>
@@ -3283,7 +3282,7 @@ interface MediaDeviceInfo {
         class="simple">
           <tbody>
             <tr>
-              <th colspan="2">Enumeration description</th>
+              <th colspan="2"><dfn>MediaDeviceKind</dfn> Enumeration description</th>
             </tr>
             <tr>
               <td><dfn><code id=
@@ -3314,6 +3313,7 @@ interface MediaDeviceInfo {
     </section>
     <section>
       <h2>Input-specific Device Info</h2>
+      <p>The <dfn>InputDeviceInfo</dfn> interface gives access to the capabilities of the input device it represents.</p>
       <div>
         <pre class="idl">interface InputDeviceInfo : MediaDeviceInfo {
     MediaTrackCapabilities getCapabilities ();
@@ -3322,7 +3322,7 @@ interface MediaDeviceInfo {
           <h2>Methods</h2>
           <dl data-link-for="InputDeviceInfo" data-dfn-for="InputDeviceInfo"
           class="methods">
-            <dt><dfn><code>getCapabilities</code></dfn></dt>
+            <dt><dfn>getCapabilities()</dfn></dt>
             <dd>
               <p>Returns a <code><a>MediaTrackCapabilities</a></code> object
               describing the primary audio or video track of a device's
@@ -3406,7 +3406,7 @@ interface MediaDeviceInfo {
           <h2>Methods</h2>
           <dl data-link-for="NavigatorUserMedia" data-dfn-for=
           "NavigatorUserMedia" class="methods">
-            <dt><code>getUserMedia</code></dt>
+            <dt><dfn>getUserMedia()</dfn></dt>
             <dd>
               <p>Prompts the user for permission to use their Web cam or other
               video or audio input.</p>
@@ -3580,8 +3580,8 @@ interface MediaDeviceInfo {
               <p>The promise will be rejected if there is a failure in finding
               valid tracks or if the user denies permission, as described
               below.</p>
-              <p>When the <dfn id=
-              "dom-mediadevices-getusermedia"><code>getUserMedia()</code></dfn>
+              <p>When the <dfn><code id=
+              "dom-mediadevices-getusermedia">getUserMedia()</code></dfn>
               method is called, the User Agent MUST run the following
               steps:</p>
               <ol>
@@ -3824,9 +3824,9 @@ interface MediaDeviceInfo {
     </section>
     <section>
       <h2>MediaStreamConstraints</h2>
-      <p>The <code>MediaStreamConstraints</code> dictionary is used to instruct
+      <p>The <dfn>MediaStreamConstraints</dfn> dictionary is used to instruct
       the User Agent what sort of <a>MediaStreamTrack</a>s to include in the
-      <a>MediaStream</a> returned by <a>getUserMedia()</a>.</p>
+      <a>MediaStream</a> returned by <a data-link-for="MediaDevices">getUserMedia()</a>.</p>
       <div>
         <pre class="idl">dictionary MediaStreamConstraints {
              (boolean or MediaTrackConstraints) video = false;
@@ -3863,7 +3863,7 @@ interface MediaDeviceInfo {
       </div>
     </section>
     <section>
-      <h2>NavigatorUserMediaSuccessCallback</h2>
+      <h2><dfn>NavigatorUserMediaSuccessCallback</dfn></h2>
       <div>
         <pre class="idl">
         callback NavigatorUserMediaSuccessCallback = void (MediaStream stream);</pre>
@@ -3885,7 +3885,7 @@ interface MediaDeviceInfo {
       </div>
     </section>
     <section>
-      <h2>NavigatorUserMediaErrorCallback</h2>
+      <h2><dfn>NavigatorUserMediaErrorCallback</dfn></h2>
       <div>
         <pre class="idl">
         callback NavigatorUserMediaErrorCallback = void (MediaStreamError error);</pre>
@@ -3908,7 +3908,7 @@ interface MediaDeviceInfo {
       <div>
         <pre class="idl">typedef object MediaStreamError;</pre>
         <div class="idlTypedefDesc">
-          A MediaStreamError object is either a
+          A <dfn>MediaStreamError</dfn> object is either a
           <code><a>DOMException</a></code> object or an
           <code><a>OverconstrainedError</a></code> object.
         </div>
@@ -3921,9 +3921,9 @@ interface MediaDeviceInfo {
         reservation</span>
         <p class="practicedesc">The User Agent is encouraged to reserve
         resources when it has determined that a given call to
-        <a>getUserMedia()</a> will be successful. It is preferable to reserve
+        <a data-link-for="MediaDevices">getUserMedia()</a> will be successful. It is preferable to reserve
         the resource prior to resolving the returned promise. Subsequent calls
-        to <a>getUserMedia()</a> (in this page or any other) should treat the
+        to <a data-link-for="MediaDevices">getUserMedia()</a> (in this page or any other) should treat the
         resource that was previously allocated, as well as resources held by
         other applications, as busy. Resources marked as busy should not be
         provided as sources to the current web page, unless specified by the
@@ -4066,7 +4066,7 @@ interface MediaDeviceInfo {
     simultaneously, it is possible that there is more than one combination of
     two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
-    <pre class="example highlight">
+    <pre class="example">
     var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"]) {
   // Treat like an error.
@@ -4088,7 +4088,7 @@ if(!supports["aspectRatio"]) {
     ideal lighting conditions, but not in low light, and could therefore result
     in firing of the <code>onoverconstrained</code> event handler under poor
     lighting conditions.</p>
-    <pre class="example highlight">
+    <pre class="example">
     var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"] || !supports["frameRate"]) {
   // Treat like an error.
@@ -4113,7 +4113,7 @@ if(!supports["aspectRatio"] || !supports["frameRate"]) {
     My preference is for precisely 1920x1280, but if you can't give me that,
     give me an aspectRatio of 4x3 if at all possible. If even that is not
     possible, give me a resolution as close to 1280x720 as possible."</p>
-    <pre class="example highlight">
+    <pre class="example">
     var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
@@ -4161,10 +4161,10 @@ if(!supports["width"] || !supports["height"]) {
     frames per second, and no greater than 40, the Setting can be any
     intermediate value, e.g., 32, 35, or 37 frames per second. The application
     can query the current settings of the object's constrainable properties via
-    the <code><a>getSettings()</a></code> accessor.</p>
+    the <code><a data-link-for="MediaStreamTrack">getSettings()</a></code> accessor.</p>
     <section>
       <h2>Interface Definition</h2>
-      <p>Although this specification formally defines ConstrainablePattern as a
+      <p>Although this specification formally defines <dfn>ConstrainablePattern</dfn> as a
       WebIDL interface, it is actually a template or pattern for other
       interfaces and cannot be inherited directly since the return values of
       the methods need to be extended, something WebIDL cannot do. Thus, each
@@ -4216,7 +4216,7 @@ interface ConstrainablePattern {
           "ConstrainablePattern" class="methods">
             <dt><code>getCapabilities</code></dt>
             <dd>
-              <p>The <dfn>getCapabilities()</dfn> method returns the dictionary
+              <p>The <dfn data-lt="ConstrainablePattern.getCapabilities">getCapabilities()</dfn> method returns the dictionary
               of the names of the constrainable properties that the object
               supports.</p>
               <div class="note">
@@ -4246,7 +4246,7 @@ interface ConstrainablePattern {
             </dd>
             <dt><code>getConstraints</code></dt>
             <dd>
-              <p>The <dfn>getConstraints</dfn> method returns the Constraints
+              <p>The <dfn>getConstraints()</dfn> method returns the Constraints
               that were the argument to the most recent successful call of
               <code>applyConstraints()</code>, maintaining the order in which
               they were specified. Note that some of the optional
@@ -4508,11 +4508,11 @@ interface ConstrainablePattern {
         </section>
       </div>
       <p>An example of Constraints that could be passed into
-      <code><a>applyConstraints()</a></code> or returned as a value of
+      <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code> or returned as a value of
       <code><a>constraints</a></code> is below. It uses the <a href=
       "#constrainable-properties">constrainable properties defined for
       <code>MediaStreamTrack</code></a>.</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["facingMode"]) {
   // Treat like an error.
@@ -4544,7 +4544,7 @@ var constraints = {
       <p>Here is another example, specifically for a video track where I must
       have a particular camera and have separate preferences for the width and
       height:</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["deviceId"]) {
   // Treat like an error.
@@ -4564,7 +4564,7 @@ var constraints = {
 };
 </pre>
       <p>And here's one for an audio track:</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["deviceId"] || !supports["volume"]) {
   // Treat like an error.
@@ -4578,7 +4578,7 @@ var constraints = {
 };
 </pre>
       <p>Here's an example of use of ideal:</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["aspectRatio"] || !supports["facingMode"]) {
   // Treat like an error.
@@ -4594,7 +4594,7 @@ var gotten = navigator.mediaDevices.getUserMedia({
 </pre>
       <p>Here's an example of "I want 720p, but I can accept up to 1080p and
       down to VGA.":</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"]) {
   // Treat like an error.
@@ -4606,7 +4606,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
 </pre>
       <p>Here's an example of "I want a front-facing camera and it must be
       VGA.":</p>
-      <pre class="example highlight">
+      <pre class="example">
       var supports = navigator.mediaDevices.getSupportedConstraints();
 if(!supports["width"] || !supports["height"] || !supports["facingMode"]) {
   // Treat like an error.
@@ -4640,7 +4640,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              double min;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">DoubleRange</a> Members</h2>
+          <h2>Dictionary <dfn>DoubleRange</dfn> Members</h2>
           <dl data-link-for="DoubleRange" data-dfn-for="DoubleRange" class=
           "dictionary-members">
             <dt><dfn><code>max</code></dfn> of type <span class=
@@ -4662,7 +4662,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              double ideal;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">ConstrainDoubleRange</a>
+          <h2>Dictionary <dfn>ConstrainDoubleRange</dfn>
           Members</h2>
           <dl data-link-for="ConstrainDoubleRange" data-dfn-for=
           "ConstrainDoubleRange" class="dictionary-members">
@@ -4685,7 +4685,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              long min;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">LongRange</a> Members</h2>
+          <h2>Dictionary <dfn>LongRange</dfn> Members</h2>
           <dl data-link-for="LongRange" data-dfn-for="LongRange" class=
           "dictionary-members">
             <dt><dfn><code>max</code></dfn> of type <span class=
@@ -4707,7 +4707,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              long ideal;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">ConstrainLongRange</a> Members</h2>
+          <h2>Dictionary <dfn>ConstrainLongRange</dfn> Members</h2>
           <dl data-link-for="ConstrainLongRange" data-dfn-for=
           "ConstrainLongRange" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
@@ -4729,7 +4729,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              boolean ideal;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">ConstrainBooleanParameters</a>
+          <h2>Dictionary <dfn>ConstrainBooleanParameters</dfn>
           Members</h2>
           <dl data-link-for="ConstrainBooleanParameters" data-dfn-for=
           "ConstrainBooleanParameters" class="dictionary-members">
@@ -4752,7 +4752,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
              (DOMString or sequence&lt;DOMString&gt;) ideal;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">ConstrainDOMStringParameters</a>
+          <h2>Dictionary <dfn>ConstrainDOMStringParameters</dfn>
           Members</h2>
           <dl data-link-for="ConstrainDOMStringParameters" data-dfn-for=
           "ConstrainDOMStringParameters" class="dictionary-members">
@@ -4775,8 +4775,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <pre class="idl">
         typedef (long or ConstrainLongRange) ConstrainLong;</pre>
         <div class="idlTypedefDesc">
-          Throughout this specification, the identifier <span class=
-          "idlTypedefID">ConstrainLong</span> is used to refer to the
+          Throughout this specification, the identifier <dfn>ConstrainLong</dfn>
+          is used to refer to the
           <span class="idlTypedefType">(long or ConstrainLongRange)</span>
           type.
         </div>
@@ -4785,8 +4785,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <pre class="idl">
         typedef (double or ConstrainDoubleRange) ConstrainDouble;</pre>
         <div class="idlTypedefDesc">
-          Throughout this specification, the identifier <span class=
-          "idlTypedefID">ConstrainDouble</span> is used to refer to the
+          Throughout this specification, the identifier <dfn>ConstrainDouble</dfn>
+          is used to refer to the
           <span class="idlTypedefType">(double or ConstrainDoubleRange)</span>
           type.
         </div>
@@ -4795,8 +4795,8 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
         <pre class="idl">
         typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean;</pre>
         <div class="idlTypedefDesc">
-          Throughout this specification, the identifier <span class=
-          "idlTypedefID">ConstrainBoolean</span> is used to refer to the
+          Throughout this specification, the identifier <dfn>ConstrainBoolean</dfn>
+          is used to refer to the
           <span class="idlTypedefType">(boolean or
           ConstrainBooleanParameters)</span> type.
         </div>
@@ -4804,7 +4804,11 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <div>
         <pre class="idl">
         typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString;</pre>
-        <div class="idlTypedefDesc"></div>
+        <div class="idlTypedefDesc">
+          Throughout this specification, the identifier <dfn>ConstrainDOMString</dfn>
+          is used to refer to the
+          <span class="idlTypedefType">(DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters)</span> type.
+        </div>
       </div>
     </section>
     <section id="capabilities">
@@ -4825,7 +4829,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>An example of a Capabilities dictionary is shown below. In this case,
       the <a>constrainable object</a> is a video source with a very limited set
       of Capabilities.</p>
-      <pre class="example highlight">{
+      <pre class="example">{
   frameRate: {
     min: 1.0,
     max: 60.0
@@ -4839,7 +4843,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       ranges for width and height are reported separately. In the example, if
       the <a>constrainable object</a> can only provide 640x480 and 800x600
       resolutions the relevant capabilities returned would be:</p>
-      <pre class="example highlight">{
+      <pre class="example">{
   width: {
     min: 640,
     max: 800
@@ -4877,7 +4881,7 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>An example of a Settings dictionary is shown below. This example is
       not very realistic in that a browser would actually be required to
       support more constrainable properties than just these.</p>
-      <pre class="example highlight">{
+      <pre class="example">{
   frameRate: 30.0,
   facingMode: "user"
 }
@@ -4901,7 +4905,7 @@ below dictionary, but instead provide its own definition. See
         <pre class="idl">dictionary ConstraintSet {
 };</pre>
       </div>
-      <p>Each member of a ConstraintSet corresponds to a constrainable property
+      <p>Each member of a <dfn>ConstraintSet</dfn> corresponds to a constrainable property
       and specifies a subset of the property's legal Capability values.
       Applying a ConstraintSet instructs the User Agent to restrict the
       settings of the corresponding constrainable properties to the specified
@@ -4913,7 +4917,7 @@ below dictionary, but instead provide its own definition. See
              sequence&lt;ConstraintSet&gt; advanced;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">Constraints</a> Members</h2>
+          <h2>Dictionary <dfn>Constraints</dfn> Members</h2>
           <dl data-link-for="Constraints" data-dfn-for="Constraints" class=
           "dictionary-members">
             <dt><dfn><code>advanced</code></dfn> of type <span class=
@@ -4948,7 +4952,7 @@ below dictionary, but instead provide its own definition. See
       the button to be re-enabled by providing a stream (e.g., giving the page
       access to the local camera) and then disabling the stream (e.g., revoking
       that access).</p>
-      <pre class="example highlight">
+      <pre class="example">
       &lt;input type="button" value="Start" onclick="start()" id="startBtn"&gt;
 &lt;script&gt;
  var startBtn = document.getElementById('startBtn');
@@ -4980,7 +4984,7 @@ below dictionary, but instead provide its own definition. See
       <p>This example allows people to record a short audio message and upload
       it to the server. This example even shows rudimentary error handling.</p>
 
-      <pre class="example highlight">
+      <pre class="example">
 &lt;input type="button" value="Start" onclick="msgRecord()" id="recBtn"&gt;
 &lt;input type="button" value="Stop" onclick="msgStop()" id="stopBtn" disabled&gt;
 &lt;p id="status"&gt;To start recording, press the Start button.&lt;/p&gt;
@@ -5045,7 +5049,7 @@ below dictionary, but instead provide its own definition. See
       <p>This example allows people to take photos of themselves from the local
       video camera. Note that the Image Capture specification [[image-capture]]
       provides a simpler way to accomplish this.</p>
-      <pre class="example highlight">&lt;article&gt;
+      <pre class="example">&lt;article&gt;
  &lt;style scoped&gt;
   video { transform: scaleX(-1); }
   p { text-align: center; }
@@ -5086,7 +5090,7 @@ below dictionary, but instead provide its own definition. See
   </section>
   <section>
     <h1>Privacy Indicator Requirements</h1>
-    <p>For each <var>kind</var> of device that <a>getUserMedia()</a>
+    <p>For each <var>kind</var> of device that <a data-link-for="MediaDevices">getUserMedia()</a>
     exposes,</p>
     <ul>
       <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
