@@ -4249,7 +4249,7 @@ interface ConstrainablePattern {
               <p>The <dfn>getConstraints()</dfn> method returns the Constraints
               <p>The <dfn>getConstraints</dfn> method returns the Constraints
                 that were the argument to the most recent successful invocation of
-                the <code>applyConstraints algorithm</code> on the object,
+                the <a>applyConstraints algorithm<a> on the object,
                 maintaining the order in which
                 they were specified. Note that some of the advanced
               ConstraintSets returned may not be currently satisfied. To check
@@ -4281,7 +4281,10 @@ interface ConstrainablePattern {
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
-              <p>The <a>applyConstraints</a> algorithm for applying
+              <p>When <dfn>applyConstraints()</dfn> is called, it runs the
+                <a>applyConstraints algorithm</a> on the object.
+              </p>
+              <p>The <a>applyConstraints algorithm</a> for applying
               constraints is stated below. Here are some preliminary
               definitions that are used in the statement of the algorithm:</p>
               <p>We use the term <dfn>settings dictionary</dfn> for the set of
