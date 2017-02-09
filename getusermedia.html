@@ -4302,6 +4302,13 @@ interface ConstrainablePattern {
                   does not satisfy the constraint, the fitness distance is
                   positive infinity.</p>
                 </li>
+                <li>
+                  <p>
+                    If the constraint is not required, and does not apply for
+                    this type of device, the fitness distance is 0 (that is,
+                    the constraint does not influence the fitness distance).
+                  </p>
+                </li>
                 <li>If no ideal value is specified, the fitness distance is
                 0.</li>
                 <li>For all positive numeric non-required constraints (such as
