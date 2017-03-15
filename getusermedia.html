@@ -4882,7 +4882,10 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <h3>Settings</h3>
       <p><dfn>Settings</dfn> is a dictionary containing one or more key-value
       pairs. It MUST contain each key returned in
-      <code>getCapabilities()</code>. There MUST be a single value for each key
+      <code>getCapabilities()</code> for which the property is defined
+      on the object type it's returned on; for instance, an
+      audio <code><a>MediaStreamTrack</a></code> has no "width"
+      property.  There MUST be a single value for each key
       and the value MUST be a member of the set defined for that property by
       <code>getCapabilities()</code>. The <code>Settings</code> dictionary
       contains the actual values that the User Agent has chosen for the
