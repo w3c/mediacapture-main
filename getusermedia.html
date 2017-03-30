@@ -197,8 +197,10 @@
       </dd>
       <dt>Features</dt>
       <dd>
-        <p>The terms <dfn>feature</dfn>, <dfn>feature</dfn> and 
-        <dfn>default allowlist</dfn> are defined in [[!featurepolicy]].</p>
+        <p>The terms <dfn><a href="https://wicg.github.io/feature-policy/#feature">feature</a></dfn>,
+        <dfn><a href="https://wicg.github.io/feature-policy/#feature-name">feature name</a></dfn> and 
+        <dfn><a href="https://wicg.github.io/feature-policy/#default-allowlist">default allowlist</a></dfn>
+        are defined in [[!featurepolicy]].</p>
       </dd>
 
     </dl>
@@ -3553,16 +3555,16 @@ interface MediaDeviceInfo {
       <h4>Feature Definitions</h4>
         <dt><dfn><code>camera</code></dfn></dt>
             <dd>
-              <p>The <dfn>camera</dfn> <dfn>feature</dfn> controls access to
-              video input devices. The <dfn>feature name</dfn> for <dfn>camera</dfn>
-              is "camera". The <dfn>default allowlist</dfn> for <dfn>camera</dfn>
+              <p>The <a>camera</a> <a>feature</a> controls access to
+              video input devices. The <a>feature name</a> for <a>camera</a>
+              is "camera". The <a>default allowlist</a> for <a>camera</a>
               is ["self"].</p>
             </dd>
         <dt><dfn><code>microphone</code></dfn></dt>
             <dd>
-              <p>The <dfn>microphone</dfn> <dfn>feature</dfn> controls access to
-              audio input devices. The <dfn>feature name</dfn> for <dfn>microphone</dfn>
-              is "microphone". The <dfn>default allowlist</dfn> for <dfn>microphone</dfn>
+              <p>The <a>microphone</a> <a>feature</a> controls access to
+              audio input devices. The <a>feature name</a> for <a>microphone</a>
+              is "microphone". The <a>default allowlist</a> for <a>microphone</a>
               is ["self"].</p>
             </dd>
       </section>
@@ -3626,9 +3628,9 @@ interface MediaDeviceInfo {
                 </li>
                 <li>
                   <p>If the <a>current settings object</a>'s <a>responsible
-                  document</a> is NOT <a>allowed to use</a> the <dfn>feature</dfn>(s)
-                  needed to fulfill requested <var>requestedMediaTypes</var> (i.e.
-                  <dfn>feature</dfn> <dfn>camera</dfn> and/or <dfn>microphone</dfn>),
+                  document</a> is NOT <a>allowed to use</a> the <a>feature</a>(s)
+                  needed to fulfill the requested media type set of <var>requestedMediaTypes</var> (i.e.
+                  <a>feature</a> <a>camera</a> and/or <a>microphone</a>),
                   return a promise rejected with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
