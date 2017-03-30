@@ -195,6 +195,12 @@
         permissions <a href=
         "https://github.com/w3c/permissions/issues/62">issue 62</a>.</p>
       </dd>
+      <dt>Features</dt>
+      <dd>
+        <p>The terms <dfn>feature</dfn>, <dfn>feature</dfn> and 
+        <dfn>default allowlist</dfn> are defined in [[!featurepolicy]].</p>
+      </dd>
+
     </dl>
   </section>
   <section id="stream-api">
@@ -3543,6 +3549,23 @@ interface MediaDeviceInfo {
       <p>The <code>getSupportedConstraints</code> method is provided to allow
       the application to determine which constraints the User Agent
       recognizes.</p>
+      <section>
+      <h4>Feature Definitions</h4>
+        <dt><dfn><code>camera</code></dfn></dt>
+            <dd>
+              <p>The <dfn>camera</dfn> <dfn>feature</dfn> controls access to
+              video input devices. The <dfn>feature name</dfn> for <dfn>camera</dfn>
+              is "camera". The <dfn>default allowlist</dfn> for <dfn>camera</dfn>
+              is ["self"].</p>
+            </dd>
+        <dt><dfn><code>microphone</code></dfn></dt>
+            <dd>
+              <p>The <dfn>microphone</dfn> <dfn>feature</dfn> controls access to
+              audio input devices. The <dfn>feature name</dfn> for <dfn>microphone</dfn>
+              is "microphone". The <dfn>default allowlist</dfn> for <dfn>microphone</dfn>
+              is ["self"].</p>
+            </dd>
+      </section>
       <div>
         <pre class="idl">partial interface MediaDevices {
     MediaTrackSupportedConstraints getSupportedConstraints ();
@@ -3603,12 +3626,18 @@ interface MediaDeviceInfo {
                 </li>
                 <li>
                   <p>If the <a>current settings object</a>'s <a>responsible
-                  document</a> is NOT <a>allowed to use</a> the feature
-                  indicated by attribute name <code>allowusermedia</code>,
+                  document</a> is NOT <a>allowed to use</a> the <dfn>feature</dfn>(s)
+                  needed to fulfill requested <var>requestedMediaTypes</var> (i.e.
+                  <dfn>feature</dfn> <dfn>camera</dfn> and/or <dfn>microphone</dfn>),
                   return a promise rejected with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
+                  <div class="note">
+                    The present definition of "allowed to use" is probably not compatible
+                    with feature and feature policy.
+                  </div>
+
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
