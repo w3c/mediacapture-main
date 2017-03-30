@@ -3551,23 +3551,17 @@ interface MediaDeviceInfo {
       <p>The <code>getSupportedConstraints</code> method is provided to allow
       the application to determine which constraints the User Agent
       recognizes.</p>
-      <section>
       <h4>Feature Definitions</h4>
-        <dt><dfn><code>camera</code></dfn></dt>
-            <dd>
-              <p>The <a>camera</a> <a>feature</a> controls access to
-              video input devices. The <a>feature name</a> for <a>camera</a>
-              is "camera". The <a>default allowlist</a> for <a>camera</a>
-              is ["self"].</p>
-            </dd>
-        <dt><dfn><code>microphone</code></dfn></dt>
-            <dd>
-              <p>The <a>microphone</a> <a>feature</a> controls access to
-              audio input devices. The <a>feature name</a> for <a>microphone</a>
-              is "microphone". The <a>default allowlist</a> for <a>microphone</a>
-              is ["self"].</p>
-            </dd>
-      </section>
+        <p>The <dfn data-lt-nodefault="" data-lt="camera" id=
+        "camera">camera</dfn>  <a>feature</a> controls access to
+        video input devices. The <a>feature name</a> for <a>camera</a>
+        is "camera". The <a>default allowlist</a> for <a>camera</a>
+        is ["self"].</p>
+        <p>The <dfn data-lt-nodefault="" data-lt="microphone" id=
+        "microphone">microphone</dfn> <a>feature</a> controls access to
+        audio input devices. The <a>feature name</a> for <a>microphone</a>
+        is "microphone". The <a>default allowlist</a> for <a>microphone</a>
+        is ["self"].</p>
       <div>
         <pre class="idl">partial interface MediaDevices {
     MediaTrackSupportedConstraints getSupportedConstraints ();
