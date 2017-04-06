@@ -5355,6 +5355,24 @@ below dictionary, but instead provide its own definition. See
       Capture Task Force will take into consideration all extensions they are
       aware of in an attempt to reduce potential usage conflicts.</p>
     </section>
+
+    <p>&nbsp;</p>
+    <p>It is also likely that new consumers
+    of <code><a>MediaStream</a></code>s
+    or <code><a>MediaStreamTrack</a></code>s will be defined in
+    the future.  The following section provides guidance.</p>
+
+    <section>
+      <h2>Defining new consumers of MediaStreams and
+      MediaStreamTracks</h2> 
+      <p>At a minimum, any new consumer of
+      a <code><a>MediaStreamTrack</a></code> will need to define</p>
+      <ul>
+        <li>how a <code><a>MediaStreamTrack</a></code> will render in
+        the various states in which it can be, including muted and
+        disabled (see <a href="#life-cycle-and-media-flow"></a>).
+      </ul>
+    </section>    
   </section>
   <section>
     <h2>Change Log</h2>
