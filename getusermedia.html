@@ -1327,6 +1327,8 @@ interface MediaStreamTrack : EventTarget {
              boolean sampleRate = true;
              boolean sampleSize = true;
              boolean echoCancellation = true;
+             boolean autoGainControl = true;
+             boolean noiseSuppression = true;
              boolean latency = true;
              boolean channelCount = true;
              boolean deviceId = true;
@@ -1387,6 +1389,18 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-echoCancellation">echoCancellation</a></code>
               for details.</dd>
+              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span>, defaulting to
+              <code>true</code></dt>
+              <dd>See <code><a href=
+              "#def-constraint-autoGainControl">autoGainControl</a></code>
+              for details.</dd>
+              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span>, defaulting to
+              <code>true</code></dt>
+              <dd>See <code><a href=
+              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+              for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>boolean</a></span>, defaulting to
               <code>true</code></dt>
@@ -1431,6 +1445,8 @@ interface MediaStreamTrack : EventTarget {
              LongRange           sampleRate;
              LongRange           sampleSize;
              sequence&lt;boolean&gt;   echoCancellation;
+             sequence&lt;boolean&gt;   autoGainControl;
+             sequence&lt;boolean&gt;   noiseSuppression;
              DoubleRange         latency;
              LongRange           channelCount;
              DOMString           deviceId;
@@ -1494,6 +1510,30 @@ interface MediaStreamTrack : EventTarget {
                 "#def-constraint-echoCancellation">echoCancellation</a></code>
                 for additional details.</p>
               </dd>
+              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
+              "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              <dd>
+                <p>If the source cannot do echo cancellation a single
+                <code>false</code> is reported. If echo cancellation cannot be
+                turned off, a single <code>true</code> is reported. If the
+                script can control the feature, the source reports a list with
+                both <code>true</code> and <code>false</code> as possible
+                values. See <code><a href=
+                "#def-constraint-autoGainControl">autoGainControl</a></code>
+                for additional details.</p>
+              </dd>
+              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
+              "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              <dd>
+                <p>If the source cannot do echo cancellation a single
+                <code>false</code> is reported. If echo cancellation cannot be
+                turned off, a single <code>true</code> is reported. If the
+                script can control the feature, the source reports a list with
+                both <code>true</code> and <code>false</code> as possible
+                values. See <code><a href=
+                "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+                for additional details.</p>
+              </dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href=
@@ -1550,6 +1590,8 @@ interface MediaStreamTrack : EventTarget {
              ConstrainLong      sampleRate;
              ConstrainLong      sampleSize;
              ConstrainBoolean   echoCancellation;
+             ConstrainBoolean   autoGainControl;
+             ConstrainBoolean   noiseSuppression;
              ConstrainDouble    latency;
              ConstrainLong      channelCount;
              ConstrainDOMString deviceId;
@@ -1601,6 +1643,16 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-echoCancellation">echoCancellation</a></code>
               for details.</dd>
+              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainBoolean</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-autoGainControl">autoGainControl</a></code>
+              for details.</dd>
+              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainBoolean</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+              for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
               <dd>See <code><a href=
@@ -1640,6 +1692,8 @@ interface MediaStreamTrack : EventTarget {
              long      sampleRate;
              long      sampleSize;
              boolean   echoCancellation;
+             boolean   autoGainControl;
+             boolean   noiseSuppression;
              double    latency;
              long      channelCount;
              DOMString deviceId;
@@ -1690,6 +1744,16 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType"><a>boolean</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-echoCancellation">echoCancellation</a></code>
+              for details.</dd>
+              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-autoGainControl">autoGainControl</a></code>
+              for details.</dd>
+              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>double</a></span></dt>
@@ -1921,6 +1985,22 @@ interface MediaStreamTrack : EventTarget {
               desirable to turn it off so that no audio artifacts are
               introduced. This allows applications to control this
               behavior.</td>
+            </tr>
+            <tr id="def-constraint-autoGainControl">
+              <td>autoGainControl</td>
+              <td><code><a>ConstrainBoolean</a></code></td>
+              <td>Automatic gain control is often desirable on the input signal
+              recorded by the microphone. There are cases where it is not needed
+              and it is desirable to turn it off so that the audio is not
+              altered. This allows applications to control this behavior.</td>
+            </tr>
+            <tr id="def-constraint-noiseSuppression">
+              <td>noiseSuppression</td>
+              <td><code><a>ConstrainBoolean</a></code></td>
+              <td>Noise suppression is often desirable on the input signal
+              recorded by the microphone. There are cases where it is not needed
+              and it is desirable to turn it off so that the audio is not
+              altered. This allows applications to control this behavior.</td>
             </tr>
             <tr id="def-constraint-latency">
               <td>latency</td>
@@ -4322,7 +4402,7 @@ interface ConstrainablePattern {
                   ideal|/max(|actual|,|ideal|)
 </pre>
                 </li>
-                <li>For all string and enum non-required constraints (deviceId,
+                <li>For all string and enum non-required constraints (e.g. deviceId,
                 groupId, facingMode, echoCancellation), the fitness distance is
                 the result of the formula
                   <pre>(actual == ideal) ? 0 : 1
