@@ -1513,8 +1513,8 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
               "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
               <dd>
-                <p>If the source cannot do echo cancellation a single
-                <code>false</code> is reported. If echo cancellation cannot be
+                <p>If the source cannot do auto gain control a single
+                <code>false</code> is reported. If auto gain control cannot be
                 turned off, a single <code>true</code> is reported. If the
                 script can control the feature, the source reports a list with
                 both <code>true</code> and <code>false</code> as possible
@@ -1525,8 +1525,8 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
               "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
               <dd>
-                <p>If the source cannot do echo cancellation a single
-                <code>false</code> is reported. If echo cancellation cannot be
+                <p>If the source cannot do noise suppression a single
+                <code>false</code> is reported. If noise suppression cannot be
                 turned off, a single <code>true</code> is reported. If the
                 script can control the feature, the source reports a list with
                 both <code>true</code> and <code>false</code> as possible
