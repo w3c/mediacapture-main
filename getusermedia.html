@@ -484,9 +484,10 @@ interface MediaStream : EventTarget {
             <dt><code>id</code> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>When a <code><a>MediaStream</a></code> object is created, the
-              User Agent MUST generate an identifier string, and MUST
-              initialize the object's <code><a href=
+              <p>Unless a <code><a>MediaStream</a></code> object is created as 
+              a part of a special purpose algorithm that specifies how the 
+              stream id must be initialized, the User Agent MUST generate an 
+              identifier string, and MUST initialize the object's <code><a href=
               "#dom-mediastream-id">id</a></code> attribute to that string. A
               good practice is to use a UUID [[rfc4122]], which is 36
               characters long in its canonical form. To avoid fingerprinting,
