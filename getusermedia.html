@@ -3440,6 +3440,9 @@ interface MediaDeviceInfo {
     <p>This section extends <code><a>NavigatorUserMedia</a></code> and
     <code><a>MediaDevices</a></code> with APIs to request permission to access
     media input devices available to the User Agent.</p>
+    <p>Alternatively, a local <code><a>MediaStream</a></code> can be captured
+    from certain types of DOM elements, such as the video element
+    [[mediacapture-fromelement]]. This can be useful for automated testing.</p>
     <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
     to warn about usage of <code>navigator.mediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
