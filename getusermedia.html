@@ -484,12 +484,13 @@ interface MediaStream : EventTarget {
             <dt><code>id</code> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>Unless a <code><a>MediaStream</a></code> object is created as 
-              a part of a special purpose algorithm that specifies how the 
-              stream id must be initialized, the User Agent MUST generate an 
-              identifier string, and MUST initialize the object's <code><a href=
-              "#dom-mediastream-id">id</a></code> attribute to that string. A
-              good practice is to use a UUID [[rfc4122]], which is 36
+              <p>When a <code><a>MediaStream</a></code> is created, the
+              User Agent MUST generate an identifier string, and MUST 
+              initialize the object's <code><a href="#dom-mediastream-id">
+              id</a></code> attribute to that string, unless the object is 
+              created as part of a special purpose algorithm that specifies how the 
+              stream id must be initialized.
+              A good practice is to use a UUID [[rfc4122]], which is 36
               characters long in its canonical form. To avoid fingerprinting,
               implementations SHOULD use the forms in section 4.4 or 4.5 of RFC
               4122 when generating UUIDs.</p>
@@ -1034,12 +1035,13 @@ interface MediaStreamTrack : EventTarget {
               <dt><code>id</code> of type <span class=
               "idlAttrType"><a>DOMString</a></span>, readonly</dt>
               <dd>
-                <p>Unless a <code><a>MediaStreamTrack</a></code> object is
-                created as a part of a special purpose algorithm that specifies
-                how the track id must be initialized, the User Agent MUST
-                generate an identifier string and initialize the object's
-                <code><a href="#dom-mediastreamtrack-id">id</a></code>
-                attribute to that string. See <code><a>MediaStream</a></code>'s
+                <p>When a <code><a>MediaStreamTrack</a></code> is created, the
+                User Agent MUST generate an identifier string, and MUST 
+                initialize the object's <code><a href=
+                "#dom-mediastreamtrack-id">id</a></code> attribute to that 
+                string, unless the object is created as part of a special 
+                purpose algorithm that specifies how the stream id must be 
+                initialized. See <code><a>MediaStream</a></code>'s
                 <code><a href="#dom-mediastream-id">id</a></code> attribute for
                 guidelines on how to generate such an identifier.</p>
                 <p>An example of an algorithm that specifies how the track id
