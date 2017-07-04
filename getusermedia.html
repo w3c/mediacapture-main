@@ -274,36 +274,42 @@
           value.</p>
         </li>
         <li>
-          <p>If the constructor's argument is present, construct a set of
-          tracks, <var>tracks</var> based on the type of argument:</p>
-          <ul>
-            <li>
-              <p>A <code><a>MediaStream</a></code> object:</p>
-              <p>Let <var>tracks</var> be a set containing all the
-              <code><a>MediaStreamTrack</a></code> objects in the
-              <code><a>MediaStream</a></code> <a href="#track-set">track
-              set</a>.</p>
-            </li>
-            <li>
-              <p>A sequence of <code><a>MediaStreamTrack</a></code>
-              objects:</p>
-              <p>Let <var>tracks</var> be a set containing all the
-              <code><a>MediaStreamTrack</a></code> objects in the provided
-              sequence.</p>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <p>For each <code><a>MediaStreamTrack</a></code>, <var>track</var>,
-          in <var>tracks</var>, run the following steps:</p>
+          <p>If the constructor's argument is present, run the following steps:
+          </p>
           <ol>
             <li>
-              <p>If <var>track</var> is already in <var>stream</var>'s <a href=
-              "#track-set">track set</a>, skip <var>track</var>.</p>
+              <p>Construct a set of tracks <var>tracks</var> based on the type
+              of argument:</p>
+              <ul>
+                <li>
+                  <p>A <code><a>MediaStream</a></code> object:</p>
+                  <p>Let <var>tracks</var> be a set containing all the
+                  <code><a>MediaStreamTrack</a></code> objects in the
+                  <code><a>MediaStream</a></code> <a href="#track-set">track
+                  set</a>.</p>
+                </li>
+                <li>
+                  <p>A sequence of <code><a>MediaStreamTrack</a></code>
+                  objects:</p>
+                  <p>Let <var>tracks</var> be a set containing all the
+                  <code><a>MediaStreamTrack</a></code> objects in the provided
+                  sequence.</p>
+                </li>
+              </ul>
             </li>
             <li>
-              <p>Otherwise, add <var>track</var> to <var>stream</var>'s
-              <a href="#track-set">track set</a>.</p>
+              <p>For each <code><a>MediaStreamTrack</a></code>, <var>track
+              </var>, in <var>tracks</var>, run the following steps:</p>
+              <ol>
+                <li>
+                  <p>If <var>track</var> is already in <var>stream</var>'s
+                  <a href="#track-set">track set</a>, skip <var>track</var>.</p>
+                </li>
+                <li>
+                  <p>Otherwise, add <var>track</var> to <var>stream</var>'s
+                  <a href="#track-set">track set</a>.</p>
+                </li>
+              </ol>
             </li>
           </ol>
         </li>
