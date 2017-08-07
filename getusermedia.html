@@ -3291,7 +3291,7 @@ interface MediaDeviceInfo {
     readonly        attribute MediaDeviceKind kind;
     readonly        attribute DOMString       label;
     readonly        attribute DOMString       groupId;
-    serializer = {attribute};
+    [Default] object toJSON();
 };</pre>
         <section>
           <h2>Attributes</h2>
@@ -3353,13 +3353,6 @@ interface MediaDeviceInfo {
               microphone.</p>
             </dd>
           </dl>
-        </section>
-        <section data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo">
-          <h2><dfn>Serializer</dfn></h2>
-          <div>
-            <p>Instances of this interface are serialized as a map with entries
-            for each of the serializable attributes.</p>
-          </div>
         </section>
       </div>
       <div>
