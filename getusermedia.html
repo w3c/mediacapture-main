@@ -433,52 +433,11 @@ interface MediaStream : EventTarget {
             <dd>
               <p>See the <a href="#mediastream-constructor">MediaStream
               constructor algorithm</a></p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">stream</td>
-                    <td class="prmType"><code>MediaStream</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
             </dd>
             <dt><code>MediaStream</code></dt>
             <dd>
               <p>See the <a href="#mediastream-constructor">MediaStream
               constructor algorithm</a></p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">tracks</td>
-                    <td class="prmType">
-                    <code>sequence&lt;MediaStreamTrack&gt;</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
             </dd>
           </dl>
         </section>
@@ -543,13 +502,6 @@ interface MediaStream : EventTarget {
               "<code>audio</code>". The conversion from the <a href=
               "#track-set">track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em>
-                <code>sequence&lt;MediaStreamTrack&gt;</code>
-              </div>
             </dd>
             <dt><code>getVideoTracks</code></dt>
             <dd>
@@ -564,13 +516,6 @@ interface MediaStream : EventTarget {
               "<code>video</code>". The conversion from the <a href=
               "#track-set">track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em>
-                <code>sequence&lt;MediaStreamTrack&gt;</code>
-              </div>
             </dd>
             <dt><code>getTracks</code></dt>
             <dd>
@@ -585,13 +530,6 @@ interface MediaStream : EventTarget {
               the <a href="#track-set">track set</a> to the sequence is User
               Agent defined and the order does not have to be stable between
               calls.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em>
-                <code>sequence&lt;MediaStreamTrack&gt;</code>
-              </div>
             </dd>
             <dt><code>getTrackById</code></dt>
             <dd>
@@ -602,29 +540,6 @@ interface MediaStream : EventTarget {
               whose <code><a href="#dom-mediastreamtrack-id">id</a></code> is
               equal to <var>trackId</var>, or null, if no such track
               exists.</p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">trackId</td>
-                    <td class="prmType"><code>DOMString</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>MediaStreamTrack</code>, nullable
-              </div>
             </dd>
             <dt><code>addTrack</code></dt>
             <dd>
@@ -649,29 +564,6 @@ interface MediaStream : EventTarget {
                   "#track-set">track set</a>.</p>
                 </li>
               </ol>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">track</td>
-                    <td class="prmType"><code>MediaStreamTrack</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>void</code>
-              </div>
             </dd>
             <dt><code>removeTrack</code></dt>
             <dd>
@@ -696,29 +588,7 @@ interface MediaStream : EventTarget {
                   "#track-set">track set</a>.</p>
                 </li>
               </ol>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">track</td>
-                    <td class="prmType"><code>MediaStreamTrack</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>void</code>
-              </div>
+
             </dd>
             <dt><dfn><code>clone</code></dfn></dt>
             <dd>
@@ -744,12 +614,6 @@ interface MediaStream : EventTarget {
                 </li>
                 <li>Return <var>streamClone</var>.</li>
               </ol>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>MediaStream</code>
-              </div>
             </dd>
           </dl>
         </section>
@@ -1138,12 +1002,6 @@ interface MediaStreamTrack : EventTarget {
                 <p>When the <code>clone()</code> method is invoked, the User
                 Agent MUST return the result of <a href="#track-clone">cloning
                 this track</a>.</p>
-                <div>
-                  <em>No parameters.</em>
-                </div>
-                <div>
-                  <em>Return type:</em> <code>MediaStreamTrack</code>
-                </div>
               </dd>
               <dt><code>stop</code></dt>
               <dd>
@@ -1173,12 +1031,6 @@ interface MediaStreamTrack : EventTarget {
                 "concept-task">tasks</span> queued for the <code><a href=
                 "#dom-mediastreamtrack-stop">stop()</a></code> method is the
                 DOM manipulation task source.</p>
-                <div>
-                  <em>No parameters.</em>
-                </div>
-                <div>
-                  <em>Return type:</em> <code>void</code>
-                </div>
               </dd>
               <dt><dfn>getCapabilities()</dfn></dt>
               <dd>
@@ -1190,34 +1042,16 @@ interface MediaStreamTrack : EventTarget {
                 <p class="fingerprint">Since this method gives likely
                 persistent, cross-origin information about the underlying
                 device, it adds to the fingerprint surface of the device.</p>
-                <div>
-                  <em>No parameters.</em>
-                </div>
-                <div>
-                  <em>Return type:</em> <code>MediaTrackCapabilities</code>
-                </div>
               </dd>
               <dt><dfn><code>getConstraints()</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
-                <div>
-                  <em>No parameters.</em>
-                </div>
-                <div>
-                  <em>Return type:</em> <code>MediaTrackConstraints</code>
-                </div>
               </dd>
               <dt><dfn><code>getSettings()</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
-                <div>
-                  <em>No parameters.</em>
-                </div>
-                <div>
-                  <em>Return type:</em> <code>MediaTrackSettings</code>
-                </div>
               </dd>
               <dt><dfn><code>applyConstraints()</code></dfn></dt>
               <dd>
@@ -1244,33 +1078,6 @@ interface MediaStreamTrack : EventTarget {
                   requirement on getConstraints() applies to the
                   getConstraints() method of <var>object</var>.</li>
                 </ul>
-                <table class="parameters">
-                  <tbody>
-                    <tr>
-                      <th>Parameter</th>
-                      <th>Type</th>
-                      <th>Nullable</th>
-                      <th>Optional</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr>
-                      <td class="prmName">constraints</td>
-                      <td class="prmType">
-                      <code>MediaTrackConstraints</code></td>
-                      <td class="prmNullFalse"><span role="img" aria-label=
-                      "False">✘</span></td>
-                      <td class="prmOptTrue"><span role="img" aria-label=
-                      "True">✔</span></td>
-                      <td class="prmDesc">
-                        <p>A new constraint structure to apply to this
-                        object.</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div>
-                  <em>Return type:</em> <code>Promise&lt;void&gt;</code>
-                </div>
               </dd>
             </dl>
           </section>
@@ -2068,36 +1875,6 @@ interface MediaStreamTrackEvent : Event {
             <dd>
               <p>Constructs a new
               <code><a>MediaStreamTrackEvent</a></code>.</p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">type</td>
-                    <td class="prmType"><code>DOMString</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                  <tr>
-                    <td class="prmName">eventInitDict</td>
-                    <td class="prmType">
-                    <code>MediaStreamTrackEventInit</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
             </dd>
           </dl>
         </section>
@@ -2770,36 +2547,6 @@ interface OverconstrainedErrorEvent : Event {
             <dd>
               <p>Constructs a new
               <code><a>OverconstrainedErrorEvent</a></code>.</p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">type</td>
-                    <td class="prmType"><code>DOMString</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                  <tr>
-                    <td class="prmName">eventInitDict</td>
-                    <td class="prmType">
-                    <code>OverconstrainedErrorEventInit</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
             </dd>
           </dl>
         </section>
@@ -3258,13 +3005,6 @@ interface MediaDevices : EventTarget {
               cross-origin information via the human readable labels associated
               with available capture devices, which furhter adds to the
               fingerprinting surface.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em>
-                <code>Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt;</code>
-              </div>
             </dd>
           </dl>
         </section>
@@ -3431,12 +3171,6 @@ interface MediaDeviceInfo {
               unique identifying information (see above description of
               <code>enumerateDevices()</code> result), then this method returns
               <code>null</code>.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>MediaTrackCapabilities</code>
-              </div>
             </dd>
           </dl>
         </section>
@@ -3559,50 +3293,6 @@ interface MediaDeviceInfo {
                   </ol>
                 </li>
               </ol>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">constraints</td>
-                    <td class="prmType">
-                    <code>MediaStreamConstraints</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                  <tr>
-                    <td class="prmName">successCallback</td>
-                    <td class="prmType">
-                    <code>NavigatorUserMediaSuccessCallback</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                  <tr>
-                    <td class="prmName">errorCallback</td>
-                    <td class="prmType">
-                    <code>NavigatorUserMediaErrorCallback</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>void</code>
-              </div>
             </dd>
           </dl>
         </section>
@@ -3653,13 +3343,6 @@ interface MediaDeviceInfo {
               supported by the User Agent MUST NOT be present in the returned
               dictionary. The values returned represent what the browser
               implements and will not change during a browsing session.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em>
-                <code>MediaTrackSupportedConstraints</code>
-              </div>
             </dd>
             <dt><code>getUserMedia</code></dt>
             <dd>
@@ -3880,30 +3563,6 @@ interface MediaDeviceInfo {
                   <p>Return <var>p</var>.</p>
                 </li>
               </ol>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">constraints</td>
-                    <td class="prmType">
-                    <code>MediaStreamConstraints</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>Promise&lt;MediaStream&gt;</code>
-              </div>
             </dd>
           </dl>
         </section>
@@ -4330,12 +3989,6 @@ interface ConstrainablePattern {
                 fluxCapacitance of 0, since that is the value defined as
                 corresponding to "medium".</p>
               </div>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>Capabilities</code>
-              </div>
             </dd>
             <dt><code>getConstraints</code></dt>
             <dd>
@@ -4350,12 +4003,6 @@ interface ConstrainablePattern {
               exact constraints as described above, the UA MAY return a
               constraint set that has the identical effect in all situations as
               the applied constraints.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>Constraints</code>
-              </div>
             </dd>
             <dt><code>getSettings</code></dt>
             <dd>
@@ -4364,12 +4011,6 @@ interface ConstrainablePattern {
               whether they are platform defaults or have been set by
               the <a>applyConstraints algorithm</a>. Note that the actual setting of
               a property MUST be a single value.</p>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>Settings</code>
-              </div>
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
@@ -4581,32 +4222,6 @@ interface ConstrainablePattern {
                 between the settings dictionaries, or whether using a settings
                 dictionary will cause the device driver to apply
                 resampling.</p>
-              </div>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">constraints</td>
-                    <td class="prmType"><code>Constraints</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">✘</span></td>
-                    <td class="prmOptTrue"><span role="img" aria-label=
-                    "True">✔</span></td>
-                    <td class="prmDesc">
-                      <p>A new constraint structure to apply to this
-                      object.</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
           </dl>
