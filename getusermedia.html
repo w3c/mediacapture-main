@@ -1910,7 +1910,7 @@ interface MediaStreamTrackEvent : Event {
       </div>
     </section>
   </section>
-  <section class="informative">
+  <section class="informative" id="the-model-sources-sinks-constraints-and-settings">
     <h2>The model: sources, sinks, constraints, and settings</h2>
     <p>Browsers provide a media pipeline from sources to sinks. In a browser,
     sinks are the &lt;img&gt;, &lt;video&gt;, and &lt;audio&gt; tags.
@@ -3031,7 +3031,7 @@ interface MediaDeviceInfo {
     readonly        attribute MediaDeviceKind kind;
     readonly        attribute DOMString       label;
     readonly        attribute DOMString       groupId;
-    serializer = {attribute};
+    [Default] object toJSON();
 };</pre>
         <section>
           <h2>Attributes</h2>
@@ -3094,12 +3094,15 @@ interface MediaDeviceInfo {
             </dd>
           </dl>
         </section>
-        <section data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo">
-          <h2><dfn>Serializer</dfn></h2>
-          <div>
-            <p>Instances of this interface are serialized as a map with entries
-            for each of the serializable attributes.</p>
-          </div>
+        <section>
+          <h2>Methods</h2>
+          <dl data-link-for="MediaDeviceInfo" data-dfn-for=
+              "MediaDeviceInfo" class="methods">
+              <dt><dfn><code>toJSON()</code></dfn></dt>
+              <dd>When called, run [[!WEBIDL]]'s <a data-cite=
+              "WEBIDL#default-tojson-operation">default toJSON
+              operation</a>.</dd>
+            </dl>
         </section>
       </div>
       <div>
