@@ -193,6 +193,14 @@
         permissions <a href=
         "https://github.com/w3c/permissions/issues/62">issue 62</a>.</p>
       </dd>
+      <dt>Features</dt>
+      <dd>
+        <p>The terms <dfn><a href="https://wicg.github.io/feature-policy/#feature">feature</a></dfn>,
+        <dfn><a href="https://wicg.github.io/feature-policy/#feature-name">feature name</a></dfn> and 
+        <dfn><a href="https://wicg.github.io/feature-policy/#default-allowlist">default allowlist</a></dfn>
+        are defined in [[!featurepolicy]].</p>
+      </dd>
+
     </dl>
   </section>
   <section id="stream-api">
@@ -3310,6 +3318,17 @@ interface MediaDeviceInfo {
       <p>The <code>getSupportedConstraints</code> method is provided to allow
       the application to determine which constraints the User Agent
       recognizes.</p>
+      <h4>Feature Definitions</h4>
+        <p>The <dfn data-lt-nodefault="" data-lt="camera" id=
+        "camera">camera</dfn>  <a>feature</a> controls access to
+        video input devices. The <a>feature name</a> for <a>camera</a>
+        is "camera". The <a>default allowlist</a> for <a>camera</a>
+        is ["self"].</p>
+        <p>The <dfn data-lt-nodefault="" data-lt="microphone" id=
+        "microphone">microphone</dfn> <a>feature</a> controls access to
+        audio input devices. The <a>feature name</a> for <a>microphone</a>
+        is "microphone". The <a>default allowlist</a> for <a>microphone</a>
+        is ["self"].</p>
       <div>
         <pre class="idl">partial interface MediaDevices {
     MediaTrackSupportedConstraints getSupportedConstraints ();
@@ -3363,12 +3382,21 @@ interface MediaDeviceInfo {
                 </li>
                 <li>
                   <p>If the <a>current settings object</a>'s <a>responsible
-                  document</a> is NOT <a>allowed to use</a> the feature
-                  indicated by attribute name <code>allowusermedia</code>,
+                  document</a> is NOT <a>allowed to use</a> the <a>feature</a>(s)
+                  needed to fulfill the requested media type set of <var>requestedMediaTypes</var> (i.e.
+                  <a>feature</a> <a>camera</a> and/or <a>microphone</a>),
                   return a promise rejected with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
+                  <div class="note">
+                    The present definition of "allowed to use" is probably not compatible
+                    with feature and feature policy. The currently correct algorithm is the
+                    described in https://wicg.github.io/feature-policy/#integration-with-html,
+                    however since the expressed ambition is to upstream to "allow to use" the 
+                    reference there is kept.
+                  </div>
+
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
