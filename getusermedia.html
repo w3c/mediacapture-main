@@ -73,6 +73,10 @@
         <p>The term <dfn data-cite=
         "!HTML52/semantics-embedded-content.html#allowed-to-use">allowed to
         use</dfn> is defined in [[!HTML52]].</p>
+        <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>, <dfn
+        data-lt="reject|rejection|rejecting">rejected</dfn> and
+        <dfn data-lt="resolve">resolved</dfn> used in the context of Promises
+        are defined in [[!ES6]].</p>
       </dd>
       <dt><code><dfn>DOMException</dfn></code></dt>
       <dd>
@@ -2073,7 +2077,7 @@ interface MediaStreamTrackEvent : Event {
     source is unable to satisfy, either because the source itself cannot
     satisfy the constraint or because the source is already satisfying a
     conflicting constraint. When this happens, the promise returned from
-    <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code> will be rejected, without applying
+    <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code> will be <a>rejected</a>, without applying
     any of the new constraints. Since no change in constraints occurs in this
     case, there is also no required change to the source itself as a result of
     this condition. Here is an example of this behavior.</p>
@@ -2889,7 +2893,7 @@ interface MediaDevices : EventTarget {
             <dd>
               <p>Collects information about the User Agent's available media
               input and output devices.</p>
-              <p>This method returns a promise. The promise will be fulfilled
+              <p>This method returns a promise. The promise will be <a>fulfilled</a>
               with a sequence of <code><a>MediaDeviceInfo</a></code>
               dictionaries representing the User Agent's available media input
               and output devices if enumeration is successful.</p>
@@ -2982,7 +2986,7 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>
                       <p><em>Complete Enumeration</em>: run the following sub
-                      steps to resolve <var>p</var>:</p>
+                      steps to <a>resolve</a> <var>p</var>:</p>
                       <ol>
                         <li>
                           <p>If any of the local devices are attached to a
@@ -3004,8 +3008,8 @@ interface MediaDevices : EventTarget {
                         </li>
                         <li>
                           <p>If <var>filteredList</var> is a non-empty list,
-                          then resolve <var>p</var> with
-                          <var>filteredList</var>. Otherwise, resolve
+                          then <a>resolve</a> <var>p</var> with
+                          <var>filteredList</var>. Otherwise, <a>resolve</a>
                           <var>p</var> with <var>resultList</var>.</p>
                         </li>
                       </ol>
@@ -3168,7 +3172,7 @@ interface MediaDeviceInfo {
       <h2>Input-specific Device Info</h2>
       <p>The <dfn>InputDeviceInfo</dfn> interface gives access to the capabilities of the input device it represents.</p>
       <div>
-        <pre class="idl">interface InputDeviceInfo : MediaDeviceInfo {
+        <pre class="idl">[Exposed=Window] interface InputDeviceInfo : MediaDeviceInfo {
     MediaTrackCapabilities getCapabilities ();
 };</pre>
         <section>
@@ -3296,7 +3300,7 @@ interface MediaDeviceInfo {
                   <var>p</var> be the resulting promise.</p>
                 </li>
                 <li>
-                  <p>Upon fulfillment of <var>p</var> with value
+                  <p>Upon <a>fulfillment</a> of <var>p</var> with value
                   <var>stream</var>, run the following step:</p>
                   <ol>
                     <li>
@@ -3306,7 +3310,7 @@ interface MediaDeviceInfo {
                   </ol>
                 </li>
                 <li>
-                  <p>Upon rejection of <var>p</var> with reason <var>r</var>,
+                  <p>Upon <a>rejection</a> of <var>p</var> with reason <var>r</var>,
                   run the following step:</p>
                   <ol>
                     <li>
@@ -3373,10 +3377,10 @@ interface MediaDeviceInfo {
               video or audio input.</p>
               <p>The <var>constraints</var> argument is a dictionary of type
               <code><a>MediaStreamConstraints</a></code>.</p>
-              <p>This method returns a promise. The promise will be fulfilled
+              <p>This method returns a promise. The promise will be <a>fulfilled</a>
               with a suitable <code><a>MediaStream</a></code> object if the
               user accepts valid tracks as described below.</p>
-              <p>The promise will be rejected if there is a failure in finding
+              <p>The promise will be <a>rejected</a> if there is a failure in finding
               valid tracks or if the user denies permission, as described
               below.</p>
               <p>When the <dfn><code id=
@@ -3395,7 +3399,7 @@ interface MediaDeviceInfo {
                 </li>
                 <li>
                   <p>If <var>requestedMediaTypes</var> is the empty set, return
-                  a promise rejected with a <code>TypeError</code>. The word
+                  a promise <a>rejected</a> with a <code>TypeError</code>. The word
                   "optional" occurs in the WebIDL due to WebIDL rules, but the
                   argument MUST be supplied in order for the call to
                   succeed.</p>
@@ -3404,7 +3408,7 @@ interface MediaDeviceInfo {
                   <p>If the <a>current settings object</a>'s <a>responsible
                   document</a> is NOT <a>allowed to use</a> the feature
                   indicated by attribute name <code>allowusermedia</code>,
-                  return a promise rejected with a
+                  return a promise <a>rejected</a> with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
@@ -3430,7 +3434,7 @@ interface MediaDeviceInfo {
                           <p>Call this set of tracks the
                           <var>candidateSet</var>.</p>
                           <p>If <var>candidateSet</var> is the empty set,
-                          reject <var>p</var> with a new
+                          <a>reject</a> <var>p</var> with a new
                           <code><a>DOMException</a></code> object whose
                           <code><a>name</a></code> attribute has the value
                           <code>NotFoundError</code> and abort these steps.</p>
@@ -3455,7 +3459,7 @@ interface MediaDeviceInfo {
                           dictionaries examined while executing the
                           <code><a>SelectSettings</a></code> algorithm, let
                           <var>message</var> be either <code>undefined</code>
-                          or an informative human-readable message, and reject
+                          or an informative human-readable message, and <a>reject</a>
                           <var>p</var> with a new
                           <code><a>OverconstrainedError</a></code> created by
                           calling
@@ -3550,12 +3554,12 @@ interface MediaDeviceInfo {
                       responds, this algorithm stalls on this step.</p>
                       <p>If the user grants permission but a hardware error
                       such as an OS/program/webpage lock prevents access,
-                      reject <var>p</var> with a new
+                      <a>reject</a> <var>p</var> with a new
                       <code><a>DOMException</a></code> object whose
                       <code><a>name</a></code> attribute has the value
                       <code>NotReadableError</code> and abort these steps.</p>
                       <p>If the result is "granted" but device access fails for
-                      any reason other than those listed above, reject
+                      any reason other than those listed above, <a>reject</a>
                       <var>p</var> with a new <code><a>DOMException</a></code>
                       object whose <code><a>name</a></code> attribute has the
                       value <code>AbortError</code> and abort these steps.</p>
@@ -3571,11 +3575,11 @@ interface MediaDeviceInfo {
                       constraints.</p>
                     </li>
                     <li>
-                      <p>Resolve <var>p</var> with <var>stream</var> and abort
+                      <p><a>Resolve</a> <var>p</var> with <var>stream</var> and abort
                       these steps.</p>
                     </li>
                     <li>
-                      <p><em>Permission Failure</em>: Reject <var>p</var> with
+                      <p><em>Permission Failure</em>: <a>Reject</a> <var>p</var> with
                       a new <code><a>DOMException</a></code> object whose
                       <code><a>name</a></code> attribute has the value
                       <code>NotAllowedError</code>.</p>
@@ -3806,7 +3810,7 @@ interface MediaDeviceInfo {
     'min', 'max', and 'exact' constraints in the basic Constraint structure are
     together treated as the 'required' set, and if it is not possible to
     satisfy simultaneously all of those individual constraints for the
-    indicated property names, the User Agent MUST reject the returned promise.
+    indicated property names, the User Agent MUST <a>reject</a> the returned promise.
     Otherwise, it must apply the required constraints. Next, it will consider
     any ConstraintSets given in the 'advanced' list, in the order in which they
     are specified, and will try to satisfy/apply each complete ConstraintSet
@@ -3815,7 +3819,7 @@ interface MediaDeviceInfo {
     Next, the User Agent MUST attempt to apply, individually, any 'ideal'
     constraints or a constraint given as a bare value for the property. Of
     these properties, it MUST satisfy the largest number that it can, in any
-    order. Finally, the User Agent MUST resolve the returned promise.</p>
+    order. Finally, the User Agent MUST <a>resolve</a> the returned promise.</p>
     <div class="note">
       Any constraint provided via this API will only be considered if the given
       constrainable property is supported by the browser. JavaScript
@@ -3856,9 +3860,9 @@ if(!supports["aspectRatio"]) {
     <p>This next example adds a small bit of complexity. The ideal values are
     still given for width and height, but this time with minimum requirements
     on each as well as a minimum frameRate that must be satisfied. If it cannot
-    satisfy the frameRate, width or height minimum it will reject the promise.
+    satisfy the frameRate, width or height minimum it will <a>reject</a> the promise.
     Otherwise, it will try to satisfy the width, height, and aspectRatio target
-    values as well and then resolve the promise. Note that the frameRate
+    values as well and then <a>resolve</a> the promise. Note that the frameRate
     minimum might be within the capabilities of the camera and satisfiable in
     ideal lighting conditions, but not in low light, and could therefore result
     in firing of the <code>onoverconstrained</code> event handler under poor
@@ -4208,7 +4212,7 @@ interface ConstrainablePattern {
                       executing the <code><a>SelectSettings</a></code>
                       algorithm, let <var>message</var> be either
                       <code>undefined</code> or an informative human-readable
-                      message, reject <var>p</var> with a new
+                      message, <a>reject</a> <var>p</var> with a new
                       <code>OverconstrainedError</code> created by calling
                       <code>OverconstrainedError(<var>failedConstraint</var>,
                       <var>message</var>)</code>, and abort these steps. The
@@ -4218,7 +4222,7 @@ interface ConstrainablePattern {
                     from <var>object</var>, apply <var>newConstraints</var>,
                     and apply <var>successfulSettings</var> as the current
                     settings.</li>
-                    <li>Finally, resolve <var>p</var>.</li>
+                    <li>Finally, <a>resolve</a> <var>p</var>.</li>
                   </ol>
                 </li>
                 <li>
