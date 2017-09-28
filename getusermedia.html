@@ -4646,12 +4646,12 @@ const startBtn = document.getElementById('startBtn');
 startBtn.addEventListener('click', async () =&gt; {
   try {
     startBtn.disabled = true;
-    const constraint = {
+    const constraints = {
       audio: true,
       video: true
     };
 
-    const stream = await navigator.mediaDevices.getUserMedia(constraint);
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
     stream.getTracks().forEach((track) =&gt; {
       track.onended = () =&gt; {
