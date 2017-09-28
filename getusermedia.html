@@ -4267,7 +4267,7 @@ const supports = navigator.mediaDevices.getSupportedConstraints();
 if (!supports["aspectRatio"] || !supports["facingMode"]) {
   // Treat like an error.
 }
-await navigator.mediaDevices.getUserMedia({
+const stream = await navigator.mediaDevices.getUserMedia({
   video: {
     width: { min: 320, ideal: 1280, max: 1920 },
     height: { min: 240, ideal: 720, max: 1080 },
