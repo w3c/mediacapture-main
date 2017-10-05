@@ -4300,7 +4300,7 @@ const supports = navigator.mediaDevices.getSupportedConstraints();
 if (!supports["width"] || !supports["height"] || !supports["facingMode"]) {
   // Treat like an error.
 }
-const gotten = navigator.mediaDevices.getUserMedia({video: {
+const stream = navigator.mediaDevices.getUserMedia({video: {
   facingMode: {exact: "user"},
   width: {exact: 640},
   height: {exact: 480}
