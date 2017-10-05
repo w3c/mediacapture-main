@@ -4746,12 +4746,12 @@ window.onload = async () =&gt; {
 
   try {
     video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
-    video.addEventListener('loadedmetadata', () =&gt; {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      document.getElementById('splash').hidden = true;
-      document.getElementById('app').hidden = false;
-    });
+
+    await new Promise(resolve =&gt; video.onloadedmetadata = resolve);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    document.getElementById('splash').hidden = true;
+    document.getElementById('app').hidden = false;
 
     shutter.onclick = () =&gt; {
       canvas.getContext('2d').drawImage(video, 0, 0);
