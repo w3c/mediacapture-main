@@ -3829,9 +3829,9 @@ if (!supports["aspectRatio"] || !supports["frameRate"]) {
   // Treat like an error.
 }
 const constraints = {
-  frameRate: { min: 20 },
-  width: { min: 640, ideal: 1280 },
-  height: { min: 480, ideal: 720 },
+  frameRate: {min: 20},
+  width: {min: 640, ideal: 1280},
+  height: {min: 480, ideal: 720},
   aspectRatio: 3/2
 };
     </pre>
@@ -3853,11 +3853,11 @@ if (!supports["width"] || !supports["height"]) {
   // Treat like an error.
 }
 const constraints = {
-  width: { min: 640, ideal: 1280 },
-  height: { min: 480, ideal: 720 },
+  width: {min: 640, ideal: 1280},
+  height: {min: 480, ideal: 720},
   advanced: [
-    { width: 1920, height: 1280 },
-    { aspectRatio: 4/3 }
+    {width: 1920, height: 1280},
+    {aspectRatio: 4/3}
   ]
 };
     </pre>
@@ -4221,14 +4221,14 @@ if (!supports["facingMode"]) {
   // Treat like an error.
 }
 const constraints = {
-  width: { min: 640 },
-  height: { min: 480 },
+  width: {min: 640},
+  height: {min: 480},
   advanced: [
-    { width: 650 },
-    { width: { min: 650 } },
-    { frameRate: 60 },
-    { width: { max: 800 } },
-    { facingMode: "user" }
+    {width: 650},
+    {width: {min: 650}},
+    {frameRate: 60},
+    {width: {max: 800}},
+    {facingMode: "user"}
   ]
 };
       </pre>
@@ -4241,10 +4241,10 @@ if (!supports["deviceId"]) {
   // Treat like an error.
 }
 const constraints = {
-  deviceId: { exact: "20983-20o198-109283-098-09812" },
+  deviceId: {exact: "20983-20o198-109283-098-09812"},
   advanced: [
-    { width: { min: 800, max: 1200 } },
-    { height: { min: 600 } }
+    {width: {min: 800, max: 1200}},
+    {height: {min: 600}}
   ]
 };
       </pre>
@@ -4256,8 +4256,8 @@ if (!supports["deviceId"] || !supports["volume"]) {
 }
 const constraints = {
   advanced: [
-    { deviceId: "64815-wi3c89-1839dk-x82-392aa" },
-    { volume: 0.5 }
+    {deviceId: "64815-wi3c89-1839dk-x82-392aa"},
+    {volume: 0.5}
   ]
 };
       </pre>
@@ -4269,8 +4269,8 @@ if (!supports["aspectRatio"] || !supports["facingMode"]) {
 }
 const stream = await navigator.mediaDevices.getUserMedia({
   video: {
-    width: { min: 320, ideal: 1280, max: 1920 },
-    height: { min: 240, ideal: 720, max: 1080 },
+    width: {min: 320, ideal: 1280, max: 1920},
+    height: {min: 240, ideal: 720, max: 1080},
     frameRate: 30, // Shorthand for ideal.
     facingMode: {
       exact: "environment"
@@ -4520,7 +4520,7 @@ const gotten = navigator.mediaDevices.getUserMedia({video: {
       of Capabilities.</p>
       <pre class="example">
 {
-  frameRate: { min: 1.0, max: 60.0 },
+  frameRate: {min: 1.0, max: 60.0},
   facingMode: [ "user", "left" ]
 }
       </pre>
@@ -4532,8 +4532,8 @@ const gotten = navigator.mediaDevices.getUserMedia({video: {
       resolutions the relevant capabilities returned would be:</p>
       <pre class="example">
 {
-  width: { min: 640, max: 800 },
-  height: { min: 480, max: 600 },
+  width: {min: 640, max: 800},
+  height: {min: 480, max: 600},
   aspectRatio: 4/3
 }
       </pre>
