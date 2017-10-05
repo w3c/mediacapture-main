@@ -4645,7 +4645,7 @@ below dictionary, but instead provide its own definition. See
 &lt;script&gt;
 const startBtn = document.getElementById('startBtn');
 
-startBtn.addEventListener('click', async () =&gt; {
+startBtn.onclick = async () =&gt; {
   try {
     startBtn.disabled = true;
     const constraints = {
@@ -4655,15 +4655,15 @@ startBtn.addEventListener('click', async () =&gt; {
 
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-    stream.getTracks().forEach((track) =&gt; {
+    for (let track of stream.getTracks()) {
       track.onended = () =&gt; {
-        startBtn.disabled = stream.active;
+        startBtn.disabled = stream.getTracks().some(t =&gt; t.readyState == 'live');
       }
-    })
+    }
   } catch(err) {
     console.error(err)
   }
-});
+};
 &lt;/script&gt;
       </pre>
     </div><!-- Put back when we define MediaStreamRecorder
@@ -4739,7 +4739,7 @@ startBtn.addEventListener('click', async () =&gt; {
       provides a simpler way to accomplish this.</p>
       <pre class="example">
 &lt;script&gt;
-window.addEventListener('load', async () =&gt; {
+window.onload = async () =&gt; {
   const video = document.getElementById('monitor');
   const canvas = document.getElementById('photo');
   const shutter = document.getElementById('shutter');
@@ -4753,13 +4753,13 @@ window.addEventListener('load', async () =&gt; {
       document.getElementById('app').hidden = false;
     });
 
-    shutter.addEventListener('click', () =&gt; {
+    shutter.onclick = () =&gt; {
       canvas.getContext('2d').drawImage(video, 0, 0);
-    });
+    };
   } catch (err) {
     console.error(err)
   }
-});
+};
 &lt;/script&gt;
 
 &lt;h1&gt;Snapshot Kiosk&lt;/h1&gt;
