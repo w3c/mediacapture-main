@@ -3804,7 +3804,7 @@ interface MediaDeviceInfo {
     choose.</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["aspectRatio"]) {
+if (!supports.aspectRatio) {
   // Treat like an error.
 }
 const constraints = {
@@ -3825,7 +3825,7 @@ const constraints = {
     lighting conditions.</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["aspectRatio"] || !supports["frameRate"]) {
+if (!supports.aspectRatio || !supports.frameRate) {
   // Treat like an error.
 }
 const constraints = {
@@ -3849,7 +3849,7 @@ const constraints = {
     possible, give me a resolution as close to 1280x720 as possible."</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["width"] || !supports["height"]) {
+if (!supports.width || !supports.height) {
   // Treat like an error.
 }
 const constraints = {
@@ -4217,7 +4217,7 @@ interface ConstrainablePattern {
       <code>MediaStreamTrack</code></a>.</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["facingMode"]) {
+if (!supports.facingMode) {
   // Treat like an error.
 }
 const constraints = {
@@ -4237,7 +4237,7 @@ const constraints = {
       height:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["deviceId"]) {
+if (!supports.deviceId) {
   // Treat like an error.
 }
 const constraints = {
@@ -4251,7 +4251,7 @@ const constraints = {
       <p>And here's one for an audio track:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["deviceId"] || !supports["volume"]) {
+if (!supports.deviceId || !supports.volume) {
   // Treat like an error.
 }
 const constraints = {
@@ -4264,7 +4264,7 @@ const constraints = {
       <p>Here's an example of use of ideal:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["aspectRatio"] || !supports["facingMode"]) {
+if (!supports.aspectRatio || !supports.facingMode) {
   // Treat like an error.
 }
 const stream = await navigator.mediaDevices.getUserMedia({
@@ -4283,7 +4283,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
       down to VGA.":</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["width"] || !supports["height"]) {
+if (!supports.width || !supports.height) {
   // Treat like an error.
 }
 const stream = await navigator.mediaDevices.getUserMedia({
@@ -4297,7 +4297,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
       VGA.":</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports["width"] || !supports["height"] || !supports["facingMode"]) {
+if (!supports.width || !supports.height || !supports.facingMode) {
   // Treat like an error.
 }
 const stream = await navigator.mediaDevices.getUserMedia({
