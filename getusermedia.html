@@ -4032,6 +4032,12 @@ interface ConstrainablePattern {
                   fitness distance is 0.</p>
                 </li>
                 <li>
+                  <p>If the constraint is not a bare value (rather 'min', 'max',
+                  'exact' or 'ideal'), and the <a>settings dictionary</a> relies
+                  on the User Agent downscaling or decimating the device output,
+                  the fitness distance SHOULD be positive infinity.</p>
+                </li>
+                <li>
                   <p>If the constraint is required ('min', 'max', or 'exact'),
                   and the <a>settings dictionary</a>'s value for the constraint
                   does not satisfy the constraint, the fitness distance is
