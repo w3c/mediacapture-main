@@ -3406,12 +3406,39 @@ interface MediaDeviceInfo {
                 </li>
                 <li>
                   <p>If the <a>current settings object</a>'s <a>responsible
+                  document</a> is NOT <a data-cite=
+                  "!HTML52/browsers.html#fully-active">fully active</a>,
+                  return a promise <a>rejected</a> with a
+                  <code><a>DOMException</a></code> object whose
+                  <code><a>name</a></code> attribute has the value
+                  <code> InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>If the <a>current settings object</a>'s <a>responsible
                   document</a> is NOT <a>allowed to use</a> the feature
                   indicated by attribute name <code>allowusermedia</code>,
                   return a promise <a>rejected</a> with a
                   <code><a>DOMException</a></code> object whose
                   <code><a>name</a></code> attribute has the value
                   <code>SecurityError</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>originIdentifier</var> be the
+                  <a>current settings object</a>'s <a data-cite=
+                  "!HTML52/webappapis.html#responsible-browsing-context">
+                  responsible browsing context</a>'s [[!HTML52]]
+                  <a data-cite=
+                  "!HTML52/browsers.html#top-level-browsing-context">
+                  top-level browsing context</a>'s <a data-cite=
+                  "!HTML52/browsers.html#active-document">
+                  active document</a>'s origin.</p>
+                </li>
+                <li>
+                  <p>If the <a>current settings object</a>'s origin is different
+                  from <var>originIdentifier</var>, set
+                  <var>originIdentifier</var> to the result of combining
+                  <var>originIdentifier</var> and the
+                  <a>current settings object</a>'s origin.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3495,24 +3522,6 @@ interface MediaDeviceInfo {
                       user preference, for security reasons, or due to platform
                       limitations, jump to the step labeled <em>Permission
                       Failure</em> below.</p>
-                    </li>
-                    <li>
-                      <p>Let <var>originIdentifier</var> be the [[!HTML52]]
-                      <a data-cite=
-                      "!HTML52/browsers.html#top-level-browsing-context">
-                      top-level browsing context</a>'s origin.</p>
-                    </li>
-                    <li>
-                      <p>If the current [[!HTML52]] <a data-cite=
-                      "!HTML52/browsers.html#browsing-context">
-                      browsing context</a> is a [[!HTML52]] <a data-cite=
-                      "!HTML52/browsers.html#nested-browsing-context">
-                      nested browsing context</a> whose origin is different
-                      from <var>originIdentifier</var>, let
-                      <var>originIdentifier</var> be the result of combining
-                      <var>originIdentifier</var> and the current <a data-cite=
-                      "!HTML52/browsers.html#browsing-context">
-                      browsing context</a>'s origin.</p>
                     </li>
                     <li>
                       <p>For the origin identified by
