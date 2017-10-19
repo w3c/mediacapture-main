@@ -3477,8 +3477,8 @@ interface MediaDeviceInfo {
                       <p>For the origin identified by
                       <var>originIdentifier</var>,
                       <a>request permission to use</a> a PermissionDescriptor
-                      with its name member set to either "camera" or
-                      "microphone" depending on <var>kind</var>, and,
+                      with its name member set to the permission name associated
+                      with <var>kind</var> (e.g. "camera", "microphone"), and,
                       optionally, its deviceId member set to the device's
                       <var>deviceId</var>, while considering all devices
                       attached to a <code>live</code> MediaStreamTrack in the
@@ -5004,7 +5004,9 @@ below dictionary, but instead provide its own definition. See
         new type, and
         </li>
         <li>if the new type requires user authorization, defining new
-        permissions for it, and defining how they, along with access starting
+        permissions for it, including a new PermissionDescriptor name associated
+        with the new <code><a href="#dom-mediastreamtrack-kind">kind</a></code>,
+        and defining how these permissions, along with access starting
         and ending, as well as muting/disabling, affect any new and/or existing
         "on-air" and "device accessible" indicator states (see <a href=
         "#mediadevices"></a>).
