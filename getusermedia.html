@@ -4753,9 +4753,7 @@ window.onload = async () =&gt; {
     document.getElementById('splash').hidden = true;
     document.getElementById('app').hidden = false;
 
-    shutter.onclick = () =&gt; {
-      canvas.getContext('2d').drawImage(video, 0, 0);
-    };
+    shutter.onclick = () =&gt; canvas.getContext('2d').drawImage(video, 0, 0);
   } catch (err) {
     console.error(err)
   }
