@@ -4659,7 +4659,7 @@ startBtn.onclick = async () =&gt; {
       track.onended = () =&gt; {
         startBtn.disabled = stream.getTracks().some(t =&gt; t.readyState == 'live');
       }
-    }
+    };
   } catch(err) {
     console.error(err)
   }
