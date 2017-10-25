@@ -4536,7 +4536,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
       <pre class="example">
 {
   frameRate: {min: 1.0, max: 60.0},
-  facingMode: [ "user", "left" ]
+  facingMode: ["user", "left"]
 }
       </pre>
       <p>The next example below points out that capabilities for range values
@@ -4670,9 +4670,9 @@ startBtn.onclick = async () =&gt; {
 
     for (let track of stream.getTracks()) {
       track.onended = () =&gt; {
-        startBtn.disabled = stream.getTracks().some(t =&gt; t.readyState == 'live');
-      }
-    };
+        startBtn.disabled = stream.getTracks().some((t) =&gt; t.readyState == 'live');
+      };
+    }
   } catch (err) {
     console.error(err);
   }
@@ -4760,7 +4760,7 @@ window.onload = async () =&gt; {
   try {
     video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
 
-    await new Promise(resolve =&gt; video.onloadedmetadata = resolve);
+    await new Promise((resolve) =&gt; video.onloadedmetadata = resolve);
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     document.getElementById('splash').hidden = true;
