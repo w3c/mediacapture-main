@@ -4660,8 +4660,8 @@ startBtn.onclick = async () =&gt; {
         startBtn.disabled = stream.getTracks().some(t =&gt; t.readyState == 'live');
       }
     };
-  } catch(err) {
-    console.error(err)
+  } catch (err) {
+    console.error(err);
   }
 };
 &lt;/script&gt;
@@ -4755,7 +4755,7 @@ window.onload = async () =&gt; {
 
     shutter.onclick = () =&gt; canvas.getContext('2d').drawImage(video, 0, 0);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 };
 &lt;/script&gt;
