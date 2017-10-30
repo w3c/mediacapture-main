@@ -3816,17 +3816,16 @@ interface MediaDeviceInfo {
     two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
     <pre class="example">
-    var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["aspectRatio"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.aspectRatio) {
   // Treat like an error.
 }
- var constraints =
-  {
-    width: 1280,
-    height: 720,
-    aspectRatio: 1.5
-  };
-</pre>
+const constraints = {
+  width: 1280,
+  height: 720,
+  aspectRatio: 3/2
+};
+    </pre>
     <p>This next example adds a small bit of complexity. The ideal values are
     still given for width and height, but this time with minimum requirements
     on each as well as a minimum frameRate that must be satisfied. If it cannot
@@ -3838,18 +3837,17 @@ if(!supports["aspectRatio"]) {
     in firing of the <code>onoverconstrained</code> event handler under poor
     lighting conditions.</p>
     <pre class="example">
-    var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["aspectRatio"] || !supports["frameRate"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.aspectRatio || !supports.frameRate) {
   // Treat like an error.
 }
- var constraints =
-  {
-    frameRate: {min: 20},
-    width: {min: 640, ideal: 1280},
-    height: {min: 480, ideal: 720},
-    aspectRatio: 1.5
-  };
-</pre>
+const constraints = {
+  frameRate: {min: 20},
+  width: {min: 640, ideal: 1280},
+  height: {min: 480, ideal: 720},
+  aspectRatio: 3/2
+};
+    </pre>
     <p>This example illustrates the full control possible with the Constraints
     structure by adding the 'advanced' property. In this case, the User Agent
     behaves the same way with respect to the required constraints, but before
@@ -3863,18 +3861,19 @@ if(!supports["aspectRatio"] || !supports["frameRate"]) {
     give me an aspectRatio of 4x3 if at all possible. If even that is not
     possible, give me a resolution as close to 1280x720 as possible."</p>
     <pre class="example">
-    var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["width"] || !supports["height"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.width || !supports.height) {
   // Treat like an error.
 }
- var constraints =
-  {
-    width: {min: 640, ideal: 1280},
-    height: {min: 480, ideal: 720},
-    advanced: [{width: 1920, height: 1280},
-               {aspectRatio: 1.3333333333}]
-  };
-</pre>
+const constraints = {
+  width: {min: 640, ideal: 1280},
+  height: {min: 480, ideal: 720},
+  advanced: [
+    {width: 1920, height: 1280},
+    {aspectRatio: 4/3}
+  ]
+};
+    </pre>
     <p>The ordering of advanced ConstraintSets is significant. In the preceding
     example it is impossible to satisfy both the 1920x1280 ConstraintSet and
     the 4x3 aspect ratio ConstraintSet at the same time. Since the 1920x1280
@@ -4230,110 +4229,98 @@ interface ConstrainablePattern {
       "#constrainable-properties">constrainable properties defined for
       <code>MediaStreamTrack</code></a>.</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["facingMode"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.facingMode) {
   // Treat like an error.
 }
-var constraints = {
-  width: {
-    min: 640
-  },
-  height: {
-    min: 480
-  },
-  advanced: [{
-      width: 650
-    }, {
-      width: {
-        min: 650
-      }
-    }, {
-      frameRate: 60
-    }, {
-      width: {
-        max: 800
-      }
-    }, {
-      facingMode: "user"
-    }]
+const constraints = {
+  width: {min: 640},
+  height: {min: 480},
+  advanced: [
+    {width: 650},
+    {width: {min: 650}},
+    {frameRate: 60},
+    {width: {max: 800}},
+    {facingMode: "user"}
+  ]
 };
-</pre>
+      </pre>
       <p>Here is another example, specifically for a video track where I must
       have a particular camera and have separate preferences for the width and
       height:</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["deviceId"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.deviceId) {
   // Treat like an error.
 }
-var constraints = {
+const constraints = {
   deviceId: {exact: "20983-20o198-109283-098-09812"},
-  advanced: [{
-      width: {
-        min: 800,
-        max: 1200
-      }
-    }, {
-      height: {
-        min: 600
-      }
-    }]
+  advanced: [
+    {width: {min: 800, max: 1200}},
+    {height: {min: 600}}
+  ]
 };
-</pre>
+      </pre>
       <p>And here's one for an audio track:</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["deviceId"] || !supports["volume"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.deviceId || !supports.volume) {
   // Treat like an error.
 }
-var constraints = {
-  advanced: [{
-      deviceId: "64815-wi3c89-1839dk-x82-392aa"
-    }, {
-      volume: 0.5
-    }]
+const constraints = {
+  advanced: [
+    {deviceId: "64815-wi3c89-1839dk-x82-392aa"},
+    {volume: 0.5}
+  ]
 };
-</pre>
+      </pre>
       <p>Here's an example of use of ideal:</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["aspectRatio"] || !supports["facingMode"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.aspectRatio || !supports.facingMode) {
   // Treat like an error.
 }
-var gotten = navigator.mediaDevices.getUserMedia({
+const stream = await navigator.mediaDevices.getUserMedia({
   video: {
     width: {min: 320, ideal: 1280, max: 1920},
     height: {min: 240, ideal: 720, max: 1080},
-    frameRate: 30,     // Shorthand for ideal.
-    // facingMode: "environment" would be optional.
-    facingMode: {exact: "environment"}
-  }});
-</pre>
+    frameRate: 30, // Shorthand for ideal.
+    facingMode: {
+      exact: "environment"
+      // facingMode: "environment" would be optional.
+    }
+  }
+});
+      </pre>
       <p>Here's an example of "I want 720p, but I can accept up to 1080p and
       down to VGA.":</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["width"] || !supports["height"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.width || !supports.height) {
   // Treat like an error.
 }
-var gotten = navigator.mediaDevices.getUserMedia({video: {
-  width: {min: 640, ideal: 1280, max: 1920},
-  height: {min: 480, ideal: 720, max: 1080},
-}});
-</pre>
+const stream = await navigator.mediaDevices.getUserMedia({
+  video: {
+    width: {min: 640, ideal: 1280, max: 1920},
+    height: {min: 480, ideal: 720, max: 1080},
+  }
+});
+      </pre>
       <p>Here's an example of "I want a front-facing camera and it must be
       VGA.":</p>
       <pre class="example">
-      var supports = navigator.mediaDevices.getSupportedConstraints();
-if(!supports["width"] || !supports["height"] || !supports["facingMode"]) {
+const supports = navigator.mediaDevices.getSupportedConstraints();
+if (!supports.width || !supports.height || !supports.facingMode) {
   // Treat like an error.
 }
-var gotten = navigator.mediaDevices.getUserMedia({video: {
-  facingMode: {exact: "user"},
-  width: {exact: 640},
-  height: {exact: 480}
-}});
-</pre>
+const stream = await navigator.mediaDevices.getUserMedia({
+  video: {
+    facingMode: {exact: "user"},
+    width: {exact: 640},
+    height: {exact: 480}
+  }
+});
+      </pre>
     </section>
     <section>
       <h2>Types for Constrainable Properties</h2>
@@ -4546,32 +4533,25 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>An example of a Capabilities dictionary is shown below. In this case,
       the <a>constrainable object</a> is a video source with a very limited set
       of Capabilities.</p>
-      <pre class="example">{
-  frameRate: {
-    min: 1.0,
-    max: 60.0
-  },
+      <pre class="example">
+{
+  frameRate: {min: 1.0, max: 60.0},
   facingMode: [ "user", "left" ]
 }
-</pre>
+      </pre>
       <p>The next example below points out that capabilities for range values
       provide ranges for individual constrainable properties, not combinations.
       This is particularly relevant for video width and height, since the
       ranges for width and height are reported separately. In the example, if
       the <a>constrainable object</a> can only provide 640x480 and 800x600
       resolutions the relevant capabilities returned would be:</p>
-      <pre class="example">{
-  width: {
-    min: 640,
-    max: 800
-  },
-  height: {
-    min: 480,
-    max: 600
-  },
-  aspectRatio: 1.3333333333
+      <pre class="example">
+{
+  width: {min: 640, max: 800},
+  height: {min: 480, max: 600},
+  aspectRatio: 4/3
 }
-</pre>
+      </pre>
       <p>Note in the example above that the aspectRatio would make clear that
       arbitrary combination of widths and heights are not possible, although it
       would still suggest that more than two resolutions were available.</p>A
@@ -4601,11 +4581,12 @@ var gotten = navigator.mediaDevices.getUserMedia({video: {
       <p>An example of a Settings dictionary is shown below. This example is
       not very realistic in that a browser would actually be required to
       support more constrainable properties than just these.</p>
-      <pre class="example">{
+      <pre class="example">
+{
   frameRate: 30.0,
   facingMode: "user"
 }
-</pre>A specification using the Constrainable Pattern should not subclass the
+      </pre>A specification using the Constrainable Pattern should not subclass the
 below dictionary, but instead provide its own definition. See
 <code><a>MediaTrackSettings</a></code> for an example.
       <div>
@@ -4673,31 +4654,31 @@ below dictionary, but instead provide its own definition. See
       access to the local camera) and then disabling the stream (e.g., revoking
       that access).</p>
       <pre class="example">
-      &lt;input type="button" value="Start" onclick="start()" id="startBtn"&gt;
+&lt;button id="startBtn"&gt;Start&lt;/button&gt;
 &lt;script&gt;
- var startBtn = document.getElementById('startBtn');
+const startBtn = document.getElementById('startBtn');
 
- function start() {
-     navigator.mediaDevices.getUserMedia({
-         audio: true,
-         video: true
-     }).then(gotStream).catch(logError);
-     startBtn.disabled = true;
- }
+startBtn.onclick = async () =&gt; {
+  try {
+    startBtn.disabled = true;
+    const constraints = {
+      audio: true,
+      video: true
+    };
 
- function gotStream(stream) {
-     stream.getTracks().forEach(function (track) {
-         track.onended = function () {
-             startBtn.disabled = stream.active;
-         };
-     });
- }
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
- function logError(error) {
-     log(error.name + ": " + error.message);
- }
+    for (let track of stream.getTracks()) {
+      track.onended = () =&gt; {
+        startBtn.disabled = stream.getTracks().some(t =&gt; t.readyState == 'live');
+      }
+    };
+  } catch (err) {
+    console.error(err);
+  }
+};
 &lt;/script&gt;
-</pre>
+      </pre>
     </div><!-- Put back when we define MediaStreamRecorder
     <div>
 
@@ -4769,43 +4750,41 @@ below dictionary, but instead provide its own definition. See
       <p>This example allows people to take photos of themselves from the local
       video camera. Note that the Image Capture specification [[image-capture]]
       provides a simpler way to accomplish this.</p>
-      <pre class="example">&lt;article&gt;
- &lt;style scoped&gt;
-  video { transform: scaleX(-1); }
-  p { text-align: center; }
- &lt;/style&gt;
- &lt;h1&gt;Snapshot Kiosk&lt;/h1&gt;
- &lt;section id="splash"&gt;
+      <pre class="example">
+&lt;script&gt;
+window.onload = async () =&gt; {
+  const video = document.getElementById('monitor');
+  const canvas = document.getElementById('photo');
+  const shutter = document.getElementById('shutter');
+
+  try {
+    video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
+
+    await new Promise(resolve =&gt; video.onloadedmetadata = resolve);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    document.getElementById('splash').hidden = true;
+    document.getElementById('app').hidden = false;
+
+    shutter.onclick = () =&gt; canvas.getContext('2d').drawImage(video, 0, 0);
+  } catch (err) {
+    console.error(err);
+  }
+};
+&lt;/script&gt;
+
+&lt;h1&gt;Snapshot Kiosk&lt;/h1&gt;
+
+&lt;section id="splash"&gt;
   &lt;p id="errorMessage"&gt;Loading...&lt;/p&gt;
- &lt;/section&gt;
- &lt;section id="app" hidden&gt;
-  &lt;p&gt;&lt;video id="monitor" autoplay&gt;&lt;/video&gt; &lt;canvas id="photo"&gt;&lt;/canvas&gt;
-  &lt;p&gt;&lt;input type=button value="&amp;#x1F4F7;" onclick="snapshot()"&gt;
- &lt;/section&gt;
- &lt;script&gt;
- var video = document.getElementById('monitor');
- var canvas = document.getElementById('photo');
+&lt;/section&gt;
 
- navigator.mediaDevices.getUserMedia({
-     video: true
- }).then(function (stream) {
-     video.srcObject = stream;
-     video.onloadedmetadata = function () {
-         canvas.width = video.videoWidth;
-         canvas.height = video.videoHeight;
-         document.getElementById('splash').hidden = true;
-         document.getElementById('app').hidden = false;
-     };
- }).catch(function (reason) {
-     document.getElementById('errorMessage').textContent = 'No camera available.';
- });
-
- function snapshot() {
-     canvas.getContext('2d').drawImage(video, 0, 0);
- }
- &lt;/script&gt;
-&lt;/article&gt;
-</pre>
+&lt;section id="app" hidden&gt;
+  &lt;video id="monitor" autoplay&gt;&lt;/video&gt;
+  &lt;button id="shutter"&gt;&amp;#x1F4F7;&lt;/button&gt;
+  &lt;canvas id="photo"&gt;&lt;/canvas&gt;
+&lt;/section&gt;
+      </pre>
     </div>
   </section>
   <section>
