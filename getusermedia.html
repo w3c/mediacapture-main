@@ -4241,7 +4241,7 @@ const constraints = {
     {width: {min: 650}},
     {frameRate: 60},
     {width: {max: 800}},
-    {facingMode: "user"}
+    {facingMode: 'user'}
   ]
 };
       </pre>
@@ -4254,7 +4254,7 @@ if (!supports.deviceId) {
   // Treat like an error.
 }
 const constraints = {
-  deviceId: {exact: "20983-20o198-109283-098-09812"},
+  deviceId: {exact: '20983-20o198-109283-098-09812'},
   advanced: [
     {width: {min: 800, max: 1200}},
     {height: {min: 600}}
@@ -4269,7 +4269,7 @@ if (!supports.deviceId || !supports.volume) {
 }
 const constraints = {
   advanced: [
-    {deviceId: "64815-wi3c89-1839dk-x82-392aa"},
+    {deviceId: '64815-wi3c89-1839dk-x82-392aa'},
     {volume: 0.5}
   ]
 };
@@ -4286,7 +4286,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
     height: {min: 240, ideal: 720, max: 1080},
     frameRate: 30, // Shorthand for ideal.
     facingMode: {
-      exact: "environment"
+      exact: 'environment'
       // facingMode: "environment" would be optional.
     }
   }
@@ -4315,7 +4315,7 @@ if (!supports.width || !supports.height || !supports.facingMode) {
 }
 const stream = await navigator.mediaDevices.getUserMedia({
   video: {
-    facingMode: {exact: "user"},
+    facingMode: {exact: 'user'},
     width: {exact: 640},
     height: {exact: 480}
   }
@@ -4536,7 +4536,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
       <pre class="example">
 {
   frameRate: {min: 1.0, max: 60.0},
-  facingMode: ["user", "left"]
+  facingMode: ['user', 'left']
 }
       </pre>
       <p>The next example below points out that capabilities for range values
@@ -4584,7 +4584,7 @@ const stream = await navigator.mediaDevices.getUserMedia({
       <pre class="example">
 {
   frameRate: 30.0,
-  facingMode: "user"
+  facingMode: 'user'
 }
       </pre>A specification using the Constrainable Pattern should not subclass the
 below dictionary, but instead provide its own definition. See
