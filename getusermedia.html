@@ -190,12 +190,10 @@
       <dt>Permissions</dt>
       <dd>
         <p>The terms <dfn>permission</dfn>, <dfn>retrieve the permission
-        state</dfn>, <dfn id="request-permission">request permission</dfn> and
+        state</dfn>,
+        <dfn id="request-permission-to-use">request permission to use</dfn> and
         <dfn id="create-permission">create a permission storage entry</dfn> are
         defined in [[!permissions]].</p>
-        <p class="note">"request permission" isn't defined yet. Filed as
-        permissions <a href=
-        "https://github.com/w3c/permissions/issues/62">issue 62</a>.</p>
       </dd>
     </dl>
   </section>
@@ -3486,8 +3484,12 @@ interface MediaDeviceInfo {
                     </li>
                     <li>
                       <p>For the origin identified by
-                      <var>originIdentifier</var>, <a>request permission</a>
-                      for use of the devices, while considering all devices
+                      <var>originIdentifier</var>,
+                      <a>request permission to use</a> a PermissionDescriptor
+                      with its name member set to the permission name associated
+                      with <var>kind</var> (e.g. "camera", "microphone"), and,
+                      optionally, its deviceId member set to the device's
+                      <var>deviceId</var>, while considering all devices
                       attached to a <code>live</code> MediaStreamTrack in the
                       current <a data-cite=
                       "!HTML52/browsers.html#browsing-context">
@@ -4996,7 +4998,9 @@ window.onload = async () =&gt; {
         new type, and
         </li>
         <li>if the new type requires user authorization, defining new
-        permissions for it, and defining how they, along with access starting
+        permissions for it, including a new PermissionDescriptor name associated
+        with the new <code><a href="#dom-mediastreamtrack-kind">kind</a></code>,
+        and defining how these permissions, along with access starting
         and ending, as well as muting/disabling, affect any new and/or existing
         "on-air" and "device accessible" indicator states (see <a href=
         "#mediadevices"></a>).
