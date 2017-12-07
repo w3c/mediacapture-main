@@ -351,16 +351,10 @@
       "#track-set">track set</a> of a <code><a>MediaStream</a></code>, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
-      <p>When the User Agent initiates adding a track to a
-      <code><a>MediaStream</a></code>, with the exception of initializing a
-      newly created <code><a>MediaStream</a></code> with tracks, the User Agent
-      MUST queue a task that runs the following steps:</p>
+      <p>To <dfn id="add-track">add a track</dfn> <var>track</var> to a
+      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST run
+      the following steps:</p>
       <ol>
-        <li>
-          <p>Let <var>track</var> be the <code><a>MediaStreamTrack</a></code>
-          in question and <var>stream</var> the <code><a>MediaStream</a></code>
-          object to which <var>track</var> is to be added.</p>
-        </li>
         <li>
           <p>If <var>track</var> is already in <var>stream's</var> <a href=
           "#track-set">track set</a>, then abort these steps.</p>
@@ -375,15 +369,10 @@
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
-      <p>When the User Agent initiates removing a track from a
-      <code><a>MediaStream</a></code>, the User Agent MUST queue a task that
-      runs the following steps:</p>
+      <p>To <dfn id="remove-track">remove a track</dfn> <var>track</var> from a
+      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST run
+      the following steps:</p>
       <ol>
-        <li>
-          <p>Let <var>track</var> be the <code><a>MediaStreamTrack</a></code>
-          in question and <var>stream</var> the <code><a>MediaStream</a></code>
-          object to which <var>track</var> is to be added.</p>
-        </li>
         <li>
           <p>If <var>track</var> is not in <var>stream's</var> <a href=
           "#track-set">track set</a>, then abort these steps.</p>
