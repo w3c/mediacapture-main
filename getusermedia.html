@@ -1136,6 +1136,7 @@ interface MediaStreamTrack : EventTarget {
              boolean echoCancellation = true;
              boolean autoGainControl = true;
              boolean noiseSuppression = true;
+             boolean disableInputProcessing = true;
              boolean latency = true;
              boolean channelCount = true;
              boolean deviceId = true;
@@ -1208,6 +1209,12 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
+              <dt><dfn><code>disableInputProcessing</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span>, defaulting to
+              <code>true</code></dt>
+              <dd>See <code><a href=
+              "#def-constraint-disableInputProcessing">disableInputProcessing</a></code>
+              for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>boolean</a></span>, defaulting to
               <code>true</code></dt>
@@ -1254,6 +1261,7 @@ interface MediaStreamTrack : EventTarget {
              sequence&lt;boolean&gt;   echoCancellation;
              sequence&lt;boolean&gt;   autoGainControl;
              sequence&lt;boolean&gt;   noiseSuppression;
+             sequence&lt;boolean&gt;   disableInputProcessing;
              DoubleRange         latency;
              LongRange           channelCount;
              DOMString           deviceId;
@@ -1341,6 +1349,17 @@ interface MediaStreamTrack : EventTarget {
                 "#def-constraint-noiseSuppression">noiseSuppression</a></code>
                 for additional details.</p>
               </dd>
+              <dt><dfn><code>disableInputProcessing</code></dfn> of type <span
+              class="idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              <dd>
+                <p>If the source cannot disable input processing a single <code>
+                false</code> is reported. If the source does no input processing
+                 a single <code>true</code> is reported. If the script can
+                control the feature, the source reports a list with both <code>
+                true</code> and <code>false</code> as possible values. See
+                <code><a href="#def-constraint-disableInputProcessing">
+                disableInputProcessing</a></code> for additional details.</p>
+              </dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
               <dd>See <code><a href=
@@ -1399,6 +1418,7 @@ interface MediaStreamTrack : EventTarget {
              ConstrainBoolean   echoCancellation;
              ConstrainBoolean   autoGainControl;
              ConstrainBoolean   noiseSuppression;
+             ConstrainBoolean   disableInputProcessing;
              ConstrainDouble    latency;
              ConstrainLong      channelCount;
              ConstrainDOMString deviceId;
@@ -1460,6 +1480,10 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
+              <dt><dfn><code>disableInputProcessing</code></dfn> of type <span
+              class="idlMemberType"><a>ConstrainBoolean</a></span></dt>
+              <dd>See <code><a href="#def-constraint-disableInputProcessing">
+              disableInputProcessing</a></code> for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
               <dd>See <code><a href=
@@ -1501,6 +1525,7 @@ interface MediaStreamTrack : EventTarget {
              boolean   echoCancellation;
              boolean   autoGainControl;
              boolean   noiseSuppression;
+             boolean   disableInputProcessing;
              double    latency;
              long      channelCount;
              DOMString deviceId;
@@ -1562,6 +1587,10 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
+              <dt><dfn><code>disableInputProcessing</code></dfn> of type <span
+              class="idlMemberType"><a>boolean</a></span></dt>
+              <dd>See <code><a href="#def-constraint-disableInputProcessing">
+              disableInputProcessing</a></code>for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>double</a></span></dt>
               <dd>See <code><a href=
@@ -1816,6 +1845,16 @@ interface MediaStreamTrack : EventTarget {
               not altered. This allows applications to control this
               behavior.</td>
             </tr>
+            <tr id="def-constraint-disableInputProcessing">
+              <td>disableInputProcessing</td>
+              <td><code><a>ConstrainBoolean</a></code></td>
+              <td>For some applications it is desirable to capture the original
+              signal from the input source and therefore to disable all input
+              processing. The user agent should not alter the signal. Echo
+              cancellation, auto gain control, noise suppression and maybe
+              additional input processing features must be turned off
+              or bypassed.</td>
+              </tr>
             <tr id="def-constraint-latency">
               <td>latency</td>
               <td><code><a>ConstrainDouble</a></code></td>
