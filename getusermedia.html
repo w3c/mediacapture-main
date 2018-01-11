@@ -1737,10 +1737,11 @@ interface MediaStreamTrack : EventTarget {
               the members of <code><a>VideoResizeModeEnum</a></code>. The
               members describe the means by which the resolution can be derived
               by the UA. In other words, whether the UA is allowed to use
-              cropping and downscaling of the camera output.
-              <p class="fingerprint">The UA SHOULD disguise concurrent use of
-              the camera, by downscaling to mimic native resolutions when "none"
-              is used and the camera is in use in another browsing context.</p>
+              cropping and downscaling on the camera output.
+              <p class="fingerprint">The UA MAY disguise concurrent use of
+              the camera, by cropping and/or downscaling to mimic
+              native resolutions when "none" is used, but only when the camera
+              is in use in another browsing context.</p>
               Note that <code><a data-link-for=
               "ConstrainablePattern">getConstraints</a></code> may not return
               exactly the same string for strings not in this enum. This
@@ -1816,7 +1817,7 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn><code id=
                 "idl-def-VideoResizeModeEnum.user">none</code></dfn></td>
                 <td>
-                  <p>This resolution is offered by the camera.
+                  <p>This resolution is offered by the camera, its driver, or the OS.
                   </p>
                   <p class="fingerprint">
                   Note: The UA MAY report this value to disguise concurrent use,
@@ -4244,7 +4245,9 @@ interface ConstrainablePattern {
                   and return it as the result of the
                   <code>SelectSettings()</code> algorithm. The UA SHOULD use
                   the one with the smallest <code>fitness distance</code>, as
-                  calculated in step 3.</p>
+                  calculated in step 3, but MAY prefer ones with
+                  <code><a href="#def-constraint-resizeMode">resizeMode</a></code>
+                  set to <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
               <p>When the <dfn>applyConstraints algorithm</dfn> is called, the
