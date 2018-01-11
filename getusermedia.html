@@ -1130,6 +1130,7 @@ interface MediaStreamTrack : EventTarget {
              boolean aspectRatio = true;
              boolean frameRate = true;
              boolean facingMode = true;
+             boolean resizeMode = true;
              boolean volume = true;
              boolean sampleRate = true;
              boolean sampleSize = true;
@@ -1172,6 +1173,12 @@ interface MediaStreamTrack : EventTarget {
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-facingMode">facingMode</a></code> for
+              details.</dd>
+              <dt><dfn><code>resizeMode</code></dfn> of type <span class=
+              "idlMemberType"><a>boolean</a></span>, defaulting to
+              <code>true</code></dt>
+              <dd>See <code><a href=
+              "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
               "idlMemberType"><a>boolean</a></span>, defaulting to
@@ -1247,7 +1254,7 @@ interface MediaStreamTrack : EventTarget {
              LongRange           height;
              DoubleRange         aspectRatio;
              DoubleRange         frameRate;
-             sequence&lt;DOMString&gt; facingMode;
+             sequence&lt;DOMString&gt; resizeMode;
              DoubleRange         volume;
              LongRange           sampleRate;
              LongRange           sampleSize;
@@ -1290,6 +1297,18 @@ interface MediaStreamTrack : EventTarget {
                 and "user". See <code><a href=
                 "#def-constraint-facingMode">facingMode</a></code> for
                 additional details.</p>
+              </dd>
+              <dt><dfn><code>resizeMode</code></dfn> of type <span class=
+              "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
+              <dd>
+                <p>The user agent MAY use cropping and downscaling to offer more
+                resolution choices than this camera naturally produces. The
+                reported sequence MUST list all the means the UA may employ to
+                derive resolution choices for this camera. The value "none" MUST
+                be present, indicating the ability to constrain the UA from
+                cropping and downscaling. See
+                <code><a href="#def-constraint-resizeMode">resizeMode</a></code>
+                for additional details.</p>
               </dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
@@ -1393,6 +1412,7 @@ interface MediaStreamTrack : EventTarget {
              ConstrainDouble    aspectRatio;
              ConstrainDouble    frameRate;
              ConstrainDOMString facingMode;
+             ConstrainDOMString resizeMode;
              ConstrainDouble    volume;
              ConstrainLong      sampleRate;
              ConstrainLong      sampleSize;
@@ -1430,6 +1450,11 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-facingMode">facingMode</a></code> for
+              details.</dd>
+              <dt><dfn><code>resizeMode</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDOMString</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
@@ -1495,6 +1520,7 @@ interface MediaStreamTrack : EventTarget {
              double    aspectRatio;
              double    frameRate;
              DOMString facingMode;
+             DOMString resizeMode;
              double    volume;
              long      sampleRate;
              long      sampleSize;
@@ -1532,6 +1558,11 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType"><a>DOMString</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-facingMode">facingMode</a></code> for
+              details.</dd>
+              <dt><dfn><code>resizeMode</code></dfn> of type <span class=
+              "idlMemberType"><a>DOMString</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
               "idlMemberType"><a>double</a></span></dt>
@@ -1699,6 +1730,23 @@ interface MediaStreamTrack : EventTarget {
               preserves the possibility of using a future version of WebIDL
               enum for this property.</td>
             </tr>
+            <tr id="def-constraint-resizeMode">
+              <td><dfn>resizeMode</dfn></td>
+              <td><code><a>ConstrainDOMString</a></code></td>
+              <td>This string (or each string, when a list) should be one of
+              the members of <code><a>VideoResizeModeEnum</a></code>. The
+              members describe the means by which the resolution can be derived
+              by the UA. In other words, whether the UA is allowed to use
+              cropping and downscaling of the camera output.
+              <p class="fingerprint">The UA SHOULD disguise concurrent use of
+              the camera, by downscaling to mimic native resolutions when "none"
+              is used and the camera is in use in another browsing context.</p>
+              Note that <code><a data-link-for=
+              "ConstrainablePattern">getConstraints</a></code> may not return
+              exactly the same string for strings not in this enum. This
+              preserves the possibility of using a future version of WebIDL
+              enum for this property.</td>
+            </tr>
           </tbody>
         </table>
         <div>
@@ -1752,6 +1800,41 @@ interface MediaStreamTrack : EventTarget {
         the user.<br>
         <img alt="Illustration of video facing modes in relation to user" src=
         "images/camera-names-exp.svg" style="width:40%"></p>
+        <div>
+          <pre class="idl">enum VideoResizeModeEnum {
+    "none",
+    "crop-and-scale"
+};</pre>
+          <table data-link-for="VideoResizeModeEnum" data-dfn-for=
+          "VideoResizeModeEnum" class="simple">
+            <tbody>
+              <tr>
+                <th colspan="2"><dfn>VideoResizeModeEnum</dfn> Enumeration
+                description</th>
+              </tr>
+              <tr>
+                <td><dfn><code id=
+                "idl-def-VideoResizeModeEnum.user">none</code></dfn></td>
+                <td>
+                  <p>This resolution is offered by the camera.
+                  </p>
+                  <p class="fingerprint">
+                  Note: The UA MAY report this value to disguise concurrent use,
+                  but only when the camera is in use in another browsing context.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td><dfn><code id=
+                "idl-def-VideoResizeModeEnum.right">crop-and-scale</code></dfn></td>
+                <td>
+                  <p>This resolution is downscaled and/or cropped from a higher
+                  camera resolution by the user agent.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <p>The following constrainable properties are defined to apply only to
         audio <code><a>MediaStreamTrack</a></code> objects:</p>
         <table class="simple">
@@ -4063,8 +4146,8 @@ interface ConstrainablePattern {
 </pre>
                 </li>
                 <li>For all string and enum non-required constraints (e.g.
-                deviceId, groupId, facingMode, echoCancellation), the fitness
-                distance is the result of the formula
+                deviceId, groupId, facingMode, resizeMode, echoCancellation),
+                the fitness distance is the result of the formula
                   <pre>(actual == ideal) ? 0 : 1
 </pre>
                 </li>
