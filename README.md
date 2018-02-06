@@ -13,7 +13,7 @@ The top-of-tree of this document may contain work in progress changes and other
 inconsistencies, so please review and report bugs against the latest editor's
 draft.
 
-[Tip of tree](https://rawgit.com/w3c/mediacapture-main/master/getusermedia.html)
+[Tip of tree](https://rawgit.com/w3c/mediacapture-main/master/getusermedia.html)  
 [Latest editor's draft](https://w3c.github.io/mediacapture-main/)  
 [Latest published version](http://www.w3.org/TR/mediacapture-streams/)
 
