@@ -1002,6 +1002,11 @@ interface MediaStreamTrack : EventTarget {
                     <code><a>MediaStreamTrack</a></code> object.</p>
                   </li>
                   <li>
+                    <p>If <var>track</var>'s <code><a href=
+                      "#dom-mediastreamtrack-readystate">readyState</a></code>
+                    attribute is ended, then abort these steps.</p>
+                  </li>
+                  <li>
                     <p>Notify <var>track</var>'s source that <var>track</var>
                     is <a href="#track-ended">ended</a>.</p>
                     <p>A source that is notified of a track ending will be
@@ -1015,10 +1020,6 @@ interface MediaStreamTrack : EventTarget {
                     attribute to <code>ended</code>.</p>
                   </li>
                 </ol>
-                <p>The task source for the <span title=
-                "concept-task">tasks</span> queued for the <code><a href=
-                "#dom-mediastreamtrack-stop">stop()</a></code> method is the
-                DOM manipulation task source.</p>
               </dd>
               <dt><dfn>getCapabilities()</dfn></dt>
               <dd>
