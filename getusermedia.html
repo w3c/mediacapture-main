@@ -1251,20 +1251,20 @@ interface MediaStreamTrack : EventTarget {
         appropriate type.</p>
         <div>
           <pre class="idl">dictionary MediaTrackCapabilities {
-             LongRange           width;
-             LongRange           height;
+             ULongRange           width;
+             ULongRange           height;
              DoubleRange         aspectRatio;
              DoubleRange         frameRate;
              sequence&lt;DOMString&gt; facingMode;
              sequence&lt;DOMString&gt; resizeMode;
              DoubleRange         volume;
-             LongRange           sampleRate;
-             LongRange           sampleSize;
+             ULongRange           sampleRate;
+             ULongRange           sampleSize;
              sequence&lt;boolean&gt;   echoCancellation;
              sequence&lt;boolean&gt;   autoGainControl;
              sequence&lt;boolean&gt;   noiseSuppression;
              DoubleRange         latency;
-             LongRange           channelCount;
+             ULongRange           channelCount;
              DOMString           deviceId;
              DOMString           groupId;
 };</pre>
@@ -1274,11 +1274,11 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaTrackCapabilities" data-dfn-for=
             "MediaTrackCapabilities" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>LongRange</a></span></dt>
+              "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href="#def-constraint-width">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>LongRange</a></span></dt>
+              "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href="#def-constraint-height">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
@@ -1317,12 +1317,12 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href="#def-constraint-volume">volume</a></code>
               for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>LongRange</a></span></dt>
+              "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleRate">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>LongRange</a></span></dt>
+              "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
@@ -1367,7 +1367,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-latency">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>LongRange</a></span></dt>
+              "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
@@ -1409,20 +1409,20 @@ interface MediaStreamTrack : EventTarget {
         dictionary with dictionary members of appropriate type.</p>
         <div>
           <pre class="idl">dictionary MediaTrackConstraintSet {
-             ConstrainLong      width;
-             ConstrainLong      height;
+             ConstrainULong      width;
+             ConstrainULong      height;
              ConstrainDouble    aspectRatio;
              ConstrainDouble    frameRate;
              ConstrainDOMString facingMode;
              ConstrainDOMString resizeMode;
              ConstrainDouble    volume;
-             ConstrainLong      sampleRate;
-             ConstrainLong      sampleSize;
+             ConstrainULong      sampleRate;
+             ConstrainULong      sampleSize;
              ConstrainBoolean   echoCancellation;
              ConstrainBoolean   autoGainControl;
              ConstrainBoolean   noiseSuppression;
              ConstrainDouble    latency;
-             ConstrainLong      channelCount;
+             ConstrainULong      channelCount;
              ConstrainDOMString deviceId;
              ConstrainDOMString groupId;
 };</pre>
@@ -1432,11 +1432,11 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaTrackConstraintSet" data-dfn-for=
             "MediaTrackConstraintSet" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainLong</a></span></dt>
+              "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href="#def-constraint-width">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainLong</a></span></dt>
+              "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href="#def-constraint-height">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
@@ -1463,12 +1463,12 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href="#def-constraint-volume">volume</a></code>
               for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainLong</a></span></dt>
+              "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleRate">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainLong</a></span></dt>
+              "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
@@ -1492,7 +1492,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-latency">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainLong</a></span></dt>
+              "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
@@ -1690,7 +1690,7 @@ interface MediaStreamTrack : EventTarget {
           <tbody>
             <tr id="def-constraint-width">
               <td><dfn>width</dfn></td>
-              <td><code><a>ConstrainLong</a></code></td>
+              <td><code><a>ConstrainULong</a></code></td>
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
               min being the smallest width and max being the largest
@@ -1698,7 +1698,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-height">
               <td><dfn>height</dfn></td>
-              <td><code><a>ConstrainLong</a></code></td>
+              <td><code><a>ConstrainULong</a></code></td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
               min being the smallest height and max being the largest
@@ -1862,13 +1862,13 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-sampleRate">
               <td>sampleRate</td>
-              <td><code><a>ConstrainLong</a></code></td>
+              <td><code><a>ConstrainULong</a></code></td>
               <td>The sample rate in samples per second for the audio
               data.</td>
             </tr>
             <tr id="def-constraint-sampleSize">
               <td>sampleSize</td>
-              <td><code><a>ConstrainLong</a></code></td>
+              <td><code><a>ConstrainULong</a></code></td>
               <td>The linear sample size in bits. This constraint can only be
               satisfied for audio devices that produce linear samples.</td>
             </tr>
@@ -1916,7 +1916,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-channelCount">
               <td>channelCount</td>
-              <td><code><a>ConstrainLong</a></code></td>
+              <td><code><a>ConstrainULong</a></code></td>
               <td>The number of independent channels of sound that the audio
               data contains, i.e. the number of audio samples per sample
               frame.</td>
@@ -4484,21 +4484,21 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary LongRange {
-             long max;
-             long min;
+        <pre class="idl">dictionary ULongRange {
+             [Clamp] unsigned long max;
+             [Clamp] unsigned long min;
 };</pre>
         <section>
-          <h2>Dictionary <dfn>LongRange</dfn> Members</h2>
-          <dl data-link-for="LongRange" data-dfn-for="LongRange" class=
+          <h2>Dictionary <dfn>ULongRange</dfn> Members</h2>
+          <dl data-link-for="ULongRange" data-dfn-for="ULongRange" class=
           "dictionary-members">
             <dt><dfn><code>max</code></dfn> of type <span class=
-            "idlMemberType"><a>long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The maximum legal value of this property.</p>
             </dd>
             <dt><dfn><code>min</code></dfn> of type <span class=
-            "idlMemberType"><a>long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The minimum value of this property.</p>
             </dd>
@@ -4506,21 +4506,21 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ConstrainLongRange : LongRange {
-             long exact;
-             long ideal;
+        <pre class="idl">dictionary ConstrainULongRange : ULongRange {
+             [Clamp] unsigned long exact;
+             [Clamp] unsigned long ideal;
 };</pre>
         <section>
-          <h2>Dictionary <dfn>ConstrainLongRange</dfn> Members</h2>
-          <dl data-link-for="ConstrainLongRange" data-dfn-for=
-          "ConstrainLongRange" class="dictionary-members">
+          <h2>Dictionary <dfn>ConstrainULongRange</dfn> Members</h2>
+          <dl data-link-for="ConstrainULongRange" data-dfn-for=
+          "ConstrainULongRange" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
-            "idlMemberType"><a>long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The exact required value for this property.</p>
             </dd>
             <dt><dfn><code>ideal</code></dfn> of type <span class=
-            "idlMemberType"><a>long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The ideal (target) value for this property.</p>
             </dd>
@@ -4575,11 +4575,11 @@ async function specifyCamera() {
       </div>
       <div>
         <pre class="idl">
-        typedef (long or ConstrainLongRange) ConstrainLong;</pre>
+        typedef ([Clamp] unsigned long or ConstrainULongRange) ConstrainULong;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
-          <dfn>ConstrainLong</dfn> is used to refer to the <span class=
-          "idlTypedefType">(long or ConstrainLongRange)</span> type.
+          <dfn>ConstrainULong</dfn> is used to refer to the <span class=
+          "idlTypedefType">([Clamp] unsigned long or ConstrainULongRange)</span> type.
         </div>
       </div>
       <div>
