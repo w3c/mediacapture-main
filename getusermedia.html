@@ -103,13 +103,16 @@
         track. Multiple tracks can be attached to the same source. User Agent
         processing, such as downsampling, MAY be used to ensure that all tracks
         have appropriate media.</p>
-        <p>Sources have <code><a>capabilities</a></code>, which are manipulated
-        through constrainable properties on the track, and observed by
-        <code><a>settings</a></code> on the track. The constrainable properties
-        are "owned" by the source, but sources MAY be able to accomodate
-        different demands at once (e.g., if two different track objects
-        bound to the same source ask for the same setting information, they may
-        get a different results).</p>
+        <p>Sources have constrainable properties which have
+        <code><a>capabilities</a></code> and <code><a>settings</a></code>
+        exposed on tracks. While the constrainable properties are "owned" by the
+        source, sources MAY be able to accomodate different demands at once.
+        For this reason, capabilities are common to any (multiple) tracks that
+        happen to be using the same source, whereas settings MAY differ per
+        track (e.g., if two different track objects bound to the same source
+        query capability and settings information, they will get back the same
+        capabilities, but may get different settings that are tailored to them).
+        </p>
       </dd>
       <dt>Setting (Source Setting)</dt>
       <dd>
