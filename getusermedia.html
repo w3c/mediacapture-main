@@ -4092,8 +4092,9 @@ interface ConstrainablePattern {
               <p>The <dfn>getSettings()</dfn> method returns the current
               settings of all the constrainable properties of the object,
               whether they are platform defaults or have been set by the
-              <a>applyConstraints algorithm</a>. Note that the actual setting
-              of a property MUST be a single value.</p>
+              <a>applyConstraints algorithm</a>. Note that a setting is a target
+              value that complies with constraints, and therefore may differ
+              from measured performance at times.</p>
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
