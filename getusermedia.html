@@ -2772,17 +2772,16 @@ interface OverconstrainedErrorEvent : Event {
     Agent about connected media input and output devices (for example a web
     camera or a headset).</p>
     <section>
-      <h3><dfn>NavigatorUserMedia</dfn></h3>
+      <h3><dfn>Navigator</dfn> Interface Extensions</h3>
       <div>
-        <pre class="idl">[Exposed=Window, NoInterfaceObject]
-interface NavigatorUserMedia {
+        <pre class="idl">partial interface Navigator {
     [SameObject]
     readonly        attribute MediaDevices mediaDevices;
 };</pre>
         <section>
           <h2>Attributes</h2>
-          <dl data-link-for="NavigatorUserMedia" data-dfn-for=
-          "NavigatorUserMedia" class="attributes">
+          <dl data-link-for="Navigator" data-dfn-for=
+          "Navigator" class="attributes">
             <dt><dfn><code>mediaDevices</code></dfn> of type <span class=
             "idlAttrType"><a>MediaDevices</a></span>, readonly</dt>
             <dd>
@@ -2791,14 +2790,6 @@ interface NavigatorUserMedia {
             </dd>
           </dl>
         </section>
-      </div>
-      <div>
-        <pre class="idl">Navigator implements NavigatorUserMedia;</pre>
-        <div class="idlImplementsDesc">
-          <p>All instances of the <code><a>Navigator</a></code> type are
-          defined to also implement the <a>NavigatorUserMedia</a>
-          interface.</p>
-        </div>
       </div>
     </section>
     <section>
@@ -3258,7 +3249,7 @@ interface MediaDeviceInfo {
   </section>
   <section id="local-content">
     <h2>Obtaining local multimedia content</h2>
-    <p>This section extends <code><a>NavigatorUserMedia</a></code> and
+    <p>This section extends <code><a>Navigator</a></code> and
     <code><a>MediaDevices</a></code> with APIs to request permission to access
     media input devices available to the User Agent.</p>
     <p>Alternatively, a local <code><a>MediaStream</a></code> can be captured
@@ -3305,13 +3296,13 @@ interface MediaDeviceInfo {
         usage.</p>
       </div>
       <div>
-        <pre class="idl">partial interface NavigatorUserMedia {
+        <pre class="idl">partial interface Navigator {
     void getUserMedia (MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback);
 };</pre>
         <section>
           <h2>Methods</h2>
-          <dl data-link-for="NavigatorUserMedia" data-dfn-for=
-          "NavigatorUserMedia" class="methods">
+          <dl data-link-for="Navigator" data-dfn-for=
+          "Navigator" class="methods">
             <dt><dfn>getUserMedia()</dfn></dt>
             <dd>
               <p>Prompts the user for permission to use their Web cam or other
@@ -3381,12 +3372,12 @@ interface MediaDeviceInfo {
       <div class="note">
         The definition of getUserMedia() in this section reflects two major
         changes from the method definition that has existed under
-        NavigatorUserMedia for many months.
+        Navigator for many months.
         <p>First, the official definition for the getUserMedia() method, and
         the one which developers are encouraged to use, is now the one defined
         here under MediaDevices. This decision reflected consensus as long as
         the original API remained available at
-        <a>NavigatorUserMedia.getUserMedia</a> under the Navigator object for
+        <a>Navigator.getUserMedia</a> under the Navigator object for
         backwards compatibility reasons, since the working group acknowledges
         that early users of these APIs have been encouraged to define
         getUserMedia as "var getUserMedia = navigator.getUserMedia ||
@@ -3394,11 +3385,11 @@ interface MediaDeviceInfo {
         for their code to be functional both before and after official
         implementations of getUserMedia() in popular browsers. To ensure
         functional equivalence, the getUserMedia() method under
-        NavigatorUserMedia is defined in terms of the method here.</p>
+        Navigator is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
-        defined under NavigatorUserMedia is currently still callback-based.
+        defined under Navigator is currently still callback-based.
         Developers expecting to find getUserMedia() defined under
-        NavigatorUserMedia are strongly encouraged to read the detailed Note
+        Navigator are strongly encouraged to read the detailed Note
         given there.</p>
       </div>
       <p>The <code>getSupportedConstraints</code> method is provided to allow
@@ -3719,7 +3710,7 @@ interface MediaDeviceInfo {
             <dd>
               <code><a>MediaStream</a></code> object representing the stream to
               which the user granted permission as described in the <a data-lt=
-              "NavigatorUserMedia.getUserMedia"><code>navigator.getUserMedia()</code></a>
+              "Navigator.getUserMedia"><code>navigator.getUserMedia()</code></a>
               algorithm.
             </dd>
           </dl>
@@ -3741,7 +3732,7 @@ interface MediaDeviceInfo {
             <dd>
               Error in obtaining a <code><a>MediaStream</a></code> as described
               in the failure steps of the <a data-lt=
-              "NavigatorUserMedia.getUserMedia"><code>navigator.getUserMedia()</code></a>
+              "Navigator.getUserMedia"><code>navigator.getUserMedia()</code></a>
               algorithm.
             </dd>
           </dl>
