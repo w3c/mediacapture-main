@@ -99,17 +99,21 @@
         <a href="#access-control-model"></a>).</p>
         <p>Sources <strong>do not</strong> have constraints — tracks have
         constraints. When a source is connected to a track, it must produce
-        media that conforms to the constraints present on that track. Multiple
-        tracks can be attached to the same source. User Agent processing, such
-        as downsampling, MAY be used to ensure that all tracks have appropriate
-        media.</p>
+        media that conforms to the constraints present on that track, to that
+        track. Multiple tracks can be attached to the same source. User Agent
+        processing, such as downsampling, MAY be used to ensure that all tracks
+        have appropriate media.</p>
         <p>Sources have constrainable properties which have
-        <code><a>capabilities</a></code> and <code><a>settings</a></code>. The
-        constrainable properties are "owned" by the source and are common to
-        any (multiple) tracks that happen to be using the same source (e.g., if
-        two different track objects bound to the same source ask for the same
-        capability or setting information, they will get back the same
-        answer).</p>
+        <code><a>capabilities</a></code> and <code><a>settings</a></code>
+        exposed on tracks. While the constrainable properties are "owned" by the
+        source, sources MAY be able to accomodate different demands at once.
+        For this reason, capabilities are common to any (multiple) tracks that
+        happen to be using the same source, whereas settings MAY differ per
+        track (e.g., if two different track objects bound to the same source
+        query capability and settings information, they will get back the same
+        capabilities, but may get different settings that are tailored to
+        satisfy their individual constraints).
+        </p>
       </dd>
       <dt>Setting (Source Setting)</dt>
       <dd>
