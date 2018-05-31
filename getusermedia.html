@@ -347,6 +347,14 @@
       "#track-ended">ended</a>. A <code><a>MediaStream</a></code> that does not
       have any tracks or only has tracks that are <a href=
       "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
+      <p>A <code><a>MediaStream</a></code> object is said to be <dfn id=
+      "stream-audible">audible</dfn> when it has at least one
+      <code><a>MediaStreamTrack</a></code> whose
+      <code><a href="#dom-mediastreamtrack-kind">kind</a></code> is
+      "<code>audio</code>" that has not <a href="#track-ended">ended</a>.
+      A <code><a>MediaStream</a></code> that does not
+      have any audio tracks or only has audio tracks that are <a href=
+      "#track-ended">ended</a> is <dfn id="stream-inaudible">inaudible</dfn>.</p>
       <p>The User Agent may update a <code><a>MediaStream</a></code>'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -2204,20 +2212,37 @@ interface MediaStreamTrackEvent : Event {
         is ordered</p>
       </li>
       <li>
-        <p>When the <code><a>MediaStream</a></code> state moves from the active
+        <p>If the element is an <code>HTMLVideoElement</code>, then
+        when the <code><a>MediaStream</a></code> state moves from the active
         to the <a href="#stream-inactive">inactive</a> state, the User Agent
         MUST raise an <a data-cite=
         "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
-        event on the <code>HTMLMediaElement</code> and set its <a data-cite=
+        event on the <code>HTMLVideoElement</code> and set its <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         attribute to <code>true</code>. Note that once <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
-        equals <code>true</code> the <code>HTMLMediaElement</code> will not
-        play media even if new <code><a>MediaStreamTrack</a></code>'s are added
+        equals <code>true</code> the <code>HTMLVideoElement</code> will not
+        play media even if new <code><a>MediaStreamTrack</a></code>s are added
         to the <code><a>MediaStream</a></code> (causing it to return to the
         active state) unless <code>autoplay</code> is <code>true</code> or the
         web application restarts the element, e.g., by calling <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a></p>
+        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
+
+        <p>If the element is an <code>HTMLAudioElement</code>, then
+        when the <code><a>MediaStream</a></code> state moves from the audible
+        to the <a href="#stream-inaudible">inaudible</a> state, the User Agent
+        MUST raise an <a data-cite=
+        "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
+        event on the <code>HTMLAudioElement</code> and set its <a data-cite=
+        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        attribute to <code>true</code>. Note that once <a data-cite=
+        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        equals <code>true</code> the <code>HTMLAudioElement</code> will not
+        play audio even if new audio <code><a>MediaStreamTrack</a></code>s are added
+        to the <code><a>MediaStream</a></code> (causing it to return to the
+        audible state) unless <code>autoplay</code> is <code>true</code> or the
+        web application restarts the element, e.g., by calling <a data-cite=
+        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
       </li>
       <li>
         <p>Any calls to the <code><a data-cite=
