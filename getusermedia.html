@@ -1051,7 +1051,7 @@ interface MediaStreamTrack : EventTarget {
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method, where</p>
                 <ul>
-                  <li>In the SelectSettings algorithm,
+                  <li>In the <a>SelectSettings</a> algorithm,
                     <ul>
                       <li>
                         <var>object</var> is the
@@ -3516,7 +3516,7 @@ interface MediaDeviceInfo {
                         with <var>CS</var> set to the value of the <var>T</var>
                         entry of <var>constraints</var>.</li>
                         <li>
-                          <p>Run the <code><a>SelectSettings</a></code>
+                          <p>Run the <a>SelectSettings</a>
                           algorithm on each track in <var>CandidateSet</var>
                           with <var>CS</var> as the constraint set. If the
                           algorithm returns <code>undefined</code>, remove the
@@ -3528,7 +3528,7 @@ interface MediaDeviceInfo {
                           <var>constraint</var> be any required constraint
                           whose fitness distance was infinity for all settings
                           dictionaries examined while executing the
-                          <code><a>SelectSettings</a></code> algorithm, let
+                          <a>SelectSettings</a> algorithm, let
                           <var>message</var> be either <code>undefined</code>
                           or an informative human-readable message, and
                           <a>reject</a> <var>p</var> with a new
@@ -4170,8 +4170,8 @@ interface ConstrainablePattern {
                 possible.</li>
                 <li>A settings dictionary, which is a set of values for the
                 constrainable properties of an object O, satisfies
-                ConstraintSet CS if the fitness distance between the set and CS
-                is less than infinity.</li>
+                ConstraintSet CS if the <a>fitness distance</a> between the set
+                and CS is less than infinity.</li>
                 <li>A set of ConstraintSets CS1...CSn (n &gt;= 1) can be
                 satisfied by an object O if it is possible to find a settings
                 dictionary of O that satisfies CS1...CSn simultaneously.</li>
@@ -4204,23 +4204,23 @@ interface ConstrainablePattern {
                 removed.)</li>
                 <li>
                   <p>For every possible <a>settings dictionary</a> of
-                  <var>copy</var> compute its <a>fitness distance, treating
+                  <var>copy</var> compute its <a>fitness distance</a>, treating
                   bare values of properties as ideal values</a>. Let
                   <var>candidates</var> be the set of <a data-lt=
                   "settings dictionary">settings dictionaries</a> for which the
-                  <a>fitness distance</a> is finite.</p>
+                  fitness distance is finite.</p>
                 </li>
                 <li>
                   <p>If <var>candidates</var> is empty, return
                   <code>undefined</code> as the result of the
-                  <code>SelectSettings()</code> algorithm.</p>
+                  <a>SelectSettings</a> algorithm.</p>
                 </li>
                 <li>Iterate over the 'advanced' ConstraintSets in
                 <var>newConstraints</var> in the order in which they were
                 specified. For each ConstraintSet:
                   <ol>
                     <li>
-                      <p>compute the fitness distance between it and each
+                      <p>compute the <a>fitness distance</a> between it and each
                       settings dictionary in <var>candidates</var>, treating
                       bare values of properties as exact.</p>
                     </li>
@@ -4238,7 +4238,7 @@ interface ConstrainablePattern {
                 <li>
                   <p>Select one settings dictionary from <var>candidates</var>,
                   and return it as the result of the
-                  <code>SelectSettings()</code> algorithm. The UA SHOULD use
+                  <a>SelectSettings</a> algorithm. The UA SHOULD use
                   the one with the smallest <code>fitness distance</code>, as
                   calculated in step 3, but MAY prefer ones with
                   <code><a href="#def-constraint-resizeMode">resizeMode</a></code>
@@ -4268,7 +4268,7 @@ interface ConstrainablePattern {
                       <code>undefined</code>, let <var>failedConstraint</var>
                       be any required constraint whose fitness distance was
                       infinity for all settings dictionaries examined while
-                      executing the <code><a>SelectSettings</a></code>
+                      executing the <a>SelectSettings</a>
                       algorithm, let <var>message</var> be either
                       <code>undefined</code> or an informative human-readable
                       message, <a>reject</a> <var>p</var> with a new
