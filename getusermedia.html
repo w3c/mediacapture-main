@@ -4115,12 +4115,17 @@ interface ConstrainablePattern {
               <p>We define the <dfn>fitness distance</dfn> between a
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
               the sum, for each member (represented by a
-              <var>constraintName</var> and <var>constraintValue</var> pair) in
+              <var>constraintName</var> and <var>constraintValue</var> pair)
+              <a href="https://heycam.github.io/webidl/#dfn-present">present</a> in
               <var>CS</var>, of the following values:</p>
               <ol>
                 <li>
                   <p>If <var>constraintName</var> is not supported by the
                   browser, the fitness distance is 0.</p>
+                </li>
+                <li>
+                  <p>If <var>constraintValue</var> is <code>null</code>, the
+                  fitness distance is 0.</p>
                 </li>
                 <li>
                   <p>If the constraint is required (<var>constraintValue</var> either
