@@ -4114,15 +4114,19 @@ interface ConstrainablePattern {
               value being compared against.</p>
               <p>We define the <dfn>fitness distance</dfn> between a
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
-              the sum, for each constraint provided for a constraint name in
+              the sum, for each member (represented by a
+              <var>constraintName</var> and <var>constraintValue</var> pair)
+              <a href="https://heycam.github.io/webidl/#dfn-present">present</a> in
               <var>CS</var>, of the following values:</p>
               <ol>
                 <li>
-                  <p>If the constraint is not supported by the browser, the
-                  fitness distance is 0.</p>
+                  <p>If <var>constraintName</var> is not supported by the
+                  browser, the fitness distance is 0.</p>
                 </li>
                 <li>
-                  <p>If the constraint is required ('min', 'max', or 'exact'),
+                  <p>If the constraint is required (<var>constraintValue</var> either
+                  contains one or more members named 'min', 'max', or 'exact', or is
+                  itself a bare value and bare values are to be treated as 'exact'),
                   and the <a>settings dictionary</a>'s value for the constraint
                   does not satisfy the constraint, the fitness distance is
                   positive infinity.</p>
@@ -4132,20 +4136,20 @@ interface ConstrainablePattern {
                   this type of device, the fitness distance is 0 (that is, the
                   constraint does not influence the fitness distance).</p>
                 </li>
-                <li>If no ideal value is specified, the fitness distance is
-                0.</li>
+                <li>If no ideal value is specified (<var>constraintValue</var>
+                  either contains no member named 'ideal', or, if bare values
+                  are to be treated as 'ideal', isn't a bare value), the
+                  fitness distance is 0.</li>
                 <li>For all positive numeric non-required constraints (such as
                 height, width, frameRate, aspectRatio, sampleRate and
                 sampleSize), the fitness distance is the result of the formula
-                  <pre>(actual == ideal) ? 0 : |actual -
-                  ideal|/max(|actual|,|ideal|)
-</pre>
+                  <pre>
+(actual == ideal) ? 0 : |actual - ideal| / max(|actual|, |ideal|)</pre>
                 </li>
                 <li>For all string and enum non-required constraints (e.g.
                 deviceId, groupId, facingMode, resizeMode, echoCancellation),
                 the fitness distance is the result of the formula
-                  <pre>(actual == ideal) ? 0 : 1
-</pre>
+                  <pre>(actual == ideal) ? 0 : 1</pre>
                 </li>
               </ol>
               <p>More definitions:</p>
@@ -4185,7 +4189,7 @@ interface ConstrainablePattern {
                 <li>Each <a data-lt="constraints">constraint</a> specifies one
                 or more values (or a range of values) for its property. A
                 property MAY appear more than once in the list of 'advanced'
-                ConstraintSets. If an empty object or list has been given as
+                ConstraintSets. If an empty list has been given as
                 the value for a constraint, it MUST be interpreted as if the
                 constraint were not specified (in other words, an empty
                 constraint == no constraint).
