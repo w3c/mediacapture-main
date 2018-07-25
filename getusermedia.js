@@ -1,9 +1,11 @@
 // Working around  respec using WHATWG HTML links for EventHandler
 // See also https://github.com/w3c/respec/issues/1372
 function cleanHTMLRef() {
-    [...document.querySelectorAll("a[href='https://html.spec.whatwg.org/multipage/#eventhandler']")].forEach(a => a.href = "https://www.w3.org/TR/html52/webappapis.html#event-handler");
-    document.getElementById('bib-HTML').nextElementSibling.remove();
-    document.getElementById('bib-HTML').remove();
+  [...document.querySelectorAll("a[href='https://html.spec.whatwg.org/multipage/#eventhandler']")].forEach(a => a.href = "https://www.w3.org/TR/html52/webappapis.html#event-handler");
+    if (document.getElementById('bib-html')) {
+      document.getElementById('bib-html').nextElementSibling.remove();
+      document.getElementById('bib-html').remove();
+    }
 }
 
 var respecConfig = {
