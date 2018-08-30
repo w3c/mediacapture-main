@@ -3600,11 +3600,16 @@ interface MediaDeviceInfo {
                       (e.g. "camera", "microphone"), and, optionally, its
                       deviceId member set to the device's <var>deviceId</var>,
                       while considering all devices attached to a
-                      <code>live</code> MediaStreamTrack in the current
+                      <code>live</code> and <a>same-permission</a>
+                      MediaStreamTrack in the current
                       <a data-cite=
                       "!HTML52/browsers.html#browsing-context">browsing
                       context</a> to have permission status "granted",
-                      resulting in a set of provided media.</p>
+                      resulting in a set of provided media.
+                      <dfn>Same-permission</dfn> in this context means a
+                      MediaStreamTrack that required the same level of
+                      permission to obtain as what is being requested (e.g. not
+                      isolated).</p>
                       <p>The provided media MUST include precisely one track of
                       each media type in requestedMediaTypes from the
                       <var>finalSet</var>. The decision of which devices to
