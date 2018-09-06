@@ -1073,10 +1073,10 @@ interface MediaStreamTrack : EventTarget {
                       </li>
                     </ul>
                   </li>
-                  <li>In step 3 of the <a>applyConstraints algorithm</a>, all
+                  <li>In step 3 of the <a>ApplyConstraints algorithm</a>, all
                   changes listed are to be made to <var>object</var>, and
                   </li>
-                  <li>In step 4 of the applyConstraints algorithm, the
+                  <li>In step 4 of the ApplyConstraints algorithm, the
                   requirement on getConstraints() applies to the
                   getConstraints() method of <var>object</var>.</li>
                 </ul>
@@ -4110,7 +4110,7 @@ interface ConstrainablePattern {
             <dd>
               <p>The <dfn>getConstraints()</dfn> method returns the Constraints
               that were the argument to the most recent successful invocation
-              of the <a>applyConstraints algorithm</a> on the object,
+              of the <a>ApplyConstraints algorithm</a> on the object,
               maintaining the order in which they were specified. Note that
               some of the advanced ConstraintSets returned may not be currently
               satisfied. To check which ConstraintSets are currently in effect,
@@ -4124,7 +4124,7 @@ interface ConstrainablePattern {
               <p>The <dfn>getSettings()</dfn> method returns the current
               settings of all the constrainable properties of the object,
               whether they are platform defaults or have been set by the
-              <a>applyConstraints algorithm</a>. Note that a setting is a target
+              <a>ApplyConstraints algorithm</a>. Note that a setting is a target
               value that complies with constraints, and therefore may differ
               from measured performance at times.</p>
             </dd>
@@ -4148,7 +4148,7 @@ interface ConstrainablePattern {
                   <ol>
                     <li>
                       <p>Let <var>failedConstraint</var> be the result of
-                      running the <a>applyConstraints algorithm</a> with
+                      running the <a>ApplyConstraints algorithm</a> with
                       <var>newConstraints</var> as the argument.</p>
                     </li>
                     <li>
@@ -4171,7 +4171,7 @@ interface ConstrainablePattern {
                   <p>Return <var>p</var>.</p>
                 </li>
               </ol>
-              <p>The <a>applyConstraints algorithm</a> for applying constraints
+              <p>The <a>ApplyConstraints algorithm</a> for applying constraints
               is stated below. Here are some preliminary definitions that are
               used in the statement of the algorithm:</p>
               <p>We use the term <dfn>settings dictionary</dfn> for the set of
@@ -4316,7 +4316,7 @@ interface ConstrainablePattern {
                   set to <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
-              <p>To apply the <dfn>applyConstraints algorithm</dfn> to an
+              <p>To apply the <dfn>ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an argument,
               the User Agent MUST run the following steps:</p>
               <ol>
