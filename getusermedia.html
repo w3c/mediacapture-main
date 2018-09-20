@@ -1073,10 +1073,10 @@ interface MediaStreamTrack : EventTarget {
                       </li>
                     </ul>
                   </li>
-                  <li>In step 3 of the <a>applyConstraints algorithm</a>, all
+                  <li>In step 3 of the <a>ApplyConstraints algorithm</a>, all
                   changes listed are to be made to <var>object</var>, and
                   </li>
-                  <li>In step 4 of the applyConstraints algorithm, the
+                  <li>In step 4 of the ApplyConstraints algorithm, the
                   requirement on getConstraints() applies to the
                   getConstraints() method of <var>object</var>.</li>
                 </ul>
@@ -3550,18 +3550,11 @@ interface MediaDeviceInfo {
                           verifying that at least one settings dictionary
                           exists that satisfies the constraints.</p>
                           <p>If <var>candidateSet</var> is the empty set, let
-                          <var>constraint</var> be any required constraint
+                          <var>failedConstraint</var> be any required constraint
                           whose fitness distance was infinity for all settings
                           dictionaries examined while executing the
-                          <a>SelectSettings</a> algorithm, let
-                          <var>message</var> be either <code>undefined</code>
-                          or an informative human-readable message, and
-                          <a>reject</a> <var>p</var> with a new
-                          <code><a>OverconstrainedError</a></code> created by
-                          calling
-                          <code>OverconstrainedError(<var>constraint</var>,
-                          <var>message</var>)</code>, then abort these
-                          steps.</p>
+                          <a>SelectSettings</a> algorithm, and jump to the step
+                          labeled <em>Constraint Failure</em> below.</p>
                           <p class="fingerprint">This error gives information
                           about what the underlying device is not capable of
                           producing, before the user has given any
@@ -3659,7 +3652,9 @@ interface MediaDeviceInfo {
                     <li>
                       <p>Run the <a>ApplyConstraints algorithm</a> on all
                       tracks in <var>stream</var> with the appropriate
-                      constraints.</p>
+                      constraints. Should this fail, let <var>failedConstraint</var>
+                      be the result of the algorithm that failed, and jump to
+                      the step labeled <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
                       <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
@@ -3670,6 +3665,14 @@ interface MediaDeviceInfo {
                       <var>p</var> with a new <code><a>DOMException</a></code>
                       object whose <code><a>name</a></code> attribute has the
                       value <code>NotAllowedError</code>.</p>
+                    </li>
+                    <li>
+                      <p><em>Constraint Failure</em>: Let <var>message</var> be
+                      either <code>undefined</code> or an informative
+                      human-readable message, and then <a>reject</a> <var>p</var>
+                      with a new <code>OverconstrainedError</code> created by
+                      calling <code>OverconstrainedError(<var>failedConstraint</var>,
+                      <var>message</var>)</code>.</p>
                     </li>
                   </ol>
                 </li>
@@ -4112,7 +4115,7 @@ interface ConstrainablePattern {
             <dd>
               <p>The <dfn>getConstraints()</dfn> method returns the Constraints
               that were the argument to the most recent successful invocation
-              of the <a>applyConstraints algorithm</a> on the object,
+              of the <a>ApplyConstraints algorithm</a> on the object,
               maintaining the order in which they were specified. Note that
               some of the advanced ConstraintSets returned may not be currently
               satisfied. To check which ConstraintSets are currently in effect,
@@ -4126,15 +4129,54 @@ interface ConstrainablePattern {
               <p>The <dfn>getSettings()</dfn> method returns the current
               settings of all the constrainable properties of the object,
               whether they are platform defaults or have been set by the
-              <a>applyConstraints algorithm</a>. Note that a setting is a target
+              <a>ApplyConstraints algorithm</a>. Note that a setting is a target
               value that complies with constraints, and therefore may differ
               from measured performance at times.</p>
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
-              <p>When <dfn>applyConstraints()</dfn> is called, it runs the
-              <a>applyConstraints algorithm</a> on the object.</p>
-              <p>The <a>applyConstraints algorithm</a> for applying constraints
+              <p>When the <dfn>applyConstraints()</dfn> method is invoked, the
+              User Agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>object</var> be the object on which this method was invoked.</p>
+                </li>
+                <li>
+                  <p>Let <var>newConstraints</var> be the argument to this
+                  method.</p>
+                </li>
+                <li>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
+                  <p>Run the following steps in parallel:</p>
+                  <ol>
+                    <li>
+                      <p>Let <var>failedConstraint</var> be the result of
+                      running the <a>ApplyConstraints algorithm</a> with
+                      <var>newConstraints</var> as the argument.</p>
+                    </li>
+                    <li>
+                      <p>If <var>failedConstraint</var> is <code>undefined</code>,
+                      <a>resolve</a> <var>p</var> with <code>undefined</code>,
+                      and abort these steps.
+                    </li>
+                    <li>
+                      <p>Let <var>message</var> be either
+                      <code>undefined</code> or an informative human-readable
+                      message, <a>reject</a> <var>p</var> with a new
+                      <code>OverconstrainedError</code> created by calling
+                      <code>OverconstrainedError(<var>failedConstraint</var>,
+                      <var>message</var>)</code>, and abort these steps. The
+                      existing constraints remain in effect in this case.</p>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  <p>Return <var>p</var>.</p>
+                </li>
+              </ol>
+              <p>The <a>ApplyConstraints algorithm</a> for applying constraints
               is stated below. Here are some preliminary definitions that are
               used in the statement of the algorithm:</p>
               <p>We use the term <dfn>settings dictionary</dfn> for the set of
@@ -4279,48 +4321,28 @@ interface ConstrainablePattern {
                   set to <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
-              <p>When the <dfn>applyConstraints algorithm</dfn> is called, the
-              User Agent MUST run the following steps:</p>
+              <p>To apply the <dfn>ApplyConstraints algorithm</dfn> to an
+              <var>object</var>, given <var>newConstraints</var> as an argument,
+              the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
-                  <p>Let <var>p</var> be a new promise.</p>
+                  <p>Let <var>successfulSettings</var> be the result of
+                  running the <a>SelectSettings</a> algorithm with
+                  <var>newConstraints</var> as the constraint set.</p>
                 </li>
                 <li>
-                  <p>Let <var>newConstraints</var> be the argument to this
-                  function.</p>
+                  <p>If <var>successfulSettings</var> is
+                  <code>undefined</code>, let <var>failedConstraint</var>
+                  be any required constraint whose fitness distance was
+                  infinity for all settings dictionaries examined while
+                  executing the <a>SelectSettings</a> algorithm, return
+                  <var>failedConstraint</var>, and abort these steps.</p>
                 </li>
-                <li>
-                  <p>Run the following steps in parallel:</p>
-                  <ol>
-                    <li>
-                      <p>Let <var>successfulSettings</var> be the result of
-                      running the <a>SelectSettings</a> algorithm with
-                      <var>newConstraints</var> as the constraint set.</p>
-                    </li>
-                    <li>
-                      <p>If <var>successfulSettings</var> is
-                      <code>undefined</code>, let <var>failedConstraint</var>
-                      be any required constraint whose fitness distance was
-                      infinity for all settings dictionaries examined while
-                      executing the <a>SelectSettings</a>
-                      algorithm, let <var>message</var> be either
-                      <code>undefined</code> or an informative human-readable
-                      message, <a>reject</a> <var>p</var> with a new
-                      <code>OverconstrainedError</code> created by calling
-                      <code>OverconstrainedError(<var>failedConstraint</var>,
-                      <var>message</var>)</code>, and abort these steps. The
-                      existing constraints remain in effect in this case.</p>
-                    </li>
-                    <li>In a single operation, remove the existing constraints
-                    from <var>object</var>, apply <var>newConstraints</var>,
-                    and apply <var>successfulSettings</var> as the current
-                    settings.</li>
-                    <li>Finally, <a>resolve</a> <var>p</var>.
-                    </li>
-                  </ol>
-                </li>
-                <li>
-                  <p>Return <var>p</var>.</p>
+                <li>In a single operation, remove the existing constraints
+                  from <var>object</var>, apply <var>newConstraints</var>,
+                  and apply <var>successfulSettings</var> as the current
+                  settings.</li>
+                <li>Return <code>undefined</code>.
                 </li>
               </ol>
               <p>The User Agent MAY choose new settings for the constrainable
