@@ -2298,9 +2298,10 @@ interface MediaStreamTrackEvent : Event {
           <td><code>double</code></td>
           <td>Any non-negative integer. The initial value is 0 and the values
           increments linearly in real time whenever the stream is playing.</td>
-          <td>The value is the current stream position, in seconds. On any
-          attempt to set this attribute, the User Agent must throw an
-          <code>InvalidStateError</code> exception.</td>
+          <td>The value is the <a class="externalDFN" data-cite=
+          "!HTML52/semantics-embedded-content.html#official-playback-position">
+          official playback position</a>, in seconds. Any attempt to alter it
+          MUST be ignored. </td>
         </tr>
         <tr>
           <td>
