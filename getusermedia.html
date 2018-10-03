@@ -3535,11 +3535,22 @@ interface MediaDeviceInfo {
                           <code><a>name</a></code> attribute has the value
                           <code>NotFoundError</code> and abort these steps.</p>
                         </li>
-                        <li>If the value of the <var>T</var> entry of
-                        <var>constraints</var> is "true", set CS to the empty
-                        constraint set (no constraint). Otherwise, continue
-                        with <var>CS</var> set to the value of the <var>T</var>
-                        entry of <var>constraints</var>.</li>
+                        <li>
+                          If the value of the <var>T</var> entry of
+                          <var>constraints</var> is "true", set <var>CS</var> to
+                          the empty constraint set (no constraint). Otherwise,
+                          continue with <var>CS</var> set to the value of the
+                          <var>T</var> entry of <var>constraints</var>.
+                        </li>
+                        <li>
+                          Remove any constrainable property inside of
+                          <var>CS</var> that are not defined for
+                          <code><a>MediaStreamTrack</a></code> objects of type
+                          <var>T</var>. This means that audio-only constraints
+                          inside of "video" and video-only constraints inside of
+                          "audio" are simply ignored rather than causing
+                          <code>OverconstrainedError</code>.
+                        </li>
                         <li>
                           <p>Run the <a>SelectSettings</a>
                           algorithm on each track in <var>CandidateSet</var>
