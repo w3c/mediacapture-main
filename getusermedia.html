@@ -105,15 +105,14 @@
         have appropriate media.</p>
         <p>Sources have constrainable properties which have
         <code><a>capabilities</a></code> and <code><a>settings</a></code>
-        exposed on tracks. While the constrainable properties are "owned" by the
-        source, sources MAY be able to accomodate different demands at once.
-        For this reason, capabilities are common to any (multiple) tracks that
-        happen to be using the same source, whereas settings MAY differ per
-        track (e.g., if two different track objects bound to the same source
-        query capability and settings information, they will get back the same
-        capabilities, but may get different settings that are tailored to
-        satisfy their individual constraints).
-        </p>
+        exposed on tracks. While the constrainable properties are "owned" by
+        the source, sources MAY be able to accomodate different demands at
+        once. For this reason, capabilities are common to any (multiple) tracks
+        that happen to be using the same source, whereas settings MAY differ
+        per track (e.g., if two different track objects bound to the same
+        source query capability and settings information, they will get back
+        the same capabilities, but may get different settings that are tailored
+        to satisfy their individual constraints).</p>
       </dd>
       <dt>Setting (Source Setting)</dt>
       <dd>
@@ -349,12 +348,12 @@
       "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
       <p>A <code><a>MediaStream</a></code> object is said to be <dfn id=
       "stream-audible">audible</dfn> when it has at least one
-      <code><a>MediaStreamTrack</a></code> whose
-      <code><a href="#dom-mediastreamtrack-kind">kind</a></code> is
-      "<code>audio</code>" that has not <a href="#track-ended">ended</a>.
-      A <code><a>MediaStream</a></code> that does not
-      have any audio tracks or only has audio tracks that are <a href=
-      "#track-ended">ended</a> is <dfn id="stream-inaudible">inaudible</dfn>.</p>
+      <code><a>MediaStreamTrack</a></code> whose <code><a href=
+      "#dom-mediastreamtrack-kind">kind</a></code> is "<code>audio</code>" that
+      has not <a href="#track-ended">ended</a>. A
+      <code><a>MediaStream</a></code> that does not have any audio tracks or
+      only has audio tracks that are <a href="#track-ended">ended</a> is
+      <dfn id="stream-inaudible">inaudible</dfn>.</p>
       <p>The User Agent may update a <code><a>MediaStream</a></code>'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -364,8 +363,8 @@
       from another peer, can be updated as a result of changes to the media
       session.</p>
       <p>To <dfn id="add-track">add a track</dfn> <var>track</var> to a
-      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST run
-      the following steps:</p>
+      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST
+      run the following steps:</p>
       <ol>
         <li>
           <p>If <var>track</var> is already in <var>stream's</var> <a href=
@@ -382,8 +381,8 @@
         </li>
       </ol>
       <p>To <dfn id="remove-track">remove a track</dfn> <var>track</var> from a
-      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST run
-      the following steps:</p>
+      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST
+      run the following steps:</p>
       <ol>
         <li>
           <p>If <var>track</var> is not in <var>stream's</var> <a href=
@@ -1006,8 +1005,8 @@ interface MediaStreamTrack : EventTarget {
               <dt><code>stop</code></dt>
               <dd>
                 <p>When a <code><a>MediaStreamTrack</a></code> object's
-                <code><dfn>stop()</dfn></code>
-                method is invoked, the User Agent MUST run following steps:</p>
+                <code><dfn>stop()</dfn></code> method is invoked, the User
+                Agent MUST run following steps:</p>
                 <ol>
                   <li>
                     <p>Let <var>track</var> be the current
@@ -1015,7 +1014,7 @@ interface MediaStreamTrack : EventTarget {
                   </li>
                   <li>
                     <p>If <var>track</var>'s <code><a href=
-                      "#dom-mediastreamtrack-readystate">readyState</a></code>
+                    "#dom-mediastreamtrack-readystate">readyState</a></code>
                     attribute is ended, then abort these steps.</p>
                   </li>
                   <li>
@@ -1315,14 +1314,14 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
               "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
               <dd>
-                <p>The user agent MAY use cropping and downscaling to offer more
-                resolution choices than this camera naturally produces. The
-                reported sequence MUST list all the means the UA may employ to
-                derive resolution choices for this camera. The value "none" MUST
-                be present, indicating the ability to constrain the UA from
-                cropping and downscaling. See
-                <code><a href="#def-constraint-resizeMode">resizeMode</a></code>
-                for additional details.</p>
+                <p>The user agent MAY use cropping and downscaling to offer
+                more resolution choices than this camera naturally produces.
+                The reported sequence MUST list all the means the UA may employ
+                to derive resolution choices for this camera. The value "none"
+                MUST be present, indicating the ability to constrain the UA
+                from cropping and downscaling. See <code><a href=
+                "#def-constraint-resizeMode">resizeMode</a></code> for
+                additional details.</p>
               </dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
@@ -1747,20 +1746,22 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-resizeMode">
               <td><dfn>resizeMode</dfn></td>
               <td><code><a>ConstrainDOMString</a></code></td>
-              <td>This string (or each string, when a list) should be one of
-              the members of <code><a>VideoResizeModeEnum</a></code>. The
-              members describe the means by which the resolution can be derived
-              by the UA. In other words, whether the UA is allowed to use
-              cropping and downscaling on the camera output.
-              <p class="fingerprint">The UA MAY disguise concurrent use of
-              the camera, by cropping and/or downscaling to mimic
-              native resolutions when "none" is used, but only when the camera
-              is in use in another browsing context.</p>
-              Note that <code><a data-link-for=
-              "ConstrainablePattern">getConstraints</a></code> may not return
-              exactly the same string for strings not in this enum. This
-              preserves the possibility of using a future version of WebIDL
-              enum for this property.</td>
+              <td>
+                This string (or each string, when a list) should be one of the
+                members of <code><a>VideoResizeModeEnum</a></code>. The members
+                describe the means by which the resolution can be derived by
+                the UA. In other words, whether the UA is allowed to use
+                cropping and downscaling on the camera output.
+                <p class="fingerprint">The UA MAY disguise concurrent use of
+                the camera, by cropping and/or downscaling to mimic native
+                resolutions when "none" is used, but only when the camera is in
+                use in another browsing context.</p>Note that
+                <code><a data-link-for=
+                "ConstrainablePattern">getConstraints</a></code> may not return
+                exactly the same string for strings not in this enum. This
+                preserves the possibility of using a future version of WebIDL
+                enum for this property.
+              </td>
             </tr>
           </tbody>
         </table>
@@ -1831,12 +1832,11 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn><code id=
                 "idl-def-VideoResizeModeEnum.user">none</code></dfn></td>
                 <td>
-                  <p>This resolution is offered by the camera, its driver, or the OS.
-                  </p>
-                  <p class="fingerprint">
-                  Note: The UA MAY report this value to disguise concurrent use,
-                  but only when the camera is in use in another browsing context.
-                  </p>
+                  <p>This resolution is offered by the camera, its driver, or
+                  the OS.</p>
+                  <p class="fingerprint">Note: The UA MAY report this value to
+                  disguise concurrent use, but only when the camera is in use
+                  in another browsing context.</p>
                 </td>
               </tr>
               <tr>
@@ -2212,10 +2212,10 @@ interface MediaStreamTrackEvent : Event {
         is ordered</p>
       </li>
       <li>
-        <p>If the element is an <code>HTMLVideoElement</code>, then
-        when the <code><a>MediaStream</a></code> state moves from the active
-        to the <a href="#stream-inactive">inactive</a> state, the User Agent
-        MUST raise an <a data-cite=
+        <p>If the element is an <code>HTMLVideoElement</code>, then when the
+        <code><a>MediaStream</a></code> state moves from the active to the
+        <a href="#stream-inactive">inactive</a> state, the User Agent MUST
+        raise an <a data-cite=
         "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
         event on the <code>HTMLVideoElement</code> and set its <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
@@ -2227,22 +2227,22 @@ interface MediaStreamTrackEvent : Event {
         active state) unless <code>autoplay</code> is <code>true</code> or the
         web application restarts the element, e.g., by calling <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
-
-        <p>If the element is an <code>HTMLAudioElement</code>, then
-        when the <code><a>MediaStream</a></code> state moves from the audible
-        to the <a href="#stream-inaudible">inaudible</a> state, the User Agent
-        MUST raise an <a data-cite=
+        <p>If the element is an <code>HTMLAudioElement</code>, then when the
+        <code><a>MediaStream</a></code> state moves from the audible to the
+        <a href="#stream-inaudible">inaudible</a> state, the User Agent MUST
+        raise an <a data-cite=
         "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
         event on the <code>HTMLAudioElement</code> and set its <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         attribute to <code>true</code>. Note that once <a data-cite=
         "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         equals <code>true</code> the <code>HTMLAudioElement</code> will not
-        play audio even if new audio <code><a>MediaStreamTrack</a></code>s are added
-        to the <code><a>MediaStream</a></code> (causing it to return to the
-        audible state) unless <code>autoplay</code> is <code>true</code> or the
-        web application restarts the element, e.g., by calling <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
+        play audio even if new audio <code><a>MediaStreamTrack</a></code>s are
+        added to the <code><a>MediaStream</a></code> (causing it to return to
+        the audible state) unless <code>autoplay</code> is <code>true</code> or
+        the web application restarts the element, e.g., by calling
+        <a data-cite="!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">
+        play()</a>.</p>
       </li>
       <li>
         <p>Any calls to the <code><a data-cite=
@@ -2298,10 +2298,12 @@ interface MediaStreamTrackEvent : Event {
           <td><code>double</code></td>
           <td>Any non-negative integer. The initial value is 0 and the values
           increments linearly in real time whenever the stream is playing.</td>
-          <td>The value is the <a class="externalDFN" data-cite=
-          "!HTML52/semantics-embedded-content.html#official-playback-position">
-          official playback position</a>, in seconds. Any attempt to alter it
-          MUST be ignored. </td>
+          <td>
+            The value is the <a class="externalDFN" data-cite=
+            "!HTML52/semantics-embedded-content.html#official-playback-position">
+            official playback position</a>, in seconds. Any attempt to alter it
+            MUST be ignored.
+          </td>
         </tr>
         <tr>
           <td>
@@ -2810,8 +2812,8 @@ interface OverconstrainedErrorEvent : Event {
 };</pre>
         <section>
           <h2>Attributes</h2>
-          <dl data-link-for="Navigator" data-dfn-for=
-          "Navigator" class="attributes">
+          <dl data-link-for="Navigator" data-dfn-for="Navigator" class=
+          "attributes">
             <dt><dfn><code>mediaDevices</code></dfn> of type <span class=
             "idlAttrType"><a>MediaDevices</a></span>, readonly</dt>
             <dd>
@@ -2824,9 +2826,9 @@ interface OverconstrainedErrorEvent : Event {
     </section>
     <section>
       <h3>MediaDevices</h3>
-      <p>The <dfn data-dfn-for="">MediaDevices</dfn> object is the entry point to the API used
-      to examine and get access to media devices available to the User
-      Agent.</p>
+      <p>The <dfn data-dfn-for="">MediaDevices</dfn> object is the entry point
+      to the API used to examine and get access to media devices available to
+      the User Agent.</p>
       <p>On page load, run the following steps:</p>
       <p></p>
       <ol>
@@ -2974,9 +2976,8 @@ interface MediaDevices : EventTarget {
               be enumerable. Specifications that add additional types of source
               will provide recommendations about whether the source type should
               be enumerable.</p>
-              <p>When the <code><dfn>enumerateDevices()</dfn></code>
-              method is called, the User Agent must run the following
-              steps:</p>
+              <p>When the <code><dfn>enumerateDevices()</dfn></code> method is
+              called, the User Agent must run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3331,8 +3332,8 @@ interface MediaDeviceInfo {
 };</pre>
         <section>
           <h2>Methods</h2>
-          <dl data-link-for="Navigator" data-dfn-for=
-          "Navigator" class="methods">
+          <dl data-link-for="Navigator" data-dfn-for="Navigator" class=
+          "methods">
             <dt><dfn>getUserMedia()</dfn></dt>
             <dd>
               <p>Prompts the user for permission to use their Web cam or other
@@ -3349,9 +3350,8 @@ interface MediaDeviceInfo {
               as described in <a href=
               "#dom-mediadevices-getusermedia">getUserMedia()</a> on
               <code><a>MediaDevices</a></code>.</p>
-              <p>When the <code><a>getUserMedia()</a></code>
-              method is called, the User Agent MUST run the following
-              steps:</p>
+              <p>When the <code><a>getUserMedia()</a></code> method is called,
+              the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>constraints</var> be the method's first
@@ -3401,26 +3401,24 @@ interface MediaDeviceInfo {
       <h3>MediaDevices Interface Extensions</h3>
       <div class="note">
         The definition of getUserMedia() in this section reflects two major
-        changes from the method definition that has existed under
-        Navigator for many months.
+        changes from the method definition that has existed under Navigator for
+        many months.
         <p>First, the official definition for the getUserMedia() method, and
         the one which developers are encouraged to use, is now the one defined
         here under MediaDevices. This decision reflected consensus as long as
-        the original API remained available at
-        <a>Navigator.getUserMedia</a> under the Navigator object for
-        backwards compatibility reasons, since the working group acknowledges
-        that early users of these APIs have been encouraged to define
-        getUserMedia as "var getUserMedia = navigator.getUserMedia ||
-        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;" in order
-        for their code to be functional both before and after official
-        implementations of getUserMedia() in popular browsers. To ensure
-        functional equivalence, the getUserMedia() method under
-        Navigator is defined in terms of the method here.</p>
+        the original API remained available at <a>Navigator.getUserMedia</a>
+        under the Navigator object for backwards compatibility reasons, since
+        the working group acknowledges that early users of these APIs have been
+        encouraged to define getUserMedia as "var getUserMedia =
+        navigator.getUserMedia || navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;" in order for their code to be functional
+        both before and after official implementations of getUserMedia() in
+        popular browsers. To ensure functional equivalence, the getUserMedia()
+        method under Navigator is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
-        defined under Navigator is currently still callback-based.
-        Developers expecting to find getUserMedia() defined under
-        Navigator are strongly encouraged to read the detailed Note
-        given there.</p>
+        defined under Navigator is currently still callback-based. Developers
+        expecting to find getUserMedia() defined under Navigator are strongly
+        encouraged to read the detailed Note given there.</p>
       </div>
       <p>The <code>getSupportedConstraints</code> method is provided to allow
       the application to determine which constraints the User Agent
@@ -3455,9 +3453,8 @@ interface MediaDeviceInfo {
               <p>The promise will be <a>rejected</a> if there is a failure in
               finding valid tracks or if the user denies permission, as
               described below.</p>
-              <p>When the <code><dfn>getUserMedia()</dfn></code>
-              method is called, the User Agent MUST run the following
-              steps:</p>
+              <p>When the <code><dfn>getUserMedia()</dfn></code> method is
+              called, the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>constraints</var> be the method's first
@@ -3536,37 +3533,33 @@ interface MediaDeviceInfo {
                           <code><a>name</a></code> attribute has the value
                           <code>NotFoundError</code> and abort these steps.</p>
                         </li>
+                        <li>If the value of the <var>T</var> entry of
+                        <var>constraints</var> is "true", set <var>CS</var> to
+                        the empty constraint set (no constraint). Otherwise,
+                        continue with <var>CS</var> set to the value of the
+                        <var>T</var> entry of <var>constraints</var>.</li>
+                        <li>Remove any constrainable property inside of
+                        <var>CS</var> that are not defined for
+                        <code><a>MediaStreamTrack</a></code> objects of type
+                        <var>T</var>. This means that audio-only constraints
+                        inside of "video" and video-only constraints inside of
+                        "audio" are simply ignored rather than causing
+                        <code>OverconstrainedError</code>.</li>
                         <li>
-                          If the value of the <var>T</var> entry of
-                          <var>constraints</var> is "true", set <var>CS</var> to
-                          the empty constraint set (no constraint). Otherwise,
-                          continue with <var>CS</var> set to the value of the
-                          <var>T</var> entry of <var>constraints</var>.
-                        </li>
-                        <li>
-                          Remove any constrainable property inside of
-                          <var>CS</var> that are not defined for
-                          <code><a>MediaStreamTrack</a></code> objects of type
-                          <var>T</var>. This means that audio-only constraints
-                          inside of "video" and video-only constraints inside of
-                          "audio" are simply ignored rather than causing
-                          <code>OverconstrainedError</code>.
-                        </li>
-                        <li>
-                          <p>Run the <a>SelectSettings</a>
-                          algorithm on each track in <var>CandidateSet</var>
-                          with <var>CS</var> as the constraint set. If the
-                          algorithm returns <code>undefined</code>, remove the
-                          track from <var>candidateSet</var>. This eliminates
-                          devices unable to satisfy the constraints, by
-                          verifying that at least one settings dictionary
-                          exists that satisfies the constraints.</p>
+                          <p>Run the <a>SelectSettings</a> algorithm on each
+                          track in <var>CandidateSet</var> with <var>CS</var>
+                          as the constraint set. If the algorithm returns
+                          <code>undefined</code>, remove the track from
+                          <var>candidateSet</var>. This eliminates devices
+                          unable to satisfy the constraints, by verifying that
+                          at least one settings dictionary exists that
+                          satisfies the constraints.</p>
                           <p>If <var>candidateSet</var> is the empty set, let
-                          <var>failedConstraint</var> be any required constraint
-                          whose fitness distance was infinity for all settings
-                          dictionaries examined while executing the
-                          <a>SelectSettings</a> algorithm, and jump to the step
-                          labeled <em>Constraint Failure</em> below.</p>
+                          <var>failedConstraint</var> be any required
+                          constraint whose fitness distance was infinity for
+                          all settings dictionaries examined while executing
+                          the <a>SelectSettings</a> algorithm, and jump to the
+                          step labeled <em>Constraint Failure</em> below.</p>
                           <p class="fingerprint">This error gives information
                           about what the underlying device is not capable of
                           producing, before the user has given any
@@ -3606,8 +3599,7 @@ interface MediaDeviceInfo {
                       deviceId member set to the device's <var>deviceId</var>,
                       while considering all devices attached to a
                       <code>live</code> and <a>same-permission</a>
-                      MediaStreamTrack in the current
-                      <a data-cite=
+                      MediaStreamTrack in the current <a data-cite=
                       "!HTML52/browsers.html#browsing-context">browsing
                       context</a> to have permission status "granted",
                       resulting in a set of provided media.
@@ -3664,9 +3656,10 @@ interface MediaDeviceInfo {
                     <li>
                       <p>Run the <a>ApplyConstraints algorithm</a> on all
                       tracks in <var>stream</var> with the appropriate
-                      constraints. Should this fail, let <var>failedConstraint</var>
-                      be the result of the algorithm that failed, and jump to
-                      the step labeled <em>Constraint Failure</em> below.</p>
+                      constraints. Should this fail, let
+                      <var>failedConstraint</var> be the result of the
+                      algorithm that failed, and jump to the step labeled
+                      <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
                       <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
@@ -3681,9 +3674,10 @@ interface MediaDeviceInfo {
                     <li>
                       <p><em>Constraint Failure</em>: Let <var>message</var> be
                       either <code>undefined</code> or an informative
-                      human-readable message, and then <a>reject</a> <var>p</var>
-                      with a new <code>OverconstrainedError</code> created by
-                      calling <code>OverconstrainedError(<var>failedConstraint</var>,
+                      human-readable message, and then <a>reject</a>
+                      <var>p</var> with a new <code>OverconstrainedError</code>
+                      created by calling
+                      <code>OverconstrainedError(<var>failedConstraint</var>,
                       <var>message</var>)</code>.</p>
                     </li>
                   </ol>
@@ -4141,9 +4135,9 @@ interface ConstrainablePattern {
               <p>The <dfn>getSettings()</dfn> method returns the current
               settings of all the constrainable properties of the object,
               whether they are platform defaults or have been set by the
-              <a>ApplyConstraints algorithm</a>. Note that a setting is a target
-              value that complies with constraints, and therefore may differ
-              from measured performance at times.</p>
+              <a>ApplyConstraints algorithm</a>. Note that a setting is a
+              target value that complies with constraints, and therefore may
+              differ from measured performance at times.</p>
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
@@ -4151,7 +4145,8 @@ interface ConstrainablePattern {
               User Agent MUST run the following steps:</p>
               <ol>
                 <li>
-                  <p>Let <var>object</var> be the object on which this method was invoked.</p>
+                  <p>Let <var>object</var> be the object on which this method
+                  was invoked.</p>
                 </li>
                 <li>
                   <p>Let <var>newConstraints</var> be the argument to this
@@ -4169,9 +4164,9 @@ interface ConstrainablePattern {
                       <var>newConstraints</var> as the argument.</p>
                     </li>
                     <li>
-                      <p>If <var>failedConstraint</var> is <code>undefined</code>,
-                      <a>resolve</a> <var>p</var> with <code>undefined</code>,
-                      and abort these steps.
+                      <p>If <var>failedConstraint</var> is
+                      <code>undefined</code>, <a>resolve</a> <var>p</var> with
+                      <code>undefined</code>, and abort these steps.</p>
                     </li>
                     <li>
                       <p>Let <var>message</var> be either
@@ -4200,7 +4195,8 @@ interface ConstrainablePattern {
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
               the sum, for each member (represented by a
               <var>constraintName</var> and <var>constraintValue</var> pair)
-              <a href="https://heycam.github.io/webidl/#dfn-present">present</a> in
+              <a href=
+              "https://heycam.github.io/webidl/#dfn-present">present</a> in
               <var>CS</var>, of the following values:</p>
               <ol>
                 <li>
@@ -4208,12 +4204,12 @@ interface ConstrainablePattern {
                   browser, the fitness distance is 0.</p>
                 </li>
                 <li>
-                  <p>If the constraint is required (<var>constraintValue</var> either
-                  contains one or more members named 'min', 'max', or 'exact', or is
-                  itself a bare value and bare values are to be treated as 'exact'),
-                  and the <a>settings dictionary</a>'s value for the constraint
-                  does not satisfy the constraint, the fitness distance is
-                  positive infinity.</p>
+                  <p>If the constraint is required (<var>constraintValue</var>
+                  either contains one or more members named 'min', 'max', or
+                  'exact', or is itself a bare value and bare values are to be
+                  treated as 'exact'), and the <a>settings dictionary</a>'s
+                  value for the constraint does not satisfy the constraint, the
+                  fitness distance is positive infinity.</p>
                 </li>
                 <li>
                   <p>If the constraint is not required, and does not apply for
@@ -4221,9 +4217,9 @@ interface ConstrainablePattern {
                   constraint does not influence the fitness distance).</p>
                 </li>
                 <li>If no ideal value is specified (<var>constraintValue</var>
-                  either contains no member named 'ideal', or, if bare values
-                  are to be treated as 'ideal', isn't a bare value), the
-                  fitness distance is 0.</li>
+                either contains no member named 'ideal', or, if bare values are
+                to be treated as 'ideal', isn't a bare value), the fitness
+                distance is 0.</li>
                 <li>For all positive numeric non-required constraints (such as
                 height, width, frameRate, aspectRatio, sampleRate and
                 sampleSize), the fitness distance is the result of the formula
@@ -4259,7 +4255,8 @@ interface ConstrainablePattern {
                 <li>A settings dictionary, which is a set of values for the
                 constrainable properties of an object O, satisfies
                 ConstraintSet CS if the <a>fitness distance</a> between the set
-                and CS is less than infinity.</li>
+                and CS is less than infinity.
+                </li>
                 <li>A set of ConstraintSets CS1...CSn (n &gt;= 1) can be
                 satisfied by an object O if it is possible to find a settings
                 dictionary of O that satisfies CS1...CSn simultaneously.</li>
@@ -4273,10 +4270,10 @@ interface ConstrainablePattern {
                 <li>Each <a data-lt="constraints">constraint</a> specifies one
                 or more values (or a range of values) for its property. A
                 property MAY appear more than once in the list of 'advanced'
-                ConstraintSets. If an empty list has been given as
-                the value for a constraint, it MUST be interpreted as if the
-                constraint were not specified (in other words, an empty
-                constraint == no constraint).
+                ConstraintSets. If an empty list has been given as the value
+                for a constraint, it MUST be interpreted as if the constraint
+                were not specified (in other words, an empty constraint == no
+                constraint).
                   <p>Note that unknown properties are discarded by WebIDL,
                   which means that unknown/unsupported required constraints
                   will silently disappear. To avoid this being a surprise,
@@ -4308,9 +4305,9 @@ interface ConstrainablePattern {
                 specified. For each ConstraintSet:
                   <ol>
                     <li>
-                      <p>compute the <a>fitness distance</a> between it and each
-                      settings dictionary in <var>candidates</var>, treating
-                      bare values of properties as exact.</p>
+                      <p>compute the <a>fitness distance</a> between it and
+                      each settings dictionary in <var>candidates</var>,
+                      treating bare values of properties as exact.</p>
                     </li>
                     <li>
                       <p>If the fitness distance is finite for one or more
@@ -4325,37 +4322,35 @@ interface ConstrainablePattern {
                 </li>
                 <li>
                   <p>Select one settings dictionary from <var>candidates</var>,
-                  and return it as the result of the
-                  <a>SelectSettings</a> algorithm. The UA SHOULD use
-                  the one with the smallest <code>fitness distance</code>, as
-                  calculated in step 3, but MAY prefer ones with
-                  <code><a href="#def-constraint-resizeMode">resizeMode</a></code>
-                  set to <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
+                  and return it as the result of the <a>SelectSettings</a>
+                  algorithm. The UA SHOULD use the one with the smallest
+                  <code>fitness distance</code>, as calculated in step 3, but
+                  MAY prefer ones with <code><a href=
+                  "#def-constraint-resizeMode">resizeMode</a></code> set to
+                  <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
               <p>To apply the <dfn>ApplyConstraints algorithm</dfn> to an
-              <var>object</var>, given <var>newConstraints</var> as an argument,
-              the User Agent MUST run the following steps:</p>
+              <var>object</var>, given <var>newConstraints</var> as an
+              argument, the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
-                  <p>Let <var>successfulSettings</var> be the result of
-                  running the <a>SelectSettings</a> algorithm with
+                  <p>Let <var>successfulSettings</var> be the result of running
+                  the <a>SelectSettings</a> algorithm with
                   <var>newConstraints</var> as the constraint set.</p>
                 </li>
                 <li>
                   <p>If <var>successfulSettings</var> is
-                  <code>undefined</code>, let <var>failedConstraint</var>
-                  be any required constraint whose fitness distance was
-                  infinity for all settings dictionaries examined while
-                  executing the <a>SelectSettings</a> algorithm, return
+                  <code>undefined</code>, let <var>failedConstraint</var> be
+                  any required constraint whose fitness distance was infinity
+                  for all settings dictionaries examined while executing the
+                  <a>SelectSettings</a> algorithm, return
                   <var>failedConstraint</var>, and abort these steps.</p>
                 </li>
-                <li>In a single operation, remove the existing constraints
-                  from <var>object</var>, apply <var>newConstraints</var>,
-                  and apply <var>successfulSettings</var> as the current
-                  settings.</li>
-                <li>Return <code>undefined</code>.
-                </li>
+                <li>In a single operation, remove the existing constraints from
+                <var>object</var>, apply <var>newConstraints</var>, and apply
+                <var>successfulSettings</var> as the current settings.</li>
+                <li>Return <code>undefined</code>.</li>
               </ol>
               <p>The User Agent MAY choose new settings for the constrainable
               properties of the object at any time. When it does so it MUST
@@ -4643,7 +4638,8 @@ async function specifyCamera() {
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
           <dfn>ConstrainULong</dfn> is used to refer to the <span class=
-          "idlTypedefType">([Clamp] unsigned long or ConstrainULongRange)</span> type.
+          "idlTypedefType">([Clamp] unsigned long or
+          ConstrainULongRange)</span> type.
         </div>
       </div>
       <div>
@@ -5136,9 +5132,9 @@ window.onload = async () =&gt; {
         </li>
         <li>updating how the <code>HTMLMediaElement</code> works with a <code>
           <a>MediaStream</a></code> containing a track of the new media type
-          (see <a href="#mediastreams-in-media-elements"></a>), including adding
-          a corollary to <a href="#stream-audible">audible</a>/inaudible for the
-          new media type,
+          (see <a href="#mediastreams-in-media-elements"></a>), including
+          adding a corollary to <a href="#stream-audible">audible</a>/inaudible
+          for the new media type,
         </li>
         <li>updating <code><a>MediaDeviceKind</a></code> if the new type has
         enumerable devices,</li>
@@ -5781,11 +5777,11 @@ window.onload = async () =&gt; {
     <p>The editors wish to thank the Working Group chairs and Team Contact,
     Harald Alvestrand, Stefan Håkansson, Erik Lagerway and Dominique
     Hazaël-Massieux, for their support. Substantial text in this specification
-    was provided by many people including 
+    was provided by many people including
     <!-- tag 1 to reduce merge conflicts when adding names to list  -->
      Jim Barnett, <!-- tag 2 --> Harald Alvestrand, <!-- tag 3 --> Travis
-    Leithead, <!-- tag 4 --> Josh Soref, <!-- tag 5 --> Martin Thomson, 
-    <!-- tag 6 --> Jan-Ivar Bruaroey, <!-- tag 7 --> Peter Thatcher, 
+    Leithead, <!-- tag 4 --> Josh Soref, <!-- tag 5 --> Martin Thomson,
+    <!-- tag 6 --> Jan-Ivar Bruaroey, <!-- tag 7 --> Peter Thatcher,
     <!-- tag 8 --> Dominique Hazaël-Massieux, <!-- tag 9 --> and Stefan
     Håkansson. Dan Burnett would like to acknowledge the significant support
     received from Voxeo and Aspect during the development of this
