@@ -71,7 +71,7 @@ var respecConfig = {
    wgURI:["https://www.w3.org/2011/04/webrtc/"],
 
    // name (without the @w3.org) of the public mailing to which comments are due
-   wgPublicList: "public-media-capture",
+   wgPublicList: "public-webrtc",
 
    // URI of the patent status for this WG, for Rec-track documents
    // !!!! IMPORTANT !!!!
@@ -85,7 +85,7 @@ var respecConfig = {
       data: [
         {
           value: "Mailing list",
-          href: "https://lists.w3.org/Archives/Public/public-media-capture/"
+          href: "https://lists.w3.org/Archives/Public/public-webrtc/"
         },
         {
           value: "Browse open issues",
