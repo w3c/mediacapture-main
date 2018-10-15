@@ -3491,23 +3491,6 @@ interface MediaDeviceInfo {
                   <code>SecurityError</code>.</p>
                 </li>
                 <li>
-                  <p>Let <var>originIdentifier</var> be the <a>current settings
-                  object</a>'s <a data-cite=
-                  "!HTML52/webappapis.html#responsible-browsing-context">responsible
-                  browsing context</a>'s [[!HTML52]] <a data-cite=
-                  "!HTML52/browsers.html#top-level-browsing-context">top-level
-                  browsing context</a>'s <a data-cite=
-                  "!HTML52/browsers.html#active-document">active document</a>'s
-                  origin.</p>
-                </li>
-                <li>
-                  <p>If the <a>current settings object</a>'s origin is
-                  different from <var>originIdentifier</var>, set
-                  <var>originIdentifier</var> to the result of combining
-                  <var>originIdentifier</var> and the <a>current settings
-                  object</a>'s origin.</p>
-                </li>
-                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
@@ -3591,8 +3574,7 @@ interface MediaDeviceInfo {
                       Failure</em> below.</p>
                     </li>
                     <li>
-                      <p>For the origin identified by
-                      <var>originIdentifier</var>, <a>request permission to
+                      <p><a>Request permission to
                       use</a> a PermissionDescriptor with its name member set
                       to the permission name associated with <var>kind</var>
                       (e.g. "camera", "microphone"), and, optionally, its
