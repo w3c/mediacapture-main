@@ -2939,7 +2939,8 @@ interface OverconstrainedErrorEvent : Event {
       contexts on different origins; user agents MAY add fuzzing on the timing
       of events to avoid cross-origin activity correlation.</p>
       <div>
-        <pre class="idl">[Exposed=Window]
+        <pre class="idl">[Exposed=Window,
+SecureContext]
 interface MediaDevices : EventTarget {
                     attribute EventHandler ondevicechange;
     Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices ();
