@@ -4937,26 +4937,25 @@ window.onload = async () =&gt; {
     <h1 id=feature-policy-integration>Feature Policy Integration</h1>
     <p>This specification defines two <a data-link-type="dfn"
       href="https://wicg.github.io/feature-policy/#policy-controlled-feature"
-      id="ref-for-policy-controlled-feature">policy-controlled feature</a>s
+      >policy-controlled feature</a>s
     identified by the strings
     <code>"<dfn data-lt="camera-feature">camera</dfn>"</code> and
     <code>"<dfn data-lt="microphone-feature">microphone</dfn>"</code>.
     Both have a <a data-link-type="dfn"
       href="https://wicg.github.io/feature-policy/#default-allowlist"
-      id="ref-for-default-allowlist">default allowlist</a> of <code>"self"</code>.
+      >default allowlist</a> of <code>"self"</code>.
     <div class="note">
       <p>A <a data-link-type="dfn"
-        href="https://dom.spec.whatwg.org/#concept-document"
-        id="ref-for-concept-document①⓪">document</a>'s
+        href="https://dom.spec.whatwg.org/#concept-document">document</a>'s
       <a data-link-type="dfn"
         href="https://html.spec.whatwg.org/multipage/dom.html#concept-document-feature-policy"
-        id="ref-for-concept-document-feature-policy">feature policy</a>
+        >feature policy</a>
       determines whether any content in that document is allowed to use
       <code>getUserMedia</code> to request camera or microphone respectively. If
       disabled in any document, no content in the document will be
       <a data-link-type="dfn"
         href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#allowed-to-use"
-        id="ref-for-allowed-to-use②">allowed to use</a>
+        >allowed to use</a>
       <code>getUserMedia</code> to request the camera or microphone
       respectively. This is enforced by the <a>request permission to use</a>
       algorithm.
