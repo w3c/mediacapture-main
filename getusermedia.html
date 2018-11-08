@@ -2807,7 +2807,7 @@ interface OverconstrainedErrorEvent : Event {
       <h3><dfn>Navigator</dfn> Interface Extensions</h3>
       <div>
         <pre class="idl">partial interface Navigator {
-    [SameObject]
+    [SameObject, SecureContext]
     readonly        attribute MediaDevices mediaDevices;
 };</pre>
         <section>
@@ -2939,7 +2939,8 @@ interface OverconstrainedErrorEvent : Event {
       contexts on different origins; user agents MAY add fuzzing on the timing
       of events to avoid cross-origin activity correlation.</p>
       <div>
-        <pre class="idl">[Exposed=Window]
+        <pre class="idl">[Exposed=Window,
+SecureContext]
 interface MediaDevices : EventTarget {
                     attribute EventHandler ondevicechange;
     Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices ();
@@ -3328,6 +3329,7 @@ interface MediaDeviceInfo {
       </div>
       <div>
         <pre class="idl">partial interface Navigator {
+    [SecureContext]
     void getUserMedia (MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback);
 };</pre>
         <section>
@@ -3807,15 +3809,12 @@ interface MediaDeviceInfo {
         User Agent may choose to <a href="#create-permission">create a
         permission storage entry</a> for later use by the same origin, so that
         the user does not need to grant permission again at a later time.
-        [[!RTCWEB-SECURITY-ARCH]] Section 5.2 requires that such storing MUST
-        only be done when the page is secure (served over HTTPS and having no
-        mixed content). It is a User Agent choice whether it offers
-        functionality to store permission to each device separately, all
-        devices of a given class, or all devices; the choice needs to be
-        apparent to the user, and permission must have been granted for the
-        entire set whose permission is being stored, e.g., to store permission
-        to use all cameras the user must have given permission to use all
-        cameras and not just one.</p>
+        It is a User Agent choice whether it offers functionality to store
+        permission to each device separately, all devices of a given class, or
+        all devices; the choice needs to be apparent to the user, and
+        permission must have been granted for the entire set whose permission
+        is being stored, e.g., to store permission to use all cameras the user
+        must have given permission to use all cameras and not just one.</p>
         <p class="practicedesc">As described, this specification does not
         dictate whether or not granting permission results in a stored
         permission. When permission is not stored, permission will last only
@@ -5069,12 +5068,6 @@ window.onload = async () =&gt; {
       audio/video streams to an attacker <code>EvilSpy</code> by following a
       link or being redirected to
       <code>https://webrtc.example.org/?user=EvilSpy</code>.</p>
-      <p>Although [[!RTCWEB-SECURITY-ARCH]] Section 5.2 indicates that
-      implementations may refuse all access permissions for HTTP origins, it
-      recommends that implementations allow one-time camera/microphone access.
-      While allowing one-time access for HTTP origins is convenient, this makes
-      it possible for an attacker to obtain access to the camera/microphone of
-      an unsuspecting user.</p>
     </div>
   </section>
   <section class="informative">
