@@ -4915,6 +4915,35 @@ window.onload = async () =&gt; {
     </div>
   </section>
   <section>
+    <h1 id=feature-policy-integration>Feature Policy Integration</h1>
+    <p>This specification defines two <a data-link-type="dfn"
+      href="https://wicg.github.io/feature-policy/#policy-controlled-feature"
+      >policy-controlled feature</a>s
+    identified by the strings
+    <code>"<dfn data-lt="camera-feature">camera</dfn>"</code> and
+    <code>"<dfn data-lt="microphone-feature">microphone</dfn>"</code>.
+    Both have a <a data-link-type="dfn"
+      href="https://wicg.github.io/feature-policy/#default-allowlist"
+      >default allowlist</a> of <code>"self"</code>.
+    <div class="note">
+      <p>A <a data-link-type="dfn"
+        href="https://dom.spec.whatwg.org/#concept-document">document</a>'s
+      <a data-link-type="dfn"
+        href="https://html.spec.whatwg.org/multipage/dom.html#concept-document-feature-policy"
+        >feature policy</a>
+      determines whether any content in that document is allowed to use
+      <code>getUserMedia</code> to request camera or microphone respectively. If
+      disabled in any document, no content in the document will be
+      <a data-link-type="dfn"
+        href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#allowed-to-use"
+        >allowed to use</a>
+      <code>getUserMedia</code> to request the camera or microphone
+      respectively. This is enforced by the <a>request permission to use</a>
+      algorithm.
+      </p>
+    </div>
+  </section>
+  <section>
     <h1>Privacy Indicator Requirements</h1>
     <p>For each <var>kind</var> of device that <a data-link-for=
     "MediaDevices">getUserMedia()</a> exposes,</p>
