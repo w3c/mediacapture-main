@@ -2754,6 +2754,9 @@ interface OverconstrainedErrorEvent : Event {
             the current constraints against a given source and is not able to
             configure the source within the limitations established by the
             intersection of imposed constraints.</p>
+            <p class="note">The aforementioned constraints SHOULD be interpreted
+            as basic constraints. This effectively means that the configuration
+            SHOULD be evaluated only against the provided basic constraints.</p>
             <p>Due to being over-constrained, the User Agent must mute each
             affected track.</p>
             <p>The affected track(s) will remain <a href=
