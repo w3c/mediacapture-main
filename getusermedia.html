@@ -2763,8 +2763,8 @@ interface OverconstrainedErrorEvent : Event {
             <p>This error event fires for each affected track (when multiple
             tracks share the same source) after the User Agent has evaluated
             the current constraints against a given source and is not able to
-            configure the source within the limitations established by the
-            intersection of imposed constraints.</p>
+            configure the source within the limitations established by this
+            track's <a>required constraints</a>.</p>
             <p>Due to being over-constrained, the User Agent must mute each
             affected track.</p>
             <p>The affected track(s) will remain <a href=
