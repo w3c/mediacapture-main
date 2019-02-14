@@ -3550,8 +3550,9 @@ interface MediaDeviceInfo {
                           at least one settings dictionary exists that
                           satisfies the constraints.</p>
                           <p>If <var>candidateSet</var> is the empty set, let
-                          <var>failedConstraint</var> be any required
-                          constraint whose fitness distance was infinity for
+                          <var>failedConstraint</var>  be any
+                          <a data-lt="required constraints">required constraint</a>
+                          whose fitness distance was infinity for
                           all settings dictionaries examined while executing
                           the <a>SelectSettings</a> algorithm, and jump to the
                           step labeled <em>Constraint Failure</em> below.</p>
@@ -4339,7 +4340,8 @@ interface ConstrainablePattern {
                 <li>
                   <p>If <var>successfulSettings</var> is
                   <code>undefined</code>, let <var>failedConstraint</var> be
-                  any required constraint whose fitness distance was infinity
+                  any <a data-lt="required constraints">required constraint</a>
+                  whose fitness distance was infinity
                   for all settings dictionaries examined while executing the
                   <a>SelectSettings</a> algorithm, return
                   <var>failedConstraint</var>, and abort these steps.</p>
