@@ -182,16 +182,18 @@
         <p>For each constrainable property, a constraint exists whose name
         corresponds with the relevant source setting name and capability
         name.</p>
-        <p>A constraint takes one of three forms, depending on the syntax used.
-        Collectively, we refer to all constraints that apply on a track for a
-        type of device, of each form, in three groups as follows:
-        <dfn>required constraints</dfn> are all <a data-lt=
+        <p>A constraint falls into one of three groups, depending on its place
+        in the constraints structure. The groups are:
+        <ul>
+          <li><dfn>required constraints</dfn> are all <a data-lt=
           "advanced constraints">non-advanced</a> constraints that are
-        <a>required</a>; <dfn>optional basic constraints</dfn> are the remaining
-        <a data-lt="advanced constraints">non-advanced</a> constraints; and
-        <dfn>advanced constraints</dfn> are all constraints specified
+        <a>required</a>.</li>
+          <li><dfn>optional basic constraints</dfn> are the remaining
+        <a data-lt="advanced constraints">non-advanced</a> constraints.</li>
+          <li><dfn>advanced constraints</dfn> are all constraints specified
         using the <code><a href="#dom-constraints-advanced">advanced</a></code>
-        keyword.</p>
+        keyword.</li>
+        </ul></p>
         <p>In general, User Agents will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use <a>required
