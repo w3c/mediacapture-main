@@ -121,12 +121,12 @@
         read-only.</p>
         <p>A source's settings can change dynamically over time due to
         environmental conditions, sink configurations, or constraint changes. A
-        source's settings must always conform to the current set of basic
-        (mandatory) constraints on all attached tracks. A source that cannot
+        source's settings must always conform to the current set of
+        <a>required constraints</a> on all attached tracks. A source that cannot
         conform to these constraints causes affected tracks to become
         <a>overconstrained</a> and therefore <a href="#track-muted">muted</a>.
         A <a>User Agent</a> attempts to ensure that sources adhere to advanced
-        (optional) constraints as closely as possible, see <a href=
+        constraints as closely as possible, see <a href=
         "#constrainable-interface"></a>.</p>
         <p>Although settings are a property of the source, they are only
         exposed to the application through the tracks attached to the source.
@@ -179,13 +179,25 @@
         inform the application. <a href=
         "#the-model-sources-sinks-constraints-and-settings"></a> explains how
         constraints interact in more detail.</p>
-        <p>In general, User Agents will have more flexibility to optimize the
-        media streaming experience the fewer constraints are applied, so
-        application authors are strongly encouraged to use mandatory
-        constraints sparingly.</p>
         <p>For each constrainable property, a constraint exists whose name
         corresponds with the relevant source setting name and capability
         name.</p>
+        <p>A constraint falls into one of three groups, depending on its place
+        in the constraints structure. The groups are:
+        <ul>
+          <li><dfn>required constraints</dfn> are all <a data-lt=
+          "advanced constraints">non-advanced</a> constraints that are
+        <a>required</a>.</li>
+          <li><dfn>optional basic constraints</dfn> are the remaining
+        <a data-lt="advanced constraints">non-advanced</a> constraints.</li>
+          <li><dfn>advanced constraints</dfn> are all constraints specified
+        using the <code><a href="#dom-constraints-advanced">advanced</a></code>
+        keyword.</li>
+        </ul></p>
+        <p>In general, User Agents will have more flexibility to optimize the
+        media streaming experience the fewer constraints are applied, so
+        application authors are strongly encouraged to use <a>required
+        constraints</a> sparingly.</p>
       </dd>
       <dt><code>RTCPeerConnection</code></dt>
       <dd><dfn><code>RTCPeerConnection</code></dfn> is defined in
@@ -2142,13 +2154,14 @@ interface MediaStreamTrackEvent : Event {
     the same source. The first track initially has no constraints applied. It
     is connected to sink N. Sink N has a resolution of 800 by 600 pixels and is
     scaling down the source's resolution of 1024 by 768 to fit. The other track
-    has a mandatory constraint forcing off the source's fill light; it is
-    connected to sink P. Sink P has a width and height equal to that of the
-    source.</p>
+    has a <a data-lt="required constraints">required constraint</a> forcing off
+    the source's fill light; it is connected to sink P. Sink P has a width and
+    height equal to that of the source.</p>
     <p><img alt="Overconstrained application" src=
     "images/overconstrained_apply.svg"></p>
-    <p>Now, the first track adds a mandatory constraint that the fill light
-    should be forced on. At this point, both mandatory constraints cannot be
+    <p>Now, the first track adds a
+    <a data-lt="required constraints">required constraint</a> that the fill light
+    should be forced on. At this point, both <a>required constraints</a> cannot be
     satisfied by the source (the fill light cannot be simultaneously on and off
     at the same time). Since this state was caused by the first track's attempt
     to apply a conflicting constraint, the constraint application fails and
@@ -2158,7 +2171,7 @@ interface MediaStreamTrackEvent : Event {
     point. In this case, instead of the first track attempting to apply a
     conflicting constraint, the user physically locks the camera into a mode
     where the fill light is on. At this point the source can no longer satisfy
-    the second track's mandatory constraint that the fill light be off. The
+    the second track's required constraint that the fill light be off. The
     second track is transitioned into the muted state and receives an
     <a>overconstrained</a> event. At the same time, the source notes that its
     remaining active sink only requires a resolution of 800 by 600 and so it
@@ -2168,7 +2181,7 @@ interface MediaStreamTrackEvent : Event {
     "images/overconstrained_occurrence.svg"></p>
     <p>At this point, it is the responsibility of the application to address
     the problem that led to the overconstrained situation, perhaps by removing
-    the fill light mandatory constraint on the second track or by closing the
+    the fill light required constraint on the second track or by closing the
     second track altogether and informing the user.</p>
   </section>
   <section>
@@ -2752,8 +2765,8 @@ interface OverconstrainedErrorEvent : Event {
             <p>This error event fires for each affected track (when multiple
             tracks share the same source) after the User Agent has evaluated
             the current constraints against a given source and is not able to
-            configure the source within the limitations established by the
-            intersection of imposed constraints.</p>
+            configure the source within the limitations established by this
+            track's <a>required constraints</a>.</p>
             <p>Due to being over-constrained, the User Agent must mute each
             affected track.</p>
             <p>The affected track(s) will remain <a href=
@@ -3539,8 +3552,9 @@ interface MediaDeviceInfo {
                           at least one settings dictionary exists that
                           satisfies the constraints.</p>
                           <p>If <var>candidateSet</var> is the empty set, let
-                          <var>failedConstraint</var> be any required
-                          constraint whose fitness distance was infinity for
+                          <var>failedConstraint</var>  be any
+                          <a data-lt="required constraints">required constraint</a>
+                          whose fitness distance was infinity for
                           all settings dictionaries examined while executing
                           the <a>SelectSettings</a> algorithm, and jump to the
                           step labeled <em>Constraint Failure</em> below.</p>
@@ -3794,7 +3808,7 @@ interface MediaDeviceInfo {
         grant dialog or device selection interface (if one is present), the
         user be allowed to select any available hardware as a source for the
         stream requested by the page (provided the resource is able to fulfill
-        any specified mandatory constraints). Although not specifically
+        any specified <a>required constraints</a>). Although not specifically
         recommended as best practice, note that some User Agents may support
         the ability to substitute a video or audio source with local files and
         other media. A file picker may be used to provide this functionality to
@@ -3886,16 +3900,18 @@ interface MediaDeviceInfo {
     a ConstraintSet with an additional 'advanced' property, or whether they are
     in a ConstraintSet in the advanced list. The behavior is as follows: all
     'min', 'max', and 'exact' constraints in the basic Constraint structure are
-    together treated as the 'required' set, and if it is not possible to
-    satisfy simultaneously all of those individual constraints for the
+    together treated as the <a>required constraints</a>, and if it is not possible
+    to satisfy simultaneously all of those individual constraints for the
     indicated property names, the User Agent MUST <a>reject</a> the returned
     promise. Otherwise, it must apply the required constraints. Next, it will
-    consider any ConstraintSets given in the 'advanced' list, in the order in
-    which they are specified, and will try to satisfy/apply each complete
+    consider any ConstraintSets given in the
+    <code><a href="#dom-constraints-advanced">advanced</a></code> list, in the
+    order in which they are specified, and will try to satisfy/apply each complete
     ConstraintSet (i.e., all constraints in the ConstraintSet together), but
     will skip a ConstraintSet if and only if it cannot satisfy/apply it in its
     entirety. Next, the User Agent MUST attempt to apply, individually, any
-    'ideal' constraints or a constraint given as a bare value for the property.
+    'ideal' constraints or a constraint given as a bare value for the property
+    (referred to as <a>optional basic constraints</a>).
     Of these properties, it MUST satisfy the largest number that it can, in any
     order. Finally, the User Agent MUST <a>resolve</a> the returned
     promise.</p>
@@ -4033,7 +4049,7 @@ const constraints = {
       "#media-stream-track-interface-definition">MediaStreamTrack Interface
       Definition</a> for an example of this.</p>
       <p>When the User Agent is no longer able to satisfy the
-      <var>requiredConstraints</var> from the currently valid Constraints, the
+      <a>required constraints</a> from the currently applied constraints, the
       User Agent MUST queue a task that fires an
       <code>OverconstrainedErrorEvent</code>, initialized as described in the
       following paragraph, at the <a>constrainable object</a>. The event firing
@@ -4041,7 +4057,7 @@ const constraints = {
       result of the overconstrained situation.</p>
       <p>The <code>OverconstrainedErrorEvent</code> references an
       <code><a>OverconstrainedError</a></code> whose <code>constraint</code>
-      attribute is set to one of the <var>requiredConstraints</var> that can no
+      attribute is set to one of the <a>required constraints</a> that can no
       longer be satisfied. The <code>message</code> attribute of the
       <code>OverconstrainedError</code> SHOULD contain a string that is useful
       for debugging. The conditions under which this error might occur are
@@ -4184,7 +4200,8 @@ interface ConstrainablePattern {
                   browser, the fitness distance is 0.</p>
                 </li>
                 <li>
-                  <p>If the constraint is required (<var>constraintValue</var>
+                  <p>If the constraint is <dfn>required</dfn>
+                  (<var>constraintValue</var>
                   either contains one or more members named 'min', 'max', or
                   'exact', or is itself a bare value and bare values are to be
                   treated as 'exact'), and the <a>settings dictionary</a>'s
@@ -4192,7 +4209,8 @@ interface ConstrainablePattern {
                   fitness distance is positive infinity.</p>
                 </li>
                 <li>
-                  <p>If the constraint is not required, and does not apply for
+                  <p>If the constraint is
+                  <a data-lt="required">not required</a>, and does not apply for
                   this type of device, the fitness distance is 0 (that is, the
                   constraint does not influence the fitness distance).</p>
                 </li>
@@ -4200,13 +4218,15 @@ interface ConstrainablePattern {
                 either contains no member named 'ideal', or, if bare values are
                 to be treated as 'ideal', isn't a bare value), the fitness
                 distance is 0.</li>
-                <li>For all positive numeric non-required constraints (such as
+                <li>For all positive numeric
+                <a data-lt="required">non-required</a> constraints (such as
                 height, width, frameRate, aspectRatio, sampleRate and
                 sampleSize), the fitness distance is the result of the formula
                   <pre>
 (actual == ideal) ? 0 : |actual - ideal| / max(|actual|, |ideal|)</pre>
                 </li>
-                <li>For all string and enum non-required constraints (e.g.
+                <li>For all string and enum
+                <a data-lt="required">non-required</a> constraints (e.g.
                 deviceId, groupId, facingMode, resizeMode, echoCancellation),
                 the fitness distance is the result of the formula
                   <pre>(actual == ideal) ? 0 : 1</pre>
@@ -4322,7 +4342,8 @@ interface ConstrainablePattern {
                 <li>
                   <p>If <var>successfulSettings</var> is
                   <code>undefined</code>, let <var>failedConstraint</var> be
-                  any required constraint whose fitness distance was infinity
+                  any <a data-lt="required constraints">required constraint</a>
+                  whose fitness distance was infinity
                   for all settings dictionaries examined while executing the
                   <a>SelectSettings</a> algorithm, return
                   <var>failedConstraint</var>, and abort these steps.</p>
