@@ -1698,6 +1698,18 @@ interface MediaStreamTrack : EventTarget {
                 <a>ConstraintSet</a>.
               </td>
             </tr>
+            <tr id="def-constraint-latency">
+              <td>latency</td>
+              <td><code><a>ConstrainDouble</a></code></td>
+              <td>The latency or latency range, in seconds. The latency is the
+              time between start of processing (for instance, when person speaks
+              or moves in the real world) to the data being available to the
+              next step in the process. Low latency is critical for some
+              applications; high latency may be acceptable for other
+              applications because it helps with power constraints. The number
+              is expected to be the target latency of the configuration; the
+              actual latency may show some variation from that.</td>
+            </tr>
           </tbody>
         </table>
         <p>The following constrainable properties are defined to apply only to
@@ -1925,18 +1937,6 @@ interface MediaStreamTrack : EventTarget {
               needed and it is desirable to turn it off so that the audio is
               not altered. This allows applications to control this
               behavior.</td>
-            </tr>
-            <tr id="def-constraint-latency">
-              <td>latency</td>
-              <td><code><a>ConstrainDouble</a></code></td>
-              <td>The latency or latency range, in seconds. The latency is the
-              time between start of processing (for instance, when sound occurs
-              in the real world) to the data being available to the next step
-              in the process. Low latency is critical for some applications;
-              high latency may be acceptable for other applications because it
-              helps with power constraints. The number is expected to be the
-              target latency of the configuration; the actual latency may show
-              some variation from that.</td>
             </tr>
             <tr id="def-constraint-channelCount">
               <td>channelCount</td>
