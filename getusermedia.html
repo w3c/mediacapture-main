@@ -4065,14 +4065,14 @@ const constraints = {
       resolution or frameRate that satisfies the constraints. The User Agent
       MAY take other actions as a result of the overconstrained situation.</p>
       <div>
-        <pre class="idl">[NoInterfaceObject]
-interface ConstrainablePattern {
+      <div class="example">Template:
+        <pre class="idl">interface ConstrainablePattern {
     Capabilities  getCapabilities ();
     Constraints   getConstraints ();
     Settings      getSettings ();
     Promise&lt;void&gt; applyConstraints (optional Constraints constraints);
                     attribute EventHandler onoverconstrained;
-};</pre>
+};</pre></div>
         <section>
           <h2>Attributes</h2>
           <dl data-link-for="ConstrainablePattern" data-dfn-for=
