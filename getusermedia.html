@@ -2919,7 +2919,7 @@ interface OverconstrainedErrorEvent : Event {
       <p>When new media input and/or output devices are made available, or any
       available input and/or output device becomes unavailable, the User Agent
       MUST run the following steps in browsing contexts for which the
-      <a>device information exposure check</a> returns <code>true</code>,
+      <a>device information can be exposed check</a> returns <code>true</code>,
       but in no other contexts:</p>
       <ol>
         <li>
@@ -2932,7 +2932,7 @@ interface OverconstrainedErrorEvent : Event {
         </li>
       </ol>
       <p>If a browsing context later comes to meet the
-      <a>device information exposure check</a> criteria (e.g.
+      <a>device information can be exposed check</a> criteria (e.g.
       <a data-cite="!HTML52/editing.html#gain-focus">gains focus</a>), the User
       Agent MUST execute the steps at that time.</p>
       <p>The User Agent MAY combine firing multiple events into firing one
@@ -2990,7 +2990,7 @@ interface MediaDevices : EventTarget {
                   <ol>
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until the
-                      <a>device information exposure check</a> returns <code>true</code>.</p>
+                      <a>device information can be exposed check</a> returns <code>true</code>.</p>
                       <p>The User Agent MAY wait to proceed to the next step
                       until the <a>current settings object</a>'s <a>responsible
                       document</a> is <a data-cite=
@@ -3129,23 +3129,23 @@ interface MediaDevices : EventTarget {
         label, and groupId.</p>
       </section>
       <section>
-        <h2>Device information exposure check</h2>
-        <p>To perform a <dfn data-lt="device-information-exposure-check" id=
-        "device-information-exposure-check">device information exposure check</dfn>,
+        <h2>Device information can be exposed check</h2>
+        <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
+        "device-information-can-be-exposed">device information can be exposed check</dfn>,
         run the following steps:</p>
         <ol>
           <li>If the <a data-lt="retrieve the permission state">permission state</a>
-          of the "device-info" permission is "granted" for this browsing context, return true.
+            of the "device-info" permission is "granted" for this browsing context, return <code>true</code>.
           </li>
-          <!-- FIXME: Add link to active definition -->
-          <li>If any of the input devices are attached to an active <code><a>MediaStream</a></code>
-         browsing context, return true.</li>
+          <li>If any of the input devices are attached to an
+            <a href="#stream-active">active</a> <code><a>MediaStream</a></code>
+            in the browsing context, return <code>true</code>.</li>
           <li>If the <a>current settings object</a>'s <a>responsible
           document</a> is <a data-cite="!HTML52/browsers.html#fully-active">fully
           active</a> and <a data-cite="!HTML52/editing.html#gain-focus">has
-          focus</a>, return true.
+          focus</a>, return <code>true</code>.
           </li>
-          <li>Return false.</li>
+          <li>Return <code>false</code>.</li>
         </ol>
       </section>
     </section>
@@ -3523,7 +3523,7 @@ interface MediaDeviceInfo {
                   <ol>
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until the
-                      <a>device information exposure check</a> returns <code>true</code>.</p>
+                      <a>device information can be exposed check</a> returns <code>true</code>.</p>
                       <p>The User Agent MAY wait to proceed to the next step
                       until the <a>current settings object</a>'s <a>responsible
                       document</a> is <a data-cite=
