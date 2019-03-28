@@ -2918,20 +2918,9 @@ interface OverconstrainedErrorEvent : Event {
       </ol>
       <p>When new media input and/or output devices are made available, or any
       available input and/or output device becomes unavailable, the User Agent
-      MUST run the following steps in browsing contexts where at least one of
-      the following criteria are met, but in no other contexts:</p>
-      <ul>
-        <li>The <a data-lt="retrieve the permission state">permission state</a>
-        of the "device-info" permission is "granted",
-        </li>
-        <li>any of the input devices are attached to an active MediaStream in
-        the browsing context, or</li>
-        <li>The <a>current settings object</a>'s <a>responsible
-        document</a> is <a data-cite="!HTML52/browsers.html#fully-active">fully
-        active</a> and <a data-cite="!HTML52/editing.html#gain-focus">has
-        focus.</a>
-        </li>
-      </ul>The steps are:
+      MUST run the following steps in browsing contexts for which the
+      <a>device information can be exposed check</a> returns <code>true</code>,
+      but in no other contexts:</p>
       <ol>
         <li>
           <p>Set [[\storedDeviceList]] to null.</p>
@@ -2942,7 +2931,8 @@ interface OverconstrainedErrorEvent : Event {
           <code><a>MediaDevices</a></code> object.</p>
         </li>
       </ol>
-      <p>If a browsing context later comes to meet the criteria (e.g.
+      <p>If a browsing context later comes to meet the
+      <a>device information can be exposed check</a> criteria (e.g.
       <a data-cite="!HTML52/editing.html#gain-focus">gains focus</a>), the User
       Agent MUST execute the steps at that time.</p>
       <p>The User Agent MAY combine firing multiple events into firing one
@@ -2998,6 +2988,16 @@ interface MediaDevices : EventTarget {
                 <li>
                   <p>Run the following steps in parallel:</p>
                   <ol>
+                    <li>
+                      <p>The User Agent MUST wait to proceed to the next step until the
+                      <a>device information can be exposed check</a> returns <code>true</code>.</p>
+                      <p>The User Agent MAY wait to proceed to the next step
+                      until the <a>current settings object</a>'s <a>responsible
+                      document</a> is <a data-cite=
+                          "!HTML52/browsers.html#fully-active">fully active</a>
+                      and <a data-cite="!HTML52/editing.html#gain-focus">has
+                      focus.</a></p>
+                    </li>
                     <li>
                       <p>If [[\storedDeviceList]] is not null, then let
                       <var>resultList</var> be a copy of [[\storedDeviceList]],
@@ -3127,6 +3127,26 @@ interface MediaDevices : EventTarget {
         <p>If access has been granted for a media device, the
         <dfn>MediaDeviceInfo</dfn> dictionary will contain the deviceId, kind,
         label, and groupId.</p>
+      </section>
+      <section>
+        <h2>Device information can be exposed check</h2>
+        <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
+        "device-information-can-be-exposed">device information can be exposed check</dfn>,
+        run the following steps:</p>
+        <ol>
+          <li>If the <a data-lt="retrieve the permission state">permission state</a>
+            of the "device-info" permission is "granted" for this browsing context, return <code>true</code>.
+          </li>
+          <li>If any of the input devices are attached to an
+            <a href="#stream-active">active</a> <code><a>MediaStream</a></code>
+            in the browsing context, return <code>true</code>.</li>
+          <li>If the <a>current settings object</a>'s <a>responsible
+          document</a> is <a data-cite="!HTML52/browsers.html#fully-active">fully
+          active</a> and <a data-cite="!HTML52/editing.html#gain-focus">has
+          focus</a>, return <code>true</code>.
+          </li>
+          <li>Return <code>false</code>.</li>
+        </ol>
       </section>
     </section>
     <section>
@@ -3502,12 +3522,12 @@ interface MediaDeviceInfo {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>The user agent MAY wait to proceed to the next step
-                      until the <a>current settings object</a>'s <a>responsible
+                      <p>The User Agent MUST wait to proceed to the next step until
+                      the <a>current settings object</a>'s <a>responsible
                       document</a> is <a data-cite=
                           "!HTML52/browsers.html#fully-active">fully active</a>
                       and <a data-cite="!HTML52/editing.html#gain-focus">has
-                      focus.</a>
+                      focus.</a></p>
                     </li>
                     <li>
                       <p>Let <var>finalSet</var> be an (initially) empty
@@ -3654,8 +3674,11 @@ interface MediaDeviceInfo {
                       tracks in <var>stream</var> with the appropriate
                       constraints. Should this fail, let
                       <var>failedConstraint</var> be the result of the
-                      algorithm that failed, and jump to the step labeled
-                      <em>Constraint Failure</em> below.</p>
+                      algorithm that failed if the <a data-lt="retrieve the
+                          permission state">permission state</a> of the
+                      "device-info" permission is "granted" for this browsing
+                      context or <code>undefined</code> otherwise, and jump to the step
+                      labeled <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
                       <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
