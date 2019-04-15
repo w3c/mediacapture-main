@@ -120,12 +120,12 @@
         value of the source's constrainable properties. Settings are always
         read-only.</p>
         <p>A source conditions may dynamically change, such as when a camera
-        switches to a slower frame rate due to low light conditions. In these
+        switches to a lower frame rate due to low light conditions. In these
         cases the tracks related to the affected source might not satisfy the
         set constraints any longer. The platform SHOULD try to minimize such
         excursions as far as possible, but will continue to deliver media even
-        when a temporary condition exists that prevents satisfying the
-        constraints.</p>
+        when a temporary or permanent condition exists that prevents satisfying
+        the constraints.</p>
         <p>Although settings are a property of the source, they are only
         exposed to the application through the tracks attached to the source.
         This is exposed via the <a>ConstrainablePattern</a> interface.</p>
