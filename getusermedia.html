@@ -119,15 +119,13 @@
         <p>A <a href="#settings">setting</a> refers to the immediate, current
         value of the source's constrainable properties. Settings are always
         read-only.</p>
-        <p>A source's settings can change dynamically over time due to
-        environmental conditions, sink configurations, or constraint changes. A
-        source's settings must always conform to the current set of
-        <a>required constraints</a> on all attached tracks. A source that cannot
-        conform to these constraints causes affected tracks to become
-        <a>overconstrained</a> and therefore <a href="#track-muted">muted</a>.
-        A <a>User Agent</a> attempts to ensure that sources adhere to advanced
-        constraints as closely as possible, see <a href=
-        "#constrainable-interface"></a>.</p>
+        <p>A source conditions may dynamically change, such as when a camera
+        switches to a lower frame rate due to low light conditions. In these
+        cases the tracks related to the affected source might not satisfy the
+        set constraints any longer. The platform SHOULD try to minimize such
+        excursions as far as possible, but will continue to deliver media even
+        when a temporary or permanent condition exists that prevents satisfying
+        the constraints.</p>
         <p>Although settings are a property of the source, they are only
         exposed to the application through the tracks attached to the source.
         This is exposed via the <a>ConstrainablePattern</a> interface.</p>
@@ -183,7 +181,7 @@
         corresponds with the relevant source setting name and capability
         name.</p>
         <p>A constraint falls into one of three groups, depending on its place
-        in the constraints structure. The groups are:
+        in the constraints structure. The groups are:</p>
         <ul>
           <li><dfn>required constraints</dfn> are all <a data-lt=
           "advanced constraints">non-advanced</a> constraints that are
@@ -193,7 +191,7 @@
           <li><dfn>advanced constraints</dfn> are all constraints specified
         using the <code><a href="#dom-constraints-advanced">advanced</a></code>
         keyword.</li>
-        </ul></p>
+        </ul>
         <p>In general, User Agents will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use <a>required
@@ -874,9 +872,6 @@ interface MediaStream : EventTarget {
         APIs defined in the <a>ConstrainablePattern</a> Interface allow the
         retrieval and manipulation of the constraints currently established on
         a track.</p>
-        <p>If the <code><a>overconstrained</a></code> event is thrown, the
-        track MUST be muted until either new satisfiable constraints are
-        applied or the existing constraints become satisfiable.</p>
       </section>
       <section id="media-stream-track-interface-definition">
         <h3>Interface Definition</h3>
@@ -898,7 +893,6 @@ interface MediaStreamTrack : EventTarget {
     MediaTrackConstraints  getConstraints ();
     MediaTrackSettings     getSettings ();
     Promise&lt;void&gt;          applyConstraints (optional MediaTrackConstraints constraints);
-                    attribute EventHandler          onoverconstrained;
 };</pre>
           <section>
             <h2>Attributes</h2>
@@ -991,15 +985,6 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The event type of this event handler is <code><a href=
                 "#event-mediastreamtrack-ended">ended</a></code>.</p>
-              </dd>
-              <dt><dfn><code>onoverconstrained</code></dfn> of type
-              <span class="idlAttrType"><a>EventHandler</a></span></dt>
-              <dd>
-                <p>The event type of this event handler is <code><a href=
-                "#event-mediastreamtrack-overconstrained">overconstrained</a></code>.</p>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for more information about the
-                <code>overconstrained</code> event.</p>
               </dd>
             </dl>
           </section>
@@ -2167,22 +2152,6 @@ interface MediaStreamTrackEvent : Event {
     to apply a conflicting constraint, the constraint application fails and
     there is no change in the source's settings nor to the constraints on
     either track.</p>
-    <p>Let's look at a slightly different situation starting from the same
-    point. In this case, instead of the first track attempting to apply a
-    conflicting constraint, the user physically locks the camera into a mode
-    where the fill light is on. At this point the source can no longer satisfy
-    the second track's required constraint that the fill light be off. The
-    second track is transitioned into the muted state and receives an
-    <a>overconstrained</a> event. At the same time, the source notes that its
-    remaining active sink only requires a resolution of 800 by 600 and so it
-    adjusts its resolution down to match (this is an optional optimization that
-    the User Agent is allowed to make given the situation).</p>
-    <p><img alt="Overconstrained occurrence" src=
-    "images/overconstrained_occurrence.svg"></p>
-    <p>At this point, it is the responsibility of the application to address
-    the problem that led to the overconstrained situation, perhaps by removing
-    the fill light required constraint on the second track or by closing the
-    second track altogether and informing the user.</p>
   </section>
   <section>
     <h2>MediaStreams in Media Elements</h2>
@@ -2635,70 +2604,6 @@ interface MediaStreamTrackEvent : Event {
           <code>"<b>OverconstrainedError</b>"</code>.</p>
         </section>
       </section>
-      <section>
-        <h2>Properties of OverconstrainedError Instances</h2>
-        <p>OverconstrainedError instances are ordinary objects that inherit
-        properties from the OverconstrainedError prototype object and have an
-        [[\ErrorData]] internal slot whose value is <b>undefined</b>. The only
-        specified use of [[\ErrorData]] is by Object.prototype.toString
-        ([[!ES6]], section 19.1.3.6) to identify instances of Error or its
-        various subclasses.</p>
-      </section>
-      <div class="note">
-        The following will need to be updated when we finish out the error
-        definitions.
-      </div>
-      <p>The following interface is defined for cases when an
-      OverconstrainedError is raised as an event:</p>
-      <div>
-        <pre class="idl">[Exposed=Window,
- Constructor (DOMString type, OverconstrainedErrorEventInit eventInitDict)]
-interface OverconstrainedErrorEvent : Event {
-    readonly        attribute OverconstrainedError? error;
-};</pre>
-        <section>
-          <h2>Constructors</h2>
-          <dl data-link-for="OverconstrainedErrorEvent" data-dfn-for=
-          "OverconstrainedErrorEvent" class="constructors">
-            <dt><dfn><code>OverconstrainedErrorEvent</code></dfn></dt>
-            <dd>
-              <p>Constructs a new
-              <code><a>OverconstrainedErrorEvent</a></code>.</p>
-            </dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Attributes</h2>
-          <dl data-link-for="OverconstrainedErrorEvent" data-dfn-for=
-          "OverconstrainedErrorEvent" class="attributes">
-            <dt><dfn><code>error</code></dfn> of type <span class=
-            "idlAttrType"><a>OverconstrainedError</a></span>, readonly ,
-            nullable</dt>
-            <dd>
-              <p>The <code><a>OverconstrainedError</a></code> describing the
-              error that triggered the event (if any).</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-      <div>
-        <pre class="idl">dictionary OverconstrainedErrorEventInit : EventInit {
-             OverconstrainedError? error = null;
-};</pre>
-        <section>
-          <h2>Dictionary <dfn>OverconstrainedErrorEventInit</dfn> Members</h2>
-          <dl data-link-for="OverconstrainedErrorEventInit" data-dfn-for=
-          "OverconstrainedErrorEventInit" class="dictionary-members">
-            <dt><dfn><code>error</code></dfn> of type <span class=
-            "idlMemberType"><a>OverconstrainedError</a></span>, nullable,
-            defaulting to <code>null</code></dt>
-            <dd>
-              <p>The <code><a>OverconstrainedError</a></code> describing the
-              error associated with the event (if any)</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
     </section>
   </section>
   <section class="informative">
@@ -2756,24 +2661,6 @@ interface OverconstrainedErrorEvent : Event {
           <td><code>Event</code></td>
           <td>The <code><a>MediaStreamTrack</a></code> object's source is live
           again after having been temporarily unable to provide data.</td>
-        </tr>
-        <tr>
-          <td><dfn id=
-          "event-mediastreamtrack-overconstrained"><code>overconstrained</code></dfn></td>
-          <td><code><a>OverconstrainedErrorEvent</a></code></td>
-          <td>
-            <p>This error event fires for each affected track (when multiple
-            tracks share the same source) after the User Agent has evaluated
-            the current constraints against a given source and is not able to
-            configure the source within the limitations established by this
-            track's <a>required constraints</a>.</p>
-            <p>Due to being over-constrained, the User Agent must mute each
-            affected track.</p>
-            <p>The affected track(s) will remain <a href=
-            "#track-muted">muted</a> until the application adjusts the
-            constraints to accommodate the source's current effective
-            capabilities.</p>
-          </td>
         </tr>
         <tr>
           <td><code id="event-mediastreamtrack-ended">ended</code></td>
@@ -3978,11 +3865,7 @@ const constraints = {
     on each as well as a minimum frameRate that must be satisfied. If it cannot
     satisfy the frameRate, width or height minimum it will <a>reject</a> the
     promise. Otherwise, it will try to satisfy the width, height, and
-    aspectRatio target values as well and then <a>resolve</a> the promise. Note
-    that the frameRate minimum might be within the capabilities of the camera
-    and satisfiable in ideal lighting conditions, but not in low light, and
-    could therefore result in firing of the <code>onoverconstrained</code>
-    event handler under poor lighting conditions.</p>
+    aspectRatio target values as well and then <a>resolve</a> the promise.</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
 if (!supports.aspectRatio || !supports.frameRate) {
@@ -4070,23 +3953,6 @@ const constraints = {
       to the semantics defined here, which will not change. See <a href=
       "#media-stream-track-interface-definition">MediaStreamTrack Interface
       Definition</a> for an example of this.</p>
-      <p>When the User Agent is no longer able to satisfy the
-      <a>required constraints</a> from the currently applied constraints, the
-      User Agent MUST queue a task that fires an
-      <code>OverconstrainedErrorEvent</code>, initialized as described in the
-      following paragraph, at the <a>constrainable object</a>. The event firing
-      task MAY also be used to update the <a>constrainable object</a> as a
-      result of the overconstrained situation.</p>
-      <p>The <code>OverconstrainedErrorEvent</code> references an
-      <code><a>OverconstrainedError</a></code> whose <code>constraint</code>
-      attribute is set to one of the <a>required constraints</a> that can no
-      longer be satisfied. The <code>message</code> attribute of the
-      <code>OverconstrainedError</code> SHOULD contain a string that is useful
-      for debugging. The conditions under which this error might occur are
-      platform and application-specific. For example, the user might physically
-      manipulate a camera in a way that makes it impossible to provide a
-      resolution or frameRate that satisfies the constraints. The User Agent
-      MAY take other actions as a result of the overconstrained situation.</p>
       <div>
       <div class="example">Template:
         <pre class="idl">interface ConstrainablePattern {
@@ -4094,18 +3960,7 @@ const constraints = {
     Constraints   getConstraints ();
     Settings      getSettings ();
     Promise&lt;void&gt; applyConstraints (optional Constraints constraints);
-                    attribute EventHandler onoverconstrained;
 };</pre></div>
-        <section>
-          <h2>Attributes</h2>
-          <dl data-link-for="ConstrainablePattern" data-dfn-for=
-          "ConstrainablePattern" class="attributes">
-            <dt><dfn><code>onoverconstrained</code></dfn> of type <span class=
-            "idlAttrType"><a>EventHandler</a></span></dt>
-            <dd>The event type of this event handler is
-            <code><a>overconstrained</a></code>.</dd>
-          </dl>
-        </section>
         <section>
           <h2>Methods</h2>
           <dl data-link-for="ConstrainablePattern" data-dfn-for=
