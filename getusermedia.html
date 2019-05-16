@@ -1626,11 +1626,11 @@ interface MediaStreamTrack : EventTarget {
               <td><dfn>deviceId</dfn></td>
               <td>DOMString</td>
               <td>
-                The origin-unique identifier for the source of the
-                <a>MediaStreamTrack</a>. The same identifier MUST be valid
-                between browsing sessions of this origin, but MUST also be
-                different for other origins. Some sort of GUID is recommended
-                for the identifier. Note that the setting of this property is
+                The identifier of the device generating the content of the
+                <a>MediaStreamTrack</a>. It conforms with the definition of
+                <code><a>MediaDeviceInfo</a></code>.<code><a
+                href="#def-mediadeviceinfo-deviceId">deviceId</a></code>.
+                Note that the setting of this property is
                 uniquely determined by the source that is attached to the
                 <a>MediaStreamTrack</a>. In particular, <a data-link-for=
                 "MediaStreamTrack">getCapabilities()</a> will return only a
@@ -3025,13 +3025,16 @@ interface MediaDeviceInfo {
           <h2>Attributes</h2>
           <dl data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo"
           class="attributes">
-            <dt><dfn><code>deviceId</code></dfn> of type <span class=
-            "idlAttrType">DOMString</span>, readonly</dt>
+            <dt id="def-mediadeviceinfo-deviceId"><dfn><code>deviceId</code></dfn>
+            of type <span class="idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>A unique identifier for the represented device.</p>
               <p>All enumerable devices have an identifier that MUST be unique
-              to the page's origin. This identifier MUST be un-guessable by
-              applications of other origins to prevent the identifier from
+              to the page's origin. Some sort of UUID is recommended for the
+              identifier. The same identifier MUST be valid between
+              browsing sessions of this origin, but MUST also be different for
+              other origins. In particular, this identifier MUST be un-guessable
+              by applications of other origins to prevent the identifier from
               being used to correlate the same user across different
               origins.</p>
               <p>If any local devices have been attached to a live
