@@ -2943,6 +2943,14 @@ interface MediaDevices : EventTarget {
                           <code><a data-link-for=
                           "MediaDeviceInfo">groupId</a></code> member be a
                           newly generated unique identifier.</p>
+
+                          <p>A good practice for generating <code><a
+                          data-link-for="MediaDeviceInfo">deviceId</a></code>
+                          and <code><a data-link-for="MediaDeviceInfo">groupId</a></code>
+                          values is to use a UUID [[rfc4122]], which is 36
+                          characters long in its canonical form. To avoid
+                          fingerprinting, implementations SHOULD use the forms in
+                          section 4.4 or 4.5 of RFC 4122.</p>
                         </li>
                         <li>
                           <p>Append <var>deviceInfo</var> to
