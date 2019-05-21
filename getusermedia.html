@@ -152,7 +152,7 @@
         complete range of each value. Interactions between constraints are
         exposed by attempting to apply constraints.</p>
       </dd>
-      <dt><dfn data-lt="constraint" data-lt-nodefault="">Constraints</dfn></dt>
+      <dt><dfn>Constraint</dfn>s</dt>
       <dd>
         <p>Constraints provide a general control surface that allows
         applications to both select an appropriate source for a track and, once
@@ -455,7 +455,7 @@ interface MediaStream : EventTarget {
           <dl data-link-for="MediaStream" data-dfn-for="MediaStream" class=
           "attributes">
             <dt><code>id</code> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>When a <code><a>MediaStream</a></code> is created, the User
               Agent MUST generate an identifier string, and MUST initialize the
@@ -472,7 +472,7 @@ interface MediaStream : EventTarget {
               created.</p>
             </dd>
             <dt><dfn><code>active</code></dfn> of type <span class=
-            "idlAttrType"><a>boolean</a></span>, readonly</dt>
+            "idlAttrType">boolean</span>, readonly</dt>
             <dd>
               <p>The <code>active</code> attribute MUST return
               <code>true</code> if this <code><a>MediaStream</a></code> is
@@ -899,7 +899,7 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaStreamTrack" data-dfn-for=
             "MediaStreamTrack" class="attributes">
               <dt><code>kind</code> of type <span class=
-              "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+              "idlAttrType">DOMString</span>, readonly</dt>
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-kind"><code>kind</code></dfn> attribute
@@ -908,7 +908,7 @@ interface MediaStreamTrack : EventTarget {
                 object represents a video track.</p>
               </dd>
               <dt><code>id</code> of type <span class=
-              "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+              "idlAttrType">DOMString</span>, readonly</dt>
               <dd>
                 <p>When a <code><a>MediaStreamTrack</a></code> is created, the
                 User Agent MUST generate an identifier string, and MUST
@@ -927,7 +927,7 @@ interface MediaStreamTrack : EventTarget {
                 to which it was initialized when the object was created.</p>
               </dd>
               <dt><code>label</code> of type <span class=
-              "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+              "idlAttrType">DOMString</span>, readonly</dt>
               <dd>
                 <p>User Agents MAY label audio and video sources (e.g.,
                 "Internal microphone" or "External USB Webcam"). The <dfn id=
@@ -937,7 +937,7 @@ interface MediaStreamTrack : EventTarget {
                 attribute MUST instead return the empty string.</p>
               </dd>
               <dt><code>enabled</code> of type <span class=
-              "idlAttrType"><a>boolean</a></span></dt>
+              "idlAttrType">boolean</span></dt>
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled"><code>enabled</code></dfn>
@@ -953,7 +953,7 @@ interface MediaStreamTrack : EventTarget {
                 that new value.</p>
               </dd>
               <dt><code>muted</code> of type <span class=
-              "idlAttrType"><a>boolean</a></span>, readonly</dt>
+              "idlAttrType">boolean</span>, readonly</dt>
               <dd>
                 <p>The <dfn data-lt-nodefault="" id=
                 "dom-mediastreamtrack-muted"><code>muted</code></dfn> attribute
@@ -1157,91 +1157,91 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaTrackSupportedConstraints" data-dfn-for=
             "MediaTrackSupportedConstraints" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href="#def-constraint-width">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href="#def-constraint-height">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-frameRate">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-facingMode">facingMode</a></code> for
               details.</dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href="#def-constraint-volume">volume</a></code>
               for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleRate">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
               <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-echoCancellation">echoCancellation</a></code>
               for details.</dd>
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-autoGainControl">autoGainControl</a></code> for
               details.</dd>
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-latency">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span>, defaulting to
+              "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
@@ -1299,7 +1299,7 @@ interface MediaStreamTrack : EventTarget {
               "#def-constraint-frameRate">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
-              "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
+              "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
               <dd>
                 <p>A camera can report multiple facing modes. For example, in a
                 high-end telepresence solution with several cameras facing the
@@ -1309,7 +1309,7 @@ interface MediaStreamTrack : EventTarget {
                 additional details.</p>
               </dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
-              "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
+              "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
               <dd>
                 <p>The user agent MAY use cropping and downscaling to offer
                 more resolution choices than this camera naturally produces.
@@ -1335,7 +1335,7 @@ interface MediaStreamTrack : EventTarget {
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
               <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
-              "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              "idlMemberType">sequence&lt;boolean&gt;</span></dt>
               <dd>
                 <p>If the source cannot do echo cancellation a single
                 <code>false</code> is reported. If echo cancellation cannot be
@@ -1347,7 +1347,7 @@ interface MediaStreamTrack : EventTarget {
                 for additional details.</p>
               </dd>
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
-              "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              "idlMemberType">sequence&lt;boolean&gt;</span></dt>
               <dd>
                 <p>If the source cannot do auto gain control a single
                 <code>false</code> is reported. If auto gain control cannot be
@@ -1359,7 +1359,7 @@ interface MediaStreamTrack : EventTarget {
                 for additional details.</p>
               </dd>
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
-              "idlMemberType">sequence&lt;<a>boolean</a>&gt;</span></dt>
+              "idlMemberType">sequence&lt;boolean&gt;</span></dt>
               <dd>
                 <p>If the source cannot do noise suppression a single
                 <code>false</code> is reported. If noise suppression cannot be
@@ -1380,11 +1380,11 @@ interface MediaStreamTrack : EventTarget {
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
             </dl>
@@ -1548,76 +1548,76 @@ interface MediaStreamTrack : EventTarget {
             <dl data-link-for="MediaTrackSettings" data-dfn-for=
             "MediaTrackSettings" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>long</a></span></dt>
+              "idlMemberType">long</span></dt>
               <dd>See <code><a href="#def-constraint-width">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>long</a></span></dt>
+              "idlMemberType">long</span></dt>
               <dd>See <code><a href="#def-constraint-height">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
-              "idlMemberType"><a>double</a></span></dt>
+              "idlMemberType">double</span></dt>
               <dd>See <code><a href=
               "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
-              "idlMemberType"><a>double</a></span></dt>
+              "idlMemberType">double</span></dt>
               <dd>See <code><a href=
               "#def-constraint-frameRate">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-facingMode">facingMode</a></code> for
               details.</dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType"><a>double</a></span></dt>
+              "idlMemberType">double</span></dt>
               <dd>See <code><a href="#def-constraint-volume">volume</a></code>
               for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>long</a></span></dt>
+              "idlMemberType">long</span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleRate">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>long</a></span></dt>
+              "idlMemberType">long</span></dt>
               <dd>See <code><a href=
               "#def-constraint-sampleSize">sampleSize</a></code> for
               details.</dd>
               <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span></dt>
+              "idlMemberType">boolean</span></dt>
               <dd>See <code><a href=
               "#def-constraint-echoCancellation">echoCancellation</a></code>
               for details.</dd>
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span></dt>
+              "idlMemberType">boolean</span></dt>
               <dd>See <code><a href=
               "#def-constraint-autoGainControl">autoGainControl</a></code> for
               details.</dd>
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
-              "idlMemberType"><a>boolean</a></span></dt>
+              "idlMemberType">boolean</span></dt>
               <dd>See <code><a href=
               "#def-constraint-noiseSuppression">noiseSuppression</a></code>
               for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
-              "idlMemberType"><a>double</a></span></dt>
+              "idlMemberType">double</span></dt>
               <dd>See <code><a href=
               "#def-constraint-latency">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>long</a></span></dt>
+              "idlMemberType">long</span></dt>
               <dd>See <code><a href=
               "#def-constraint-channelCount">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span></dt>
+              "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
             </dl>
@@ -3052,7 +3052,7 @@ interface MediaDeviceInfo {
           <dl data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo"
           class="attributes">
             <dt><dfn><code>deviceId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>A unique identifier for the represented device.</p>
               <p>All enumerable devices have an identifier that MUST be unique
@@ -3092,14 +3092,14 @@ interface MediaDeviceInfo {
               <p>Describes the kind of the represented device.</p>
             </dd>
             <dt><dfn><code>label</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>A label describing this device (for example "External USB
               Webcam"). If the device has no associated label, then this
               attribute MUST return the empty string.</p>
             </dd>
             <dt><dfn><code>groupId</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>Returns the group identifier of the represented device. Two
               devices have the same group identifier if they belong to the same
@@ -3399,7 +3399,7 @@ interface MediaDeviceInfo {
                   "!HTML52/browsers.html#fully-active">fully active</a>, return
                   a promise <a>rejected</a> with a
                   <code><a>DOMException</a></code> object whose
-                  <code><a>name</a></code> attribute has the value
+                  <code>name</code> attribute has the value
                   <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -3433,7 +3433,7 @@ interface MediaDeviceInfo {
                           <p>If <var>candidateSet</var> is the empty set,
                           <a>reject</a> <var>p</var> with a new
                           <code><a>DOMException</a></code> object whose
-                          <code><a>name</a></code> attribute has the value
+                          <code>name</code> attribute has the value
                           <code>NotFoundError</code> and abort these steps.</p>
                         </li>
                         <li>If the value of the <var>T</var> entry of
@@ -3543,12 +3543,12 @@ interface MediaDeviceInfo {
                       such as an OS/program/webpage lock prevents access,
                       <a>reject</a> <var>p</var> with a new
                       <code><a>DOMException</a></code> object whose
-                      <code><a>name</a></code> attribute has the value
+                      <code>name</code> attribute has the value
                       <code>NotReadableError</code> and abort these steps.</p>
                       <p>If the result is "granted" but device access fails for
                       any reason other than those listed above, <a>reject</a>
                       <var>p</var> with a new <code><a>DOMException</a></code>
-                      object whose <code><a>name</a></code> attribute has the
+                      object whose <code>name</code> attribute has the
                       value <code>AbortError</code> and abort these steps.</p>
                     </li>
                     <li>
@@ -3574,7 +3574,7 @@ interface MediaDeviceInfo {
                     <li>
                       <p><em>Permission Failure</em>: <a>Reject</a>
                       <var>p</var> with a new <code><a>DOMException</a></code>
-                      object whose <code><a>name</a></code> attribute has the
+                      object whose <code>name</code> attribute has the
                       value <code>NotAllowedError</code>.</p>
                     </li>
                     <li>
@@ -3620,7 +3620,7 @@ interface MediaDeviceInfo {
           <dl data-link-for="MediaStreamConstraints" data-dfn-for=
           "MediaStreamConstraints" class="dictionary-members">
             <dt><dfn><code>video</code></dfn> of type <span class=
-            "idlMemberType"><a>(boolean or MediaTrackConstraints)</a></span>,
+            "idlMemberType">(boolean or MediaTrackConstraints</a></span>,
             defaulting to <code>false</code></dt>
             <dd>
               <p>If <code>true</code>, it requests that the returned
@@ -3630,7 +3630,7 @@ interface MediaDeviceInfo {
               <a>MediaStream</a> MUST NOT contain a video Track.</p>
             </dd>
             <dt><dfn><code>audio</code></dfn> of type <span class=
-            "idlMemberType"><a>(boolean or MediaTrackConstraints)</a></span>,
+            "idlMemberType">(boolean or MediaTrackConstraints)</span>,
             defaulting to <code>false</code></dt>
             <dd>
               <p>If <code>true</code>, it requests that the returned
@@ -4144,7 +4144,7 @@ const constraints = {
               <p>We define the <dfn>SelectSettings</dfn> algorithm as
               follows:</p>
               <ol>
-                <li>Each <a data-lt="constraints">constraint</a> specifies one
+                <li>Each <a>constraint</a> specifies one
                 or more values (or a range of values) for its property. A
                 property MAY appear more than once in the list of 'advanced'
                 ConstraintSets. If an empty list has been given as the value
@@ -4386,12 +4386,12 @@ async function specifyCamera() {
           <dl data-link-for="DoubleRange" data-dfn-for="DoubleRange" class=
           "dictionary-members">
             <dt><dfn><code>max</code></dfn> of type <span class=
-            "idlMemberType"><a>double</a></span></dt>
+            "idlMemberType">double</span></dt>
             <dd>
               <p>The maximum legal value of this property.</p>
             </dd>
             <dt><dfn><code>min</code></dfn> of type <span class=
-            "idlMemberType"><a>double</a></span></dt>
+            "idlMemberType">double</span></dt>
             <dd>
               <p>The minimum value of this Property.</p>
             </dd>
@@ -4408,12 +4408,12 @@ async function specifyCamera() {
           <dl data-link-for="ConstrainDoubleRange" data-dfn-for=
           "ConstrainDoubleRange" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
-            "idlMemberType"><a>double</a></span></dt>
+            "idlMemberType">double</span></dt>
             <dd>
               <p>The exact required value for this property.</p>
             </dd>
             <dt><dfn><code>ideal</code></dfn> of type <span class=
-            "idlMemberType"><a>double</a></span></dt>
+            "idlMemberType">double</span></dt>
             <dd>
               <p>The ideal (target) value for this property.</p>
             </dd>
@@ -4430,12 +4430,12 @@ async function specifyCamera() {
           <dl data-link-for="ULongRange" data-dfn-for="ULongRange" class=
           "dictionary-members">
             <dt><dfn><code>max</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType">unsigned long</span></dt>
             <dd>
               <p>The maximum legal value of this property.</p>
             </dd>
             <dt><dfn><code>min</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType">unsigned long</span></dt>
             <dd>
               <p>The minimum value of this property.</p>
             </dd>
@@ -4452,12 +4452,12 @@ async function specifyCamera() {
           <dl data-link-for="ConstrainULongRange" data-dfn-for=
           "ConstrainULongRange" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType">unsigned long</span></dt>
             <dd>
               <p>The exact required value for this property.</p>
             </dd>
             <dt><dfn><code>ideal</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType">unsigned long</span></dt>
             <dd>
               <p>The ideal (target) value for this property.</p>
             </dd>
@@ -4474,12 +4474,12 @@ async function specifyCamera() {
           <dl data-link-for="ConstrainBooleanParameters" data-dfn-for=
           "ConstrainBooleanParameters" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span></dt>
+            "idlMemberType">boolean</span></dt>
             <dd>
               <p>The exact required value for this property.</p>
             </dd>
             <dt><dfn><code>ideal</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span></dt>
+            "idlMemberType">boolean</span></dt>
             <dd>
               <p>The ideal (target) value for this property.</p>
             </dd>
@@ -4496,14 +4496,14 @@ async function specifyCamera() {
           <dl data-link-for="ConstrainDOMStringParameters" data-dfn-for=
           "ConstrainDOMStringParameters" class="dictionary-members">
             <dt><dfn><code>exact</code></dfn> of type <span class=
-            "idlMemberType"><a>(DOMString or
-            sequence&lt;DOMString&gt;)</a></span></dt>
+            "idlMemberType">(DOMString or
+            sequence&lt;DOMString&gt;)</span></dt>
             <dd>
               <p>The exact required value for this property.</p>
             </dd>
             <dt><dfn><code>ideal</code></dfn> of type <span class=
-            "idlMemberType"><a>(DOMString or
-            sequence&lt;DOMString&gt;)</a></span></dt>
+            "idlMemberType">(DOMString or
+            sequence&lt;DOMString&gt;)</span></dt>
             <dd>
               <p>The ideal (target) value for this property.</p>
             </dd>
