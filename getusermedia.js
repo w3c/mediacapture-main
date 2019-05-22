@@ -52,7 +52,8 @@ var respecConfig = {
        { w3cid: "25254", name: "Cullen Jennings", company: "Cisco" },
        { w3cid: "47326", name: "Anant Narayanan", company: "Mozilla", note: "until November 2012" },
        { w3cid: "65611", name: "Bernard Aboba", company: "Microsoft Corporation" },
-       { w3cid: "79152", name: "Jan-Ivar Bruaroey", company: "Mozilla" }
+       { w3cid: "79152", name: "Jan-Ivar Bruaroey", company: "Mozilla" },
+       { w3cid: "96936", name: "Henrik Bostr\xF6m", company: "Google" }
    ],
 
    // authors, add as many as you like.
