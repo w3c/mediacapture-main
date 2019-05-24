@@ -1140,7 +1140,6 @@ interface MediaStreamTrack : EventTarget {
              boolean frameRate = true;
              boolean facingMode = true;
              boolean resizeMode = true;
-             boolean volume = true;
              boolean sampleRate = true;
              boolean sampleSize = true;
              boolean echoCancellation = true;
@@ -1189,11 +1188,6 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
-              <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
-              <code>true</code></dt>
-              <dd>See <code><a href="#def-constraint-volume">volume</a></code>
-              for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType">boolean</span>, defaulting to
               <code>true</code></dt>
@@ -1265,7 +1259,6 @@ interface MediaStreamTrack : EventTarget {
              DoubleRange         frameRate;
              sequence&lt;DOMString&gt; facingMode;
              sequence&lt;DOMString&gt; resizeMode;
-             DoubleRange         volume;
              ULongRange           sampleRate;
              ULongRange           sampleSize;
              sequence&lt;boolean&gt;   echoCancellation;
@@ -1320,10 +1313,6 @@ interface MediaStreamTrack : EventTarget {
                 "#def-constraint-resizeMode">resizeMode</a></code> for
                 additional details.</p>
               </dd>
-              <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType"><a>DoubleRange</a></span></dt>
-              <dd>See <code><a href="#def-constraint-volume">volume</a></code>
-              for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
               <dd>See <code><a href=
@@ -1423,7 +1412,6 @@ interface MediaStreamTrack : EventTarget {
              ConstrainDouble    frameRate;
              ConstrainDOMString facingMode;
              ConstrainDOMString resizeMode;
-             ConstrainDouble    volume;
              ConstrainULong      sampleRate;
              ConstrainULong      sampleSize;
              ConstrainBoolean   echoCancellation;
@@ -1466,10 +1454,6 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
-              <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainDouble</a></span></dt>
-              <dd>See <code><a href="#def-constraint-volume">volume</a></code>
-              for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainULong</a></span></dt>
               <dd>See <code><a href=
@@ -1531,7 +1515,6 @@ interface MediaStreamTrack : EventTarget {
              double    frameRate;
              DOMString facingMode;
              DOMString resizeMode;
-             double    volume;
              long      sampleRate;
              long      sampleSize;
              boolean   echoCancellation;
@@ -1574,10 +1557,6 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <code><a href=
               "#def-constraint-resizeMode">resizeMode</a></code> for
               details.</dd>
-              <dt><dfn><code>volume</code></dfn> of type <span class=
-              "idlMemberType">double</span></dt>
-              <dd>See <code><a href="#def-constraint-volume">volume</a></code>
-              for details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
               <dd>See <code><a href=
@@ -1858,17 +1837,6 @@ interface MediaStreamTrack : EventTarget {
             </tr>
           </thead>
           <tbody>
-            <tr id="def-constraint-volume">
-              <td>volume</td>
-              <td><code><a>ConstrainDouble</a></code></td>
-              <td>The volume or volume range, as a multiplier of the linear
-              audio sample values. A volume of 0.0 is silence, while a volume
-              of 1.0 is the maximum supported volume. A volume of 0.5 will
-              result in an approximately 6 dB<sub>SPL</sub> change in the sound
-              pressure level from the maximum volume. Note that any
-              ConstraintSet that specifies values outside of this range of 0 to
-              1 can never be satisfied.</td>
-            </tr>
             <tr id="def-constraint-sampleRate">
               <td>sampleRate</td>
               <td><code><a>ConstrainULong</a></code></td>
@@ -4296,13 +4264,13 @@ const constraints = {
       <p>And here's one for an audio track:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.deviceId || !supports.volume) {
+if (!supports.deviceId || !supports.channelCount) {
   // Treat like an error.
 }
 const constraints = {
   advanced: [
     {deviceId: '64815-wi3c89-1839dk-x82-392aa'},
-    {volume: 0.5}
+    {channelCount: 2}
   ]
 };
       </pre>
