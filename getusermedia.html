@@ -1643,17 +1643,19 @@ interface MediaStreamTrack : EventTarget {
               <td><dfn>groupId</dfn></td>
               <td>DOMString</td>
               <td>
-                The browsing session-unique group identifier for the source of
-                the <a>MediaStreamTrack</a>. Two devices have the same group
-                identifier if they belong to the same physical device; for
-                example, the audio input and output devices representing the
-                speaker and microphone of the same headset would have the same
-                groupId. Note that the setting of this property is uniquely
+                The <a data-link-type="dfn"
+                href="https://dom.spec.whatwg.org/#concept-document">
+                document</a>-unique group identifier for the device
+                generating the content of the <a>MediaStreamTrack</a>.
+                It conforms with the definition of
+                <code><a>MediaDeviceInfo</a></code>.<code><a
+                href="#def-mediadeviceinfo-groupId">groupId</a></code>.
+                Note that the setting of this property is uniquely
                 determined by the source that is attached to the
                 <a>MediaStreamTrack</a>. In particular, <a data-link-for=
                 "MediaStreamTrack">getCapabilities()</a> will return only a
                 single value for groupId. Since this property is not stable
-                between browsing sessions its usefulness for initial media
+                between browsing sessions, its usefulness for initial media
                 selection with <a data-link-for=
                 "MediaDevices">getUserMedia()</a> is limited. It is not useful
                 for subsequent media control with <a data-link-for=
@@ -3066,13 +3068,17 @@ interface MediaDeviceInfo {
               Webcam"). If the device has no associated label, then this
               attribute MUST return the empty string.</p>
             </dd>
-            <dt><dfn><code>groupId</code></dfn> of type <span class=
-            "idlAttrType">DOMString</span>, readonly</dt>
+            <dt id="def-mediadeviceinfo-groupId"><dfn><code>groupId</code></dfn>
+            of type <span class="idlAttrType">DOMString</span>, readonly</dt>
             <dd>
-              <p>Returns the group identifier of the represented device. Two
-              devices have the same group identifier if they belong to the same
-              physical device; for example a monitor with a built-in camera and
-              microphone.</p>
+              <p>The group identifier of the represented device. Two devices
+              have the same group identifier if they belong to the same
+              physical device. For example, the audio input and output devices
+              representing the speaker and microphone of the same headset
+              have the same groupId.</p>
+              <p>The group identifier MUST be uniquely generated for each
+              <a data-link-type="dfn"
+              href="https://dom.spec.whatwg.org/#concept-document">document</a>.</p>
             </dd>
           </dl>
         </section>
