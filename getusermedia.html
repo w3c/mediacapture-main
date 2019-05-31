@@ -2346,21 +2346,21 @@ interface MediaStreamTrackEvent : Event {
       </tbody>
     </table>
     <p>When an <code>HTMLMediaElement</code>'s <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code> is assigned a
-    <code>MediaStream</code>, and its previous value was <code>null</code>, the
-    user agent MUST change the element's attributes listed above to valid
-    values as shown, if they are not valid. If this causes the
-    <a class="externalDFN" data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
+    is assigned a <code>MediaStream</code>, and its previous value was
+    <code>null</code>, the user agent MUST change the element's attributes
+    listed above to valid values as shown, if they are not valid. If this causes
+    the <a class="externalDFN" data-cite=
       "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
-      <code>defaultPlaybackRate</code></a> or
-    <a class="externalDFN" data-cite=
+      <code>defaultPlaybackRate</code></a> or <a class="externalDFN" data-cite=
       "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
       <code>playbackRate</code></a> to change, then the user agent MUST queue a
     task to fire a simple event named <code><a data-cite=
-          "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>  at the media element.
-    The values do not change back if the media element's <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code> is later assigned <code>null</code>.
-    </p>
+      "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+    at the media element. The values do not change back if the media element's
+    <code><a data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
+    is later assigned <code>null</code>.</p>
   </section>
   <section>
     <h2>Error Handling</h2>
