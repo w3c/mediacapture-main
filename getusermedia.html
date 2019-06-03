@@ -2348,27 +2348,25 @@ interface MediaStreamTrackEvent : Event {
     <p>Since none of the setters listed above alter internal state of the
     <code>HTMLMediaElement</code>, once a <code>MediaStream</code> is no longer
     the element's <a data-link-type="dfn"
-      href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
-      >assigned media provider object</a>, the attributes listed will appear to
+    href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
+    >assigned media provider object</a>, the attributes listed will appear to
     resume the values they had before a stream was assigned to the element.</p>
     <div class="note">
-      <p>A <code>MediaStream</code> stops being the element's
-      <a data-link-type="dfn"
-        href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
-        >assigned media provider object</a> when <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject"
-        >srcObject</a></code> is assigned <code>null</code> or a non-stream
-      object, just ahead of the <a data-link-type="dfn"
-        href="https://html.spec.whatwg.org/multipage/media.html#media-element-load-algorithm"
-        >media element load algorithm</a>. As a result, the <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+      <p>A <code>MediaStream</code> stops being the element's <a data-link-type="dfn"
+      href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
+      >assigned media provider object</a> when <code><a data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject"
+      >srcObject</a></code> is assigned <code>null</code> or a non-stream object,
+      just ahead of the <a data-link-type="dfn"
+      href="https://html.spec.whatwg.org/multipage/media.html#media-element-load-algorithm"
+      >media element load algorithm</a>. As a result, the <code><a data-cite=
+      "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
       event may fire (from step 7) if <a class="externalDFN" data-cite=
-          "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
-          <code>playbackRate</code></a> and
-        <a class="externalDFN" data-cite=
-          "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
-          <code>defaultPlaybackRate</code></a> were different from before a
-        <code>MediaStream</code> was assigned.</p>
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
+      <code>playbackRate</code></a> and <a class="externalDFN" data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
+      <code>defaultPlaybackRate</code></a> were different from before a
+      <code>MediaStream</code> was assigned.</p>
     </div>
   </section>
   <section>
