@@ -2202,7 +2202,7 @@ interface MediaStreamTrackEvent : Event {
       </li>
     </ul>
     <p>The nature of the <code><a>MediaStream</a></code> places certain
-    restrictions on the attribute values of the associated
+    restrictions on the behavior of attributes of the associated
     <code>HTMLMediaElement</code> and on the operations that can be performed
     on it, as shown below:</p>
     <table class="simple">
@@ -2265,7 +2265,7 @@ interface MediaStreamTrackEvent : Event {
           <td><code>boolean</code></td>
           <td><code>false</code></td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>false</code>.</td>
+          always return the value <code>false</code>.</td>
         </tr>
         <tr>
           <td>
@@ -2276,7 +2276,7 @@ interface MediaStreamTrackEvent : Event {
           <td><code>double</code></td>
           <td>On getting: <code>1.0</code>. On setting: ignored.</td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>1.0</code> and any attempt to alter it
+          always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
           "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
@@ -2291,7 +2291,7 @@ interface MediaStreamTrackEvent : Event {
           <td><code>double</code></td>
           <td>On getting: <code>1.0</code>. On setting: ignored.</td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>1.0</code> and any attempt to alter it
+          always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
           "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
@@ -2345,22 +2345,10 @@ interface MediaStreamTrackEvent : Event {
         </tr>
       </tbody>
     </table>
-    <p>When an <code>HTMLMediaElement</code>'s <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
-    is assigned a <code>MediaStream</code>, and its previous value was
-    <code>null</code>, the user agent MUST change the element's attributes
-    listed above to valid values as shown, if they are not valid. If this causes
-    the <a class="externalDFN" data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
-      <code>defaultPlaybackRate</code></a> or <a class="externalDFN" data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
-      <code>playbackRate</code></a> to change, then the user agent MUST queue a
-    task to fire a simple event named <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
-    at the media element. The values do not change back if the media element's
-    <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
-    is later assigned <code>null</code>.</p>
+    Since none of the setters listed above alter internal state of the
+    <code>HTMLMediaElement</code>, once a <code>MediaStream</code> is no longer
+    associated with the element, attributes will appear to resume the values
+    they had before a stream was associated with it.
   </section>
   <section>
     <h2>Error Handling</h2>
