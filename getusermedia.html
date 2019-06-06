@@ -2208,7 +2208,7 @@ interface MediaStreamTrackEvent : Event {
       </li>
     </ul>
     <p>The nature of the <code><a>MediaStream</a></code> places certain
-    restrictions on the behavior and attribute values of the associated
+    restrictions on the behavior of attributes of the associated
     <code>HTMLMediaElement</code> and on the operations that can be performed
     on it, as shown below:</p>
     <table class="simple">
@@ -2216,7 +2216,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <th scope="col">Attribute Name</th>
           <th scope="col">Attribute Type</th>
-          <th scope="col">Valid Values When Using a MediaStream</th>
+          <th scope="col">Setter/Getter Behavior When Provider is a MediaStream</th>
           <th scope="col">Additional considerations</th>
         </tr>
       </thead>
@@ -2252,8 +2252,9 @@ interface MediaStreamTrackEvent : Event {
             <code>currentTime</code></a>
           </td>
           <td><code>double</code></td>
-          <td>Any non-negative integer. The initial value is 0 and the values
-          increments linearly in real time whenever the stream is playing.</td>
+          <td>Any non-negative integer. The initial value is <code>0</code> and
+          the values increments linearly in real time whenever the stream is
+          playing.</td>
           <td>
             The value is the <a class="externalDFN" data-cite=
             "!HTML52/semantics-embedded-content.html#official-playback-position">
@@ -2268,9 +2269,9 @@ interface MediaStreamTrackEvent : Event {
             <code>seeking</code></a>
           </td>
           <td><code>boolean</code></td>
-          <td>false</td>
+          <td><code>false</code></td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>false</code>.</td>
+          always return the value <code>false</code>.</td>
         </tr>
         <tr>
           <td>
@@ -2279,9 +2280,9 @@ interface MediaStreamTrackEvent : Event {
             <code>defaultPlaybackRate</code></a>
           </td>
           <td><code>double</code></td>
-          <td>On setting: ignored. On getting: return 1.0</td>
+          <td>On getting: <code>1.0</code>. On setting: ignored.</td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>1.0</code> and any attempt to alter it
+          always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
           "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
@@ -2294,9 +2295,9 @@ interface MediaStreamTrackEvent : Event {
             <code>playbackRate</code></a>
           </td>
           <td><code>double</code></td>
-          <td>1.0</td>
+          <td>On getting: <code>1.0</code>. On setting: ignored.</td>
           <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always have the value <code>1.0</code> and any attempt to alter it
+          always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
           "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
@@ -2343,13 +2344,36 @@ interface MediaStreamTrackEvent : Event {
             <code>loop</code></a>
           </td>
           <td><code>boolean</code></td>
-          <td>true, false</td>
+          <td><code>true</code>, <code>false</code></td>
           <td>Setting the <code>loop</code> attribute has no effect since a
           <code><a>MediaStream</a></code> has no defined end and therefore
           cannot be looped.</td>
         </tr>
       </tbody>
     </table>
+    <p>Since none of the setters listed above alter internal state of the
+    <code>HTMLMediaElement</code>, once a <code>MediaStream</code> is no longer
+    the element's <a data-link-type="dfn"
+    href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
+    >assigned media provider object</a>, the attributes listed will appear to
+    resume the values they had before a stream was assigned to the element.</p>
+    <div class="note">
+      <p>A <code>MediaStream</code> stops being the element's <a data-link-type="dfn"
+      href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
+      >assigned media provider object</a> when <code><a data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject"
+      >srcObject</a></code> is assigned <code>null</code> or a non-stream object,
+      just ahead of the <a data-link-type="dfn"
+      href="https://html.spec.whatwg.org/multipage/media.html#media-element-load-algorithm"
+      >media element load algorithm</a>. As a result, the <code><a data-cite=
+      "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+      event may fire (from step 7) if <a class="externalDFN" data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
+      <code>playbackRate</code></a> and <a class="externalDFN" data-cite=
+      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
+      <code>defaultPlaybackRate</code></a> were different from before a
+      <code>MediaStream</code> was assigned.</p>
+    </div>
   </section>
   <section>
     <h2>Error Handling</h2>
