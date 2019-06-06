@@ -771,10 +771,11 @@ interface MediaStream : EventTarget {
         the <code><a>MediaStreamTrack</a></code> object, or because the User
         Agent has instructed the track to end for any reason) it is said to be
         <dfn id="track-ended">ended</dfn>.</p>
-        <p>When a <code><a>MediaStreamTrack</a></code> <var>track</var> ends
-        for any reason other than the <code><a href=
-        "#dom-mediastreamtrack-stop">stop()</a></code> method being invoked,
-        the User Agent MUST queue a task that runs the following steps:</p>
+        <p>When a <code><a>MediaStreamTrack</a></code> <var>track</var>
+        <dfn id="ends-nostop">ends for any reason other than the <code><a href=
+        "#dom-mediastreamtrack-stop">stop()</a></code> method being
+        invoked</dfn>, the User Agent MUST queue a task that runs the following
+        steps:</p>
         <ol>
           <li>
             <p>If the <var>track's</var> <code><a href=
