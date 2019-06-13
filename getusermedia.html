@@ -2875,11 +2875,14 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
+                      <p>Let <var>document</var> be the <a>current settings object</a>'s
+                      <a>responsible document</a>.</p>
+                    </li>
+                    <li>
                       <p>The User Agent MUST wait to proceed to the next step until the
                       <a>device information can be exposed check</a> returns <code>true</code>.</p>
                       <p>The User Agent MAY wait to proceed to the next step
-                      until the <a>current settings object</a>'s <a>responsible
-                      document</a> is <a data-cite=
+                      until <var>document</var> is <a data-cite=
                           "!HTML52/browsers.html#fully-active">fully active</a>
                       and <a data-cite="!HTML52/editing.html#gain-focus">has
                       focus.</a></p>
@@ -2905,6 +2908,22 @@ interface MediaDevices : EventTarget {
                       run the following sub steps for each discovered device,
                       <var>device</var>:</p>
                       <ol>
+                        <li>
+                          <p>If <var>device</var> is a camera, and
+                          <var>document</var> is not <a data-link-type="dfn"
+                            href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#allowed-to-use"
+                            >allowed to use</a> the feature identified by
+                          <code>"camera"</code>, abort these steps and continue
+                          with the next device (if any).</p>
+                        </li>
+                        <li>
+                          <p>If <var>device</var> is a microphone, and
+                          <var>document</var> is not <a data-link-type="dfn"
+                            href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#allowed-to-use"
+                            >allowed to use</a> the feature identified by
+                          <code>"microphone"</code>, abort these steps and
+                          continue with the next device (if any).</p>
+                        </li>
                         <li>
                           <p>If <var>device</var> is represented by a
                           <code><a>MediaDeviceInfo</a></code> object in
@@ -4850,6 +4869,10 @@ window.onload = async () =&gt; {
       respectively. This is enforced by the <a>request permission to use</a>
       algorithm.
       </p>
+      <p>Additionally, <code>enumerateDevices</code> will only enumerate devices
+      the document is <a data-link-type="dfn"
+        href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#allowed-to-use"
+        >allowed to use</a>.</p>
     </div>
   </section>
   <section>
