@@ -55,24 +55,24 @@
       <dt><i>HTML Terms:</i></dt>
       <dd>
         <p>The <code><dfn data-cite=
-        "!HTML52/webappapis.html#event-handler">EventHandler</dfn></code>
+        "!HTML/webappapis.html#event-handler">EventHandler</dfn></code>
         interface represents a callback used for event handlers as defined in
-        [[!HTML52]].</p>
-        <p>The concepts <dfn data-cite="!HTML52/webappapis.html#queuing">queue
+        [[!HTML]].</p>
+        <p>The concepts <dfn data-cite="!HTML/webappapis.html#queuing">queue
         a task</dfn> and <dfn data-cite=
-        "!HTML52/infrastructure.html#fire">fires a simple event</dfn> are
-        defined in [[!HTML52]].</p>
+        "!HTML/infrastructure.html#fire">fires a simple event</dfn> are
+        defined in [[!HTML]].</p>
         <p>The terms <dfn data-cite=
-        "!HTML52/webappapis.html#events-event-handlers">event handlers</dfn>
+        "!HTML/webappapis.html#events-event-handlers">event handlers</dfn>
         and <dfn data-cite=
-        "!HTML52/webappapis.html#responsible-document">responsible
-        document</dfn> are defined in [[!HTML52]].</p>
+        "!HTML/webappapis.html#responsible-document">responsible
+        document</dfn> are defined in [[!HTML]].</p>
         <p>The term <dfn data-cite=
-        "!HTML52/webappapis.html#current-settings-object">current settings
-        object</dfn> is defined in [[!HTML52]].</p>
+        "!HTML/webappapis.html#current-settings-object">current settings
+        object</dfn> is defined in [[!HTML]].</p>
         <p>The term <dfn data-cite=
-        "!HTML52/semantics-embedded-content.html#allowed-to-use">allowed to
-        use</dfn> is defined in [[!HTML52]].</p>
+        "!HTML/semantics-embedded-content.html#allowed-to-use">allowed to
+        use</dfn> is defined in [[!HTML]].</p>
         <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>,
         <dfn data-lt="reject|rejection|rejecting">rejected</dfn> and
         <dfn data-lt="resolve">resolved</dfn> used in the context of Promises
@@ -2138,19 +2138,19 @@ interface MediaStreamTrackEvent : Event {
     the playout of the <code>MediaStream</code> is paused.</p>
     <p>User Agents that support this specification MUST support the
     <code><a data-cite=
-    "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
+    "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-srcobject">srcObject</a></code>
     attribute of the <code>HTMLMediaElement</code> interface defined in
-    [[!HTML52]], which includes support for playing <code>MediaStream</code>
+    [[!HTML]], which includes support for playing <code>MediaStream</code>
     objects.</p>
-    <p>The [[!HTML52]] document outlines how the <code>HTMLMediaElement</code>
+    <p>The [[!HTML]] document outlines how the <code>HTMLMediaElement</code>
     works with a <em>media provider object</em>. The following applies when the
     <em>media provider object</em> is a <code><a>MediaStream</a></code>:</p>
     <ul>
       <li>
-        <p>Whenever an [[!HTML52]] <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#audiotrack">AudioTrack</a></code>
+        <p>Whenever an [[!HTML]] <code><a data-cite=
+        "!HTML/semantics-embedded-content.html#audiotrack">AudioTrack</a></code>
         or a <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#videotrack">VideoTrack</a></code>
+        "!HTML/semantics-embedded-content.html#videotrack">VideoTrack</a></code>
         is created, the <code>id</code> and <code>label</code> attributes must
         be initialized to the corresponding attributes of the
         <code>MediaStreamTrack</code>, the <code>kind</code> attribute must be
@@ -2163,9 +2163,9 @@ interface MediaStreamTrackEvent : Event {
         <p>Since the order in the <code><a>MediaStream</a></code> 's <a href=
         "#track-set">track set</a> is undefined, no requirements are put on how
         the <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#audiotracklist">AudioTrackList</a></code>
+        "!HTML/semantics-embedded-content.html#audiotracklist">AudioTrackList</a></code>
         and <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#videotracklist">VideoTrackList</a></code>
+        "!HTML/semantics-embedded-content.html#videotracklist">VideoTrackList</a></code>
         is ordered</p>
       </li>
       <li>
@@ -2173,37 +2173,37 @@ interface MediaStreamTrackEvent : Event {
         <code><a>MediaStream</a></code> state moves from the active to the
         <a href="#stream-inactive">inactive</a> state, the User Agent MUST
         raise an <a data-cite=
-        "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#eventdef-media-ended">ended</a>
         event on the <code>HTMLVideoElement</code> and set its <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         attribute to <code>true</code>. Note that once <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         equals <code>true</code> the <code>HTMLVideoElement</code> will not
         play media even if new <code><a>MediaStreamTrack</a></code>s are added
         to the <code><a>MediaStream</a></code> (causing it to return to the
         active state) unless <code>autoplay</code> is <code>true</code> or the
         web application restarts the element, e.g., by calling <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-play">play()</a>.</p>
         <p>If the element is an <code>HTMLAudioElement</code>, then when the
         <code><a>MediaStream</a></code> state moves from the audible to the
         <a href="#stream-inaudible">inaudible</a> state, the User Agent MUST
         raise an <a data-cite=
-        "!HTML52/semantics-embedded-content.html#eventdef-media-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#eventdef-media-ended">ended</a>
         event on the <code>HTMLAudioElement</code> and set its <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         attribute to <code>true</code>. Note that once <a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-ended">ended</a>
         equals <code>true</code> the <code>HTMLAudioElement</code> will not
         play audio even if new audio <code><a>MediaStreamTrack</a></code>s are
         added to the <code><a>MediaStream</a></code> (causing it to return to
         the audible state) unless <code>autoplay</code> is <code>true</code> or
         the web application restarts the element, e.g., by calling
-        <a data-cite="!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-play">
+        <a data-cite="!HTML/semantics-embedded-content.html#dom-htmlmediaelement-play">
         play()</a>.</p>
       </li>
       <li>
         <p>Any calls to the <code><a data-cite=
-        "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-fastseek">
+        "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-fastseek">
         fastSeek</a></code> method on a <code>HTMLMediaElement</code> must be
         ignored</p>
       </li>
@@ -2225,7 +2225,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-preload">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-preload">
             <code>preload</code></a>
           </td>
           <td><code>DOMString</code></td>
@@ -2235,12 +2235,12 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-buffered">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-buffered">
             <code>buffered</code></a>
           </td>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
+            "!HTML/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
           </td>
           <td><code>buffered.length</code> MUST return <code>0</code>.</td>
           <td>A MediaStream cannot be preloaded. Therefore, the amount buffered
@@ -2249,7 +2249,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-currenttime">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-currenttime">
             <code>currentTime</code></a>
           </td>
           <td><code>double</code></td>
@@ -2258,7 +2258,7 @@ interface MediaStreamTrackEvent : Event {
           playing.</td>
           <td>
             The value is the <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#official-playback-position">
+            "!HTML/semantics-embedded-content.html#official-playback-position">
             official playback position</a>, in seconds. Any attempt to alter it
             MUST be ignored.
           </td>
@@ -2266,7 +2266,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-seeking">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-seeking">
             <code>seeking</code></a>
           </td>
           <td><code>boolean</code></td>
@@ -2277,7 +2277,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
             <code>defaultPlaybackRate</code></a>
           </td>
           <td><code>double</code></td>
@@ -2286,13 +2286,13 @@ interface MediaStreamTrackEvent : Event {
           always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
-          "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+          "!HTML/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
           event will not fire.</td>
         </tr>
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
             <code>playbackRate</code></a>
           </td>
           <td><code>double</code></td>
@@ -2301,25 +2301,25 @@ interface MediaStreamTrackEvent : Event {
           always return the value <code>1.0</code> and any attempt to alter it
           MUST be ignored. Note that this also means that the
           <code><a data-cite=
-          "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+          "!HTML/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
           event will not fire.</td>
         </tr>
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-played">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-played">
             <code>played</code></a>
           </td>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
+            "!HTML/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
           </td>
           <td>
             <code>played.length</code> MUST return <code>1</code>.<br>
             <code>played.start(0)</code> MUST return <code>0</code>.<br>
             <code>played.end(0)</code> MUST return the last known <a class=
             "externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-currenttime">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-currenttime">
             <code>currentTime</code></a> .
           </td>
           <td>A <code><a>MediaStream</a></code>'s timeline always consists of a
@@ -2328,12 +2328,12 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-seekable">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-seekable">
             <code>seekable</code></a>
           </td>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
+            "!HTML/semantics-embedded-content.html#timeranges"><code>TimeRanges</code></a>
           </td>
           <td><code>seekable.length</code> MUST return <code>0</code>.</td>
           <td>A <code><a>MediaStream</a></code> is not seekable.</td>
@@ -2341,7 +2341,7 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td>
             <a class="externalDFN" data-cite=
-            "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-loop">
+            "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-loop">
             <code>loop</code></a>
           </td>
           <td><code>boolean</code></td>
@@ -2362,16 +2362,16 @@ interface MediaStreamTrackEvent : Event {
       <p>A <code>MediaStream</code> stops being the element's <a data-link-type="dfn"
       href="https://html.spec.whatwg.org/multipage/media.html#assigned-media-provider-object"
       >assigned media provider object</a> when <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-srcobject"
+      "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-srcobject"
       >srcObject</a></code> is assigned <code>null</code> or a non-stream object,
       just ahead of the <a data-link-type="dfn"
       href="https://html.spec.whatwg.org/multipage/media.html#media-element-load-algorithm"
       >media element load algorithm</a>. As a result, the <code><a data-cite=
-      "!HTML52/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
+      "!HTML/semantics-embedded-content.html#eventdef-media-ratechange">ratechange</a></code>
       event may fire (from step 7) if <a class="externalDFN" data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
+      "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-playbackrate">
       <code>playbackRate</code></a> and <a class="externalDFN" data-cite=
-      "!HTML52/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
+      "!HTML/semantics-embedded-content.html#dom-htmlmediaelement-defaultplaybackrate">
       <code>defaultPlaybackRate</code></a> were different from before a
       <code>MediaStream</code> was assigned.</p>
     </div>
@@ -2733,7 +2733,7 @@ interface MediaStreamTrackEvent : Event {
       <ol>
         <li>
           <p>On the <a data-cite=
-          "!HTML52/webappapis.html#relevant-global-object">relevant global
+          "!HTML/webappapis.html#relevant-global-object">relevant global
           object</a>, run the following steps:</p>
           <ol>
             <li>
@@ -2819,7 +2819,7 @@ interface MediaStreamTrackEvent : Event {
       </ol>
       <p>If a browsing context later comes to meet the
       <a>device information can be exposed check</a> criteria (e.g.
-      <a data-cite="!HTML52/editing.html#gain-focus">gains focus</a>), the User
+      <a data-cite="!HTML/editing.html#gain-focus">gains focus</a>), the User
       Agent MUST execute the steps at that time.</p>
       <p>The User Agent MAY combine firing multiple events into firing one
       event when several events are due or when multiple devices are added or
@@ -2883,8 +2883,8 @@ interface MediaDevices : EventTarget {
                       <a>device information can be exposed check</a> returns <code>true</code>.</p>
                       <p>The User Agent MAY wait to proceed to the next step
                       until <var>document</var> is <a data-cite=
-                          "!HTML52/browsers.html#fully-active">fully active</a>
-                      and <a data-cite="!HTML52/editing.html#gain-focus">has
+                          "!HTML/browsers.html#fully-active">fully active</a>
+                      and <a data-cite="!HTML/editing.html#gain-focus">has
                       focus.</a></p>
                     </li>
                     <li>
@@ -3046,8 +3046,8 @@ interface MediaDevices : EventTarget {
             <a href="#stream-active">active</a> <code><a>MediaStream</a></code>
             in the browsing context, return <code>true</code>.</li>
           <li>If the <a>current settings object</a>'s <a>responsible
-          document</a> is <a data-cite="!HTML52/browsers.html#fully-active">fully
-          active</a> and <a data-cite="!HTML52/editing.html#gain-focus">has
+          document</a> is <a data-cite="!HTML/browsers.html#fully-active">fully
+          active</a> and <a data-cite="!HTML/editing.html#gain-focus">has
           focus</a>, return <code>true</code>.
           </li>
           <li>Return <code>false</code>.</li>
@@ -3421,7 +3421,7 @@ interface MediaDeviceInfo {
                 <li>
                   <p>If the <a>current settings object</a>'s <a>responsible
                   document</a> is NOT <a data-cite=
-                  "!HTML52/browsers.html#fully-active">fully active</a>, return
+                  "!HTML/browsers.html#fully-active">fully active</a>, return
                   a promise <a>rejected</a> with a
                   <code><a>DOMException</a></code> object whose
                   <code>name</code> attribute has the value
@@ -3437,8 +3437,8 @@ interface MediaDeviceInfo {
                       <p>The User Agent MUST wait to proceed to the next step until
                       the <a>current settings object</a>'s <a>responsible
                       document</a> is <a data-cite=
-                          "!HTML52/browsers.html#fully-active">fully active</a>
-                      and <a data-cite="!HTML52/editing.html#gain-focus">has
+                          "!HTML/browsers.html#fully-active">fully active</a>
+                      and <a data-cite="!HTML/editing.html#gain-focus">has
                       focus.</a></p>
                     </li>
                     <li>
@@ -3528,7 +3528,7 @@ interface MediaDeviceInfo {
                       while considering all devices attached to a
                       <code>live</code> and <a>same-permission</a>
                       MediaStreamTrack in the current <a data-cite=
-                      "!HTML52/browsers.html#browsing-context">browsing
+                      "!HTML/browsers.html#browsing-context">browsing
                       context</a> to have permission status "granted",
                       resulting in a set of provided media.
                       <dfn>Same-permission</dfn> in this context means a
