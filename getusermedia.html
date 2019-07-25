@@ -413,22 +413,23 @@
         </li>
       </ol>
       <div>
-        <pre class="idl">[Exposed=Window,
+        <pre class="idl"
+>[Exposed=Window,
  Constructor,
  Constructor (MediaStream stream),
  Constructor (sequence&lt;MediaStreamTrack&gt; tracks)]
 interface MediaStream : EventTarget {
-    readonly        attribute DOMString    id;
-    sequence&lt;MediaStreamTrack&gt; getAudioTracks ();
-    sequence&lt;MediaStreamTrack&gt; getVideoTracks ();
-    sequence&lt;MediaStreamTrack&gt; getTracks ();
-    MediaStreamTrack?          getTrackById (DOMString trackId);
-    void                       addTrack (MediaStreamTrack track);
-    void                       removeTrack (MediaStreamTrack track);
-    MediaStream                clone ();
-    readonly        attribute boolean      active;
-                    attribute EventHandler onaddtrack;
-                    attribute EventHandler onremovetrack;
+  readonly attribute DOMString id;
+  sequence&lt;MediaStreamTrack&gt; getAudioTracks();
+  sequence&lt;MediaStreamTrack&gt; getVideoTracks();
+  sequence&lt;MediaStreamTrack&gt; getTracks();
+  MediaStreamTrack? getTrackById(DOMString trackId);
+  void addTrack(MediaStreamTrack track);
+  void removeTrack(MediaStreamTrack track);
+  MediaStream clone();
+  readonly attribute boolean active;
+  attribute EventHandler onaddtrack;
+  attribute EventHandler onremovetrack;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -881,23 +882,24 @@ interface MediaStream : EventTarget {
       <section id="media-stream-track-interface-definition">
         <h3>Interface Definition</h3>
         <div>
-          <pre class="idl">[Exposed=Window]
+          <pre class="idl"
+>[Exposed=Window]
 interface MediaStreamTrack : EventTarget {
-    readonly        attribute DOMString             kind;
-    readonly        attribute DOMString             id;
-    readonly        attribute DOMString             label;
-                    attribute boolean               enabled;
-    readonly        attribute boolean               muted;
-                    attribute EventHandler          onmute;
-                    attribute EventHandler          onunmute;
-    readonly        attribute MediaStreamTrackState readyState;
-                    attribute EventHandler          onended;
-    MediaStreamTrack       clone ();
-    void                   stop ();
-    MediaTrackCapabilities getCapabilities ();
-    MediaTrackConstraints  getConstraints ();
-    MediaTrackSettings     getSettings ();
-    Promise&lt;void&gt;          applyConstraints (optional MediaTrackConstraints constraints);
+  readonly attribute DOMString kind;
+  readonly attribute DOMString id;
+  readonly attribute DOMString label;
+  attribute boolean enabled;
+  readonly attribute boolean muted;
+  attribute EventHandler onmute;
+  attribute EventHandler onunmute;
+  readonly attribute MediaStreamTrackState readyState;
+  attribute EventHandler onended;
+  MediaStreamTrack clone();
+  void stop();
+  MediaTrackCapabilities getCapabilities();
+  MediaTrackConstraints getConstraints();
+  MediaTrackSettings getSettings();
+  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints);
 };</pre>
           <section>
             <h2>Attributes</h2>
@@ -1086,9 +1088,10 @@ interface MediaStreamTrack : EventTarget {
           </section>
         </div>
         <div>
-          <pre class="idl">enum MediaStreamTrackState {
-    "live",
-    "ended"
+          <pre class="idl"
+>enum MediaStreamTrackState {
+  "live",
+  "ended"
 };</pre>
           <table data-link-for="MediaStreamTrackState" data-dfn-for=
           "MediaStreamTrackState" class="simple">
@@ -1142,22 +1145,23 @@ interface MediaStreamTrack : EventTarget {
         <a data-link-for="MediaDevices">getUserMedia()</a>, unless stated
         otherwise in other specifications.</p>
         <div>
-          <pre class="idl">dictionary MediaTrackSupportedConstraints {
-             boolean width = true;
-             boolean height = true;
-             boolean aspectRatio = true;
-             boolean frameRate = true;
-             boolean facingMode = true;
-             boolean resizeMode = true;
-             boolean sampleRate = true;
-             boolean sampleSize = true;
-             boolean echoCancellation = true;
-             boolean autoGainControl = true;
-             boolean noiseSuppression = true;
-             boolean latency = true;
-             boolean channelCount = true;
-             boolean deviceId = true;
-             boolean groupId = true;
+          <pre class="idl"
+>dictionary MediaTrackSupportedConstraints {
+  boolean width = true;
+  boolean height = true;
+  boolean aspectRatio = true;
+  boolean frameRate = true;
+  boolean facingMode = true;
+  boolean resizeMode = true;
+  boolean sampleRate = true;
+  boolean sampleSize = true;
+  boolean echoCancellation = true;
+  boolean autoGainControl = true;
+  boolean noiseSuppression = true;
+  boolean latency = true;
+  boolean channelCount = true;
+  boolean deviceId = true;
+  boolean groupId = true;
 };</pre>
           <section>
             <h2>Dictionary <a class=
@@ -1261,22 +1265,23 @@ interface MediaStreamTrack : EventTarget {
         dictionary by defining a partial dictionary with dictionary members of
         appropriate type.</p>
         <div>
-          <pre class="idl">dictionary MediaTrackCapabilities {
-             ULongRange           width;
-             ULongRange           height;
-             DoubleRange         aspectRatio;
-             DoubleRange         frameRate;
-             sequence&lt;DOMString&gt; facingMode;
-             sequence&lt;DOMString&gt; resizeMode;
-             ULongRange           sampleRate;
-             ULongRange           sampleSize;
-             sequence&lt;boolean&gt;   echoCancellation;
-             sequence&lt;boolean&gt;   autoGainControl;
-             sequence&lt;boolean&gt;   noiseSuppression;
-             DoubleRange         latency;
-             ULongRange           channelCount;
-             DOMString           deviceId;
-             DOMString           groupId;
+          <pre class="idl"
+>dictionary MediaTrackCapabilities {
+  ULongRange width;
+  ULongRange height;
+  DoubleRange aspectRatio;
+  DoubleRange frameRate;
+  sequence&lt;DOMString&gt; facingMode;
+  sequence&lt;DOMString&gt; resizeMode;
+  ULongRange sampleRate;
+  ULongRange sampleSize;
+  sequence&lt;boolean&gt; echoCancellation;
+  sequence&lt;boolean&gt; autoGainControl;
+  sequence&lt;boolean&gt; noiseSuppression;
+  DoubleRange latency;
+  ULongRange channelCount;
+  DOMString deviceId;
+  DOMString groupId;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackCapabilities</a>
@@ -1392,9 +1397,9 @@ interface MediaStreamTrack : EventTarget {
       <section id="media-track-constraints">
         <h2><dfn>MediaTrackConstraints</dfn></h2>
         <div>
-          <pre class="idl">
-          dictionary MediaTrackConstraints : MediaTrackConstraintSet {
-             sequence&lt;MediaTrackConstraintSet&gt; advanced;
+          <pre class="idl"
+>dictionary MediaTrackConstraints : MediaTrackConstraintSet {
+  sequence&lt;MediaTrackConstraintSet&gt; advanced;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackConstraints</a>
@@ -1414,22 +1419,23 @@ interface MediaStreamTrack : EventTarget {
         <dfn>MediaTrackConstraintSet</dfn> dictionary by defining a partial
         dictionary with dictionary members of appropriate type.</p>
         <div>
-          <pre class="idl">dictionary MediaTrackConstraintSet {
-             ConstrainULong      width;
-             ConstrainULong      height;
-             ConstrainDouble    aspectRatio;
-             ConstrainDouble    frameRate;
-             ConstrainDOMString facingMode;
-             ConstrainDOMString resizeMode;
-             ConstrainULong      sampleRate;
-             ConstrainULong      sampleSize;
-             ConstrainBoolean   echoCancellation;
-             ConstrainBoolean   autoGainControl;
-             ConstrainBoolean   noiseSuppression;
-             ConstrainDouble    latency;
-             ConstrainULong      channelCount;
-             ConstrainDOMString deviceId;
-             ConstrainDOMString groupId;
+          <pre class="idl"
+>dictionary MediaTrackConstraintSet {
+  ConstrainULong width;
+  ConstrainULong height;
+  ConstrainDouble aspectRatio;
+  ConstrainDouble frameRate;
+  ConstrainDOMString facingMode;
+  ConstrainDOMString resizeMode;
+  ConstrainULong sampleRate;
+  ConstrainULong sampleSize;
+  ConstrainBoolean echoCancellation;
+  ConstrainBoolean autoGainControl;
+  ConstrainBoolean noiseSuppression;
+  ConstrainDouble latency;
+  ConstrainULong channelCount;
+  ConstrainDOMString deviceId;
+  ConstrainDOMString groupId;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackConstraintSet</a>
@@ -1517,22 +1523,23 @@ interface MediaStreamTrack : EventTarget {
         by defining a partial dictionary with dictionary members of appropriate
         type.</p>
         <div>
-          <pre class="idl">dictionary MediaTrackSettings {
-             long      width;
-             long      height;
-             double    aspectRatio;
-             double    frameRate;
-             DOMString facingMode;
-             DOMString resizeMode;
-             long      sampleRate;
-             long      sampleSize;
-             boolean   echoCancellation;
-             boolean   autoGainControl;
-             boolean   noiseSuppression;
-             double    latency;
-             long      channelCount;
-             DOMString deviceId;
-             DOMString groupId;
+          <pre class="idl"
+>dictionary MediaTrackSettings {
+  long width;
+  long height;
+  double aspectRatio;
+  double frameRate;
+  DOMString facingMode;
+  DOMString resizeMode;
+  long sampleRate;
+  long sampleSize;
+  boolean echoCancellation;
+  boolean autoGainControl;
+  boolean noiseSuppression;
+  double latency;
+  long channelCount;
+  DOMString deviceId;
+  DOMString groupId;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackSettings</a>
@@ -1753,11 +1760,12 @@ interface MediaStreamTrack : EventTarget {
           </tbody>
         </table>
         <div>
-          <pre class="idl">enum VideoFacingModeEnum {
-    "user",
-    "environment",
-    "left",
-    "right"
+          <pre class="idl"
+>enum VideoFacingModeEnum {
+  "user",
+  "environment",
+  "left",
+  "right"
 };</pre>
           <table data-link-for="VideoFacingModeEnum" data-dfn-for=
           "VideoFacingModeEnum" class="simple">
@@ -1804,9 +1812,10 @@ interface MediaStreamTrack : EventTarget {
         <img alt="Illustration of video facing modes in relation to user" src=
         "images/camera-names-exp.svg" style="width:40%"></p>
         <div>
-          <pre class="idl">enum VideoResizeModeEnum {
-    "none",
-    "crop-and-scale"
+          <pre class="idl"
+>enum VideoResizeModeEnum {
+  "none",
+  "crop-and-scale"
 };</pre>
           <table data-link-for="VideoResizeModeEnum" data-dfn-for=
           "VideoResizeModeEnum" class="simple">
@@ -1932,11 +1941,10 @@ interface MediaStreamTrack : EventTarget {
       attribute set to <var>track</var>, MUST be created and dispatched at the
       given target.</p>
       <div>
-        <pre class="idl">[Exposed=Window,
- Constructor (DOMString type, MediaStreamTrackEventInit eventInitDict)]
+        <pre class="idl"
+>[Exposed=Window, Constructor (DOMString type, MediaStreamTrackEventInit eventInitDict)]
 interface MediaStreamTrackEvent : Event {
-    [SameObject]
-    readonly        attribute MediaStreamTrack track;
+  [SameObject] readonly attribute MediaStreamTrack track;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -1965,8 +1973,9 @@ interface MediaStreamTrackEvent : Event {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary MediaStreamTrackEventInit : EventInit {
-    required MediaStreamTrack track;
+        <pre class="idl"
+>dictionary MediaStreamTrackEventInit : EventInit {
+  required MediaStreamTrack track;
 };</pre>
         <section>
           <h2>Dictionary <dfn>MediaStreamTrackEventInit</dfn> Members</h2>
@@ -2709,9 +2718,9 @@ interface MediaStreamTrackEvent : Event {
     <section>
       <h3><dfn>Navigator</dfn> Interface Extensions</h3>
       <div>
-        <pre class="idl">partial interface Navigator {
-    [SameObject, SecureContext]
-    readonly        attribute MediaDevices mediaDevices;
+        <pre class="idl"
+>partial interface Navigator {
+  [SameObject, SecureContext] readonly attribute MediaDevices mediaDevices;
 };</pre>
         <section>
           <h2>Attributes</h2>
@@ -2832,10 +2841,11 @@ interface MediaStreamTrackEvent : Event {
       contexts on different origins; user agents MAY add fuzzing on the timing
       of events to avoid cross-origin activity correlation.</p>
       <div>
-        <pre class="idl">[Exposed=Window, SecureContext]
+        <pre class="idl"
+>[Exposed=Window, SecureContext]
 interface MediaDevices : EventTarget {
-                    attribute EventHandler ondevicechange;
-    Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices ();
+  attribute EventHandler ondevicechange;
+  Promise&lt;sequence&lt;MediaDeviceInfo&gt;&gt; enumerateDevices();
 };</pre>
         <section>
           <h2>Attributes</h2>
@@ -3061,13 +3071,14 @@ interface MediaDevices : EventTarget {
     <section>
       <h2>Device Info</h2>
       <div>
-        <pre class="idl">[Exposed=Window, SecureContext]
+        <pre class="idl"
+>[Exposed=Window, SecureContext]
 interface MediaDeviceInfo {
-    readonly        attribute DOMString       deviceId;
-    readonly        attribute MediaDeviceKind kind;
-    readonly        attribute DOMString       label;
-    readonly        attribute DOMString       groupId;
-    [Default] object toJSON();
+  readonly attribute DOMString deviceId;
+  readonly attribute MediaDeviceKind kind;
+  readonly attribute DOMString label;
+  readonly attribute DOMString groupId;
+  [Default] object toJSON();
 };</pre>
         <section>
           <h2>Attributes</h2>
@@ -3154,10 +3165,11 @@ interface MediaDeviceInfo {
         </section>
       </div>
       <div>
-        <pre class="idl">enum MediaDeviceKind {
-    "audioinput",
-    "audiooutput",
-    "videoinput"
+        <pre class="idl"
+>enum MediaDeviceKind {
+  "audioinput",
+  "audiooutput",
+  "videoinput"
 };</pre>
         <table data-link-for="MediaDeviceKind" data-dfn-for="MediaDeviceKind"
         class="simple">
@@ -3198,9 +3210,10 @@ interface MediaDeviceInfo {
       <p>The <dfn>InputDeviceInfo</dfn> interface gives access to the
       capabilities of the input device it represents.</p>
       <div>
-        <pre class="idl">
-        [Exposed=Window] interface InputDeviceInfo : MediaDeviceInfo {
-    MediaTrackCapabilities getCapabilities ();
+        <pre class="idl"
+>[Exposed=Window]
+interface InputDeviceInfo : MediaDeviceInfo {
+  MediaTrackCapabilities getCapabilities();
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -3280,9 +3293,11 @@ interface MediaDeviceInfo {
         usage.</p>
       </div>
       <div>
-        <pre class="idl">partial interface Navigator {
-    [SecureContext]
-    void getUserMedia (MediaStreamConstraints constraints, NavigatorUserMediaSuccessCallback successCallback, NavigatorUserMediaErrorCallback errorCallback);
+        <pre class="idl"
+>partial interface Navigator {
+  [SecureContext] void getUserMedia(MediaStreamConstraints constraints,
+                                    NavigatorUserMediaSuccessCallback successCallback,
+                                    NavigatorUserMediaErrorCallback errorCallback);
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -3378,9 +3393,10 @@ interface MediaDeviceInfo {
       the application to determine which constraints the User Agent
       recognizes.</p>
       <div>
-        <pre class="idl">partial interface MediaDevices {
-    MediaTrackSupportedConstraints getSupportedConstraints ();
-    Promise&lt;MediaStream&gt;           getUserMedia (optional MediaStreamConstraints constraints);
+        <pre class="idl"
+>partial interface MediaDevices {
+  MediaTrackSupportedConstraints getSupportedConstraints();
+  Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints);
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -3643,9 +3659,10 @@ interface MediaDeviceInfo {
       <a>MediaStream</a> returned by <a data-link-for=
       "MediaDevices">getUserMedia()</a>.</p>
       <div>
-        <pre class="idl">dictionary MediaStreamConstraints {
-             (boolean or MediaTrackConstraints) video = false;
-             (boolean or MediaTrackConstraints) audio = false;
+        <pre class="idl"
+>dictionary MediaStreamConstraints {
+  (boolean or MediaTrackConstraints) video = false;
+  (boolean or MediaTrackConstraints) audio = false;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">MediaStreamConstraints</a>
@@ -3680,8 +3697,8 @@ interface MediaDeviceInfo {
     <section>
       <h2><dfn>NavigatorUserMediaSuccessCallback</dfn></h2>
       <div>
-        <pre class="idl">
-        callback NavigatorUserMediaSuccessCallback = void (MediaStream stream);</pre>
+        <pre class="idl"
+>callback NavigatorUserMediaSuccessCallback = void (MediaStream stream);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaSuccessCallback</a>
           Parameters</h2>
@@ -3702,8 +3719,8 @@ interface MediaDeviceInfo {
     <section>
       <h2><dfn>NavigatorUserMediaErrorCallback</dfn></h2>
       <div>
-        <pre class="idl">
-        callback NavigatorUserMediaErrorCallback = void (MediaStreamError error);</pre>
+        <pre class="idl"
+>callback NavigatorUserMediaErrorCallback = void (MediaStreamError error);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaErrorCallback</a>
           Parameters</h2>
@@ -3988,11 +4005,12 @@ const constraints = {
       Definition</a> for an example of this.</p>
       <div>
       <div class="example">Template:
-        <pre class="idl">interface ConstrainablePattern {
-    Capabilities  getCapabilities ();
-    Constraints   getConstraints ();
-    Settings      getSettings ();
-    Promise&lt;void&gt; applyConstraints (optional Constraints constraints);
+        <pre class="idl"
+>interface ConstrainablePattern {
+  Capabilities  getCapabilities();
+  Constraints   getConstraints();
+  Settings      getSettings();
+  Promise&lt;void&gt; applyConstraints(optional Constraints constraints);
 };</pre></div>
         <section>
           <h2>Methods</h2>
@@ -4410,9 +4428,10 @@ async function specifyCamera() {
       not be facing away from the user, but would allow the User Agent to allow
       the user to choose other directions.</p>
       <div>
-        <pre class="idl">dictionary DoubleRange {
-             double max;
-             double min;
+        <pre class="idl"
+>dictionary DoubleRange {
+  double max;
+  double min;
 };</pre>
         <section>
           <h2>Dictionary <dfn>DoubleRange</dfn> Members</h2>
@@ -4432,9 +4451,10 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ConstrainDoubleRange : DoubleRange {
-             double exact;
-             double ideal;
+        <pre class="idl"
+>dictionary ConstrainDoubleRange : DoubleRange {
+  double exact;
+  double ideal;
 };</pre>
         <section>
           <h2>Dictionary <dfn>ConstrainDoubleRange</dfn> Members</h2>
@@ -4454,9 +4474,10 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ULongRange {
-             [Clamp] unsigned long max;
-             [Clamp] unsigned long min;
+        <pre class="idl"
+>dictionary ULongRange {
+  [Clamp] unsigned long max;
+  [Clamp] unsigned long min;
 };</pre>
         <section>
           <h2>Dictionary <dfn>ULongRange</dfn> Members</h2>
@@ -4476,9 +4497,10 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ConstrainULongRange : ULongRange {
-             [Clamp] unsigned long exact;
-             [Clamp] unsigned long ideal;
+        <pre class="idl"
+>dictionary ConstrainULongRange : ULongRange {
+  [Clamp] unsigned long exact;
+  [Clamp] unsigned long ideal;
 };</pre>
         <section>
           <h2>Dictionary <dfn>ConstrainULongRange</dfn> Members</h2>
@@ -4498,9 +4520,10 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ConstrainBooleanParameters {
-             boolean exact;
-             boolean ideal;
+        <pre class="idl"
+>dictionary ConstrainBooleanParameters {
+  boolean exact;
+  boolean ideal;
 };</pre>
         <section>
           <h2>Dictionary <dfn>ConstrainBooleanParameters</dfn> Members</h2>
@@ -4520,9 +4543,10 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">dictionary ConstrainDOMStringParameters {
-             (DOMString or sequence&lt;DOMString&gt;) exact;
-             (DOMString or sequence&lt;DOMString&gt;) ideal;
+        <pre class="idl"
+>dictionary ConstrainDOMStringParameters {
+  (DOMString or sequence&lt;DOMString&gt;) exact;
+  (DOMString or sequence&lt;DOMString&gt;) ideal;
 };</pre>
         <section>
           <h2>Dictionary <dfn>ConstrainDOMStringParameters</dfn> Members</h2>
@@ -4544,8 +4568,8 @@ async function specifyCamera() {
         </section>
       </div>
       <div>
-        <pre class="idl">
-        typedef ([Clamp] unsigned long or ConstrainULongRange) ConstrainULong;</pre>
+        <pre class="idl"
+>typedef ([Clamp] unsigned long or ConstrainULongRange) ConstrainULong;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
           <dfn>ConstrainULong</dfn> is used to refer to the <span class=
@@ -4554,8 +4578,8 @@ async function specifyCamera() {
         </div>
       </div>
       <div>
-        <pre class="idl">
-        typedef (double or ConstrainDoubleRange) ConstrainDouble;</pre>
+        <pre class="idl"
+>typedef (double or ConstrainDoubleRange) ConstrainDouble;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
           <dfn>ConstrainDouble</dfn> is used to refer to the <span class=
@@ -4563,8 +4587,8 @@ async function specifyCamera() {
         </div>
       </div>
       <div>
-        <pre class="idl">
-        typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean;</pre>
+        <pre class="idl"
+>typedef (boolean or ConstrainBooleanParameters) ConstrainBoolean;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
           <dfn>ConstrainBoolean</dfn> is used to refer to the <span class=
@@ -4572,8 +4596,10 @@ async function specifyCamera() {
         </div>
       </div>
       <div>
-        <pre class="idl">
-        typedef (DOMString or sequence&lt;DOMString&gt; or ConstrainDOMStringParameters) ConstrainDOMString;</pre>
+        <pre class="idl"
+>typedef (DOMString or
+         sequence&lt;DOMString&gt; or
+         ConstrainDOMStringParameters) ConstrainDOMString;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
           <dfn>ConstrainDOMString</dfn> is used to refer to the <span class=
@@ -4626,8 +4652,7 @@ async function specifyCamera() {
       below dictionary, but instead provide its own definition. See
       <code><a>MediaTrackCapabilities</a></code> for an example.
       <div>
-        <pre class="idl">dictionary Capabilities {
-};</pre>
+        <pre class="idl">dictionary Capabilities {};</pre>
       </div>
     </section>
     <section>
@@ -4656,8 +4681,7 @@ async function specifyCamera() {
 the below dictionary, but instead provide its own definition. See <code><a>
       MediaTrackSettings</a></code> for an example.
       <div>
-        <pre class="idl">dictionary Settings {
-};</pre>
+        <pre class="idl">dictionary Settings {};</pre>
       </div>
     </section>
     <section id="constraints">
@@ -4669,8 +4693,7 @@ the below dictionary, but instead provide its own definition. See <code><a>
       "#media-track-constraints">MediaTrackConstraints</a> for an example of
       this.</p>
       <div>
-        <pre class="idl">dictionary ConstraintSet {
-};</pre>
+        <pre class="idl">dictionary ConstraintSet {};</pre>
       </div>
       <p>Each member of a <dfn>ConstraintSet</dfn> corresponds to a
       constrainable property and specifies a subset of the property's legal
@@ -4680,8 +4703,9 @@ the below dictionary, but instead provide its own definition. See <code><a>
       in the basic Constraints set and in the advanced ConstraintSets list, and
       MAY occur at most once in each ConstraintSet in the advanced list.</p>
       <div>
-        <pre class="idl">dictionary Constraints : ConstraintSet {
-             sequence&lt;ConstraintSet&gt; advanced;
+        <pre class="idl"
+>dictionary Constraints : ConstraintSet {
+  sequence&lt;ConstraintSet&gt; advanced;
 };</pre>
         <section>
           <h2>Dictionary <dfn>Constraints</dfn> Members</h2>
