@@ -414,11 +414,11 @@
       </ol>
       <div>
         <pre class="idl"
->[Exposed=Window,
- Constructor,
- Constructor (MediaStream stream),
- Constructor (sequence&lt;MediaStreamTrack&gt; tracks)]
+>[Exposed=Window]
 interface MediaStream : EventTarget {
+  constructor();
+  constructor(MediaStream stream);
+  constructor(sequence&lt;MediaStreamTrack&gt; tracks);
   readonly attribute DOMString id;
   sequence&lt;MediaStreamTrack&gt; getAudioTracks();
   sequence&lt;MediaStreamTrack&gt; getVideoTracks();
@@ -1945,8 +1945,9 @@ interface MediaStreamTrack : EventTarget {
       given target.</p>
       <div>
         <pre class="idl"
->[Exposed=Window, Constructor (DOMString type, MediaStreamTrackEventInit eventInitDict)]
+>[Exposed=Window]
 interface MediaStreamTrackEvent : Event {
+  constructor(DOMString type, MediaStreamTrackEventInit eventInitDict);
   [SameObject] readonly attribute MediaStreamTrack track;
 };</pre>
         <section>
