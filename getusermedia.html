@@ -899,7 +899,7 @@ interface MediaStreamTrack : EventTarget {
   MediaTrackCapabilities getCapabilities();
   MediaTrackConstraints getConstraints();
   MediaTrackSettings getSettings();
-  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints);
+  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
 };</pre>
           <section>
             <h2>Attributes</h2>
@@ -3408,7 +3408,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <pre class="idl"
 >partial interface MediaDevices {
   MediaTrackSupportedConstraints getSupportedConstraints();
-  Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints);
+  Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints = {});
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -4022,7 +4022,7 @@ const constraints = {
   Capabilities  getCapabilities();
   Constraints   getConstraints();
   Settings      getSettings();
-  Promise&lt;void&gt; applyConstraints(optional Constraints constraints);
+  Promise&lt;void&gt; applyConstraints(optional Constraints constraints = {});
 };</pre></div>
         <section>
           <h2>Methods</h2>
