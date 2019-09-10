@@ -1,3 +1,8 @@
+// ReSpec does not handle correctly overloaded constructors https://github.com/w3c/respec/issues/1939 https://github.com/w3c/respec/issues/2513
+// So we fix duplicate ids manually for now
+function dedupOverload() {
+  [...document.querySelectorAll("#idl-def-mediastream-constructor")].forEach((el, i) => el.id += '-' + i);
+}
 var respecConfig = {
    // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
    specStatus:           "ED",
@@ -110,4 +115,5 @@ var respecConfig = {
                 el.appendChild(img);
             });
     },
+  postProcess: [dedupOverload]
 };
