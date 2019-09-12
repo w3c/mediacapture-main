@@ -4,7 +4,7 @@
   <link href="getusermedia.css" rel="stylesheet" type="text/css">
   <title>Media Capture and Streams</title>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <script class="remove" src="respec-w3c-common-24-3-0.js" type="text/javascript">
+  <script class="remove" src="respec-w3c-common.js" type="text/javascript">
   //<![CDATA[
   <!-- keep this comment -->
   //]]>
@@ -414,11 +414,11 @@
       </ol>
       <div>
         <pre class="idl"
->[Exposed=Window,
- Constructor,
- Constructor (MediaStream stream),
- Constructor (sequence&lt;MediaStreamTrack&gt; tracks)]
+>[Exposed=Window]
 interface MediaStream : EventTarget {
+  constructor();
+  constructor(MediaStream stream);
+  constructor(sequence&lt;MediaStreamTrack&gt; tracks);
   readonly attribute DOMString id;
   sequence&lt;MediaStreamTrack&gt; getAudioTracks();
   sequence&lt;MediaStreamTrack&gt; getVideoTracks();
@@ -471,8 +471,7 @@ interface MediaStream : EventTarget {
               which is 36 characters long in its canonical form. To avoid
               fingerprinting, implementations SHOULD use the forms in section
               4.4 or 4.5 of RFC 4122 when generating UUIDs.</p>
-              <p>The <dfn data-lt-nodefault="" id=
-              "dom-mediastream-id"><code>id</code></dfn> attribute MUST return
+              <p>The <dfn data-idl><code>id</code></dfn> attribute MUST return
               the value to which it was initialized when the object was
               created.</p>
             </dd>
@@ -899,7 +898,7 @@ interface MediaStreamTrack : EventTarget {
   MediaTrackCapabilities getCapabilities();
   MediaTrackConstraints getConstraints();
   MediaTrackSettings getSettings();
-  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints);
+  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
 };</pre>
           <section>
             <h2>Attributes</h2>
@@ -930,7 +929,7 @@ interface MediaStreamTrack : EventTarget {
                 must be initialized is the algorithm to represent an incoming
                 network component with a <code><a>MediaStreamTrack</a></code>
                 object. [[WEBRTC10]]</p>
-                <p><dfn><code>id</code></dfn> attribute MUST return the value
+                <p><dfn data-idl><code>id</code></dfn> attribute MUST return the value
                 to which it was initialized when the object was created.</p>
               </dd>
               <dt><code>label</code> of type <span class=
@@ -962,8 +961,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><code>muted</code> of type <span class=
               "idlAttrType">boolean</span>, readonly</dt>
               <dd>
-                <p>The <dfn data-lt-nodefault="" id=
-                "dom-mediastreamtrack-muted"><code>muted</code></dfn> attribute
+                <p>The <dfn data-idl><code>muted</code></dfn> attribute
                 MUST return <code>true</code> if the track is <a href=
                 "#track-muted">muted</a>, and <code>false</code> otherwise.</p>
               </dd>
@@ -1945,8 +1943,9 @@ interface MediaStreamTrack : EventTarget {
       given target.</p>
       <div>
         <pre class="idl"
->[Exposed=Window, Constructor (DOMString type, MediaStreamTrackEventInit eventInitDict)]
+>[Exposed=Window]
 interface MediaStreamTrackEvent : Event {
+  constructor(DOMString type, MediaStreamTrackEventInit eventInitDict);
   [SameObject] readonly attribute MediaStreamTrack track;
 };</pre>
         <section>
@@ -3407,7 +3406,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <pre class="idl"
 >partial interface MediaDevices {
   MediaTrackSupportedConstraints getSupportedConstraints();
-  Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints);
+  Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints = {});
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -4017,11 +4016,12 @@ const constraints = {
       <div>
       <div class="example">Template:
         <pre class="idl"
->interface ConstrainablePattern {
+>[Exposed=Window]
+interface ConstrainablePattern {
   Capabilities  getCapabilities();
   Constraints   getConstraints();
   Settings      getSettings();
-  Promise&lt;void&gt; applyConstraints(optional Constraints constraints);
+  Promise&lt;void&gt; applyConstraints(optional Constraints constraints = {});
 };</pre></div>
         <section>
           <h2>Methods</h2>
