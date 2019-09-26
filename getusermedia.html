@@ -2913,13 +2913,6 @@ interface MediaDevices : EventTarget {
                       <p>Let <var>resultList</var> be an empty list.</p>
                     </li>
                     <li>
-                      <p>If this method has been called previously within this
-                      browsing session, let <var>oldList</var> be the list of
-                      <code><a>MediaDeviceInfo</a></code> objects that was
-                      produced at that call (<var>resultList</var>); otherwise,
-                      let <var>oldList</var> be an empty list.</p>
-                    </li>
-                    <li>
                       <p>Probe the User Agent for available media devices, and
                       run the following sub steps for each discovered device,
                       <var>device</var>:</p>
@@ -2941,13 +2934,6 @@ interface MediaDevices : EventTarget {
                           continue with the next device (if any).</p>
                         </li>
                         <li>
-                          <p>If <var>device</var> is represented by a
-                          <code><a>MediaDeviceInfo</a></code> object in
-                          <var>oldList</var>, append that object to
-                          <var>resultList</var>, abort these steps and continue
-                          with the next device (if any).</p>
-                        </li>
-                        <li>
                           <p>Let <var>deviceInfo</var> be a new
                           <code><a>MediaDeviceInfo</a></code> object to
                           represent <var>device</var>.</p>
@@ -2965,8 +2951,7 @@ interface MediaDevices : EventTarget {
                         </li>
                         <li>
                           <p>If <var>device</var> belongs to the same physical
-                          device as a device already represented in
-                          <var>oldList</var> or <var>resultList</var>,
+                          device as a device already represented for <var>document</var>,
                           initialize <var>deviceInfo</var>'s
                           <code><a data-link-for=
                           "MediaDeviceInfo">groupId</a></code> member to the
