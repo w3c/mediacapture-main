@@ -1,8 +1,3 @@
-// ReSpec does not handle correctly overloaded constructors https://github.com/w3c/respec/issues/1939 https://github.com/w3c/respec/issues/2513
-// So we fix duplicate ids manually for now
-function dedupOverload() {
-  [...document.querySelectorAll("#idl-def-mediastream-constructor")].forEach((el, i) => el.id += '-' + i);
-}
 var respecConfig = {
    // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
    specStatus:           "ED",
@@ -75,6 +70,7 @@ var respecConfig = {
    // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
    // Team Contact.
    wgPatentURI:   ["https://www.w3.org/2004/01/pp-impl/47318/status"],
+   github: "https://github.com/w3c/mediacapture-main/",
    otherLinks: [
     {
       key: "Participate",
@@ -82,14 +78,6 @@ var respecConfig = {
         {
           value: "Mailing list",
           href: "https://lists.w3.org/Archives/Public/public-webrtc/"
-        },
-        {
-          value: "Browse open issues",
-          href: "https://github.com/w3c/mediacapture-main/issues"
-        },
-        {
-          value: "File a bug",
-          href: "https://github.com/w3c/mediacapture-main/issues/new"
         }
       ]
     }
@@ -115,5 +103,4 @@ var respecConfig = {
                 el.appendChild(img);
             });
     },
-  postProcess: [dedupOverload]
 };
