@@ -2820,7 +2820,8 @@ interface MediaStreamTrackEvent : Event {
         </li>
       </ol>
       <p>When new media input and/or output devices are made available, or any
-      available input and/or output device becomes unavailable, the User Agent
+      available input and/or output device becomes unavailable, or the system
+      default camera changed, or the system default microphone changed, the User Agent
       MUST run the following steps in browsing contexts for which the
       <a>device information can be exposed check</a> returns <code>true</code>,
       but in no other contexts:</p>
@@ -2988,8 +2989,9 @@ interface MediaDevices : EventTarget {
                           section 4.4 or 4.5 of RFC 4122.</p>
                         </li>
                         <li>
-                          <p>Append <var>deviceInfo</var> to
-                          <var>resultList</var>.</p>
+                          <p>If <var>device</var> is the system default camera or the system default
+                          microphone, prepend <var>deviceInfo</var> to <var>resultList</var>.
+                          Otherwise, append <var>deviceInfo</var> to <var>resultList</var>.</p>
                         </li>
                       </ol>
                     </li>
