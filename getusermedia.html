@@ -2879,7 +2879,7 @@ interface MediaDevices : EventTarget {
               input and output devices.</p>
               <p>This method returns a promise. The promise will be
               <a>fulfilled</a> with a sequence of
-              <code><a>MediaDeviceInfo</a></code> dictionaries representing the
+              <code><a>MediaDeviceInfo</a></code> objects representing the
               User Agent's available media input and output devices if
               enumeration is successful.</p>
               <p>Elements of this sequence that represent input devices will be
@@ -2911,14 +2911,22 @@ interface MediaDevices : EventTarget {
                       and <a data-cite="!HTML/#gains-focus">has
                       focus.</a></p>
                     </li>
+                    <li><p>Let <var>resultList</var> be an empty list.</p></li>
                     <li>
-                      <p>If [[\storedDeviceList]] is not null, then let
-                      <var>resultList</var> be a copy of [[\storedDeviceList]],
-                      and jump to the step labeled <em>Complete
-                      Enumeration</em>.</p>
-                    </li>
-                    <li>
-                      <p>Let <var>resultList</var> be an empty list.</p>
+                      <p>If [[\storedDeviceList]] is not null, run the following sub steps:</p>
+                      <ol>
+                        <li>
+                          <p>For each <code><a>MediaDeviceInfo</a></code> object in [[\storedDeviceList]],
+                          <var>storedDeviceInfo</var>:
+                          <ul>
+                             <li>
+                               <p>Append to <var>resultList</var> a <code><a>MediaDeviceInfo</a></code>
+                               copy of <var>storedDeviceInfo</var>.</p>
+                             </li>
+                           </ul>
+                         </li>
+                        <li><p>Jump to the step labeled <em>Complete Enumeration</em>.</p></li>
+                      </ol>
                     </li>
                     <li>
                       <p>Probe the User Agent for available media devices, and
@@ -3044,10 +3052,10 @@ interface MediaDevices : EventTarget {
         information depends on whether or not permission has been granted to
         the page's origin.</p>
         <p>If no such access has been granted, the
-        <code><a>MediaDeviceInfo</a></code> dictionary will contain the
+        <code><a>MediaDeviceInfo</a></code> object will contain the
         deviceId, kind, and groupId.</p>
         <p>If access has been granted for a media device, the
-        <dfn>MediaDeviceInfo</dfn> dictionary will contain the deviceId, kind,
+        <dfn>MediaDeviceInfo</dfn> object will contain the deviceId, kind,
         label, and groupId.</p>
       </section>
       <section>
