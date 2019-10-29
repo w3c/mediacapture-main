@@ -2212,14 +2212,15 @@ interface MediaStreamTrackEvent : Event {
                 <code>autoplay</code> is <code>false</code>.</p>
               </li>
             </ol>
+            <div class="note">
+              <p>Once playback has ended, it won't resume if new
+              <code><a>MediaStreamTrack</a></code>s are added to the
+              <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+              <code>true</code> or the element is restarted, e.g., by the web
+              application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+              </p>
+            </div>
           </li>
-          <div class="note">
-            Once playback has ended, it won't resume if new
-            <code><a>MediaStreamTrack</a></code>s are added to the
-            <code><a>MediaStream</a></code> unless <code>autoplay</code> is
-            <code>true</code> or the element is restarted, e.g., by the web
-            application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
-          </div>
         </ol>
       </li>
       <li>
@@ -2247,14 +2248,15 @@ interface MediaStreamTrackEvent : Event {
                 <code>autoplay</code> is <code>false</code>.</p>
               </li>
             </ol>
+            <div class="note">
+              <p>Once playback has ended, it won't resume if new audio
+              <code><a>MediaStreamTrack</a></code>s are added to the
+              <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+              <code>true</code> or the element is restarted, e.g., by the web
+              application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+              </p>
+            </div>
           </li>
-          <div class="note">
-            Once playback has ended, it won't resume if new audio
-            <code><a>MediaStreamTrack</a></code>s are added to the
-            <code><a>MediaStream</a></code> unless <code>autoplay</code> is
-            <code>true</code> or the element is restarted, e.g., by the web
-            application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
-          </div>
         </ol>
       </li>
       <li>
