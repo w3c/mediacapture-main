@@ -2188,37 +2188,74 @@ interface MediaStreamTrackEvent : Event {
         is ordered</p>
       </li>
       <li>
-        <p>If the element is an <code>HTMLVideoElement</code>, then when the
-        <code><a>MediaStream</a></code> state moves from the active to the
-        <a href="#stream-inactive">inactive</a> state, the User Agent MUST
-        raise an <a data-cite=
-        "!HTML/#event-media-ended">ended</a>
-        event on the <code>HTMLVideoElement</code> and set its <a data-cite=
-        "!HTML/#dom-media-ended">ended</a>
-        attribute to <code>true</code>. Note that once <a data-cite=
-        "!HTML/#dom-media-ended">ended</a>
-        equals <code>true</code> the <code>HTMLVideoElement</code> will not
-        play media even if new <code><a>MediaStreamTrack</a></code>s are added
-        to the <code><a>MediaStream</a></code> (causing it to return to the
-        active state) unless <code>autoplay</code> is <code>true</code> or the
-        web application restarts the element, e.g., by calling <a data-cite=
-        "!HTML/#dom-media-play">play()</a>.</p>
-        <p>If the element is an <code>HTMLAudioElement</code>, then when the
-        <code><a>MediaStream</a></code> state moves from the audible to the
-        <a href="#stream-inaudible">inaudible</a> state, the User Agent MUST
-        raise an <a data-cite=
-        "!HTML/#event-media-ended">ended</a>
-        event on the <code>HTMLAudioElement</code> and set its <a data-cite=
-        "!HTML/#dom-media-ended">ended</a>
-        attribute to <code>true</code>. Note that once <a data-cite=
-        "!HTML/#dom-media-ended">ended</a>
-        equals <code>true</code> the <code>HTMLAudioElement</code> will not
-        play audio even if new audio <code><a>MediaStreamTrack</a></code>s are
-        added to the <code><a>MediaStream</a></code> (causing it to return to
-        the audible state) unless <code>autoplay</code> is <code>true</code> or
-        the web application restarts the element, e.g., by calling
-        <a data-cite="!HTML/#dom-media-play">
-        play()</a>.</p>
+        <p>If the element is an <code>HTMLVideoElement</code>, then it is said
+        to have <a data-cite="!HTML/#ended-playback">ended playback</a> when it
+        has <dfn>ended video playback</dfn>, which is when:</p>
+        <ol>
+          <li>
+            <p>The element's
+            <code><a data-cite="!HTML/#dom-media-readystate">readyState</a></code>
+            is <code><a data-cite="!HTML/#dom-media-have_metadata">HAVE_METADATA</a></code>
+            or greater, and</p>
+            <ol>
+              <li>
+                <p>The <code><a>MediaStream</a></code> state is
+                <a href="#stream-inactive">inactive</a> after having been
+                <a href="#stream-active">active</a>, or</p>
+              </li>
+              <li>
+                <p>The <code><a>MediaStream</a></code> state is
+                <a href="#stream-active">active</a> after having been
+                <a href="#stream-inactive">inactive</a> after having been
+                <a href="#stream-active">active</a> after <a data-cite=
+                "!HTML/#dom-media-play">play()</a> was last called, and
+                <code>autoplay</code> is <code>false</code>.</p>
+              </li>
+            </ol>
+          </li>
+          <div class="note">
+            Once playback has ended, it won't resume if new
+            <code><a>MediaStreamTrack</a></code>s are added to the
+            <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+            <code>true</code> or the element is restarted, e.g., by the web
+            application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+          </div>
+        </ol>
+      </li>
+      <li>
+        <p>If the element is an <code>HTMLAudioElement</code>, then it is said
+        to have <a data-cite="!HTML/#ended-playback">ended playback</a> when it
+        has <dfn>ended audio playback</dfn>, which is when:</p>
+        <ol>
+          <li>
+            <p>The element's
+            <code><a data-cite="!HTML/#dom-media-readystate">readyState</a></code>
+            is <code><a data-cite="!HTML/#dom-media-have_metadata">HAVE_METADATA</a></code>
+            or greater, and</p>
+            <ol>
+              <li>
+                <p>The <code><a>MediaStream</a></code> state is
+                <a href="#stream-inaudible">inaudible</a> after having been
+                <a href="#stream-audible">audible</a>, or</p>
+              </li>
+              <li>
+                <p>The <code><a>MediaStream</a></code> state is
+                <a href="#stream-audible">audible</a> after having been
+                <a href="#stream-inaudible">inaudible</a> after having been
+                <a href="#stream-audible">audible</a> after <a data-cite=
+                  "!HTML/#dom-media-play">play()</a> was last called, and
+                <code>autoplay</code> is <code>false</code>.</p>
+              </li>
+            </ol>
+          </li>
+          <div class="note">
+            Once playback has ended, it won't resume if new audio
+            <code><a>MediaStreamTrack</a></code>s are added to the
+            <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+            <code>true</code> or the element is restarted, e.g., by the web
+            application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+          </div>
+        </ol>
       </li>
       <li>
         <p>Any calls to the <code><a data-cite=
