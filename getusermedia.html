@@ -2149,9 +2149,11 @@ interface MediaStreamTrackEvent : Event {
     <h2>MediaStreams in Media Elements</h2>
     <p>A <code>MediaStream</code> may be assigned to media elements. A
     <code>MediaStream</code> is not preloadable or seekable and represents a
-    simple, potentially infinite, linear media timeline. The timeline starts at
-    0 and increments linearly in real time as long as the
-    <code>MediaStream</code> is playing. The timeline does not increment when
+    simple, potentially infinite, linear
+    <a data-cite="!HTML/#media-timeline">media timeline</a>. The timeline
+    starts at 0 and increments linearly in real time as long as the
+    media element is <a data-cite="!HTML/#potentially-playing">
+    potentially playing</a>. The timeline does not increment when
     the playout of the <code>MediaStream</code> is paused.</p>
     <p>User Agents that support this specification MUST support the
     <code><a data-cite=
