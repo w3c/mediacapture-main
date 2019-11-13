@@ -2803,6 +2803,10 @@ interface MediaStreamTrackEvent : Event {
               <p>Create one internal slot: [[\storedDeviceList]], initialized
               to null.</p>
             </li>
+            <li>
+              <p>Create one internal slot: [[\canExposeDeviceInfo]], initialized
+              to <code>false</code>.</p>
+            </li>
           </ol>
         </li>
         <li>
@@ -3049,10 +3053,8 @@ interface MediaDevices : EventTarget {
                           <code>live</code> MediaStreamTrack in the current
                           browsing context, set <var>list-permission</var> to
                           "granted", otherwise set <var>list-permission</var>
-                          to the result of <a data-lt=
-                          "retrieve the permission state">retrieving the
-                          permission state</a> of the "device-info"
-                          permission.</p>
+                          to "granted" if [[\canExposeDeviceInfo]] is
+                          <code>true</code> and "denied" otherwise.</p>
                         </li>
                         <li>
                           <p>If <var>list-permission</var> is not "granted",
@@ -3107,18 +3109,18 @@ interface MediaDevices : EventTarget {
         "device-information-can-be-exposed">device information can be exposed check</dfn>,
         run the following steps:</p>
         <ol>
-          <li>If the <a data-lt="retrieve the permission state">permission state</a>
-            of the "device-info" permission is "granted" for this browsing context, return <code>true</code>.
+          <li>If [[\canExposeDeviceInfo]] is <code>true</code>, return <code>true</code>.
           </li>
-          <li>If any of the input devices are attached to an
-            <a href="#stream-active">active</a> <code><a>MediaStream</a></code>
-            in the browsing context, return <code>true</code>.</li>
           <li>If the <a>current settings object</a>'s <a>responsible
           document</a> is <a data-cite="!HTML/#fully-active">fully
           active</a> and <a data-cite="!HTML/#gains-focus">has
           focus</a>, return <code>true</code>.
           </li>
           <li>Return <code>false</code>.</li>
+          <div class="note">
+            <p>A User Agent MAY at any point set back [[\canExposeDeviceInfo]] to <code>false</code>, for instance in the case
+            the user explicitly asks the User Agent to revoke device access on a given browsing context.</p>
+          </div>
         </ol>
       </section>
     </section>
@@ -3664,11 +3666,12 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       tracks in <var>stream</var> with the appropriate
                       constraints. Should this fail, let
                       <var>failedConstraint</var> be the result of the
-                      algorithm that failed if the <a data-lt="retrieve the
-                          permission state">permission state</a> of the
-                      "device-info" permission is "granted" for this browsing
-                      context or <code>undefined</code> otherwise, and jump to the step
+                      algorithm that failed if [[\canExposeDeviceInfo]] is <code>true</code>,
+                      or <code>undefined</code> otherwise, and jump to the step
                       labeled <em>Constraint Failure</em> below.</p>
+                    </li>
+                    <li>
+                      <p>Set [[\canExposeDeviceInfo] to <code>true</code>.</p>
                     </li>
                     <li>
                       <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
