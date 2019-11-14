@@ -24,7 +24,7 @@ before_install:
   - nvm install lts/*
 
 install:
- - export RESPEC_RELEASE="v24.32.1"
+ - export RESPEC_RELEASE="v24.33.2"
  - make travissetup
 
 script:
