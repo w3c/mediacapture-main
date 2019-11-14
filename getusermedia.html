@@ -84,8 +84,8 @@
       </dd>
       <dt><code><dfn>DOMException</dfn></code></dt>
       <dd>
-        The term <code>DOMException</code> is defined in <a href=
-        "https://www.w3.org/TR/WebIDL-1/#idl-DOMException">WebIDL</a>
+        The term <code>DOMException</code> is defined in <a data-cite=
+        "WEBIDL-1#idl-DOMException">WebIDL</a>
         [[!WEBIDL-1]]
       </dd>
       <dt><dfn>source</dfn></dt>
@@ -108,7 +108,7 @@
         processing, such as downsampling, MAY be used to ensure that all tracks
         have appropriate media.</p>
         <p>Sources have constrainable properties which have
-        <code><a>capabilities</a></code> and <code><a>settings</a></code>
+        {{capabilities}} and {{settings}}
         exposed on tracks. While the constrainable properties are "owned" by
         the source, sources MAY be able to accomodate different demands at
         once. For this reason, capabilities are common to any (multiple) tracks
@@ -120,7 +120,7 @@
       </dd>
       <dt>Setting (Source Setting)</dt>
       <dd>
-        <p>A <a href="#settings">setting</a> refers to the immediate, current
+        <p>A <a>setting</a> refers to the immediate, current
         value of the source's constrainable properties. Settings are always
         read-only.</p>
         <p>A source conditions may dynamically change, such as when a camera
@@ -193,7 +193,7 @@
           <li><dfn>optional basic constraints</dfn> are the remaining
         <a data-lt="advanced constraints">non-advanced</a> constraints.</li>
           <li><dfn>advanced constraints</dfn> are all constraints specified
-        using the <code><a href="#dom-constraints-advanced">advanced</a></code>
+        using the {{Constraints/advanced}}
         keyword.</li>
         </ul>
         <p>In general, User Agents will have more flexibility to optimize the
@@ -219,17 +219,17 @@
       <h2>Introduction</h2>
       <p>The two main components in the MediaStream API are the
       <dfn>MediaStreamTrack</dfn> and <dfn>MediaStream</dfn> interfaces. The
-      <code><a>MediaStreamTrack</a></code> object represents media of a single
+      {{MediaStreamTrack}} object represents media of a single
       type that originates from one media source in the User Agent, e.g. video
-      produced by a web camera. A <code><a>MediaStream</a></code> is used to
-      group several <code><a>MediaStreamTrack</a></code> objects into one unit
+      produced by a web camera. A {{MediaStream}} is used to
+      group several {{MediaStreamTrack}} objects into one unit
       that can be recorded or rendered in a media element.</p>
-      <p>Each <code><a>MediaStream</a></code> can contain zero or more
-      <code><a>MediaStreamTrack</a></code> objects. All tracks in a
-      <code><a>MediaStream</a></code> are intended to be synchronized when
+      <p>Each {{MediaStream}} can contain zero or more
+      {{MediaStreamTrack}} objects. All tracks in a
+      {{MediaStream}} are intended to be synchronized when
       rendered. This is not a hard requirement, since it might not be possible
       to synchronize tracks from sources that have different clocks. Different
-      <code><a>MediaStream</a></code> objects do not need to be
+      {{MediaStream}} objects do not need to be
       synchronized.</p>
       <p class="note">While the intent is to synchronize tracks, it could be
       better in some circumstances to permit tracks to lose synchronization. In
@@ -238,31 +238,31 @@
       delays or risk glitches and other artifacts. Implementations are expected
       to understand the implications of choices regarding synchronization of
       playback and the effect that these have on user perception.</p>
-      <p>A single <code><a>MediaStreamTrack</a></code> can represent
+      <p>A single {{MediaStreamTrack}} can represent
       multi-channel content, such as stereo or 5.1 audio or stereoscopic video,
       where the channels have a well defined relationship to each other.
       Information about channels might be exposed through other APIs, such as
       [[WEBAUDIO]], but this specification provides no direct access to
       channels.</p>
-      <p>A <code><a>MediaStream</a></code> object has an input and an output
+      <p>A {{MediaStream}} object has an input and an output
       that represent the combined input and output of all the object's tracks.
-      The output of the <code><a>MediaStream</a></code> controls how the object
+      The output of the {{MediaStream}} controls how the object
       is rendered, e.g., what is saved if the object is recorded to a file or
       what is displayed if the object is used in a <code>video</code> element.
-      A single <code><a>MediaStream</a></code> object can be attached to
+      A single {{MediaStream}} object can be attached to
       multiple different outputs at the same time.</p>
-      <p>A new <code><a>MediaStream</a></code> object can be created from
+      <p>A new {{MediaStream}} object can be created from
       existing media streams or tracks using the
-      <code><a>MediaStream()</a></code> constructor. The constructor argument
-      can either be an existing <code><a>MediaStream</a></code> object, in
+      {{MediaStream()}} constructor. The constructor argument
+      can either be an existing {{MediaStream}} object, in
       which case all the tracks of the given stream are added to the new
-      <code><a>MediaStream</a></code> object, or an array of
-      <code><a>MediaStreamTrack</a></code> objects. The latter form makes it
+      {{MediaStream}} object, or an array of
+      {{MediaStreamTrack}} objects. The latter form makes it
       possible to compose a stream from different source streams.</p>
-      <p>Both <code><a>MediaStream</a></code> and
-      <code><a>MediaStreamTrack</a></code> objects can be cloned. A cloned
-      <code><a>MediaStream</a></code> contains clones of all member tracks from
-      the original stream. A cloned <code><a>MediaStreamTrack</a></code> has a
+      <p>Both {{MediaStream}} and
+      {{MediaStreamTrack}} objects can be cloned. A cloned
+      {{MediaStream}} contains clones of all member tracks from
+      the original stream. A cloned {{MediaStreamTrack}} has a
       <a href="#constrainable-interface">set of constraints</a> that is
       independent of the instance it is cloned from, which allows media from
       the same source to have different constraints applied for different
@@ -273,18 +273,17 @@
       <h2>MediaStream</h2>
       <p>The <dfn><code>MediaStream()</code></dfn> constructor composes a new
       stream out of existing tracks. It takes an optional argument of type
-      <code><a>MediaStream</a></code> or an array of
-      <code><a>MediaStreamTrack</a></code> objects. <dfn id=
+      {{MediaStream}} or an array of
+      {{MediaStreamTrack}} objects. <dfn data-lt="MediaStream Constructor algorithm" id=
       "mediastream-constructor">When the constructor is invoked</dfn>, the User
       Agent must run the following steps:</p>
       <ol>
         <li>
           <p>Let <var>stream</var> be a newly constructed
-          <code><a>MediaStream</a></code> object.</p>
+          {{MediaStream}} object.</p>
         </li>
         <li>
-          <p>Initialize <var>stream's</var> <code><a href=
-          "#dom-mediastream-id">id</a></code> attribute to a newly generated
+          <p>Initialize <var>stream's</var> {{MediaStream/id}} attribute to a newly generated
           value.</p>
         </li>
         <li>
@@ -296,34 +295,34 @@
               of argument:</p>
               <ul>
                 <li>
-                  <p>A <code><a>MediaStream</a></code> object:</p>
+                  <p>A {{MediaStream}} object:</p>
                   <p>Let <var>tracks</var> be a set containing all the
-                  <code><a>MediaStreamTrack</a></code> objects in the
-                  <code><a>MediaStream</a></code> <a href="#track-set">track
+                  {{MediaStreamTrack}} objects in the
+                  {{MediaStream}} <a>track
                   set</a>.</p>
                 </li>
                 <li>
-                  <p>A sequence of <code><a>MediaStreamTrack</a></code>
+                  <p>A sequence of {{MediaStreamTrack}}
                   objects:</p>
                   <p>Let <var>tracks</var> be a set containing all the
-                  <code><a>MediaStreamTrack</a></code> objects in the provided
+                  {{MediaStreamTrack}} objects in the provided
                   sequence.</p>
                 </li>
               </ul>
             </li>
             <li>
-              <p>For each <code><a>MediaStreamTrack</a></code>,
+              <p>For each {{MediaStreamTrack}},
               <var>track</var> , in <var>tracks</var>, run the following
               steps:</p>
               <ol>
                 <li>
                   <p>If <var>track</var> is already in <var>stream</var>'s
-                  <a href="#track-set">track set</a>, skip
+                  <a>track set</a>, skip
                   <var>track</var>.</p>
                 </li>
                 <li>
                   <p>Otherwise, add <var>track</var> to <var>stream</var>'s
-                  <a href="#track-set">track set</a>.</p>
+                  <a>track set</a>.</p>
                 </li>
               </ol>
             </li>
@@ -333,82 +332,70 @@
           <p>Return <var>stream</var>.</p>
         </li>
       </ol>
-      <p>The tracks of a <code><a>MediaStream</a></code> are stored in a
+      <p>The tracks of a {{MediaStream}} are stored in a
       <dfn id="track-set">track set</dfn>. The track set MUST contain the
-      <code><a>MediaStreamTrack</a></code> objects that correspond to the
+      {{MediaStreamTrack}} objects that correspond to the
       tracks of the stream. The relative order of the tracks in the set is User
       Agent defined and the API will never put any requirements on the order.
-      The proper way to find a specific <code><a>MediaStreamTrack</a></code>
-      object in the set is to look it up by its <code><a href=
-      "#dom-mediastreamtrack-id">id</a></code>.</p>
+      The proper way to find a specific {{MediaStreamTrack}}
+      object in the set is to look it up by its {{MediaStreamTrack/id}}.</p>
       <p>An object that reads data from the output of a
-      <code><a>MediaStream</a></code> is referred to as a
-      <code><a>MediaStream</a></code> <dfn>consumer</dfn>. The list of
-      <code><a>MediaStream</a></code> consumers currently include media
+      {{MediaStream}} is referred to as a
+      {{MediaStream}} <dfn>consumer</dfn>. The list of
+      {{MediaStream}} consumers currently include media
       elements (such as <code>&lt;video&gt;</code> and
       <code>&lt;audio&gt;</code>) [[HTML52]], Web Real-Time Communications
       (WebRTC; <code>RTCPeerConnection</code>) [[WEBRTC10]], media recording
       (<code>MediaRecorder</code>) [[mediastream-recording]], image capture
       (<code>ImageCapture</code>) [[image-capture]], and web audio
       (<code>MediaStreamAudioSourceNode</code>) [[WEBAUDIO]].</p>
-      <p class="note"><code><a>MediaStream</a></code> consumers must be able to
+      <p class="note">{{MediaStream}} consumers must be able to
       handle tracks being added and removed. This behavior is specified per
       consumer.</p>
-      <p>A <code><a>MediaStream</a></code> object is said to be <dfn id=
+      <p>A {{MediaStream}} object is said to be <dfn id=
       "stream-active">active</dfn> when it has at least one
-      <code><a>MediaStreamTrack</a></code> that has not <a href=
-      "#track-ended">ended</a>. A <code><a>MediaStream</a></code> that does not
-      have any tracks or only has tracks that are <a href=
-      "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
-      <p>A <code><a>MediaStream</a></code> object is said to be <dfn id=
+      {{MediaStreamTrack}} that has not <a data-lt="ended track">ended</a>. A {{MediaStream}} that does not
+      have any tracks or only has tracks that are <a data-lt="ended track">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
+      <p>A {{MediaStream}} object is said to be <dfn id=
       "stream-audible">audible</dfn> when it has at least one
-      <code><a>MediaStreamTrack</a></code> whose <code><a href=
-      "#dom-mediastreamtrack-kind">kind</a></code> is "<code>audio</code>" that
-      has not <a href="#track-ended">ended</a>. A
-      <code><a>MediaStream</a></code> that does not have any audio tracks or
-      only has audio tracks that are <a href="#track-ended">ended</a> is
+      {{MediaStreamTrack}} whose {{MediaStreamTrack/kind}} is "<code>audio</code>" that
+      has not <a data-lt="ended track">ended</a>. A
+      {{MediaStream}} that does not have any audio tracks or
+      only has audio tracks that are <a data-lt="ended track">ended</a> is
       <dfn id="stream-inaudible">inaudible</dfn>.</p>
-      <p>The User Agent may update a <code><a>MediaStream</a></code>'s <a href=
-      "#track-set">track set</a> in response to, for example, an external
+      <p>The User Agent may update a {{MediaStream}}'s <a>track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
       specifications using the MediaStream API may. One such example is the
-      WebRTC 1.0 [[WEBRTC10]] specification where the <a href=
-      "#track-set">track set</a> of a <code><a>MediaStream</a></code>, received
+      WebRTC 1.0 [[WEBRTC10]] specification where the <a>track set</a> of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
       <p>To <dfn id="add-track">add a track</dfn> <var>track</var> to a
-      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST
+      {{MediaStream}} <var>stream</var>, the User Agent MUST
       run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>track</var> is already in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
+          <p>If <var>track</var> is already in <var>stream's</var> <a>track set</a>, then abort these steps.</p>
         </li>
         <li>
-          <p>Add <var>track</var> to <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
+          <p>Add <var>track</var> to <var>stream</var>'s <a>track set</a>.</p>
         </li>
         <li>
-          <p>Fire a track event named <code><a href=
-          "#event-mediastream-addtrack">addtrack</a></code> with
+          <p>Fire a track event named {{addtrack}} with
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
       <p>To <dfn id="remove-track">remove a track</dfn> <var>track</var> from a
-      <code><a>MediaStream</a></code> <var>stream</var>, the User Agent MUST
+      {{MediaStream}} <var>stream</var>, the User Agent MUST
       run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>track</var> is not in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
+          <p>If <var>track</var> is not in <var>stream's</var> <a>track set</a>, then abort these steps.</p>
         </li>
         <li>
-          <p>Remove <var>track</var> from <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
+          <p>Remove <var>track</var> from <var>stream</var>'s <a>track set</a>.</p>
         </li>
         <li>
-          <p>Fire a track event named <code><a href=
-          "#event-mediastream-removetrack">removetrack</a></code> with
+          <p>Fire a track event named {{removetrack}} with
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
@@ -437,7 +424,7 @@ interface MediaStream : EventTarget {
           "constructors">
             <dt><code>MediaStream</code></dt>
             <dd>
-              <p>See the <a href="#mediastream-constructor">MediaStream
+              <p>See the <a>MediaStream
               constructor algorithm</a></p>
               <div>
                 <em>No parameters.</em>
@@ -445,12 +432,12 @@ interface MediaStream : EventTarget {
             </dd>
             <dt><code>MediaStream</code></dt>
             <dd>
-              <p>See the <a href="#mediastream-constructor">MediaStream
+              <p>See the <a>MediaStream
               constructor algorithm</a></p>
             </dd>
             <dt><code>MediaStream</code></dt>
             <dd>
-              <p>See the <a href="#mediastream-constructor">MediaStream
+              <p>See the <a>MediaStream
               constructor algorithm</a></p>
             </dd>
           </dl>
@@ -462,9 +449,9 @@ interface MediaStream : EventTarget {
             <dt><code>id</code> of type <span class=
             "idlAttrType">DOMString</span>, readonly</dt>
             <dd>
-              <p>When a <code><a>MediaStream</a></code> is created, the User
+              <p>When a {{MediaStream}} is created, the User
               Agent MUST generate an identifier string, and MUST initialize the
-              object's <code><a href="#dom-mediastream-id">id</a></code>
+              object's {{MediaStream/id}}
               attribute to that string, unless the object is created as part of
               a special purpose algorithm that specifies how the stream id must
               be initialized. A good practice is to use a UUID [[rfc4122]],
@@ -477,23 +464,21 @@ interface MediaStream : EventTarget {
             </dd>
             <dt><dfn><code>active</code></dfn> of type <span class=
             "idlAttrType">boolean</span>, readonly</dt>
-            <dd>
+            <dd data-link-for="">
               <p>The <code>active</code> attribute MUST return
-              <code>true</code> if this <code><a>MediaStream</a></code> is
-              <a href="#stream-active">active</a> and <code>false</code>
+              <code>true</code> if this {{MediaStream}} is
+              <a>active</a> and <code>false</code>
               otherwise.</p>
             </dd>
             <dt><dfn><code>onaddtrack</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
-            <dd>
-              <p>The event type of this event handler is <code><a href=
-              "#event-mediastream-addtrack">addtrack</a></code>.</p>
+            <dd data-link-for="">
+              <p>The event type of this event handler is {{addtrack}}.</p>
             </dd>
             <dt><dfn><code>onremovetrack</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
-            <dd>
-              <p>The event type of this event handler is <code><a href=
-              "#event-mediastream-removetrack">removetrack</a></code>.</p>
+            <dd data-link-for="">
+              <p>The event type of this event handler is {{removetrack}}.</p>
             </dd>
           </dl>
         </section>
@@ -503,43 +488,38 @@ interface MediaStream : EventTarget {
           "methods">
             <dt><code>getAudioTracks</code></dt>
             <dd>
-              <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
+              <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing the audio tracks in this stream.</p>
               <p>The <dfn id=
               "dom-mediastream-getaudiotracks"><code>getAudioTracks</code></dfn>
               method MUST return a sequence that represents a snapshot of all
-              the <code><a>MediaStreamTrack</a></code> objects in this stream's
-              <a href="#track-set">track set</a> whose <code><a href=
-              "#dom-mediastreamtrack-kind">kind</a></code> is equal to
-              "<code>audio</code>". The conversion from the <a href=
-              "#track-set">track set</a> to the sequence is User Agent defined
+              the {{MediaStreamTrack}} objects in this stream's
+              <a>track set</a> whose {{MediaStreamTrack/kind}} is equal to
+              "<code>audio</code>". The conversion from the <a>track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
             </dd>
             <dt><code>getVideoTracks</code></dt>
             <dd>
-              <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
+              <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing the video tracks in this stream.</p>
               <p>The <dfn id=
               "dom-mediastream-getvideotracks"><code>getVideoTracks</code></dfn>
               method MUST return a sequence that represents a snapshot of all
-              the <code><a>MediaStreamTrack</a></code> objects in this stream's
-              <a href="#track-set">track set</a> whose <code><a href=
-              "#dom-mediastreamtrack-kind">kind</a></code> is equal to
-              "<code>video</code>". The conversion from the <a href=
-              "#track-set">track set</a> to the sequence is User Agent defined
+              the {{MediaStreamTrack}} objects in this stream's
+              <a>track set</a> whose {{MediaStreamTrack/kind}} is equal to
+              "<code>video</code>". The conversion from the <a>track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
             </dd>
             <dt><code>getTracks</code></dt>
             <dd>
-              <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
+              <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing all the tracks in this stream.</p>
               <p>The <dfn id=
               "dom-mediastream-gettracks"><code>getTracks</code></dfn> method
               MUST return a sequence that represents a snapshot of all the
-              <code><a>MediaStreamTrack</a></code> objects in this stream's
-              <a href="#track-set">track set</a>, regardless of <code><a href=
-              "#dom-mediastreamtrack-kind">kind</a></code>. The conversion from
-              the <a href="#track-set">track set</a> to the sequence is User
+              {{MediaStreamTrack}} objects in this stream's
+              <a>track set</a>, regardless of {{MediaStreamTrack/kind}}. The conversion from
+              the <a>track set</a> to the sequence is User
               Agent defined and the order does not have to be stable between
               calls.</p>
             </dd>
@@ -547,40 +527,39 @@ interface MediaStream : EventTarget {
             <dd>
               <p>The <dfn id=
               "dom-mediastream-gettrackbyid"><code>getTrackById</code></dfn>
-              method MUST return either a <code><a>MediaStreamTrack</a></code>
-              object from this stream's <a href="#track-set">track set</a>
-              whose <code><a href="#dom-mediastreamtrack-id">id</a></code> is
+              method MUST return either a {{MediaStreamTrack}}
+              object from this stream's <a>track set</a>
+              whose {{MediaStreamTrack/id}} is
               equal to <var>trackId</var>, or null, if no such track
               exists.</p>
             </dd>
             <dt><code>addTrack</code></dt>
             <dd>
-              <p>Adds the given <code><a>MediaStreamTrack</a></code> to this
-              <code><a>MediaStream</a></code>.</p>
+              <p>Adds the given {{MediaStreamTrack}} to this
+              {{MediaStream}}.</p>
               <p>When the <dfn id=
               "dom-mediastream-addtrack"><code>addTrack</code></dfn> method is
               invoked, the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>track</var> be the methods argument and
-                  <var>stream</var> the <code><a>MediaStream</a></code> object
+                  <var>stream</var> the {{MediaStream}} object
                   on which the method was called.</p>
                 </li>
                 <li>
                   <p>If <var>track</var> is already in <var>stream</var>'s
-                  <a href="#track-set">track set</a>, then abort these
+                  <a>track set</a>, then abort these
                   steps.</p>
                 </li>
                 <li>
-                  <p>Add <var>track</var> to <var>stream</var>'s <a href=
-                  "#track-set">track set</a>.</p>
+                  <p>Add <var>track</var> to <var>stream</var>'s <a>track set</a>.</p>
                 </li>
               </ol>
             </dd>
             <dt><code>removeTrack</code></dt>
             <dd>
-              <p>Removes the given <code><a>MediaStreamTrack</a></code> object
-              from this <code><a>MediaStream</a></code>.</p>
+              <p>Removes the given {{MediaStreamTrack}} object
+              from this {{MediaStream}}.</p>
               <p>When the <dfn id=
               "dom-mediastream-removetrack"><code>removeTrack</code></dfn>
               method is invoked, the User Agent MUST run the following
@@ -588,39 +567,36 @@ interface MediaStream : EventTarget {
               <ol>
                 <li>
                   <p>Let <var>track</var> be the methods argument and
-                  <var>stream</var> the <code><a>MediaStream</a></code> object
+                  <var>stream</var> the {{MediaStream}} object
                   on which the method was called.</p>
                 </li>
                 <li>
-                  <p>If <var>track</var> is not in <var>stream's</var> <a href=
-                  "#track-set">track set</a>, then abort these steps.</p>
+                  <p>If <var>track</var> is not in <var>stream's</var> <a>track set</a>, then abort these steps.</p>
                 </li>
                 <li>
-                  <p>Remove <var>track</var> from <var>stream</var>'s <a href=
-                  "#track-set">track set</a>.</p>
+                  <p>Remove <var>track</var> from <var>stream</var>'s <a>track set</a>.</p>
                 </li>
               </ol>
             </dd>
             <dt><dfn><code>clone</code></dfn></dt>
             <dd>
-              <p>Clones the given <code><a>MediaStream</a></code> and all its
+              <p>Clones the given {{MediaStream}} and all its
               tracks.</p>
               <p>When the <code>clone()</code> method is invoked, the User
               Agent MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>streamClone</var> be a newly constructed
-                  <code><a>MediaStream</a></code> object.</p>
+                  {{MediaStream}} object.</p>
                 </li>
                 <li>
-                  <p>Initialize <var>streamClone</var>'s <code><a href=
-                  "#dom-mediastream-id">id</a></code> attribute to a newly
+                  <p>Initialize <var>streamClone</var>'s {{MediaStream/id}} attribute to a newly
                   generated value.</p>
                 </li>
                 <li>
-                  <p><a href="#track-clone">Clone each track</a> in this
-                  <code><a>MediaStream</a></code> object and add the result to
-                  <var>streamClone</var>'s <a href="#track-set">track
+                  <p><a data-lt="clone a track">Clone each track</a> in this
+                  {{MediaStream}} object and add the result to
+                  <var>streamClone</var>'s <a>track
                   set</a>.</p>
                 </li>
                 <li>Return <var>streamClone</var>.</li>
@@ -632,22 +608,21 @@ interface MediaStream : EventTarget {
     </section>
     <section>
       <h2>MediaStreamTrack</h2>
-      <p>A <code><a>MediaStreamTrack</a></code> object represents a media
+      <p>A {{MediaStreamTrack}} object represents a media
       source in the User Agent. An example source is a device connected to the
       User Agent. Other specifications may define sources for
-      <code><a>MediaStreamTrack</a></code> that override the behavior specified
-      here. Several <code><a>MediaStreamTrack</a></code> objects can represent
+      {{MediaStreamTrack}} that override the behavior specified
+      here. Several {{MediaStreamTrack}} objects can represent
       the same media source, e.g., when the user chooses the same camera in the
       UI shown by two consecutive calls to <code><a data-link-for=
       "MediaDevices">getUserMedia()</a></code> .</p>
-      <p>The data from a <code><a>MediaStreamTrack</a></code> object does not
+      <p>The data from a {{MediaStreamTrack}} object does not
       necessarily have a canonical binary form; for example, it could just be
       "the video currently coming from the user's video camera". This allows
       User Agents to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
-      <p>A script can indicate that a <code><a>MediaStreamTrack</a></code>
-      object no longer needs its source with the <code><a href=
-      "#dom-mediastreamtrack-stop">stop()</a></code> method. When all tracks
+      <p>A script can indicate that a {{MediaStreamTrack}}
+      object no longer needs its source with the {{MediaStreamTrack/stop()}} method. When all tracks
       using a source have been stopped or ended by some other means, the source
       is <dfn id="source-stopped">stopped</dfn>. If the source is a device
       exposed by <a data-link-for="MediaDevices">getUserMedia()</a>, then when
@@ -676,24 +651,19 @@ interface MediaStream : EventTarget {
       the following steps:</p>
       <ol>
         <li>
-          <p>Let <var>track</var> be the <code><a>MediaStreamTrack</a></code>
+          <p>Let <var>track</var> be the {{MediaStreamTrack}}
           object to be cloned.</p>
         </li>
         <li>
           <p>Let <var>trackClone</var> be a newly constructed
-          <code><a>MediaStreamTrack</a></code> object.</p>
+          {{MediaStreamTrack}} object.</p>
         </li>
         <li>
-          <p>Initialize <var>trackClone</var>'s <code><a href=
-          "#dom-mediastreamtrack-id">id</a></code> attribute to a newly
+          <p>Initialize <var>trackClone</var>'s {{MediaStreamTrack/id}} attribute to a newly
           generated value.</p>
         </li>
         <li>
-          <p>Initialize <var>trackClone</var>'s <code><a href=
-          "#dom-mediastreamtrack-kind">kind</a></code>, <code><a href=
-          "#dom-mediastreamtrack-label">label</a></code>, <code><a href=
-          "#dom-mediastreamtrack-readystate">readyState</a></code>, and
-          <code><a href="#dom-mediastreamtrack-enabled">enabled</a></code>
+          <p>Initialize <var>trackClone</var>'s {{MediaStreamTrack/kind}}, {{MediaStreamTrack/label}}, {{MediaStreamTrack/readyState}}, and {{MediaStreamTrack/enabled}}
           attributes by copying the corresponding values from
           <var>track</var>.</p>
         </li>
@@ -712,23 +682,22 @@ interface MediaStream : EventTarget {
       <section>
         <h3>Life-cycle and Media Flow</h3>
         <h4>Life-cycle</h4>
-        <p>A <code><a>MediaStreamTrack</a></code> has two states in its
+        <p>A {{MediaStreamTrack}} has two states in its
         life-cycle: <code>live</code> and <code>ended</code>. A newly created
-        <code><a>MediaStreamTrack</a></code> can be in either state depending
+        {{MediaStreamTrack}} can be in either state depending
         on how it was created. For example, cloning an ended track results in a
         new ended track. The current state is reflected by the object's
-        <code><a href="#dom-mediastreamtrack-readystate">readyState</a></code>
+        {{MediaStreamTrack/readyState}}
         attribute.</p>
         <p>In the <code>live</code> state, the track is active and media is
         available for use by consumers (but may be replaced by
-        zero-information-content if the <code><a>MediaStreamTrack</a></code> is
-        <a href="#track-muted">muted</a> or <a href=
-        "#track-enabled">disabled</a>, see below).</p>
-        <p>A muted or disabled <code><a>MediaStreamTrack</a></code> renders
+        zero-information-content if the {{MediaStreamTrack}} is
+        <a data-lt="muted track">muted</a> or <a>disabled</a>, see below).</p>
+        <p>A muted or disabled {{MediaStreamTrack}} renders
         either silence (audio), black frames (video), or a
         zero-information-content equivalent. For example, a video element
-        sourced by a muted or disabled <code><a>MediaStreamTrack</a></code>
-        (contained within a <code><a>MediaStream</a></code> ), is playing but
+        sourced by a muted or disabled {{MediaStreamTrack}}
+        (contained within a {{MediaStream}} ), is playing but
         the rendered content is the muted output.</p>
         <p>If the source is a device exposed by <a data-link-for=
         "MediaDevices">getUserMedia()</a>, then when a track becomes either
@@ -743,83 +712,74 @@ interface MediaStream : EventTarget {
         provides any media at this moment. The enabled/disabled state is under
         application control and determines whether the track outputs media (to
         its consumers). Hence, media from the source only flows when a
-        <code><a>MediaStreamTrack</a></code> object is both unmuted and
+        {{MediaStreamTrack}} object is both unmuted and
         enabled.</p>
-        <p>A <code><a>MediaStreamTrack</a></code> is <a href=
-        "#track-muted">muted</a> when the source is temporarily unable to
+        <p>A {{MediaStreamTrack}} is <a data-lt="muted track">muted</a> when the source is temporarily unable to
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
         the operating system / browser chrome. A track can also be muted by the
         User Agent.</p>
-        <p>Applications are able to <a href="#track-enabled">enable</a> or
-        disable a <code><a>MediaStreamTrack</a></code> to prevent it from
+        <p>Applications are able to <a>enable</a> or
+        disable a {{MediaStreamTrack}} to prevent it from
         rendering media from the source. A muted track will however, regardless
         of the enabled state, render silence and blackness. A disabled track is
         logically equivalent to a muted track, from a consumer point of
         view.</p>
-        <p>For a newly created <code><a>MediaStreamTrack</a></code> object, the
+        <p>For a newly created {{MediaStreamTrack}} object, the
         following applies. The track is always enabled unless stated otherwise
         (for example when cloned) and the muted state reflects the state of the
         source at the time the track is created.</p>
-        <p>A <code><a>MediaStreamTrack</a></code> object is said to
+        <p>A {{MediaStreamTrack}} object is said to
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
-        <p>If all <code><a>MediaStreamTrack</a></code>s that are using the same
-        source are <a href="#track-ended">ended</a>, the source will be
-        <a href="#source-stopped">stopped</a>.</p>
-        <p>When a <code><a>MediaStreamTrack</a></code> object ends for any
+        <p>If all {{MediaStreamTrack}}s that are using the same
+        source are <a data-lt="ended track">ended</a>, the source will be
+        <a>stopped</a>.</p>
+        <p>When a {{MediaStreamTrack}} object ends for any
         reason (e.g., because the user rescinds the permission for the page to
         use the local camera, or because the application invoked the
-        <code><a href="#dom-mediastreamtrack-stop">stop()</a></code> method on
-        the <code><a>MediaStreamTrack</a></code> object, or because the User
+        {{MediaStreamTrack/stop()}} method on
+        the {{MediaStreamTrack}} object, or because the User
         Agent has instructed the track to end for any reason) it is said to be
-        <dfn id="track-ended">ended</dfn>.</p>
-        <p>When a <code><a>MediaStreamTrack</a></code> <var>track</var>
-        <dfn id="ends-nostop">ends for any reason other than the <code><a href=
-        "#dom-mediastreamtrack-stop">stop()</a></code> method being
+        <dfn id="track-ended" data-lt="ended track" data-lt-noDefault>ended</dfn>.</p>
+        <p>When a {{MediaStreamTrack}} <var>track</var>
+        <dfn id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
         invoked</dfn>, the User Agent MUST queue a task that runs the following
         steps:</p>
         <ol>
           <li>
-            <p>If the <var>track's</var> <code><a href=
-            "#dom-mediastreamtrack-readystate">readyState</a></code> attribute
+            <p>If the <var>track's</var> {{MediaStreamTrack/readyState}} attribute
             has the value <code>ended</code> already, then abort these
             steps.</p>
           </li>
           <li>
-            <p>Set <var>track's</var> <code><a href=
-            "#dom-mediastreamtrack-readystate">readyState</a></code> attribute
+            <p>Set <var>track's</var> {{MediaStreamTrack/readyState}} attribute
             to <code>ended</code>.</p>
           </li>
           <li>
             <p>Notify <var>track</var>'s source that <var>track</var> is
-            <a href="#track-ended">ended</a> so that the source may be <a href=
-            "#source-stopped">stopped</a>, unless other
-            <code><a>MediaStreamTrack</a></code> objects depend on it.</p>
+            <a data-lt="ended track">ended</a> so that the source may be <a>stopped</a>, unless other
+            {{MediaStreamTrack}} objects depend on it.</p>
           </li>
           <li>
-            <p>Fire a simple event named <code><a href=
-            "#event-mediastreamtrack-ended">ended</a></code> at the object.</p>
+            <p>Fire a simple event named {{ended}} at the object.</p>
           </li>
         </ol>
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
         <h4>Media Flow</h4>
         <p>There are two dimensions related to the media flow for a
-        <code>live</code> <code><a>MediaStreamTrack</a></code> : muted / not
+        <code>live</code> {{MediaStreamTrack}} : muted / not
         muted, and enabled / disabled.</p>
-        <p><dfn data-lt-nodefault="" data-lt="track-muted" id=
+        <p><dfn data-lt-nodefault="" data-lt="muted track" id=
         "track-muted">Muted</dfn> refers to the input to the
-        <code><a>MediaStreamTrack</a></code>. If live samples are not made
-        available to the <code><a>MediaStreamTrack</a></code> it is muted.</p>
+        {{MediaStreamTrack}}. If live samples are not made
+        available to the {{MediaStreamTrack}} it is muted.</p>
         <p>Muted is out of control for the application, but can be observed by
-        the application by reading the <code><a href=
-        "#dom-mediastreamtrack-muted">muted</a></code> attribute and listening
-        to the associated events <code><a href=
-        "#event-mediastreamtrack-mute">mute</a></code> and <code><a href=
-        "#event-mediastreamtrack-unmute">unmute</a></code>. There can be
-        several reasons for a <code><a>MediaStreamTrack</a></code> to be muted:
+        the application by reading the {{MediaStreamTrack/muted}} attribute and listening
+        to the associated events <a>mute</a> and <a>unmute</a>. There can be
+        several reasons for a {{MediaStreamTrack}} to be muted:
         the user pushing a physical mute button on the microphone, the user
         toggling a control in the operating system, the user clicking a mute
         button in the browser chrome, the User Agent (on behalf of the user)
@@ -848,31 +808,31 @@ interface MediaStream : EventTarget {
             <var>track</var>.</p>
           </li>
         </ol>
-        <p><dfn id="track-enabled">Enabled/disabled</dfn> on the other hand is
+        <p><dfn id="track-enabled" data-lt="enabled|disabled|enable">Enabled/disabled</dfn> on the other hand is
         available to the application to control (and observe) via the
-        <code><a href="#dom-mediastreamtrack-enabled">enabled</a></code>
+        {{MediaStreamTrack/enabled}}
         attribute.</p>
         <p>The result for the consumer is the same in the sense that whenever
-        <code><a>MediaStreamTrack</a></code> is muted or disabled (or both) the
+        {{MediaStreamTrack}} is muted or disabled (or both) the
         consumer gets zero-information-content, which means silence for audio
         and black frames for video. In other words, media from the source only
-        flows when a <code><a>MediaStreamTrack</a></code> object is both
+        flows when a {{MediaStreamTrack}} object is both
         unmuted and enabled. For example, a video element sourced by a muted or
-        disabled <code><a>MediaStreamTrack</a></code> (contained in a
-        <code><a>MediaStream</a></code> ), is playing but rendering
+        disabled {{MediaStreamTrack}} (contained in a
+        {{MediaStream}} ), is playing but rendering
         blackness.</p>
-        <p>For a newly created <code><a>MediaStreamTrack</a></code> object, the
+        <p>For a newly created {{MediaStreamTrack}} object, the
         following applies: the track is always enabled unless stated otherwise
         (for example when cloned) and the muted state reflects the state of the
         source at the time the track is created.</p>
       </section>
       <section>
         <h3>Tracks and Constraints</h3>
-        <p><code><a>MediaStreamTrack</a></code> is a <a>constrainable
-        object</a> as defined in the <a href=
-        "#constrainable-interface">Constrainable Pattern</a> section.
+        <p>{{MediaStreamTrack}} is a <a>constrainable
+        object</a> as defined in <a href=
+        "#constrainable-interface"></a>.
         Constraints are set on tracks and may affect sources.</p>
-        <p>Whether <code><a>Constraints</a></code> were provided at track
+        <p>Whether {{Constraints}} were provided at track
         initialization time or need to be established later at runtime, the
         APIs defined in the <a>ConstrainablePattern</a> Interface allow the
         retrieval and manipulation of the constraints currently established on
@@ -916,18 +876,16 @@ interface MediaStreamTrack : EventTarget {
               <dt><code>id</code> of type <span class=
               "idlAttrType">DOMString</span>, readonly</dt>
               <dd>
-                <p>When a <code><a>MediaStreamTrack</a></code> is created, the
+                <p>When a {{MediaStreamTrack}} is created, the
                 User Agent MUST generate an identifier string, and MUST
-                initialize the object's <code><a href=
-                "#dom-mediastreamtrack-id">id</a></code> attribute to that
+                initialize the object's {{MediaStreamTrack/id}} attribute to that
                 string, unless the object is created as part of a special
                 purpose algorithm that specifies how the stream id must be
-                initialized. See <code><a>MediaStream</a></code>'s
-                <code><a href="#dom-mediastream-id">id</a></code> attribute for
+                initialized. See {{MediaStream}}'s {{MediaStream/id}} attribute for
                 guidelines on how to generate such an identifier.</p>
                 <p>An example of an algorithm that specifies how the track id
                 must be initialized is the algorithm to represent an incoming
-                network component with a <code><a>MediaStreamTrack</a></code>
+                network component with a {{MediaStreamTrack}}
                 object. [[WEBRTC10]]</p>
                 <p><dfn data-idl><code>id</code></dfn> attribute MUST return the value
                 to which it was initialized when the object was created.</p>
@@ -947,14 +905,11 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled"><code>enabled</code></dfn>
-                attribute controls the <code><a href=
-                "#track-enabled">enabled</a></code> state for the object.</p>
+                attribute controls the <a data-link-for="">enabled</a> state for the object.</p>
                 <p>On getting, the attribute MUST return the value to which it
                 was last set. On setting, it MUST be set to the new value.</p>
                 <p class="note">Thus, after a
-                <code><a>MediaStreamTrack</a></code> has <a href=
-                "#track-ended">ended</a>, its <code><a href=
-                "#dom-mediastreamtrack-enabled">enabled</a></code> attribute
+                {{MediaStreamTrack}} has <a data-lt="ended track">ended</a>, its {{enabled}} attribute
                 still changes value when set; it just doesn't do anything with
                 that new value.</p>
               </dd>
@@ -962,20 +917,17 @@ interface MediaStreamTrack : EventTarget {
               "idlAttrType">boolean</span>, readonly</dt>
               <dd>
                 <p>The <dfn data-idl><code>muted</code></dfn> attribute
-                MUST return <code>true</code> if the track is <a href=
-                "#track-muted">muted</a>, and <code>false</code> otherwise.</p>
+                MUST return <code>true</code> if the track is <a data-lt="muted track">muted</a>, and <code>false</code> otherwise.</p>
               </dd>
               <dt><dfn><code>onmute</code></dfn> of type <span class=
               "idlAttrType"><a>EventHandler</a></span></dt>
               <dd>
-                <p>The event type of this event handler is <code><a href=
-                "#event-mediastreamtrack-mute">mute</a></code>.</p>
+                <p>The event type of this event handler is {{mute}}.</p>
               </dd>
               <dt><dfn><code>onunmute</code></dfn> of type <span class=
               "idlAttrType"><a>EventHandler</a></span></dt>
               <dd>
-                <p>The event type of this event handler is <code><a href=
-                "#event-mediastreamtrack-unmute">unmute</a></code>.</p>
+                <p>The event type of this event handler is {{unmute}}.</p>
               </dd>
               <dt><code>readyState</code> of type <span class=
               "idlAttrType"><a>MediaStreamTrackState</a></span>, readonly</dt>
@@ -988,8 +940,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn><code>onended</code></dfn> of type <span class=
               "idlAttrType"><a>EventHandler</a></span></dt>
               <dd>
-                <p>The event type of this event handler is <code><a href=
-                "#event-mediastreamtrack-ended">ended</a></code>.</p>
+                <p>The event type of this event handler is {{ended}}.</p>
               </dd>
             </dl>
           </section>
@@ -999,37 +950,35 @@ interface MediaStreamTrack : EventTarget {
             "MediaStreamTrack" class="methods">
               <dt><dfn><code>clone</code></dfn></dt>
               <dd>
-                <p>Clones this <code><a>MediaStreamTrack</a></code>.</p>
+                <p>Clones this {{MediaStreamTrack}}.</p>
                 <p>When the <code>clone()</code> method is invoked, the User
-                Agent MUST return the result of <a href="#track-clone">cloning
+                Agent MUST return the result of <a data-lt="clone a track">cloning
                 this track</a>.</p>
               </dd>
               <dt><code>stop</code></dt>
               <dd>
-                <p>When a <code><a>MediaStreamTrack</a></code> object's
+                <p>When a {{MediaStreamTrack}} object's
                 <code><dfn>stop()</dfn></code> method is invoked, the User
                 Agent MUST run following steps:</p>
                 <ol>
                   <li>
                     <p>Let <var>track</var> be the current
-                    <code><a>MediaStreamTrack</a></code> object.</p>
+                    {{MediaStreamTrack}} object.</p>
                   </li>
                   <li>
-                    <p>If <var>track</var>'s <code><a href=
-                    "#dom-mediastreamtrack-readystate">readyState</a></code>
+                    <p>If <var>track</var>'s {{MediaStreamTrack/readyState}}
                     attribute is ended, then abort these steps.</p>
                   </li>
                   <li>
                     <p>Notify <var>track</var>'s source that <var>track</var>
-                    is <a href="#track-ended">ended</a>.</p>
+                    is <a data-lt="track ended">ended</a>.</p>
                     <p>A source that is notified of a track ending will be
-                    <a href="#source-stopped">stopped</a>, unless other
-                    <code><a>MediaStreamTrack</a></code> objects depend on
+                    <a>stopped</a>, unless other
+                    {{MediaStreamTrack}} objects depend on
                     it.</p>
                   </li>
                   <li>
-                    <p>Set <var>track's</var> <code><a href=
-                    "#dom-mediastreamtrack-readystate">readyState</a></code>
+                    <p>Set <var>track's</var> {{MediaStreamTrack/readyState}}
                     attribute to <code>ended</code>.</p>
                   </li>
                 </ol>
@@ -1037,28 +986,24 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>getCapabilities()</dfn></dt>
               <dd>
                 <p>Returns the capabilites of the source that this
-                <code><a>MediaStreamTrack</a></code>, the <a>constrainable
+                {{MediaStreamTrack}}, the <a>constrainable
                 object</a>, represents.</p>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method.</p>
+                <p>See <a href="#constrainable-interface"></a> for the definition of this method.</p>
                 <p class="fingerprint">Since this method gives likely
                 persistent, cross-origin information about the underlying
                 device, it adds to the fingerprint surface of the device.</p>
               </dd>
               <dt><dfn><code>getConstraints()</code></dfn></dt>
               <dd>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method.</p>
+                <p>See <a href="#constrainable-interface"></a> for the definition of this method.</p>
               </dd>
               <dt><dfn><code>getSettings()</code></dfn></dt>
               <dd>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method.</p>
+                <p>See <a href="#constrainable-interface"></a> for the definition of this method.</p>
               </dd>
               <dt><dfn><code>applyConstraints()</code></dfn></dt>
               <dd>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method, where</p>
+                <p>See <a href="#constrainable-interface"></a> for the definition of this method, where</p>
                 <ul>
                   <li>In the <a>SelectSettings</a> algorithm,
                     <ul>
@@ -1106,8 +1051,7 @@ interface MediaStreamTrack : EventTarget {
                   is making a best-effort attempt to provide data in real
                   time).</p>
                   <p>The output of a track in the <code>live</code> state can
-                  be switched on and off with the <code><a href=
-                  "#dom-mediastreamtrack-enabled">enabled</a></code>
+                  be switched on and off with the {{MediaStreamTrack/enabled}}
                   attribute.</p>
                 </td>
               </tr>
@@ -1115,12 +1059,12 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn><code id=
                 "idl-def-MediaStreamTrackState.ended">ended</code></dfn></td>
                 <td>
-                  <p>The track has <a href="#track-ended">ended</a> (the
+                  <p>The track has <a data-lt="ended track">ended</a> (the
                   track's underlying media source is no longer providing data,
                   and will never provide more data for this track). Once a
                   track enters this state, it never exits it.</p>
                   <p>For example, a video track in a
-                  <code><a>MediaStream</a></code> ends when the user unplugs
+                  {{MediaStream}} ends when the user unplugs
                   the USB web camera that acts as the track's media source.</p>
                 </td>
               </tr>
@@ -1130,16 +1074,16 @@ interface MediaStreamTrack : EventTarget {
       </section>
       <section id="media-track-supported-constraints">
         <h2><dfn>MediaTrackSupportedConstraints</dfn></h2>
-        <p><code><a>MediaTrackSupportedConstraints</a></code> represents the
+        <p>{{MediaTrackSupportedConstraints}} represents the
         list of constraints recognized by a User Agent for controlling the
-        <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code> object.
+        <a>Capabilities</a> of a {{MediaStreamTrack}} object.
         This dictionary is used as a function return value, and never as an
         operation argument.</p>
         <p>Future specifications can extend the MediaTrackSupportedConstraints
         dictionary by defining a partial dictionary with dictionary members of
         type boolean.</p>
         <p class="note">The constraints specified in this specification apply
-        only to instances of <code><a>MediaStreamTrack</a></code> generated by
+        only to instances of {{MediaStreamTrack}} generated by
         <a data-link-for="MediaDevices">getUserMedia()</a>, unless stated
         otherwise in other specifications.</p>
         <div>
@@ -1166,98 +1110,70 @@ interface MediaStreamTrack : EventTarget {
             "idlType">MediaTrackSupportedConstraints</a> Members</h2>
             <dl data-link-for="MediaTrackSupportedConstraints" data-dfn-for=
             "MediaTrackSupportedConstraints" class="dictionary-members">
-              <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>width</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href="#def-constraint-width">width</a></code>
+              <dd>See <a data-lt="width constraint">width</a>
               for details.</dd>
-              <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>height</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href="#def-constraint-height">height</a></code>
+              <dd>See <code><a data-lt="height constraint">height</a></code>
               for details.</dd>
-              <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>aspectRatio</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
-              <dt><dfn><code>frameRate</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dd>See <code><a data-lt="aspectRatio constraint">aspectRatio</a></code> for details.</dd>
+              <dt><dfn><code>frameRate</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-frameRate">frameRate</a></code> for
+              <dd>See <code><a data-lt="frameRate constraint">frameRate</a></code> for
               details.</dd>
-              <dt><dfn><code>facingMode</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>facingMode</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-facingMode">facingMode</a></code> for
+              <dd>See <code><a data-lt="facingMode constraint">facingMode</a></code> for
               details.</dd>
-              <dt><dfn><code>resizeMode</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>resizeMode</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-resizeMode">resizeMode</a></code> for
+              <dd>See <code><a data-lt="resizeMode constraint">resizeMode</a></code> for
               details.</dd>
-              <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>sampleRate</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleRate">sampleRate</a></code> for
+              <dd>See <code><a data-lt="sampleRate constraint">sampleRate</a></code> for
               details.</dd>
-              <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>sampleSize</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleSize">sampleSize</a></code> for
+              <dd>See <code><a data-lt="sampleSize constraint">sampleSize</a></code> for
               details.</dd>
-              <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>echoCancellation</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-echoCancellation">echoCancellation</a></code>
+              <dd>See <code><a data-lt="echoCancellation constraint">echoCancellation</a></code>
               for details.</dd>
-              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>autoGainControl</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-autoGainControl">autoGainControl</a></code> for
+              <dd>See <code><a data-lt="autoGainControl constraint">autoGainControl</a></code> for
               details.</dd>
-              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>noiseSuppression</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+              <dd>See <code><a data-lt="noiseSuppression constraint">noiseSuppression</a></code>
               for details.</dd>
-              <dt><dfn><code>latency</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>latency</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-latency">latency</a></code> for details.</dd>
-              <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dd>See <code><a data-lt="latency constraint">latency</a></code> for details.</dd>
+              <dt><dfn><code>channelCount</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-channelCount">channelCount</a></code> for
+              <dd>See <code><a data-lt="channelCount constraint">channelCount</a></code> for
               details.</dd>
-              <dt><dfn><code>deviceId</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dt><dfn><code>deviceId</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
-              <dt><dfn><code>groupId</code></dfn> of type <span class=
-              "idlMemberType">boolean</span>, defaulting to
+              <dd>See <code><a data-lt="deviceId constraint">deviceId</a></code> for details.</dd>
+              <dt><dfn><code>groupId</code></dfn> of type boolean, defaulting to
               <code>true</code></dt>
-              <dd>See <code><a href=
-              "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="groupId constraint">groupId</a></code> for details.</dd>
             </dl>
           </section>
         </div>
       </section>
       <section id="media-track-capabilities">
         <h2><dfn>MediaTrackCapabilities</dfn></h2>
-        <p><code><a>MediaTrackCapabilities</a></code> represents the
-        <a>Capabilities</a> of a <code><a>MediaStreamTrack</a></code>
+        <p>{{MediaTrackCapabilities}} represents the
+        <a>Capabilities</a> of a {{MediaStreamTrack}}
         object.</p>
         <p>Future specifications can extend the MediaTrackCapabilities
         dictionary by defining a partial dictionary with dictionary members of
@@ -1288,20 +1204,18 @@ interface MediaStreamTrack : EventTarget {
             "MediaTrackCapabilities" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
-              <dd>See <code><a href="#def-constraint-width">width</a></code>
+              <dd>See <code><a data-lt="width constraint">width</a></code>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
-              <dd>See <code><a href="#def-constraint-height">height</a></code>
+              <dd>See <code><a data-lt="height constraint">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
+              <dd>See <code><a data-lt="aspectRatio constraint">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-frameRate">frameRate</a></code> for
+              <dd>See <code><a data-lt="frameRate constraint">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
               "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
@@ -1309,8 +1223,7 @@ interface MediaStreamTrack : EventTarget {
                 <p>A camera can report multiple facing modes. For example, in a
                 high-end telepresence solution with several cameras facing the
                 user, a camera to the left of the user can report both "left"
-                and "user". See <code><a href=
-                "#def-constraint-facingMode">facingMode</a></code> for
+                and "user". See <code><a data-lt="facingMode constraint">facingMode</a></code> for
                 additional details.</p>
               </dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
@@ -1321,19 +1234,16 @@ interface MediaStreamTrack : EventTarget {
                 The reported sequence MUST list all the means the UA may employ
                 to derive resolution choices for this camera. The value "none"
                 MUST be present, indicating the ability to constrain the UA
-                from cropping and downscaling. See <code><a href=
-                "#def-constraint-resizeMode">resizeMode</a></code> for
+                from cropping and downscaling. See <code><a data-lt="resizeMode contraint">resizeMode</a></code> for
                 additional details.</p>
               </dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleRate">sampleRate</a></code> for
+              <dd>See <code><a data-lt="sampleRate constraint">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleSize">sampleSize</a></code> for
+              <dd>See <code><a data-lt="sampleSize constraint">sampleSize</a></code> for
               details.</dd>
               <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
               "idlMemberType">sequence&lt;boolean&gt;</span></dt>
@@ -1343,8 +1253,7 @@ interface MediaStreamTrack : EventTarget {
                 turned off, a single <code>true</code> is reported. If the
                 script can control the feature, the source reports a list with
                 both <code>true</code> and <code>false</code> as possible
-                values. See <code><a href=
-                "#def-constraint-echoCancellation">echoCancellation</a></code>
+                values. See <code><a data-lt="echoCancellation constraint">echoCancellation</a></code>
                 for additional details.</p>
               </dd>
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
@@ -1355,8 +1264,7 @@ interface MediaStreamTrack : EventTarget {
                 turned off, a single <code>true</code> is reported. If the
                 script can control the feature, the source reports a list with
                 both <code>true</code> and <code>false</code> as possible
-                values. See <code><a href=
-                "#def-constraint-autoGainControl">autoGainControl</a></code>
+                values. See <code><a data-lt="autoGainControl constraint">autoGainControl</a></code>
                 for additional details.</p>
               </dd>
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
@@ -1367,27 +1275,22 @@ interface MediaStreamTrack : EventTarget {
                 turned off, a single <code>true</code> is reported. If the
                 script can control the feature, the source reports a list with
                 both <code>true</code> and <code>false</code> as possible
-                values. See <code><a href=
-                "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+                values. See <code><a data-lt="noiseSuppression constraint">noiseSuppression</a></code>
                 for additional details.</p>
               </dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>DoubleRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-latency">latency</a></code> for details.</dd>
+              <dd>See <code><a data-lt="latency constraint">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
               "idlMemberType"><a>ULongRange</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-channelCount">channelCount</a></code> for
+              <dd>See <code><a data-lt="channelCount constraint">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="deviceId constraint">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="groupId constraint">groupId</a></code> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1440,83 +1343,65 @@ interface MediaStreamTrack : EventTarget {
             Members</h2>
             <dl data-link-for="MediaTrackConstraintSet" data-dfn-for=
             "MediaTrackConstraintSet" class="dictionary-members">
-              <dt><dfn><code>width</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainULong</a></span></dt>
-              <dd>See <code><a href="#def-constraint-width">width</a></code>
+              <dt><dfn><code>width</code></dfn> of type {{ConstrainULong}}</dt>
+              <dd>See <code><a data-lt="width constraint">width</a></code>
               for details.</dd>
-              <dt><dfn><code>height</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainULong</a></span></dt>
-              <dd>See <code><a href="#def-constraint-height">height</a></code>
+              <dt><dfn><code>height</code></dfn> of type {{ConstrainULong}}</dt>
+              <dd>See <code><a data-lt="height constraint">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
+              <dd>See <code><a data-lt="aspectRatio constraint">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-frameRate">frameRate</a></code> for
+              <dd>See <code><a data-lt="frameRate constraint">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-facingMode">facingMode</a></code> for
+              <dd>See <code><a data-lt="facingMode constraint">facingMode</a></code> for
               details.</dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-resizeMode">resizeMode</a></code> for
+              <dd>See <code><a data-lt="resizeMode constraint">resizeMode</a></code> for
               details.</dd>
-              <dt><dfn><code>sampleRate</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainULong</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleRate">sampleRate</a></code> for
+              <dt><dfn><code>sampleRate</code></dfn> of type {{ConstrainULong}}</dt>
+              <dd>See <code><a data-lt="sampleRate constraint">sampleRate</a></code> for
               details.</dd>
-              <dt><dfn><code>sampleSize</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainULong</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleSize">sampleSize</a></code> for
+              <dt><dfn><code>sampleSize</code></dfn> of type {{ConstrainULong}}</dt>
+              <dd>See <code><a data-lt="sampleSize constraint">sampleSize</a></code> for
               details.</dd>
               <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainBoolean</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-echoCancellation">echoCancellation</a></code>
+              <dd>See <code><a data-lt="echoCancellation constraint">echoCancellation</a></code>
               for details.</dd>
               <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainBoolean</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-autoGainControl">autoGainControl</a></code> for
+              <dd>See <code><a data-lt="autoGainControl constraint">autoGainControl</a></code> for
               details.</dd>
               <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainBoolean</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+              <dd>See <code><a data-lt="noiseSuppression constraint">noiseSuppression</a></code>
               for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDouble</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-latency">latency</a></code> for details.</dd>
-              <dt><dfn><code>channelCount</code></dfn> of type <span class=
-              "idlMemberType"><a>ConstrainULong</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-channelCount">channelCount</a></code> for
+              <dd>See <code><a data-lt="latency constraint">latency</a></code> for details.</dd>
+              <dt><dfn><code>channelCount</code></dfn> of type {{ConstrainULong}}</dt>
+              <dd>See <code><a data-lt="channelCount constraint">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="deviceId constraint">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="groupId constraint">groupId</a></code> for details.</dd>
             </dl>
           </section>
         </div>
       </section>
       <section id="media-track-settings">
         <h2><dfn>MediaTrackSettings</dfn></h2>
-        <p><code><a>MediaTrackSettings</a></code> represents the
-        <a>Settings</a> of a <code><a>MediaStreamTrack</a></code> object.</p>
+        <p>{{MediaTrackSettings}} represents the
+        <a>Settings</a> of a {{MediaStreamTrack}} object.</p>
         <p>Future specifications can extend the MediaTrackSettings dictionary
         by defining a partial dictionary with dictionary members of appropriate
         type.</p>
@@ -1546,73 +1431,57 @@ interface MediaStreamTrack : EventTarget {
             "MediaTrackSettings" class="dictionary-members">
               <dt><dfn><code>width</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
-              <dd>See <code><a href="#def-constraint-width">width</a></code>
+              <dd>See <a data-lt="width constraint">width</a>
               for details.</dd>
               <dt><dfn><code>height</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
-              <dd>See <code><a href="#def-constraint-height">height</a></code>
+              <dd>See <code><a data-lt="height constraint">height</a></code>
               for details.</dd>
               <dt><dfn><code>aspectRatio</code></dfn> of type <span class=
               "idlMemberType">double</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-aspect">aspectRatio</a></code> for details.</dd>
+              <dd>See <code><a data-lt="aspectRatio constraint">aspectRatio</a></code> for details.</dd>
               <dt><dfn><code>frameRate</code></dfn> of type <span class=
               "idlMemberType">double</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-frameRate">frameRate</a></code> for
+              <dd>See <code><a data-lt="frameRate constraint">frameRate</a></code> for
               details.</dd>
               <dt><dfn><code>facingMode</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-facingMode">facingMode</a></code> for
+              <dd>See <code><a data-lt="facingMode constraint">facingMode</a></code> for
               details.</dd>
               <dt><dfn><code>resizeMode</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-resizeMode">resizeMode</a></code> for
+              <dd>See <code><a data-lt="resizeMode constraint">resizeMode</a></code> for
               details.</dd>
               <dt><dfn><code>sampleRate</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleRate">sampleRate</a></code> for
+              <dd>See <code><a data-lt="sampleRate constraint">sampleRate</a></code> for
               details.</dd>
               <dt><dfn><code>sampleSize</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-sampleSize">sampleSize</a></code> for
+              <dd>See <code><a data-lt="sampleSize constraint">sampleSize</a></code> for
               details.</dd>
-              <dt><dfn><code>echoCancellation</code></dfn> of type <span class=
-              "idlMemberType">boolean</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-echoCancellation">echoCancellation</a></code>
+              <dt><dfn><code>echoCancellation</code></dfn> of type boolean</dt>
+              <dd>See <code><a data-lt="echoCancellation constraint">echoCancellation</a></code>
               for details.</dd>
-              <dt><dfn><code>autoGainControl</code></dfn> of type <span class=
-              "idlMemberType">boolean</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-autoGainControl">autoGainControl</a></code> for
+              <dt><dfn><code>autoGainControl</code></dfn> of type boolean</dt>
+              <dd>See <code><a data-lt="autoGainControl constraint">autoGainControl</a></code> for
               details.</dd>
-              <dt><dfn><code>noiseSuppression</code></dfn> of type <span class=
-              "idlMemberType">boolean</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-noiseSuppression">noiseSuppression</a></code>
+              <dt><dfn><code>noiseSuppression</code></dfn> of type boolean</dt>
+              <dd>See <code><a data-lt="noiseSuppression constraint">noiseSuppression</a></code>
               for details.</dd>
               <dt><dfn><code>latency</code></dfn> of type <span class=
               "idlMemberType">double</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-latency">latency</a></code> for details.</dd>
+              <dd>See <code><a data-lt="latency constraint">latency</a></code> for details.</dd>
               <dt><dfn><code>channelCount</code></dfn> of type <span class=
               "idlMemberType">long</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-channelCount">channelCount</a></code> for
+              <dd>See <code><a data-lt="channelCount constraint">channelCount</a></code> for
               details.</dd>
               <dt><dfn><code>deviceId</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-deviceId">deviceId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="deviceId constraint">deviceId</a></code> for details.</dd>
               <dt><dfn><code>groupId</code></dfn> of type <span class=
               "idlMemberType">DOMString</span></dt>
-              <dd>See <code><a href=
-              "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dd>See <code><a data-lt="groupId constraint">groupId</a></code> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1622,7 +1491,7 @@ interface MediaStreamTrack : EventTarget {
         <p>The names of the initial set of constrainable properties for
         MediaStreamTrack are defined below.</p>
         <p>The following constrainable properties are defined to apply to both
-        video and audio <code><a>MediaStreamTrack</a></code> objects:</p>
+        video and audio {{MediaStreamTrack}} objects:</p>
         <table class="simple">
           <thead>
             <tr>
@@ -1633,31 +1502,27 @@ interface MediaStreamTrack : EventTarget {
           </thead>
           <tbody>
             <tr id="def-constraint-deviceId">
-              <td><dfn>deviceId</dfn></td>
+              <td><dfn data-lt="deviceId constraint">deviceId</dfn></td>
               <td>DOMString</td>
               <td>
                 The identifier of the device generating the content of the
                 <a>MediaStreamTrack</a>. It conforms with the definition of
-                <code><a>MediaDeviceInfo</a></code>.<code><a
-                href="#def-mediadeviceinfo-deviceId">deviceId</a></code>.
+                {{MediaDeviceInfo}}.{{MediaDeviceInfo/deviceId}}.
                 Note that the setting of this property is
                 uniquely determined by the source that is attached to the
-                <a>MediaStreamTrack</a>. In particular, <a data-link-for=
-                "MediaStreamTrack">getCapabilities()</a> will return only a
+                <a>MediaStreamTrack</a>. In particular, {{MediaStreamTrack/getCapabilities()}} will return only a
                 single value for deviceId. This property can therefore be used
-                for initial media selection with <a data-link-for=
-                "MediaDevices">getUserMedia()</a>. However, it is not useful
-                for subsequent media control with <a data-link-for=
-                "MediaStreamTrack">applyConstraints()</a>, since any attempt to
+                for initial media selection with {{MediaDevices/getUserMedia()}}. However, it is not useful
+                for subsequent media control with {{MediaStreamTrack/applyConstraints()}}, since any attempt to
                 set a different value will result in an unsatisfiable
                 <a>ConstraintSet</a>.
                 If a string of length 0 is used as a deviceId value constraint
-                with <a data-link-for="MediaDevices">getUserMedia()</a>, it
+                with {{MediaDevices/getUserMedia()}}, it
                 MAY be interpreted as if the constraint is not specified.
               </td>
             </tr>
             <tr id="def-constraint-groupId">
-              <td><dfn>groupId</dfn></td>
+              <td><dfn data-lt="groupId constraint">groupId</dfn></td>
               <td>DOMString</td>
               <td>
                 The <a data-link-type="dfn"
@@ -1665,8 +1530,7 @@ interface MediaStreamTrack : EventTarget {
                 document</a>-unique group identifier for the device
                 generating the content of the <a>MediaStreamTrack</a>.
                 It conforms with the definition of
-                <code><a>MediaDeviceInfo</a></code>.<code><a
-                href="#def-mediadeviceinfo-groupId">groupId</a></code>.
+                {{MediaDeviceInfo}}.{{MediaDeviceInfo/groupId}}.
                 Note that the setting of this property is uniquely
                 determined by the source that is attached to the
                 <a>MediaStreamTrack</a>. In particular, <a data-link-for=
@@ -1684,7 +1548,7 @@ interface MediaStreamTrack : EventTarget {
           </tbody>
         </table>
         <p>The following constrainable properties are defined to apply only to
-        video <code><a>MediaStreamTrack</a></code> objects:</p>
+        video {{MediaStreamTrack}} objects:</p>
         <table class="simple">
           <thead>
             <tr>
@@ -1695,24 +1559,24 @@ interface MediaStreamTrack : EventTarget {
           </thead>
           <tbody>
             <tr id="def-constraint-width">
-              <td><dfn>width</dfn></td>
-              <td><code><a>ConstrainULong</a></code></td>
+              <td><dfn data-lt="width constraint">width</dfn></td>
+              <td>{{ConstrainULong}}</td>
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
               min being the smallest width and max being the largest
               width.</td>
             </tr>
             <tr id="def-constraint-height">
-              <td><dfn>height</dfn></td>
-              <td><code><a>ConstrainULong</a></code></td>
+              <td><dfn data-lt="height constraint">height</dfn></td>
+              <td>{{ConstrainULong}}</td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
               min being the smallest height and max being the largest
               height.</td>
             </tr>
             <tr id="def-constraint-frameRate">
-              <td><dfn>frameRate</dfn></td>
-              <td><code><a>ConstrainDouble</a></code></td>
+              <td><dfn data-lt="frameRate constraint">frameRate</dfn></td>
+              <td>{{ConstrainDouble}}</td>
               <td>The exact frame rate (frames per second) or frame rate range.
               If this frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
@@ -1720,17 +1584,17 @@ interface MediaStreamTrack : EventTarget {
               the User Agent's vsync display rate.</td>
             </tr>
             <tr id="def-constraint-aspect">
-              <td><dfn>aspectRatio</dfn></td>
-              <td><code><a>ConstrainDouble</a></code></td>
+              <td><dfn data-lt="aspectRatio constraint">aspectRatio</dfn></td>
+              <td>{{ConstrainDouble}}</td>
               <td>The exact aspect ratio (width in pixels divided by height in
               pixels, represented as a double rounded to the tenth decimal
               place) or aspect ratio range.</td>
             </tr>
             <tr id="def-constraint-facingMode">
-              <td><dfn>facingMode</dfn></td>
-              <td><code><a>ConstrainDOMString</a></code></td>
+              <td><dfn data-lt="facingMode constraint">facingMode</dfn></td>
+              <td>{{ConstrainDOMString}}</td>
               <td>This string (or each string, when a list) should be one of
-              the members of <code><a>VideoFacingModeEnum</a></code>. The
+              the members of {{VideoFacingModeEnum}}. The
               members describe the directions that the camera can face, as seen
               from the user's perspective. Note that <code><a data-link-for=
               "ConstrainablePattern">getConstraints</a></code> may not return
@@ -1739,11 +1603,11 @@ interface MediaStreamTrack : EventTarget {
               enum for this property.</td>
             </tr>
             <tr id="def-constraint-resizeMode">
-              <td><dfn>resizeMode</dfn></td>
-              <td><code><a>ConstrainDOMString</a></code></td>
+              <td><dfn data-lt="resizeMode constraint">resizeMode</dfn></td>
+              <td>{{ConstrainDOMString}}</td>
               <td>
                 This string (or each string, when a list) should be one of the
-                members of <code><a>VideoResizeModeEnum</a></code>. The members
+                members of {{VideoResizeModeEnum}}. The members
                 describe the means by which the resolution can be derived by
                 the UA. In other words, whether the UA is allowed to use
                 cropping and downscaling on the camera output.
@@ -1850,7 +1714,7 @@ interface MediaStreamTrack : EventTarget {
           </table>
         </div>
         <p>The following constrainable properties are defined to apply only to
-        audio <code><a>MediaStreamTrack</a></code> objects:</p>
+        audio {{MediaStreamTrack}} objects:</p>
         <table class="simple">
           <thead>
             <tr>
@@ -1861,20 +1725,20 @@ interface MediaStreamTrack : EventTarget {
           </thead>
           <tbody>
             <tr id="def-constraint-sampleRate">
-              <td>sampleRate</td>
-              <td><code><a>ConstrainULong</a></code></td>
+              <td><dfn data-lt="sampleRate constraint">sampleRate</dfn></td>
+              <td>{{ConstrainULong}}</td>
               <td>The sample rate in samples per second for the audio
               data.</td>
             </tr>
             <tr id="def-constraint-sampleSize">
-              <td>sampleSize</td>
-              <td><code><a>ConstrainULong</a></code></td>
+              <td><dfn data-lt="sampleSize constraint">sampleSize</dfn></td>
+              <td>{{ConstrainULong}}</td>
               <td>The linear sample size in bits. This constraint can only be
               satisfied for audio devices that produce linear samples.</td>
             </tr>
             <tr id="def-constraint-echoCancellation">
-              <td>echoCancellation</td>
-              <td><code><a>ConstrainBoolean</a></code></td>
+              <td><dfn data-lt="echoCancellation constraint">echoCancellation</dfn></td>
+              <td>{{ConstrainBoolean}}</td>
               <td>When one or more audio streams is being played in the
               processes of various microphones, it is often desirable to
               attempt to remove all the sound being played from the input signals
@@ -1885,8 +1749,8 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-autoGainControl">
-              <td>autoGainControl</td>
-              <td><code><a>ConstrainBoolean</a></code></td>
+              <td><dfn data-lt="autoGainControl constraint">autoGainControl</dfn></td>
+              <td>{{ConstrainBoolean}}</td>
               <td>Automatic gain control is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
               needed and it is desirable to turn it off so that the audio is
@@ -1894,8 +1758,8 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-noiseSuppression">
-              <td>noiseSuppression</td>
-              <td><code><a>ConstrainBoolean</a></code></td>
+              <td><dfn data-lt="noiseSuppression constraint">noiseSuppression</dfn></td>
+              <td>{{ConstrainBoolean}}</td>
               <td>Noise suppression is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
               needed and it is desirable to turn it off so that the audio is
@@ -1903,8 +1767,8 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-latency">
-              <td>latency</td>
-              <td><code><a>ConstrainDouble</a></code></td>
+              <td><dfn data-lt="latency constraint">latency</dfn></td>
+              <td>{{ConstrainDouble}}</td>
               <td>The latency or latency range, in seconds. The latency is the
               time between start of processing (for instance, when sound occurs
               in the real world) to the data being available to the next step
@@ -1915,8 +1779,8 @@ interface MediaStreamTrack : EventTarget {
               some variation from that.</td>
             </tr>
             <tr id="def-constraint-channelCount">
-              <td>channelCount</td>
-              <td><code><a>ConstrainULong</a></code></td>
+              <td><dfn data-lt="channelCount constraint">channelCount</dfn></td>
+              <td>{{ConstrainULong}}</td>
               <td>The number of independent channels of sound that the audio
               data contains, i.e. the number of audio samples per sample
               frame.</td>
@@ -1927,20 +1791,17 @@ interface MediaStreamTrack : EventTarget {
     </section>
     <section>
       <h3>MediaStreamTrackEvent</h3>
-      <p>The <code><a href="#event-mediastream-addtrack">addtrack</a></code>
-      and <code title="event-MediaStreamTracklist-removetrack"><a href=
-      "#event-mediastream-removetrack">removetrack</a></code> events use the
-      <code><a>MediaStreamTrackEvent</a></code> interface.</p>
+      <p>The {{addtrack}} and {{removetrack}} events use the
+      {{MediaStreamTrackEvent}} interface.</p>
       <p>The <code>addtrack</code> and <code>removetrack</code> events notify
-      the script that the <a href="#track-set">track set</a> of a
-      <code><a>MediaStream</a></code> has been updated by the User Agent.</p>
+      the script that the <a>track set</a> of a
+      {{MediaStream}} has been updated by the User Agent.</p>
       <p><dfn data-lt="Fire a track event">Firing a track event named
-      <var>e</var></dfn> with a <code><a>MediaStreamTrack</a></code>
+      <var>e</var></dfn> with a {{MediaStreamTrack}}
       <var>track</var> means that an event with the name <var>e</var>, which
       does not bubble (except where otherwise stated) and is not cancelable
       (except where otherwise stated), and which uses the
-      <code><a>MediaStreamTrackEvent</a></code> interface with the
-      <code><a href="#dom-mediastreamtrackevent-track">track</a></code>
+      {{MediaStreamTrackEvent}} interface with the {{MediaStreamTrackEvent/track}}
       attribute set to <var>track</var>, MUST be created and dispatched at the
       given target.</p>
       <div>
@@ -1957,7 +1818,7 @@ interface MediaStreamTrackEvent : Event {
             <dt><dfn><code>MediaStreamTrackEvent</code></dfn></dt>
             <dd>
               <p>Constructs a new
-              <code><a>MediaStreamTrackEvent</a></code>.</p>
+              {{MediaStreamTrackEvent}}.</p>
             </dd>
           </dl>
         </section>
@@ -1970,7 +1831,7 @@ interface MediaStreamTrackEvent : Event {
             <dd>
               <p>The <dfn id=
               "dom-mediastreamtrackevent-track"><code>track</code></dfn>
-              attribute represents the <code><a>MediaStreamTrack</a></code>
+              attribute represents the {{MediaStreamTrack}}
               object associated with the event.</p>
             </dd>
           </dl>
@@ -2027,7 +1888,7 @@ interface MediaStreamTrackEvent : Event {
     <code>RTCPeerConnection</code>, are outside the scope of this
     specification.)</p>
     <p>The act of changing or applying a track constraint may affect the
-    <code><a>settings</a></code> of all tracks sharing that source and
+    {{settings}} of all tracks sharing that source and
     consequently all down-level sinks that are using that source. Many sinks
     may be able to take these changes in stride, such as the
     <code>&lt;video&gt;</code> element or <code>RTCPeerConnection</code>.
@@ -2045,8 +1906,8 @@ interface MediaStreamTrackEvent : Event {
     specification. In the first figure a home client has obtained a video
     source from its local video camera. The source's width and height settings
     are 800 pixels and 600 pixels, respectively. Three
-    <code><a>MediaStream</a></code> objects on the home client contain tracks
-    that use this same <code><a>deviceId</a></code>. The three media streams
+    {{MediaStream}} objects on the home client contain tracks
+    that use this same {{deviceId}}. The three media streams
     are connected to three different sinks: a <code>&lt;video&gt;</code>
     element (A), another <code>&lt;video&gt;</code> element (B), and a peer
     connection (C). The peer connection is streaming the source video to a
@@ -2095,8 +1956,8 @@ interface MediaStreamTrackEvent : Event {
     source is sending a video stream sized at 1920 by 1200 pixels. The video
     source is also unconstrained, such that the exact source dimensions are
     flexible as far as the application is concerned. Two
-    <code><a>MediaStream</a></code> objects contain tracks with the same
-    <code><a>deviceId</a></code>, and those <code><a>MediaStream</a></code> s
+    {{MediaStream}} objects contain tracks with the same
+    {{deviceId}}, and those {{MediaStream}} s
     are connected to two different <code>&lt;video&gt;</code> element sinks A
     and B. Sink A has been sized to <code>width="1920"</code> and
     <code>height="1200"</code> and is displaying the source's video content
@@ -2163,13 +2024,11 @@ interface MediaStreamTrackEvent : Event {
     objects.</p>
     <p>The [[!HTML]] document outlines how the <code>HTMLMediaElement</code>
     works with a <em>media provider object</em>. The following applies when the
-    <em>media provider object</em> is a <code><a>MediaStream</a></code>:</p>
-    <ul>
+    <em>media provider object</em> is a {{MediaStream}}:</p>
+    <ul data-cite="html">
       <li>
-        <p>Whenever an [[!HTML]] <code><a data-cite=
-        "!HTML/#audiotrack">AudioTrack</a></code>
-        or a <code><a data-cite=
-        "!HTML/#videotrack">VideoTrack</a></code>
+        <p>Whenever an [[!HTML]] {{AudioTrack}}
+        or a {{VideoTrack}}
         is created, the <code>id</code> and <code>label</code> attributes must
         be initialized to the corresponding attributes of the
         <code>MediaStreamTrack</code>, the <code>kind</code> attribute must be
@@ -2177,14 +2036,11 @@ interface MediaStreamTrackEvent : Event {
         empty string</p>
       </li>
       <li>The User Agent MUST always play the current data from the
-      <code><a>MediaStream</a></code> and MUST NOT buffer.</li>
+      {{MediaStream}} and MUST NOT buffer.</li>
       <li>
-        <p>Since the order in the <code><a>MediaStream</a></code> 's <a href=
-        "#track-set">track set</a> is undefined, no requirements are put on how
-        the <code><a data-cite=
-        "!HTML/#audiotracklist">AudioTrackList</a></code>
-        and <code><a data-cite=
-        "!HTML/#videotracklist">VideoTrackList</a></code>
+        <p>Since the order in the {{MediaStream}} 's <a>track set</a> is undefined, no requirements are put on how
+        the {{AudioTrackList}}
+        and {{VideoTrackList}}
         is ordered</p>
       </li>
       <li>
@@ -2193,31 +2049,29 @@ interface MediaStreamTrackEvent : Event {
         has <dfn>ended video playback</dfn>, which is when:</p>
         <ol>
           <li>
-            <p>The element's
-            <code><a data-cite="!HTML/#dom-media-readystate">readyState</a></code>
+            <p>The element's {{HTMLMediaElement/readyState}}
             is <code><a data-cite="!HTML/#dom-media-have_metadata">HAVE_METADATA</a></code>
             or greater, and</p>
             <ol>
               <li>
-                <p>The <code><a>MediaStream</a></code> state is
-                <a href="#stream-inactive">inactive</a> after having been
-                <a href="#stream-active">active</a>, or</p>
+                <p>The {{MediaStream}} state is
+                <a>inactive</a> after having been
+                <a>active</a>, or</p>
               </li>
               <li>
-                <p>The <code><a>MediaStream</a></code> state is
-                <a href="#stream-active">active</a> after having been
-                <a href="#stream-inactive">inactive</a> after having been
-                <a href="#stream-active">active</a> after <a data-cite=
-                "!HTML/#dom-media-play">play()</a> was last called, and
+                <p>The {{MediaStream}} state is
+                <a>active</a> after having been
+                <a>inactive</a> after having been
+                <a>active</a> after {{HTMLMediaElement/play()}} was last called, and
                 <code>autoplay</code> is <code>false</code>.</p>
               </li>
             </ol>
             <div class="note">
               <p>Once playback has ended, it won't resume if new
-              <code><a>MediaStreamTrack</a></code>s are added to the
-              <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+              {{MediaStreamTrack}}s are added to the
+              {{MediaStream}} unless <code>autoplay</code> is
               <code>true</code> or the element is restarted, e.g., by the web
-              application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+              application calling {{HTMLMediaElement/play()}}.
               </p>
             </div>
           </li>
@@ -2229,48 +2083,43 @@ interface MediaStreamTrackEvent : Event {
         has <dfn>ended audio playback</dfn>, which is when:</p>
         <ol>
           <li>
-            <p>The element's
-            <code><a data-cite="!HTML/#dom-media-readystate">readyState</a></code>
+            <p>The element's {{HTMLMediaElement/readyState}}
             is <code><a data-cite="!HTML/#dom-media-have_metadata">HAVE_METADATA</a></code>
             or greater, and</p>
             <ol>
               <li>
-                <p>The <code><a>MediaStream</a></code> state is
-                <a href="#stream-inaudible">inaudible</a> after having been
-                <a href="#stream-audible">audible</a>, or</p>
+                <p>The {{MediaStream}} state is
+                <a>inaudible</a> after having been
+                <a>audible</a>, or</p>
               </li>
               <li>
-                <p>The <code><a>MediaStream</a></code> state is
-                <a href="#stream-audible">audible</a> after having been
-                <a href="#stream-inaudible">inaudible</a> after having been
-                <a href="#stream-audible">audible</a> after <a data-cite=
-                  "!HTML/#dom-media-play">play()</a> was last called, and
+                <p>The {{MediaStream}} state is
+                <a>audible</a> after having been
+                <a>inaudible</a> after having been
+                <a>audible</a> after {{HTMLMediaElement/play()}} was last called, and
                 <code>autoplay</code> is <code>false</code>.</p>
               </li>
             </ol>
             <div class="note">
               <p>Once playback has ended, it won't resume if new audio
-              <code><a>MediaStreamTrack</a></code>s are added to the
-              <code><a>MediaStream</a></code> unless <code>autoplay</code> is
+              {{MediaStreamTrack}}s are added to the
+              {{MediaStream}} unless <code>autoplay</code> is
               <code>true</code> or the element is restarted, e.g., by the web
-              application calling <a data-cite="!HTML/#dom-media-play">play()</a>.
+              application calling {{HTMLMediaElement/play()}}.
               </p>
             </div>
           </li>
         </ol>
       </li>
       <li>
-        <p>Any calls to the <code><a data-cite=
-        "!HTML/#dom-media-fastseek">
-        fastSeek</a></code> method on a <code>HTMLMediaElement</code> must be
-        ignored</p>
+        <p>Any calls to the {{HTMLMediaElement/fastSeek()}} method on a {{HTMLMediaElement}} must be ignored</p>
       </li>
     </ul>
-    <p>The nature of the <code><a>MediaStream</a></code> places certain
+    <p>The nature of the {{MediaStream}} places certain
     restrictions on the behavior of attributes of the associated
     <code>HTMLMediaElement</code> and on the operations that can be performed
     on it, as shown below:</p>
-    <table class="simple">
+    <table class="simple" data-cite="html">
       <thead>
         <tr>
           <th scope="col">Attribute Name</th>
@@ -2281,10 +2130,7 @@ interface MediaStreamTrackEvent : Event {
       </thead>
       <tbody>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-preload">
-            <code>preload</code></a>
+          <td>{{HTMLMediaElement/preload}}
           </td>
           <td><code>DOMString</code></td>
           <td>On getting: <code>none</code>. On setting: ignored.</td>
@@ -2292,51 +2138,51 @@ interface MediaStreamTrackEvent : Event {
         </tr>
         <tr>
           <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-buffered">
-            <code>buffered</code></a>
+            {{HTMLMediaElement/buffered}}
           </td>
           <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#timeranges"><code>TimeRanges</code></a>
+            {{TimeRanges}}
           </td>
           <td><code>buffered.length</code> MUST return <code>0</code>.</td>
-          <td>A MediaStream cannot be preloaded. Therefore, the amount buffered
-          is always an empty TimeRange.</td>
+          <td>A {{MediaStream}} cannot be preloaded. Therefore, the amount buffered
+          is always an empty {{TimeRanges}}.</td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-currenttime">
-            <code>currentTime</code></a>
+          <td>{{HTMLMediaElement/currentTime}}
           </td>
           <td><code>double</code></td>
           <td>Any non-negative integer. The initial value is <code>0</code> and
           the values increments linearly in real time whenever the stream is
           playing.</td>
           <td>
-            The value is the <a class="externalDFN" data-cite=
+            The value is the <a data-cite=
             "!HTML/#official-playback-position">
             official playback position</a>, in seconds. Any attempt to alter it
             MUST be ignored.
           </td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-seeking">
-            <code>seeking</code></a>
+          <td>{{HTMLMediaElement/seeking}}
           </td>
           <td><code>boolean</code></td>
           <td><code>false</code></td>
-          <td>A MediaStream is not seekable. Therefore, this attribute MUST
+          <td>A {{MediaStream}} is not seekable. Therefore, this attribute MUST
           always return the value <code>false</code>.</td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-defaultplaybackrate">
-            <code>defaultPlaybackRate</code></a>
+          <td>{{HTMLMediaElement/defaultPlaybackRate}}
+          </td>
+          <td><code>double</code></td>
+          <td>On getting: <code>1.0</code>. On setting: ignored.</td>
+          <td>A {{MediaStream}} is not seekable. Therefore, this attribute MUST
+          always return the value <code>1.0</code> and any attempt to alter it
+          MUST be ignored. Note that this also means that the
+          <code><a data-cite=
+          "!HTML/#event-media-ratechange">ratechange</a></code>
+          event will not fire.</td>
+        </tr>
+        <tr>
+          <td>{{HTMLMediaElement/playbackRate}}
           </td>
           <td><code>double</code></td>
           <td>On getting: <code>1.0</code>. On setting: ignored.</td>
@@ -2348,90 +2194,50 @@ interface MediaStreamTrackEvent : Event {
           event will not fire.</td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-playbackrate">
-            <code>playbackRate</code></a>
+          <td>{{HTMLMediaElement/played}}
           </td>
-          <td><code>double</code></td>
-          <td>On getting: <code>1.0</code>. On setting: ignored.</td>
-          <td>A MediaStream is not seekable. Therefore, this attribute MUST
-          always return the value <code>1.0</code> and any attempt to alter it
-          MUST be ignored. Note that this also means that the
-          <code><a data-cite=
-          "!HTML/#event-media-ratechange">ratechange</a></code>
-          event will not fire.</td>
-        </tr>
-        <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-played">
-            <code>played</code></a>
-          </td>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#timeranges"><code>TimeRanges</code></a>
+          <td>{{TimeRanges}}
           </td>
           <td>
             <code>played.length</code> MUST return <code>1</code>.<br>
             <code>played.start(0)</code> MUST return <code>0</code>.<br>
-            <code>played.end(0)</code> MUST return the last known <a class=
-            "externalDFN" data-cite=
-            "!HTML/#dom-media-currenttime">
-            <code>currentTime</code></a> .
+            <code>played.end(0)</code> MUST return the last known {{HTMLMediaElement/currentTime}}.
           </td>
-          <td>A <code><a>MediaStream</a></code>'s timeline always consists of a
+          <td>A {{MediaStream}}'s timeline always consists of a
           single range, starting at 0 and extending up to the currentTime.</td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-seekable">
-            <code>seekable</code></a>
+          <td>{{HTMLMediaElement/seekable}}
           </td>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#timeranges"><code>TimeRanges</code></a>
+          <td>{{TimeRanges}}
           </td>
           <td><code>seekable.length</code> MUST return <code>0</code>.</td>
-          <td>A <code><a>MediaStream</a></code> is not seekable.</td>
+          <td>A {{MediaStream}} is not seekable.</td>
         </tr>
         <tr>
-          <td>
-            <a class="externalDFN" data-cite=
-            "!HTML/#dom-media-loop">
-            <code>loop</code></a>
+          <td>{{HTMLMediaElement/loop}}
           </td>
           <td><code>boolean</code></td>
           <td><code>true</code>, <code>false</code></td>
           <td>Setting the <code>loop</code> attribute has no effect since a
-          <code><a>MediaStream</a></code> has no defined end and therefore
+          {{MediaStream}} has no defined end and therefore
           cannot be looped.</td>
         </tr>
       </tbody>
     </table>
     <p>Since none of the setters listed above alter internal state of the
-    <code>HTMLMediaElement</code>, once a <code>MediaStream</code> is no longer
-    the element's <a data-link-type="dfn"
-    href="https://html.spec.whatwg.org/#assigned-media-provider-object"
+    {{HTMLMediaElement}}, once a {{MediaStream}} is no longer
+    the element's <a data-cite="HTML#assigned-media-provider-object"
     >assigned media provider object</a>, the attributes listed will appear to
     resume the values they had before a stream was assigned to the element.</p>
     <div class="note">
-      <p>A <code>MediaStream</code> stops being the element's <a data-link-type="dfn"
-      href="https://html.spec.whatwg.org/#media-element-load-algorithm"
-      >assigned media provider object</a> when <code><a data-cite=
-      "!HTML/#dom-media-srcobject"
-      >srcObject</a></code> is assigned <code>null</code> or a non-stream object,
-      just ahead of the <a data-link-type="dfn"
-      href="https://html.spec.whatwg.org/#media-element-load-algorithm"
+      <p>A {{MediaStream}} stops being the element's <a data-cite="HTML#assigned-media-provider-object"
+    >assigned media provider object</a> when {{HTMLMediaElement/srcObject}} is assigned <code>null</code> or a non-stream object,
+      just ahead of the <a data-cite="HTML#media-element-load-algorithm"
       >media element load algorithm</a>. As a result, the <code><a data-cite=
       "!HTML/#event-media-ratechange">ratechange</a></code>
-      event may fire (from step 7) if <a class="externalDFN" data-cite=
-      "!HTML/#dom-media-playbackrate">
-      <code>playbackRate</code></a> and <a class="externalDFN" data-cite=
-      "!HTML/#dom-media-defaultplaybackrate">
-      <code>defaultPlaybackRate</code></a> were different from before a
-      <code>MediaStream</code> was assigned.</p>
+      event may fire (from step 7) if {{HTMLMediaElement/playbackRate}} and {{HTMLMediaElement/defaultPlaybackRate}} were different from before a
+      {{MediaStream}} was assigned.</p>
     </div>
   </section>
   <section>
@@ -2641,8 +2447,7 @@ interface MediaStreamTrackEvent : Event {
         <section>
           <h2>OverconstrainedError.prototype.constructor</h2>
           <p>The initial value of the constructor property of the prototype for
-          the OverconstrainedError constructor is the intrinsic object <a href=
-          "#error-handling">%OverconstrainedError%</a>.</p>
+          the OverconstrainedError constructor is the intrinsic object %OverconstrainedError%.</p>
         </section>
         <section>
           <h2>OverconstrainedError.prototype.constraint</h2>
@@ -2665,7 +2470,7 @@ interface MediaStreamTrackEvent : Event {
   </section>
   <section class="informative">
     <h2>Event summary</h2>
-    <p>The following events fire on <code><a>MediaStream</a></code>
+    <p>The following events fire on {{MediaStream}}
     objects:</p>
     <table>
       <tbody>
@@ -2679,22 +2484,22 @@ interface MediaStreamTrackEvent : Event {
         <tr>
           <td><dfn id=
           "event-mediastream-addtrack"><code>addtrack</code></dfn></td>
-          <td><code><a>MediaStreamTrackEvent</a></code></td>
-          <td>A new <code><a>MediaStreamTrack</a></code> has been added to this
+          <td>{{MediaStreamTrackEvent}}</td>
+          <td>A new {{MediaStreamTrack}} has been added to this
           stream. Note that this event is not fired when the script directly
-          modifies the tracks of a <code><a>MediaStream</a></code>.</td>
+          modifies the tracks of a {{MediaStream}}.</td>
         </tr>
         <tr>
           <td><dfn id=
           "event-mediastream-removetrack"><code>removetrack</code></dfn></td>
-          <td><code><a>MediaStreamTrackEvent</a></code></td>
-          <td>A <code><a>MediaStreamTrack</a></code> has been removed from this
+          <td>{{MediaStreamTrackEvent}}</td>
+          <td>A {{MediaStreamTrack}} has been removed from this
           stream. Note that this event is not fired when the script directly
-          modifies the tracks of a <code><a>MediaStream</a></code>.</td>
+          modifies the tracks of a {{MediaStream}}.</td>
         </tr>
       </tbody>
     </table>
-    <p>The following events fire on <code><a>MediaStreamTrack</a></code>
+    <p>The following events fire on {{MediaStreamTrack}}
     objects:</p>
     <table>
       <tbody>
@@ -2709,21 +2514,21 @@ interface MediaStreamTrackEvent : Event {
           <td><dfn id=
           "event-mediastreamtrack-mute"><code>mute</code></dfn></td>
           <td><code>Event</code></td>
-          <td>The <code><a>MediaStreamTrack</a></code> object's source is
+          <td>The {{MediaStreamTrack}} object's source is
           temporarily unable to provide data.</td>
         </tr>
         <tr>
           <td><dfn id=
           "event-mediastreamtrack-unmute"><code>unmute</code></dfn></td>
           <td><code>Event</code></td>
-          <td>The <code><a>MediaStreamTrack</a></code> object's source is live
+          <td>The {{MediaStreamTrack}} object's source is live
           again after having been temporarily unable to provide data.</td>
         </tr>
         <tr>
-          <td><code id="event-mediastreamtrack-ended">ended</code></td>
+          <td><dfn id="event-mediastreamtrack-ended"><code>ended</code></dfn></td>
           <td><code>Event</code></td>
           <td>
-            <p>The <code><a>MediaStreamTrack</a></code> object's source will no
+            <p>The {{MediaStreamTrack}} object's source will no
             longer provide any data, either because the user revoked the
             permissions, or because the source device has been ejected, or
             because the remote peer permanently stopped sending data.</p>
@@ -2731,7 +2536,7 @@ interface MediaStreamTrackEvent : Event {
         </tr>
       </tbody>
     </table>
-    <p>The following events fire on <code><a>MediaDevices</a></code>
+    <p>The following events fire on {{MediaDevices}}
     objects:</p>
     <table>
       <tbody>
@@ -2747,9 +2552,7 @@ interface MediaStreamTrackEvent : Event {
           "event-mediadevices-devicechange"><code>devicechange</code></dfn></td>
           <td><code>Event</code></td>
           <td>The set of media devices, available to the User Agent, has
-          changed. The current list devices can be retrieved with the
-          <code><a href=
-          "#dom-mediadevices-enumeratedevices">enumerateDevices()</a></code>
+          changed. The current list devices can be retrieved with the {{MediaDevices/enumerateDevices()}}
           method.</td>
         </tr>
       </tbody>
@@ -2787,7 +2590,6 @@ interface MediaStreamTrackEvent : Event {
       to the API used to examine and get access to media devices available to
       the User Agent.</p>
       <p>On page load, run the following steps:</p>
-      <p></p>
       <ol>
         <li>
           <p>On the <a data-cite=
@@ -2855,7 +2657,7 @@ interface MediaStreamTrackEvent : Event {
         </li>
         <li>
           <p>If the transition is from “granted” to another value, and the
-          device is currently <a href="#source-stopped">stopped</a>, then set
+          device is currently <a>stopped</a>, then set
           [[\devicesAccessibleMap]]<var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
@@ -2871,9 +2673,8 @@ interface MediaStreamTrackEvent : Event {
           <p>Set [[\storedDeviceList]] to null.</p>
         </li>
         <li>
-          <p>Queue a task that fires a simple event named <code><a href=
-          "#event-mediadevices-devicechange">devicechange</a></code> at the
-          <code><a>MediaDevices</a></code> object.</p>
+          <p>Queue a task that fires a simple event named {{devicechange}} at the
+          {{MediaDevices}} object.</p>
         </li>
       </ol>
       <p>If a browsing context later comes to meet the
@@ -2887,7 +2688,7 @@ interface MediaStreamTrackEvent : Event {
       the exact same set of devices in the same order as the list of devices
       generated by a call to <code>enumerateDevices</code> after the two above steps.
       In that case, the User Agent MAY decide to skip these two steps, thus not fire
-      a <code><a href="#event-mediadevices-devicechange">devicechange</a></code>
+      a {{devicechange}}
       event.</p>
       <p>These events are potentially triggered simultaneously across browsing
       contexts on different origins; user agents MAY add fuzzing on the timing
@@ -2906,8 +2707,7 @@ interface MediaDevices : EventTarget {
             <dt><dfn><code>ondevicechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
-              <p>The event type of this event handler is <code><a href=
-              "#event-mediadevices-devicechange">devicechange</a></code>.</p>
+              <p>The event type of this event handler is {{devicechange}}.</p>
             </dd>
           </dl>
         </section>
@@ -2921,12 +2721,12 @@ interface MediaDevices : EventTarget {
               input and output devices.</p>
               <p>This method returns a promise. The promise will be
               <a>fulfilled</a> with a sequence of
-              <code><a>MediaDeviceInfo</a></code> objects representing the
+              {{MediaDeviceInfo}} objects representing the
               User Agent's available media input and output devices if
               enumeration is successful.</p>
               <p>Elements of this sequence that represent input devices will be
-              of type <code><a>InputDeviceInfo</a></code> which extends
-              <code><a>MediaDeviceInfo</a></code>.</p>
+              of type {{InputDeviceInfo}} which extends
+              {{MediaDeviceInfo}}.</p>
               <p>Camera and microphone sources <em class="rfc2119">should</em>
               be enumerable. Specifications that add additional types of source
               will provide recommendations about whether the source type should
@@ -2958,11 +2758,11 @@ interface MediaDevices : EventTarget {
                       <p>If [[\storedDeviceList]] is not null, run the following sub steps:</p>
                       <ol>
                         <li>
-                          <p>For each <code><a>MediaDeviceInfo</a></code> object in [[\storedDeviceList]],
+                          <p>For each {{MediaDeviceInfo}} object in [[\storedDeviceList]],
                           <var>storedDeviceInfo</var>:
                           <ul>
                              <li>
-                               <p>Append to <var>resultList</var> a <code><a>MediaDeviceInfo</a></code>
+                               <p>Append to <var>resultList</var> a {{MediaDeviceInfo}}
                                copy of <var>storedDeviceInfo</var>.</p>
                              </li>
                            </ul>
@@ -2993,7 +2793,7 @@ interface MediaDevices : EventTarget {
                         </li>
                         <li>
                           <p>Let <var>deviceInfo</var> be a new
-                          <code><a>MediaDeviceInfo</a></code> object to
+                          {{MediaDeviceInfo}} object to
                           represent <var>device</var>.</p>
                         </li>
                         <li>
@@ -3015,7 +2815,7 @@ interface MediaDevices : EventTarget {
                           "MediaDeviceInfo">groupId</a></code> member to the
                           <code><a data-link-for=
                           "MediaDeviceInfo">groupId</a></code> value of the
-                          existing <code><a>MediaDeviceInfo</a></code> object.
+                          existing {{MediaDeviceInfo}} object.
                           Otherwise, let <var>deviceInfo</var>'s
                           <code><a data-link-for=
                           "MediaDeviceInfo">groupId</a></code> member be a
@@ -3095,7 +2895,7 @@ interface MediaDevices : EventTarget {
         information depends on whether or not permission has been granted to
         the page's origin.</p>
         <p>If no such access has been granted, the
-        <code><a>MediaDeviceInfo</a></code> object will contain the
+        {{MediaDeviceInfo}} object will contain the
         deviceId, kind, and groupId.</p>
         <p>If access has been granted for a media device, the
         <dfn>MediaDeviceInfo</dfn> object will contain the deviceId, kind,
@@ -3111,7 +2911,7 @@ interface MediaDevices : EventTarget {
             of the "device-info" permission is "granted" for this browsing context, return <code>true</code>.
           </li>
           <li>If any of the input devices are attached to an
-            <a href="#stream-active">active</a> <code><a>MediaStream</a></code>
+            <a>active</a> {{MediaStream}}
             in the browsing context, return <code>true</code>.</li>
           <li>If the <a>current settings object</a>'s <a>responsible
           document</a> is <a data-cite="!HTML/#fully-active">fully
@@ -3142,8 +2942,7 @@ interface MediaDeviceInfo {
             of type <span class="idlAttrType">DOMString</span>, readonly</dt>
             <dd>
               <p>The identifier of the represented device. The device MUST be
-              uniquely identified by its identifier and its <code><a
-              href="#def-mediadeviceinfo-kind">kind</a></code>.</p>
+              uniquely identified by its identifier and its {{kind}}.</p>
               <p>The same identifier MUST be valid between browsing sessions of
               this origin. The identifier SHOULD be origin-unique,
               in which case some sort of UUID is recommended.
@@ -3154,16 +2953,14 @@ interface MediaDeviceInfo {
               can be reused across origins as long as it is not tied to the user
               and can be guessed by other means, like the User-Agent string.</p>
               <p>If any local devices have been attached to a live
-              MediaStreamTrack in a page from this origin, or <a href=
-              "#stored-permissions">stored permission</a> to access local
+              MediaStreamTrack in a page from this origin, or <a>stored permission</a> to access local
               devices has been granted to this origin, then this identifier
               MUST be persisted, except as detailed below. Unique and stable
               identifiers let the application save, identify the availability
               of, and directly request specific sources, across multiple
               visits.</p>
               <p>However, as long as no local device has been attached to a
-              live MediaStreamTrack in a page from this origin, and no <a href=
-              "#stored-permissions">stored permission</a> to access local
+              live MediaStreamTrack in a page from this origin, and no <a>stored permission</a> to access local
               devices has been granted to this origin, then the user agent MAY
               clear this identifier once the last browsing session from this
               origin has been closed. If the user agent chooses not to clear
@@ -3275,15 +3072,15 @@ interface InputDeviceInfo : MediaDeviceInfo {
           class="methods">
             <dt><dfn>getCapabilities()</dfn></dt>
             <dd>
-              <p>Returns a <code><a>MediaTrackCapabilities</a></code> object
+              <p>Returns a {{MediaTrackCapabilities}} object
               describing the primary audio or video track of a device's
-              <code><a>MediaStream</a></code> (according to its
+              {{MediaStream}} (according to its
               <code>kind</code> value), in the absence of any user-supplied
               constraints. These capabilities MUST be identical to those that
               would have been obtained by calling
               <code>getCapabilities()</code> on the first
-              <code><a>MediaStreamTrack</a></code> of this type in a
-              <code><a>MediaStream</a></code> returned by
+              {{MediaStreamTrack}} of this type in a
+              {{MediaStream}} returned by
               <code>getUserMedia({deviceId: <i>id</i>})</code> where <i>id</i>
               is the value of the <code>deviceId</code> attribute of this
               <code>MediaDeviceInfo</code>.</p>
@@ -3300,10 +3097,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
   </section>
   <section id="local-content">
     <h2>Obtaining local multimedia content</h2>
-    <p>This section extends <code><a>Navigator</a></code> and
-    <code><a>MediaDevices</a></code> with APIs to request permission to access
+    <p>This section extends {{Navigator}} and
+    {{MediaDevices}} with APIs to request permission to access
     media input devices available to the User Agent.</p>
-    <p>Alternatively, a local <code><a>MediaStream</a></code> can be captured
+    <p>Alternatively, a local {{MediaStream}} can be captured
     from certain types of DOM elements, such as the video element
     [[mediacapture-fromelement]]. This can be useful for automated testing.</p>
     <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
@@ -3320,8 +3117,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         changes from the method definition that has existed here for many
         months.
         <p>First, the official definition for the getUserMedia() method, and
-        the one which developers are encouraged to use, is now at <a href=
-        "#dom-mediadevices-getusermedia">MediaDevices</a>. This decision
+        the one which developers are encouraged to use, is now at {{MediaDevices}}. This decision
         reflected consensus as long as the original API remained available here
         under the Navigator object for backwards compatibility reasons, since
         the working group acknowledges that early users of these APIs have been
@@ -3362,18 +3158,16 @@ interface InputDeviceInfo : MediaDeviceInfo {
               <p>Prompts the user for permission to use their Web cam or other
               video or audio input.</p>
               <p>The <var>constraints</var> argument is a dictionary of type
-              <code><a>MediaStreamConstraints</a></code>.</p>
+              {{MediaStreamConstraints}}.</p>
               <p>The <var>successCallback</var> will be invoked with a suitable
-              <code><a>MediaStream</a></code> object as its argument if the
-              user accepts valid tracks as described in <a href=
-              "#dom-mediadevices-getusermedia">getUserMedia()</a> on
-              <code><a>MediaDevices</a></code>.</p>
+              {{MediaStream}} object as its argument if the
+              user accepts valid tracks as described in {{MediaDevices/getUserMedia()}} on
+              {{MediaDevices}}.</p>
               <p>The <var>errorCallback</var> will be invoked if there is a
               failure in finding valid tracks or if the user denies permission,
-              as described in <a href=
-              "#dom-mediadevices-getusermedia">getUserMedia()</a> on
-              <code><a>MediaDevices</a></code>.</p>
-              <p>When the <code><a>getUserMedia()</a></code> method is called,
+              as described in {{MediaDevices/getUserMedia()}} on
+              {{MediaDevices}}.</p>
+              <p>When the {{getUserMedia()}} method is called,
               the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
@@ -3389,8 +3183,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   the method's third argument.</p>
                 </li>
                 <li>
-                  <p>Run the steps specified by the <a href=
-                  "#dom-mediadevices-getusermedia">getUserMedia() algorithm</a>
+                  <p>Run the steps specified by the {{MediaDevices/getUserMedia()}} algorithm
                   with <var>constraints</var> as the argument, and let
                   <var>p</var> be the resulting promise.</p>
                 </li>
@@ -3470,9 +3263,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
               <p>Prompts the user for permission to use their Web cam or other
               video or audio input.</p>
               <p>The <var>constraints</var> argument is a dictionary of type
-              <code><a>MediaStreamConstraints</a></code>.</p>
+              {{MediaStreamConstraints}}.</p>
               <p>This method returns a promise. The promise will be
-              <a>fulfilled</a> with a suitable <code><a>MediaStream</a></code>
+              <a>fulfilled</a> with a suitable {{MediaStream}}
               object if the user accepts valid tracks as described below.</p>
               <p>The promise will be <a>rejected</a> if there is a failure in
               finding valid tracks or if the user denies permission, as
@@ -3501,7 +3294,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   document</a> is NOT <a data-cite=
                   "!HTML/#fully-active">fully active</a>, return
                   a promise <a>rejected</a> with a
-                  <code><a>DOMException</a></code> object whose
+                  {{DOMException}} object whose
                   <code>name</code> attribute has the value
                   <code>InvalidStateError</code>.</p>
                 </li>
@@ -3535,7 +3328,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <var>candidateSet</var>.</p>
                           <p>If <var>candidateSet</var> is the empty set,
                           <a>reject</a> <var>p</var> with a new
-                          <code><a>DOMException</a></code> object whose
+                          {{DOMException}} object whose
                           <code>name</code> attribute has the value
                           <code>NotFoundError</code> and abort these steps.</p>
                         </li>
@@ -3546,7 +3339,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         <var>T</var> entry of <var>constraints</var>.</li>
                         <li>Remove any constrainable property inside of
                         <var>CS</var> that are not defined for
-                        <code><a>MediaStreamTrack</a></code> objects of type
+                        {{MediaStreamTrack}} objects of type
                         <var>T</var>. This means that audio-only constraints
                         inside of "video" and video-only constraints inside of
                         "audio" are simply ignored rather than causing
@@ -3619,7 +3412,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       choose from the <var>finalSet</var> is completely up to
                       the User Agent and may be determined by asking the user.
                       Once selected, the source of a
-                      <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
+                      {{MediaStreamTrack}} MUST NOT change.</p>
                       <p>The User Agent MAY use the value of the computed
                       "fitness distance" from the <a>SelectSettings</a>
                       algorithm, or any other internally-available information
@@ -3645,18 +3438,18 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <p>If the user grants permission but a hardware error
                       such as an OS/program/webpage lock prevents access,
                       <a>reject</a> <var>p</var> with a new
-                      <code><a>DOMException</a></code> object whose
+                      {{DOMException}} object whose
                       <code>name</code> attribute has the value
                       <code>NotReadableError</code> and abort these steps.</p>
                       <p>If the result is "granted" but device access fails for
                       any reason other than those listed above, <a>reject</a>
-                      <var>p</var> with a new <code><a>DOMException</a></code>
+                      <var>p</var> with a new {{DOMException}}
                       object whose <code>name</code> attribute has the
                       value <code>AbortError</code> and abort these steps.</p>
                     </li>
                     <li>
                       <p>Let <var>stream</var> be the
-                      <code><a>MediaStream</a></code> object for which the user
+                      {{MediaStream}} object for which the user
                       granted permission.</p>
                     </li>
                     <li>
@@ -3676,7 +3469,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     </li>
                     <li>
                       <p><em>Permission Failure</em>: <a>Reject</a>
-                      <var>p</var> with a new <code><a>DOMException</a></code>
+                      <var>p</var> with a new {{DOMException}}
                       object whose <code>name</code> attribute has the
                       value <code>NotAllowedError</code>.</p>
                     </li>
@@ -3761,7 +3554,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
             <dt><code>stream</code> of type <span class=
             "idlMemberType"><a>MediaStream</a></span></dt>
             <dd>
-              <code><a>MediaStream</a></code> object representing the stream to
+              {{MediaStream}} object representing the stream to
               which the user granted permission as described in the <a data-lt=
               "Navigator.getUserMedia"><code>navigator.getUserMedia()</code></a>
               algorithm.
@@ -3783,7 +3576,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
             <dt><code>error</code> of type <span class=
             "idlMemberType"><a>MediaStreamError</a></span></dt>
             <dd>
-              Error in obtaining a <code><a>MediaStream</a></code> as described
+              Error in obtaining a {{MediaStream}} as described
               in the failure steps of the <a data-lt=
               "Navigator.getUserMedia"><code>navigator.getUserMedia()</code></a>
               algorithm.
@@ -3795,8 +3588,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <pre class="idl">typedef object MediaStreamError;</pre>
         <div class="idlTypedefDesc">
           A <dfn>MediaStreamError</dfn> object is either a
-          <code><a>DOMException</a></code> object or an
-          <code><a>OverconstrainedError</a></code> object.
+          {{DOMException}} object or an
+          {{OverconstrainedError}} object.
         </div>
       </div>
     </section>
@@ -3828,7 +3621,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         the user.</p>
         <p class="practicedesc">This document also recommends that the user be
         shown all resources that are currently busy as a result of prior calls
-        to <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> (in this
+        to {{MediaDevices/getUserMedia()}} (in this
         page or any other page that is still alive) and be allowed to terminate
         that stream and utilize the resource for the current page instead. If
         possible in the current operating environment, it is also suggested
@@ -3838,10 +3631,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
         stream was affected must be removed.</p>
       </div>
       <div class="practice">
-        <span id="stored-permissions" class="practicelab">Stored
-        Permissions</span>
+        <dfn id="stored-permissions" class="practicelab">Stored
+        Permissions</dfn>
         <p class="practicedesc">When permission is requested for a device, the
-        User Agent may choose to <a href="#create-permission">create a
+        User Agent may choose to <a>create a
         permission storage entry</a> for later use by the same origin, so that
         the user does not need to grant permission again at a later time.
         It is a User Agent choice whether it offers functionality to store
@@ -3865,18 +3658,15 @@ interface InputDeviceInfo : MediaDeviceInfo {
         current API does not allow a page to express a need for multiple video
         streams from independent sources.</p>
         <p class="practicedesc">It is recommended for multiple calls to
-        <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> from the
+        {{MediaDevices/getUserMedia()}} from the
         same page to be allowed as a way for pages to request multiple discrete
         video and/or audio streams.</p>
-        <p class="practicedesc">Note also that if multiple <a href=
-        "#dom-mediadevices-getusermedia">getUserMedia()</a> calls are done by a
+        <p class="practicedesc">Note also that if multiple {{MediaDevices/getUserMedia()}} calls are done by a
         page, the order in which they request resources, and the order in which
         they complete, is not constrained by this specification.</p>
-        <p class="practicedesc">A single call to <a href=
-        "#dom-mediadevices-getusermedia">getUserMedia()</a> will always return
+        <p class="practicedesc">A single call to {{MediaDevices/getUserMedia()}} will always return
         a stream with either zero or one audio tracks, and either zero or one
-        video tracks. If a script calls <a href=
-        "#dom-mediadevices-getusermedia">getUserMedia()</a> multiple times
+        video tracks. If a script calls {{MediaDevices/getUserMedia()}} multiple times
         before reaching a stable state, this document advises the UI designer
         that the permission dialogs should be merged, so that the user can give
         permission for the use of multiple cameras and/or media sources in one
@@ -3918,7 +3708,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     indicated property names, the User Agent MUST <a>reject</a> the returned
     promise. Otherwise, it must apply the required constraints. Next, it will
     consider any ConstraintSets given in the
-    <code><a href="#dom-constraints-advanced">advanced</a></code> list, in the
+    {{MediaTrackConstraints/advanced}} list, in the
     order in which they are specified, and will try to satisfy/apply each complete
     ConstraintSet (i.e., all constraints in the ConstraintSet together), but
     will skip a ConstraintSet if and only if it cannot satisfy/apply it in its
@@ -4091,7 +3881,7 @@ interface ConstrainablePattern {
                 to "medium". It might also indicate that given a ConstraintSet
                 imposing a strict value of 3, the User Agent should attempt to
                 set the value of "medium" on the hardware, and that
-                <code><a>getSettings()</a></code> should return a
+                {{getSettings()}} should return a
                 fluxCapacitance of 0, since that is the value defined as
                 corresponding to "medium".</p>
               </div>
@@ -4174,8 +3964,7 @@ interface ConstrainablePattern {
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
               the sum, for each member (represented by a
               <var>constraintName</var> and <var>constraintValue</var> pair)
-              <a href=
-              "https://heycam.github.io/webidl/#dfn-present">present</a> in
+              [=dictionary member/present=] in
               <var>CS</var>, of the following values:</p>
               <ol>
                 <li>
@@ -4265,7 +4054,7 @@ interface ConstrainablePattern {
                   Examples below.</p>
                 </li>
                 <li>Let <var>object</var> be the
-                <code><a>ConstrainablePattern</a></code> object on which this
+                {{ConstrainablePattern}} object on which this
                 algorithm is applied. Let <var>copy</var> be an unconstrained
                 copy of <var>object</var> (i.e., <var>copy</var> should behave
                 as if it were <var>object</var> with all ConstraintSets
@@ -4308,8 +4097,7 @@ interface ConstrainablePattern {
                   and return it as the result of the <a>SelectSettings</a>
                   algorithm. The UA SHOULD use the one with the smallest
                   <code>fitness distance</code>, as calculated in step 3, but
-                  MAY prefer ones with <code><a href=
-                  "#def-constraint-resizeMode">resizeMode</a></code> set to
+                  MAY prefer ones with <code><a data-lt="resizeMode constraint">resizeMode</a></code> set to
                   <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
@@ -4363,7 +4151,7 @@ interface ConstrainablePattern {
       </div>
       <p>An example of Constraints that could be passed into
       <code><a data-link-for="MediaStreamTrack">applyConstraints()</a></code>
-      or returned as a value of <code><a>constraints</a></code> is below. It
+      or returned as a value of {{constraints}} is below. It
       uses the <a href="#constrainable-properties">constrainable properties
       defined for <code>MediaStreamTrack</code></a>.</p>
       <pre class="example">
@@ -4705,7 +4493,7 @@ async function specifyCamera() {
       would still suggest that more than two resolutions were available.</p>A
       specification using the Constrainable Pattern should not subclass the
       below dictionary, but instead provide its own definition. See
-      <code><a>MediaTrackCapabilities</a></code> for an example.
+      {{MediaTrackCapabilities}} for an example.
       <div>
         <pre class="idl">dictionary Capabilities {};</pre>
       </div>
@@ -4716,7 +4504,7 @@ async function specifyCamera() {
       pairs. It MUST contain each key returned in
       <code>getCapabilities()</code> for which the property is defined on the
       object type it's returned on; for instance, an audio
-      <code><a>MediaStreamTrack</a></code> has no "width" property. There MUST
+      {{MediaStreamTrack}} has no "width" property. There MUST
       be a single value for each key and the value MUST be a member of the set
       defined for that property by <code>getCapabilities()</code>. The
       <code>Settings</code> dictionary contains the actual values that the User
@@ -4733,8 +4521,8 @@ async function specifyCamera() {
   facingMode: 'user'
 }
       </pre>A specification using the Constrainable Pattern should not subclass
-the below dictionary, but instead provide its own definition. See <code><a>
-      MediaTrackSettings</a></code> for an example.
+the below dictionary, but instead provide its own definition. See {{
+      MediaTrackSettings}} for an example.
       <div>
         <pre class="idl">dictionary Settings {};</pre>
       </div>
@@ -4744,8 +4532,7 @@ the below dictionary, but instead provide its own definition. See <code><a>
       <p>Due to the limitations of WebIDL, interfaces implementing the
       Constrainable Pattern cannot simply subclass Constraints and
       ConstraintSet as they are defined here. Instead they must provide their
-      own definitions that follow this pattern. See <a href=
-      "#media-track-constraints">MediaTrackConstraints</a> for an example of
+      own definitions that follow this pattern. See {{MediaTrackConstraints}} for an example of
       this.</p>
       <div>
         <pre class="idl">dictionary ConstraintSet {};</pre>
@@ -5067,7 +4854,7 @@ window.onload = async () =&gt; {
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
     <p>For origins to which permission has been granted, the
-    <code><a>devicechange</a></code> event will be emitted across browsing
+    {{devicechange}} event will be emitted across browsing
     contexts and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events.</p>
@@ -5136,13 +4923,13 @@ window.onload = async () =&gt; {
       <p>At a minimum, defining a new media type would require</p>
       <ul>
         <li>adding a new getXXXXTracks() method for the type to the
-        <code><a>MediaStream</a></code> interface,</li>
+        {{MediaStream}} interface,</li>
         <li>describing what a muted or disabled track of that type will render
         (see <a href="#life-cycle-and-media-flow"></a>),
         </li>
         <li>adding the new type as an additional legal value for the
-        <code><a href="#dom-mediastreamtrack-kind">kind</a></code> attribute on
-        the <code><a>MediaStreamTrack</a></code> interface,</li>
+        {{MediaStreamTrack/kind}} attribute on
+        the {{MediaStreamTrack}} interface,</li>
         <li>defining any constrainable properties (see <a href=
         "#constrainable-properties"></a>) that are applicable to the media
         type,
@@ -5150,23 +4937,22 @@ window.onload = async () =&gt; {
         <li>updating how the <code>HTMLMediaElement</code> works with a <code>
           <a>MediaStream</a></code> containing a track of the new media type
           (see <a href="#mediastreams-in-media-elements"></a>), including
-          adding a corollary to <a href="#stream-audible">audible</a>/inaudible
+          adding a corollary to <a>audible</a>/inaudible
           for the new media type,
         </li>
-        <li>updating <code><a>MediaDeviceKind</a></code> if the new type has
+        <li>updating {{MediaDeviceKind}} if the new type has
         enumerable devices,</li>
         <li>updating the <code>getCapabilities()</code> and
         <code>getUserMedia()</code> descriptions,</li>
         <li>adding the new type to the
-        <code><a>MediaStreamConstraints</a></code> dictionary,</li>
+        {{MediaStreamConstraints}} dictionary,</li>
         <li>describing any new security and/or privacy considerations (see
         <a href="#privacy-and-security-considerations"></a>) introduced by the
         new type, and
         </li>
         <li>if the new type requires user authorization, defining new
         permissions for it, including a new PermissionDescriptor name
-        associated with the new <code><a href=
-        "#dom-mediastreamtrack-kind">kind</a></code>, and defining how these
+        associated with the new {{MediaStreamTrack/kind}}, and defining how these
         permissions, along with access starting and ending, as well as
         muting/disabling, affect any new and/or existing "on-air" and "device
         accessible" indicator states (see <a href="#mediadevices"></a>).
@@ -5178,9 +4964,8 @@ window.onload = async () =&gt; {
         </li>
         <li>the list of media stream <a>consumer</a>s,
         </li>
-        <li>the description of the <code><a href=
-        "#dom-mediastreamtrack-label">label</a></code> attribute on the
-        <code><a>MediaStreamTrack</a></code> interface,</li>
+        <li>the description of the {{MediaStreamTrack/label}} attribute on the
+        {{MediaStreamTrack}} interface,</li>
         <li>the list of sinks (see <a href=
         "#the-model-sources-sinks-constraints-and-settings"></a>), and
         </li>
@@ -5193,7 +4978,7 @@ window.onload = async () =&gt; {
         <li>explaining how the media is expected to be used by potential
         <a>consumer</a>s, and
         </li>
-        <li>giving examples in <code><a>MediaStreamTrackState</a></code> of how
+        <li>giving examples in {{MediaStreamTrackState}} of how
         such a track might become ended.</li>
       </ul>
     </section>
@@ -5202,12 +4987,12 @@ window.onload = async () =&gt; {
       <p>This will require thinking through and defining how Constraints,
       Capabilities, and Settings for the property (see <a href=
       "#terminology"></a>) will work. The relevant text in
-      <code><a>MediaTrackSupportedConstraints</a></code>,
-      <code><a>MediaTrackCapabilities</a></code>,
-      <code><a>MediaTrackConstraints</a></code>,
-      <code><a>MediaTrackSettings</a></code>, <a href=
+      {{MediaTrackSupportedConstraints}},
+      {{MediaTrackCapabilities}},
+      {{MediaTrackConstraints}},
+      {{MediaTrackSettings}}, <a href=
       "#constrainable-properties"></a>, and
-      <code><a>MediaStreamConstraints</a></code> are the model to use.</p>
+      {{MediaStreamConstraints}} are the model to use.</p>
       <p>Creators of extension specifications are strongly encouraged to notify
       the Media Capture Task Force of their extension by emailing the list at
       public-media-capture@w3.org.<br>
@@ -5216,15 +5001,15 @@ window.onload = async () =&gt; {
       aware of in an attempt to reduce potential usage conflicts.</p>
     </section>
     <p>&nbsp;</p>
-    <p>It is also likely that new consumers of <code><a>MediaStream</a></code>s
-    or <code><a>MediaStreamTrack</a></code>s will be defined in the future. The
+    <p>It is also likely that new consumers of {{MediaStream}}s
+    or {{MediaStreamTrack}}s will be defined in the future. The
     following section provides guidance.</p>
     <section>
       <h2>Defining new consumers of MediaStreams and MediaStreamTracks</h2>
       <p>At a minimum, any new consumer of a
-      <code><a>MediaStreamTrack</a></code> will need to define</p>
+      {{MediaStreamTrack}} will need to define</p>
       <ul>
-        <li>how a <code><a>MediaStreamTrack</a></code> will render in the
+        <li>how a {{MediaStreamTrack}} will render in the
         various states in which it can be, including muted and disabled (see
         <a href="#life-cycle-and-media-flow"></a>).
         </li>
