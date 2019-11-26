@@ -3061,50 +3061,8 @@ interface MediaDevices : EventTarget {
                       <var>resultList</var>.</p>
                     </li>
                     <li>
-                      <p><em>Complete Enumeration</em>: run the following sub
-                      steps to <a>resolve</a> <var>p</var>:</p>
-                      <ol>
-                        <li>
-                          <p>If any of the local devices are attached to a
-                          <code>live</code> MediaStreamTrack in the current
-                          browsing context, set <var>list-permission</var> to
-                          "granted", otherwise set <var>list-permission</var>
-                          to "granted" if [[\canExposeDeviceInfo]] is
-                          <code>true</code> and "denied" otherwise.</p>
-                        </li>
-                        <li>
-                          <p>If <var>list-permission</var> is "granted",
-                          then <a>resolve</a> <var>p</var> with
-                          <var>resultList</var>, and abort these steps.</p>
-                        </li>
-                        <li>
-                          <p>Let <var>filteredList</var> be an empty list.</p>
-                        </li>
-                        <li>
-                          <p>For each <code><a>MediaDeviceInfo</a></code>,
-                          <var>deviceInfo</var>, in <var>resultList</var>,
-                          run the following sub steps:</p>
-                          <ol>
-                            <li>
-                              <p>If <var>filteredList</var> contains a <code>MediaDeviceInfo</code> object
-                              whose <code><a href="#def-mediadeviceinfo-kind">kind</a></code>
-                              is the same as <var>deviceInfo</var>.<code><a href="#def-mediadeviceinfo-kind">kind</a></code>,
-                              skip <var>deviceInfo</var>.</p>
-                            </li>
-                            <li>
-                              <p>Let <var>filteredDeviceInfo</var> be a new <code>MediaDeviceInfo</code> object
-                              whose <code><a href="#def-mediadeviceinfo-kind">kind</a></code>
-                              is set to <var>deviceInfo</var>.<code><a href="#def-mediadeviceinfo-kind">kind</a></code>.</p>
-                            </li>
-                            <li>
-                              <p>Append <var>filteredDeviceInfo</var> to <var>filteredList</var>.</p>
-                            </li>
-                          </ol>
-                        </li>
-                        <li>
-                          <p><a>resolve</a> <var>p</var> with <var>filteredList</var>.</p>
-                        </li>
-                      </ol>
+                      <p><em>Complete Enumeration</em>: <a>resolve</a>
+                      <var>p</var> with <var>resultList</var>.</p>
                     </li>
                   </ol>
                 </li>
@@ -3116,28 +3074,10 @@ interface MediaDevices : EventTarget {
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
               fingerprinting surface exposed by the user agent.</p>
-              <p class="fingerprint">Once authorization has been granted to one
-              of the capture devices, it provides additional persistent
-              cross-origin information via the list of all media capture devices,
-              including their grouping and human readable labels associated
-              with the capture devices, which further adds to the
-              fingerprinting surface.</p>
             </dd>
           </dl>
         </section>
       </div>
-      <section>
-        <h2>Access control model</h2>
-        <p>The algorithm described above means that the access to media device
-        information depends on whether or not permission has been granted to
-        the page's origin.</p>
-        <p>If no such access has been granted, the
-        <code><a>MediaDeviceInfo</a></code> object will contain the
-        deviceId, kind, and groupId.</p>
-        <p>If access has been granted for a media device, the
-        <dfn>MediaDeviceInfo</dfn> object will contain the deviceId, kind,
-        label, and groupId.</p>
-      </section>
       <section>
         <h2>Device information can be exposed check</h2>
         <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
@@ -3176,7 +3116,6 @@ interface MediaDevices : EventTarget {
 interface MediaDeviceInfo {
   readonly attribute DOMString deviceId;
   readonly attribute MediaDeviceKind kind;
-  readonly attribute DOMString label;
   readonly attribute DOMString groupId;
   [Default] object toJSON();
 };</pre>
@@ -3230,13 +3169,6 @@ interface MediaDeviceInfo {
             readonly</dt>
             <dd>
               <p>The kind of the represented device.</p>
-            </dd>
-            <dt><dfn><code>label</code></dfn> of type <span class=
-            "idlAttrType">DOMString</span>, readonly</dt>
-            <dd>
-              <p>A label describing this device (for example "External USB
-              Webcam"). If the device has no associated label, then this
-              attribute MUST return the empty string.</p>
             </dd>
             <dt id="def-mediadeviceinfo-groupId"><dfn><code>groupId</code></dfn>
             of type <span class="idlAttrType">DOMString</span>, readonly</dt>
