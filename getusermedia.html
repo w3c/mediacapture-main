@@ -200,7 +200,8 @@
       <dd>
         <p>The terms <dfn>permission</dfn>, <dfn>retrieve the permission
         state</dfn>, <dfn id="request-permission-to-use">request permission to
-        use</dfn> and <dfn id="create-permission">create a permission storage
+        use</dfn>, <dfn id="prompt-the-user-to-choose">prompt the user to
+        choose</dfn> and <dfn id="create-permission">create a permission storage
         entry</dfn> are defined in [[!permissions]].</p>
       </dd>
     </dl>
@@ -3657,22 +3658,24 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       </div>
                       <ol>
                         <li>
-                          <p><a>Request permission to
-                          use</a> a PermissionDescriptor with its name member set
-                          to the permission name associated with <var>kind</var>
-                          (e.g. "camera" for "video", "microphone" for "audio"),
-                          and, optionally, consider its deviceId member set to
-                          any appropriate device's <var>deviceId</var>,
-                          while considering all devices attached to a
-                          <code>live</code> and <a>same-permission</a>
-                          MediaStreamTrack in the current <a data-cite=
-                          "!HTML/#browsing-context">browsing
-                          context</a> to have permission status "granted",
-                          resulting in a set of provided media.
-                          <dfn>Same-permission</dfn> in this context means a
-                          MediaStreamTrack that required the same level of
-                          permission to obtain as what is being requested (e.g. not
-                          isolated).</p>
+                          <p>Let <var>descriptor</var> be a PermissionDescriptor
+                          with its name member set to the permission name
+                          associated with <var>kind</var> (e.g. "camera" for
+                          "video", "microphone" for "audio"), and, optionally,
+                          consider its deviceId member set to any appropriate
+                          device's <var>deviceId</var>.</p>
+                        </li>
+                        <li>
+                          <p>If the number of unique devices sourcing tracks of
+                          media type <var>kind</var> in <var>candidateSet</var>
+                          is <code>1</code>, then <a>request permission to
+                          use</a> the sole device with <var>descriptor</var>,
+                          resulting in provided media. Otherwise,
+                          <a>prompt the user to choose</a> a device with
+                          <var>descriptor</var>, resulting in provided media.
+                          </p>
+                        </li>
+                        <li>
                           <p>Let <var>track</var> be the provided media, which
                           MUST be precisely one track of type <var>kind</var> from
                           <var>finalSet</var>. The decision of which track to
