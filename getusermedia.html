@@ -3117,11 +3117,20 @@ interface MediaDevices : EventTarget {
           focus</a>, return <code>true</code>.
           </li>
           <li>Return <code>false</code>.</li>
-          <div class="note">
-            <p>A User Agent MAY at any point set back [[\canExposeDeviceInfo]] to <code>false</code>, for instance in the case
-            the user explicitly asks the User Agent to revoke device access on a given browsing context.</p>
-          </div>
         </ol>
+      </section>
+      <section>
+        <h2>Set device information exposure</h2>
+        <p>To <dfn data-lt="set-device-information-exposure" id=
+        "set-device-information-exposure">set the device information exposure</dfn>,
+        with a <code>value</code> of type boolean, run the following steps:</p>
+        <ol>
+          <li>Set [[\canExposeDeviceInfo]] to <code>value</code>.</li>
+        </ol>
+        <div class="note">
+          <p>A User Agent MAY at any point set the device information exposure back to <code>false</code>,
+          for instance if the User Agent decides to revoke device access on a given browsing context.</p>
+        </div>
       </section>
     </section>
     <section>
@@ -3671,7 +3680,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       labeled <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
-                      <p>Set [[\canExposeDeviceInfo] to <code>true</code>.</p>
+                      <p><a>Set the device information exposure</a> to <code>true</code>.</p>
                     </li>
                     <li>
                       <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
