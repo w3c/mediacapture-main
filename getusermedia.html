@@ -1047,32 +1047,53 @@ interface MediaStreamTrack : EventTarget {
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
               </dd>
-              <dt><dfn><code>applyConstraints()</code></dfn></dt>
+              <dt><dfn><code>applyConstraints</code></dfn></dt>
               <dd>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method, where</p>
-                <ul>
-                  <li>In the <a>SelectSettings</a> algorithm,
+                <p>When a <code><a>MediaStreamTrack</a></code> object's
+                <code>applyConstraints()</code> method is invoked, the User
+                Agent MUST run following steps:</p>
+                <ol>
+                  <li>
+                    <p>Let <var>track</var> be the current
+                    <code><a>MediaStreamTrack</a></code> object.</p>
+                  </li>
+                  <li>
+                    <p>If <var>track</var>'s <code><a href=
+                    "#dom-mediastreamtrack-readystate">readyState</a></code>
+                    attribute is ended, run the following sub steps:</p>
+                    <ol>
+                      <li><p>Let <var>p</var> be a new promise.</p></li>
+                      <li><p><a>resolve</a> <var>p</var> with <code>undefined</code>.</p></li>
+                      <li><p>Return <var>p</var>.</p></li>
+                    </ol>
+                  </li>
+                  <li>
+                    <p>Invoke and return the result of the
+                    <a>applyConstraints template method</a> where:</p>
                     <ul>
-                      <li>
-                        <var>object</var> is the
-                        <a><code>MediaStreamTrack</code></a> on which this
-                        method was called, and
+                      <li>In the <a>SelectSettings</a> algorithm,
+                        <ul>
+                          <li>
+                            <var>object</var> is the
+                            <a><code>MediaStreamTrack</code></a> on which this
+                            method was called, and
+                          </li>
+                          <li>
+                            <a>settings dictionary</a> refers to a possible
+                            instance of the <a><code>MediaTrackSettings</code></a>
+                            dictionary.
+                          </li>
+                        </ul>
                       </li>
-                      <li>
-                        <a>settings dictionary</a> refers to a possible
-                        instance of the <a><code>MediaTrackSettings</code></a>
-                        dictionary.
+                      <li>In step 3 of the <a>ApplyConstraints algorithm</a>, all
+                      changes listed are to be made to <var>object</var>, and
                       </li>
+                      <li>In step 4 of the <a>ApplyConstraints algorithm</a>, the
+                      requirement on getConstraints() applies to the
+                      getConstraints() method of <var>object</var>.</li>
                     </ul>
                   </li>
-                  <li>In step 3 of the <a>ApplyConstraints algorithm</a>, all
-                  changes listed are to be made to <var>object</var>, and
-                  </li>
-                  <li>In step 4 of the ApplyConstraints algorithm, the
-                  requirement on getConstraints() applies to the
-                  getConstraints() method of <var>object</var>.</li>
-                </ul>
+                </ol>
               </dd>
             </dl>
           </section>
@@ -4147,7 +4168,7 @@ interface ConstrainablePattern {
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
-              <p>When the <dfn>applyConstraints()</dfn> method is invoked, the
+              <p>When the <dfn>applyConstraints template method</dfn> is invoked, the
               User Agent MUST run the following steps:</p>
               <ol>
                 <li>
