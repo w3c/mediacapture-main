@@ -3602,10 +3602,18 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           media type <var>kind</var> in <var>candidateSet</var>
                           is <code>1</code>, then <a>request permission to
                           use</a> the sole device with <var>descriptor</var>,
+                          while considering the sole device being attached to a
+                          <code>live</code> and <a>same-permission</a>
+                          MediaStreamTrack in the current <a data-cite=
+                            "!HTML/#browsing-context">browsing
+                            context</a> to mean having permission status "granted",
                           resulting in provided media. Otherwise,
                           <a>prompt the user to choose</a> a device with
                           <var>descriptor</var>, resulting in provided media.
                           </p>
+                          <dfn>Same-permission</dfn> in this context means a
+                          MediaStreamTrack that required the same level of
+                          permission to obtain as what is being requested.</p>
                         </li>
                         <li>
                           <p>Let <var>track</var> be the provided media, which
