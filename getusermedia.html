@@ -3619,18 +3619,21 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>Let <var>track</var> be the provided media, which
                           MUST be precisely one track of type <var>kind</var> from
                           <var>finalSet</var>. The decision of which track to
-                          choose from the <var>finalSet</var> is completely up to
-                          the User Agent and may be determined by asking the user.
+                          choose from the <var>finalSet</var> is not up to
+                          the User Agent. If the application has not narrowed
+                          down the choices to one, then the user agent MUST ask
+                          the user to make the final selection.
                           Once selected, the source of the
                           <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
                           <p>The User Agent MAY use the value of the computed
                           "fitness distance" from the <a>SelectSettings</a>
                           algorithm, or any other internally-available information
-                          about the devices, as an input to the selection
-                          algorithm.</p>
-                          <p>User Agents are encouraged to default to using the
-                          user's primary or system default device for <var>kind</var>
-                          (when possible). User Agents
+                          about the devices, to influence (but not limit) the
+                          user's choice.</p>
+                          <p>User Agents are encouraged to present a default
+                          choice based primarily on fitness distance, and
+                          secondarily on the user's primary or system default
+                          device for <var>kind</var> (when possible). User Agents
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
                           <p>If the result of the request is "granted", then using
