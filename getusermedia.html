@@ -493,12 +493,11 @@ interface MediaStream : EventTarget {
           <h2>Methods</h2>
           <dl data-link-for="MediaStream" data-dfn-for="MediaStream" class=
           "methods">
-            <dt><code>getAudioTracks</code></dt>
+            <dt><dfn id="dom-mediastream-getaudiotracks"><code>getAudioTracks</code></dfn></dt>
             <dd>
               <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
               objects representing the audio tracks in this stream.</p>
-              <p>The <dfn id=
-              "dom-mediastream-getaudiotracks"><code>getAudioTracks</code></dfn>
+              <p>The <code>getAudioTracks</code>
               method MUST return a sequence that represents a snapshot of all
               the <code><a>MediaStreamTrack</a></code> objects in this stream's
               <a href="#track-set">track set</a> whose <code><a href=
@@ -507,12 +506,11 @@ interface MediaStream : EventTarget {
               "#track-set">track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
             </dd>
-            <dt><code>getVideoTracks</code></dt>
+            <dt><dfn id="dom-mediastream-getvideotracks"><code>getVideoTracks</code></dfn></dt>
             <dd>
               <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
               objects representing the video tracks in this stream.</p>
-              <p>The <dfn id=
-              "dom-mediastream-getvideotracks"><code>getVideoTracks</code></dfn>
+              <p>The <code>getVideoTracks</code>
               method MUST return a sequence that represents a snapshot of all
               the <code><a>MediaStreamTrack</a></code> objects in this stream's
               <a href="#track-set">track set</a> whose <code><a href=
@@ -521,12 +519,11 @@ interface MediaStream : EventTarget {
               "#track-set">track set</a> to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
             </dd>
-            <dt><code>getTracks</code></dt>
+            <dt><dfn id="dom-mediastream-gettracks"><code>getTracks</code></dfn></dt>
             <dd>
               <p>Returns a sequence of <code><a>MediaStreamTrack</a></code>
               objects representing all the tracks in this stream.</p>
-              <p>The <dfn id=
-              "dom-mediastream-gettracks"><code>getTracks</code></dfn> method
+              <p>The <code>getTracks</code> method
               MUST return a sequence that represents a snapshot of all the
               <code><a>MediaStreamTrack</a></code> objects in this stream's
               <a href="#track-set">track set</a>, regardless of <code><a href=
@@ -535,22 +532,20 @@ interface MediaStream : EventTarget {
               Agent defined and the order does not have to be stable between
               calls.</p>
             </dd>
-            <dt><code>getTrackById</code></dt>
+            <dt><dfn id="dom-mediastream-gettrackbyid"><code>getTrackById</code></dfn></dt>
             <dd>
-              <p>The <dfn id=
-              "dom-mediastream-gettrackbyid"><code>getTrackById</code></dfn>
+              <p>The <code>getTrackById</code>
               method MUST return either a <code><a>MediaStreamTrack</a></code>
               object from this stream's <a href="#track-set">track set</a>
               whose <code><a href="#dom-mediastreamtrack-id">id</a></code> is
               equal to <var>trackId</var>, or null, if no such track
               exists.</p>
             </dd>
-            <dt><code>addTrack</code></dt>
+            <dt><dfn id="dom-mediastream-addtrack"><code>addTrack</code></dfn></dt>
             <dd>
               <p>Adds the given <code><a>MediaStreamTrack</a></code> to this
               <code><a>MediaStream</a></code>.</p>
-              <p>When the <dfn id=
-              "dom-mediastream-addtrack"><code>addTrack</code></dfn> method is
+              <p>When the <code>addTrack</code> method is
               invoked, the User Agent MUST run the following steps:</p>
               <ol>
                 <li>
@@ -569,12 +564,11 @@ interface MediaStream : EventTarget {
                 </li>
               </ol>
             </dd>
-            <dt><code>removeTrack</code></dt>
+            <dt><dfn id="dom-mediastream-removetrack"><code>removeTrack</code></dfn></dt>
             <dd>
               <p>Removes the given <code><a>MediaStreamTrack</a></code> object
               from this <code><a>MediaStream</a></code>.</p>
-              <p>When the <dfn id=
-              "dom-mediastream-removetrack"><code>removeTrack</code></dfn>
+              <p>When the <code>removeTrack</code>
               method is invoked, the User Agent MUST run the following
               steps:</p>
               <ol>
@@ -996,7 +990,7 @@ interface MediaStreamTrack : EventTarget {
                 Agent MUST return the result of <a href="#track-clone">cloning
                 this track</a>.</p>
               </dd>
-              <dt><code>stop</code></dt>
+              <dt><dfn><code>stop</code></dfn></dt>
               <dd>
                 <p>When a <code><a>MediaStreamTrack</a></code> object's
                 <code><dfn>stop()</dfn></code> method is invoked, the User
@@ -1026,7 +1020,7 @@ interface MediaStreamTrack : EventTarget {
                   </li>
                 </ol>
               </dd>
-              <dt><dfn>getCapabilities()</dfn></dt>
+              <dt><dfn><code>getCapabilities</code></dfn></dt>
               <dd>
                 <p>Returns the capabilites of the source that this
                 <code><a>MediaStreamTrack</a></code>, the <a>constrainable
@@ -1037,12 +1031,12 @@ interface MediaStreamTrack : EventTarget {
                 persistent, cross-origin information about the underlying
                 device, it adds to the fingerprint surface of the device.</p>
               </dd>
-              <dt><dfn><code>getConstraints()</code></dfn></dt>
+              <dt><dfn><code>getConstraints</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
               </dd>
-              <dt><dfn><code>getSettings()</code></dfn></dt>
+              <dt><dfn><code>getSettings</code></dfn></dt>
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
@@ -2934,7 +2928,7 @@ interface MediaDevices : EventTarget {
           <h2>Methods</h2>
           <dl data-link-for="MediaDevices" data-dfn-for="MediaDevices" class=
           "methods">
-            <dt><code>enumerateDevices</code></dt>
+            <dt><dfn><code>enumerateDevices</code></dfn></dt>
             <dd>
               <p>Collects information about the User Agent's available media
               input and output devices.</p>
@@ -2950,7 +2944,7 @@ interface MediaDevices : EventTarget {
               be enumerable. Specifications that add additional types of source
               will provide recommendations about whether the source type should
               be enumerable.</p>
-              <p>When the <code><dfn>enumerateDevices()</dfn></code> method is
+              <p>When the <code>enumerateDevices()</code> method is
               called, the User Agent must run the following steps:</p>
               <ol>
                 <li>
@@ -3255,7 +3249,7 @@ interface MediaDeviceInfo {
           <h2>Methods</h2>
           <dl data-link-for="MediaDeviceInfo" data-dfn-for="MediaDeviceInfo"
           class="methods">
-            <dt><dfn><code>toJSON()</code></dfn></dt>
+            <dt><dfn><code>toJSON</code></dfn></dt>
             <dd>
               When called, run [[!WEBIDL]]'s <a data-cite=
               "WEBIDL#default-tojson-operation">default toJSON operation</a>.
@@ -3318,7 +3312,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           <h2>Methods</h2>
           <dl data-link-for="InputDeviceInfo" data-dfn-for="InputDeviceInfo"
           class="methods">
-            <dt><dfn>getCapabilities()</dfn></dt>
+            <dt><dfn><code>getCapabilities</code></dfn></dt>
             <dd>
               <p>Returns a <code><a>MediaTrackCapabilities</a></code> object
               describing the primary audio or video track of a device's
@@ -3402,7 +3396,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           <h2>Methods</h2>
           <dl data-link-for="Navigator" data-dfn-for="Navigator" class=
           "methods">
-            <dt><dfn>getUserMedia()</dfn></dt>
+            <dt><dfn><code>getUserMedia</code></dfn></dt>
             <dd>
               <p>Prompts the user for permission to use their Web cam or other
               video or audio input.</p>
@@ -3510,7 +3504,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               dictionary. The values returned represent what the browser
               implements and will not change during a browsing session.</p>
             </dd>
-            <dt><code>getUserMedia</code></dt>
+            <dt><dfn><code>getUserMedia</code></dfn></dt>
             <dd>
               <p>Prompts the user for permission to use their Web cam or other
               video or audio input.</p>
