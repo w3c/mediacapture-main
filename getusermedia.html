@@ -4115,6 +4115,29 @@ const constraints = {
       to the semantics defined here, which will not change. See <a href=
       "#media-stream-track-interface-definition">MediaStreamTrack Interface
       Definition</a> for an example of this.</p>
+      <p>This pattern relies on the <a>constrainable object</a> defining three
+      internal slots:</p>
+      <ol>
+        <li>
+          <p>A <dfn>[[\Capabilities]]</dfn> internal slot, initialized to a
+          <code>Capabilities</code> dictionary describing the aggregate
+          allowable values for each constrainable property exposed, as
+          explained under
+          <a href="#dom-capabilities">Capabilities</a>, or an empty dictionary
+          if it has none.</p>
+        </li>
+        <li>
+          <p>A <dfn>[[\Constraints]]</dfn> internal slot, initialized to an
+          empty <code>Constraints</code> dictionary.</p>
+        </li>
+        <li>
+          <p>A <dfn>[[\Settings]]</dfn> internal slot, initialized to a
+          <code>Settings</code> dictionary describing the currently active
+          settings values for each constrainable property exposed, as
+          explained under <a href="#dom-settings">Settings</a>, or an empty
+          dictionary if it has none.</p>
+        </li>
+      </ol>
       <div>
       <div class="example">Template:
         <pre class="idl"
@@ -4134,7 +4157,9 @@ interface ConstrainablePattern {
               <p>The <dfn data-lt=
               "ConstrainablePattern.getCapabilities">getCapabilities()</dfn>
               method returns the dictionary of the names of the constrainable
-              properties that the object supports.</p>
+              properties that the object supports. When invoked, the User Agent
+              MUST return the value of the <a>[[\Capabilities]]</a> internal
+              slot.</p>
               <div class="note">
                 <p>It is possible that the underlying hardware may not exactly
                 map to the range defined for the constrainable property. Where
@@ -4165,7 +4190,9 @@ interface ConstrainablePattern {
               the application should use <code>getSettings</code>. Instead of
               returning the exact constraints as described above, the UA MAY
               return a constraint set that has the identical effect in all
-              situations as the applied constraints.</p>
+              situations as the applied constraints. When invoked, the User Agent
+              MUST return the value of the <a>[[\Constraints]]</a> internal slot.
+              </p>
             </dd>
             <dt><code>getSettings</code></dt>
             <dd>
@@ -4174,7 +4201,9 @@ interface ConstrainablePattern {
               whether they are platform defaults or have been set by the
               <a>ApplyConstraints algorithm</a>. Note that a setting is a
               target value that complies with constraints, and therefore may
-              differ from measured performance at times.</p>
+              differ from measured performance at times. When invoked, the User
+              Agent MUST return the value of the <a>[[\Settings]]</a>
+              internal slot.</p>
             </dd>
             <dt><code>applyConstraints</code></dt>
             <dd>
@@ -4193,7 +4222,8 @@ interface ConstrainablePattern {
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
-                  <p>Run the following steps in parallel:</p>
+                  <p>Run the following steps in parallel, maintaining the order
+                  of invocations if this method is called multiple times:</p>
                   <ol>
                     <li>
                       <p>Let <var>failedConstraint</var> be the result of
@@ -4201,18 +4231,39 @@ interface ConstrainablePattern {
                       <var>newConstraints</var> as the argument.</p>
                     </li>
                     <li>
-                      <p>If <var>failedConstraint</var> is
-                      <code>undefined</code>, <a>resolve</a> <var>p</var> with
-                      <code>undefined</code>, and abort these steps.</p>
+                      <p>Let <var>successfulSettings</var> be the
+                      <var>object</var>'s current settings after the algorithm
+                      in the above step has finished.</p>
                     </li>
                     <li>
-                      <p>Let <var>message</var> be either
-                      <code>undefined</code> or an informative human-readable
-                      message, <a>reject</a> <var>p</var> with a new
-                      <code>OverconstrainedError</code> created by calling
-                      <code>OverconstrainedError(<var>failedConstraint</var>,
-                      <var>message</var>)</code>, and abort these steps. The
-                      existing constraints remain in effect in this case.</p>
+                      <p>Queue a task that runs the following steps:</p>
+                      <ol>
+                        <li>
+                          <p>If <var>failedConstraint</var> is not
+                          <code>undefined</code>, let <var>message</var> be either
+                          <code>undefined</code> or an informative human-readable
+                          message, <a>reject</a> <var>p</var> with a new
+                          <code>OverconstrainedError</code> created by calling
+                          <code>OverconstrainedError(<var>failedConstraint</var>,
+                          <var>message</var>)</code>, and abort these steps. The
+                          existing constraints remain in effect in this case.</p>
+                        </li>
+                        <li>
+                          <p>Set <var>object</var>'s <a>[[\Constraints]]</a>
+                          internal slot to <var>newConstraints</var> or a
+                          <code>Constraints</code> dictionary that has the
+                          identical effect in all situations as
+                          <var>newConstraints</var>.</p>
+                        </li>
+                        <li>
+                          <p>Set <var>object</var>'s <a>[[\Settings]]</a>
+                          internal slot to <var>successfulSettings</var>.</p>
+                        </li>
+                        <li>
+                          <p><a>Resolve</a> <var>p</var> with
+                          <code>undefined</code>.</p>
+                        </li>
+                      </ol>
                     </li>
                   </ol>
                 </li>
@@ -4394,10 +4445,6 @@ interface ConstrainablePattern {
                 <var>successfulSettings</var> as the current settings.</li>
                 <li>Return <code>undefined</code>.</li>
               </ol>
-              <p>The User Agent MAY choose new settings for the constrainable
-              properties of the object at any time. When it does so it MUST
-              attempt to satisfy all current Constraints, in the manner
-              described in the algorithm above.</p>
               <div class="note">
                 <p>Any implementation that has the same result as the algorithm
                 above is an allowed implementation. For instance, the
@@ -4415,6 +4462,24 @@ interface ConstrainablePattern {
                 dictionary will cause the device driver to apply
                 resampling.</p>
               </div>
+              <p>The User Agent MAY choose new settings for the constrainable
+              properties of the object at any time. When it does so it MUST
+              attempt to satisfy all current Constraints, in the manner
+              described in the algorithm above, let
+              <var>successfulSettings</var> be the resulting new settings, and
+              queue a task to run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>object</var> be the
+                  <code><a>ConstrainablePattern</a></code> object on which new
+                  settings for one or more constrainable properties have changed.
+                  </p>
+                </li>
+                <li>
+                  <p>Set <var>object</var>'s <a>[[\Settings]]</a> internal
+                  slot to <var>successfulSettings</var>.</p>
+                </li>
+              </ol>
             </dd>
           </dl>
         </section>
