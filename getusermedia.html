@@ -4123,28 +4123,27 @@ const constraints = {
       Definition</a> for an example of this.</p>
       <p>This pattern relies on the <a>constrainable object</a> defining three
       internal slots:</p>
-        <ol>
-          <li>
-            <p>A <dfn>[[\Capabilities]]</dfn> internal slot, initialized to a
-            <code>Capabilities</code> dictionary describing the aggregate
-            allowable values for each constrainable property exposed, as
-            explained under
-            <a href="#dom-capabilities">Capabilities</a>, or an empty dictionary
-            if it has none.</p>
-          </li>
-          <li>
-            <p>A <dfn>[[\Constraints]]</dfn> internal slot, initialized to an
-            empty <code>Constraints</code> dictionary.</p>
-          </li>
-          <li>
-            <p>A <dfn>[[\Settings]]</dfn> internal slot, initialized to a
-            <code>Settings</code> dictionary describing the currently active
-            settings values for each constrainable property exposed, as
-            explained under <a href="#dom-settings">Settings</a>, or an empty
-            dictionary if it has none.</p>
-          </li>
-        </ol>
-      </p>
+      <ol>
+        <li>
+          <p>A <dfn>[[\Capabilities]]</dfn> internal slot, initialized to a
+          <code>Capabilities</code> dictionary describing the aggregate
+          allowable values for each constrainable property exposed, as
+          explained under
+          <a href="#dom-capabilities">Capabilities</a>, or an empty dictionary
+          if it has none.</p>
+        </li>
+        <li>
+          <p>A <dfn>[[\Constraints]]</dfn> internal slot, initialized to an
+          empty <code>Constraints</code> dictionary.</p>
+        </li>
+        <li>
+          <p>A <dfn>[[\Settings]]</dfn> internal slot, initialized to a
+          <code>Settings</code> dictionary describing the currently active
+          settings values for each constrainable property exposed, as
+          explained under <a href="#dom-settings">Settings</a>, or an empty
+          dictionary if it has none.</p>
+        </li>
+      </ol>
       <div>
       <div class="example">Template:
         <pre class="idl"
