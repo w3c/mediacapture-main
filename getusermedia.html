@@ -1167,6 +1167,7 @@ interface MediaStreamTrack : EventTarget {
   boolean channelCount = true;
   boolean deviceId = true;
   boolean groupId = true;
+  boolean category = true;
 };</pre>
           <section>
             <h2>Dictionary <a class=
@@ -1257,6 +1258,12 @@ interface MediaStreamTrack : EventTarget {
               <code>true</code></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dt><dfn><code>category</code></dfn> of type <span class=
+              "idlMemberType">boolean</span>, defaulting to
+              <code>true</code></dt>
+              <dd>See <code><a href=
+              "#def-constraint-category">category</a></code> for
+              details.</dd>
             </dl>
           </section>
         </div>
@@ -1287,6 +1294,7 @@ interface MediaStreamTrack : EventTarget {
   ULongRange channelCount;
   DOMString deviceId;
   DOMString groupId;
+  sequence&lt;DOMString&gt; category;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackCapabilities</a>
@@ -1395,6 +1403,15 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dt><dfn><code>category</code></dfn> of type <span class=
+                "idlMemberType">sequence&lt;DOMString&gt;</span></dt>
+              <dd>
+                <p>If the <code><a href=
+                "#def-constraint-category">category</a></code> constraint is
+                supported, a list containing all categories is returned. See
+                <code><a href="#def-constraint-category">category</a></code> for
+                additional details.</p>
+              </dd>
             </dl>
           </section>
         </div>
@@ -1441,6 +1458,7 @@ interface MediaStreamTrack : EventTarget {
   ConstrainULong channelCount;
   ConstrainDOMString deviceId;
   ConstrainDOMString groupId;
+  ConstrainDOMString category;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackConstraintSet</a>
@@ -1516,6 +1534,11 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType"><a>ConstrainDOMString</a></span></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dt><dfn><code>category</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDOMString</a></span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-category">category</a></code> for
+              details.</dd>
             </dl>
           </section>
         </div>
@@ -1545,6 +1568,7 @@ interface MediaStreamTrack : EventTarget {
   long channelCount;
   DOMString deviceId;
   DOMString groupId;
+  DOMString category;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">MediaTrackSettings</a>
@@ -1620,6 +1644,11 @@ interface MediaStreamTrack : EventTarget {
               "idlMemberType">DOMString</span></dt>
               <dd>See <code><a href=
               "#def-constraint-groupId">groupId</a></code> for details.</dd>
+              <dt><dfn><code>category</code></dfn> of type <span class=
+              "idlMemberType">DOMString</span></dt>
+              <dd>See <code><a href=
+              "#def-constraint-category">category</a></code> for
+              details.</dd>
             </dl>
           </section>
         </div>
@@ -1928,8 +1957,68 @@ interface MediaStreamTrack : EventTarget {
               data contains, i.e. the number of audio samples per sample
               frame.</td>
             </tr>
+            <tr id="def-constraint-category">
+              <td><dfn>category</dfn></td>
+              <td><code><a>ConstrainDOMString</a></code></td>
+              <td>This string (or each string, when a list) should be one of
+              the members of <code><a>CategoryEnum</a></code>. The
+              members describe the type of application that this stream will be
+              used for, which allows the User Agent to apply optimizations
+              accordingly.</td>
+            </tr>
           </tbody>
         </table>
+        <div>
+          <pre class="idl"
+>enum CategoryEnum {
+  "default",
+  "raw",
+  "communications",
+  "speech"
+};</pre>
+        <table data-link-for="CategoryEnum" data-dfn-for=
+        "CategoryEnum" class="simple">
+          <tbody>
+            <tr>
+              <th colspan="2"><dfn>CategoryEnum</dfn> Enumeration
+              description</th>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-CategoryEnum.default">default</code></dfn></td>
+              <td>
+                <p>The same as if no
+                <code><a href="#def-constraint-category">category</a></code> was
+                specified.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-CategoryEnum.raw">raw</code></dfn></td>
+              <td>
+                <p>Default modifications added by the platform should be
+                stripped</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-CategoryEnum.communications">communications</code></dfn>
+              </td>
+              <td>
+                <p>The stream is intended for use in a meeting or chatting app.  
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-CategoryEnum.speech">speech</code></dfn></td>
+              <td>
+                <p>The stream is intended to be used for speech recognition.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       </section>
     </section>
     <section>
