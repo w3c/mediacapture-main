@@ -725,20 +725,23 @@ interface MediaStream : EventTarget {
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
-        <p>When a live track sourced by a device exposed by <a data-link-for=
-        "MediaDevices">getUserMedia()</a> becomes either muted or disabled,
+        <p>When a <code>live</code>, <a href="#track-muted">unmuted</a>, and
+        <a href="#track-enabled">enabled</a> track sourced by a device exposed
+        by <a data-link-for="MediaDevices">getUserMedia()</a> becomes either
+        <a href="#track-muted">muted</a> or <a href="#track-enabled">disabled</a>,
         and this brings <em>all</em> tracks connected to the device to be either
         muted, disabled, or stopped, then the UA MUST relinquish the device
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA MUST attempt to reacquire the
-        device as soon as any live track sourced by the device becomes both
-        unmuted and enabled again, provided the <var>document</var>
+        device as soon as any <code>live</code> track sourced by the device
+        becomes both <a href="#track-muted">unmuted</a> and
+        <a href="#track-enabled">enabled</a> again, provided the <var>document</var>
         <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
         <var>document</var> does not
         <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
         the UA MUST instead queue a task to <a href="#track-muted">mute</a> the
-        track, and <a href="#track-muted">unmute</a> it later once the document
-        <a data-cite="!HTML/#gains-focus">gains focus</a>.
+        track, and MUST NOT <a href="#track-muted">unmute</a> the track until
+        the document <a data-cite="!HTML/#gains-focus">regains focus</a>.
         If reacquiring the device fails, the UA MUST
         <a href="#ends-nostop">end the track</a> (The UA MAY end it earlier
         should it detect a device problem, like the device being physically
