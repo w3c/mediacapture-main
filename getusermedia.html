@@ -740,7 +740,7 @@ interface MediaStream : EventTarget {
         <var>document</var> does not
         <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
         the UA SHOULD instead queue a task to <a href="#track-muted">mute</a> the
-        track, and not <a href="#track-muted">unmute</a> the track until
+        track, and not queue a task to <a href="#track-muted">unmute</a> it until
         the document <a data-cite="!HTML/#gains-focus">regains focus</a>.
         If reacquiring the device fails, the UA MUST
         <a href="#ends-nostop">end the track</a> (The UA MAY end it earlier
