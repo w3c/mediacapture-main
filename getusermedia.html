@@ -200,7 +200,8 @@
       <dd>
         <p>The terms <dfn>permission</dfn>, <dfn>retrieve the permission
         state</dfn>, <dfn id="request-permission-to-use">request permission to
-        use</dfn> and <dfn id="create-permission">create a permission storage
+        use</dfn>, <dfn id="prompt-the-user-to-choose">prompt the user to
+        choose</dfn> and <dfn id="create-permission">create a permission storage
         entry</dfn> are defined in [[!permissions]].</p>
       </dd>
     </dl>
@@ -3555,9 +3556,27 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   argument.</p>
                 </li>
                 <li>
+                  <p>Let <var>semanticsPresent</var> be <code>true</code> if
+                  <var>constraints</var><code>.semantics</code> is
+                  <a href="https://heycam.github.io/webidl/#dfn-present">present</a>,
+                  otherwise <code>false</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>semantics</var> be <var>constraints</var><code>.semantics</code>
+                  if <a href="https://heycam.github.io/webidl/#dfn-present">present</a>,
+                  or <code>"browser-chooses"</code> otherwise.</p>
+                </li>
+                <li>
                   <p>Let <var>requestedMediaTypes</var> be the set of media
                   types in <var>constraints</var> with either a dictionary
                   value or a value of "true".</p>
+                </li>
+                <li>
+                  <p>If <var>semantics</var> is <code>"feature-detect"</code>,
+                  return a promise <a>rejected</a> with a
+                  <code><a>DOMException</a></code> object whose
+                  <code>name</code> attribute has the value
+                  <code>InvalidModificationError</code>.</p>
                 </li>
                 <li>
                   <p>If <var>requestedMediaTypes</var> is the empty set, return
@@ -3682,41 +3701,54 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       </div>
                       <ol>
                         <li>
-                          <p><a>Request permission to
-                          use</a> a PermissionDescriptor with its name member set
-                          to the permission name associated with <var>kind</var>
-                          (e.g. "camera" for "video", "microphone" for "audio"),
-                          and, optionally, consider its deviceId member set to
-                          any appropriate device's <var>deviceId</var>,
-                          while considering all devices attached to a
-                          <code>live</code> and <a>same-permission</a>
-                          MediaStreamTrack in the current <a data-cite=
-                          "!HTML/#browsing-context">browsing
-                          context</a> to have permission status "granted",
-                          resulting in a set of provided media.
+                          <p>Let <var>descriptor</var> be a PermissionDescriptor
+                          with its name member set to the permission name
+                          associated with <var>kind</var> (e.g. "camera" for
+                          "video", "microphone" for "audio"), and, optionally,
+                          consider its deviceId member set to any appropriate
+                          device's <var>deviceId</var>.</p>
+                        </li>
+                        <li>
+                          <p>If the number of unique devices sourcing tracks of
+                          media type <var>kind</var> in <var>candidateSet</var>
+                          is greater than <code>1</code> and
+                          <var>semantics</var> is <code>"user-chooses"</code>,
+                          then <a>prompt the user to choose</a> a device with
+                          <var>descriptor</var>, resulting in provided media.
+                          Otherwise, <a>request permission to use</a> a
+                          device with <var>descriptor</var>, while considering
+                          all devices being attached to a <code>live</code> and
+                          <a>same-permission</a> MediaStreamTrack in the current
+                          <a data-cite="!HTML/#browsing-context">browsing
+                          context</a> to mean having permission status "granted",
+                          resulting in provided media.</p>
                           <dfn>Same-permission</dfn> in this context means a
                           MediaStreamTrack that required the same level of
-                          permission to obtain as what is being requested (e.g. not
-                          isolated).</p>
+                          permission to obtain as what is being requested.</p>
                           <p>When asking the user’s permission, the user agent
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
                           <p>Let <var>track</var> be the provided media, which
                           MUST be precisely one track of type <var>kind</var> from
-                          <var>finalSet</var>. The decision of which track to
-                          choose from the <var>finalSet</var> is completely up to
-                          the User Agent and may be determined by asking the user.
-                          Once selected, the source of the
+                          <var>finalSet</var>. If <var>semantics</var> is
+                          <code>"browser-chooses"</code> then the decision of
+                          which track to choose from <var>finalSet</var> is up
+                          to the User Agent, which MAY use the value of the
+                          computed "fitness distance" from the <a>SelectSettings</a>
+                          algorithm, the value of <var>semanticsPresent</var>,
+                          or any other internally-available information about
+                          the devices, as input to its selection algorithm.
+                          If <var>semantics</var> is <code>"user-chooses"</code>,
+                          and the application has not narrowed down the choices
+                          to one, then the user agent MUST ask the user to make
+                          the final selection.</p>
+                          <p>Once selected, the source of the
                           <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
-                          <p>The User Agent MAY use the value of the computed
-                          "fitness distance" from the <a>SelectSettings</a>
-                          algorithm, or any other internally-available information
-                          about the devices, as an input to the selection
-                          algorithm.</p>
-                          <p>User Agents are encouraged to default to using the
-                          user's primary or system default device for <var>kind</var>
-                          (when possible). User Agents
+                          <p>User Agents are encouraged to present a default
+                          choice based primarily on fitness distance, and
+                          secondarily on the user's primary or system default
+                          device for <var>kind</var> (when possible). User Agents
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
                           <p>If the result of the request is "granted", then using
@@ -3806,6 +3838,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
 >dictionary MediaStreamConstraints {
   (boolean or MediaTrackConstraints) video = false;
   (boolean or MediaTrackConstraints) audio = false;
+  GetUserMediaSemantics semantics;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">MediaStreamConstraints</a>
@@ -3833,8 +3866,66 @@ interface InputDeviceInfo : MediaDeviceInfo {
               <code>false</code>, the <a>MediaStream</a> MUST NOT contain an
               audio Track.</p>
             </dd>
+            <dt><dfn><code>semantics</code></dfn> of type <span class=
+            "idlMemberType"><a>GetUserMediaSemantics</a></span></dt>
+            <dd>
+              <p>In cases where the specified constraints do not widdle
+              multiple choices between devices down to one per kind, specifies
+              how the final determination of which to pick from the remaining
+              choices MUST be made.
+              </p>
+            </dd>
           </dl>
         </section>
+      </div>
+      <div>
+        <pre class="idl"
+>enum GetUserMediaSemantics {
+  "browser-chooses",
+  "user-chooses",
+  "feature-detect",
+};</pre>
+        <table data-link-for="GetUserMediaSemantics" data-dfn-for=
+        "GetUserMediaSemantics" class="simple">
+          <tbody>
+            <tr>
+              <th colspan="2"><dfn>GetUserMediaSemantics</dfn> Enumeration
+              description</th>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-GetUserMediaSemantics.browser-chooses">browser-chooses</code></dfn></td>
+              <td>
+                <p>When application-specified constraints do not widdle multiple
+                choices between devices down to one per kind, the user agent is
+                allowed to make the final determination between the remaining
+                choices.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-GetUserMediaSemantics.user-chooses">user-chooses</code></dfn></td>
+              <td>
+                <p>When application-specified constraints do not widdle
+                multiple choices between devices down to one per kind, the user
+                agent MUST
+                <a id="prompt-the-user-to-choose">prompt the user to choose</a>
+                between the remaining choices, even if the application already
+                has permission to some or all of them.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-GetUserMediaSemantics.feature-detect">feature-detect</code></dfn></td>
+              <td>
+                <p>If provided, will cause
+                <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> to
+                fail with <code>InvalidModificationError</code>.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <section>
