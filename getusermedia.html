@@ -3734,20 +3734,20 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <var>finalSet</var>. If <var>semantics</var> is
                           <code>"browser-chooses"</code> then the decision of
                           which track to choose from <var>finalSet</var> is up
-                          to the User Agent, which MAY use the value of the
-                          computed "fitness distance" from the <a>SelectSettings</a>
+                          to the User Agent, which MAY use the value of the computed
+                          "fitness distance" from the <a>SelectSettings</a>
                           algorithm, the value of <var>semanticsPresent</var>,
                           or any other internally-available information about
-                          the devices, as input to its selection algorithm.
+                          the devices, as inputs to its decision.
                           If <var>semantics</var> is <code>"user-chooses"</code>,
                           and the application has not narrowed down the choices
                           to one, then the user agent MUST ask the user to make
                           the final selection.</p>
                           <p>Once selected, the source of the
                           <code><a>MediaStreamTrack</a></code> MUST NOT change.</p>
-                          <p>User Agents are encouraged to present a default
-                          choice based primarily on fitness distance, and
-                          secondarily on the user's primary or system default
+                          <p>User Agents are encouraged to default to or present
+                          a default choice based primarily on fitness distance,
+                          and secondarily on the user's primary or system default
                           device for <var>kind</var> (when possible). User Agents
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
