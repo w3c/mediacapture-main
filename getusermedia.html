@@ -3926,6 +3926,18 @@ interface InputDeviceInfo : MediaDeviceInfo {
             </tr>
           </tbody>
         </table>
+        <div class="note">
+          <p>Support for <code>semantics</code> may be detected as follows:</p>
+          <pre>
+async function supportsSemantics() {
+  try {
+    await navigator.mediaDevices.getUserMedia({semantics: "feature-detect"});
+  } catch({name}) {
+    return name == "InvalidModificationError";
+  }
+}
+          </pre>
+        </div>
       </div>
     </section>
     <section>
