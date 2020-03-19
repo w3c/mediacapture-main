@@ -3452,6 +3452,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   argument.</p>
                 </li>
                 <li>
+                  <p>Let <var>navigator</var> be the object on which this method
+                  was invoked.</p>
+                </li>
+                <li>
                   <p>Let <var>successCallback</var> be the callback indicated
                   by the method's second argument.</p>
                 </li>
@@ -3462,6 +3466,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                 <li>
                   <p>Run the steps specified by the <a href=
                   "#dom-mediadevices-getusermedia">getUserMedia() algorithm</a>
+                  on <var>navigator</var><code>.<a>mediaDevices</a></code>
                   with <var>constraints</var> as the argument, and let
                   <var>p</var> be the resulting promise.</p>
                 </li>
@@ -3522,6 +3527,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
 >partial interface MediaDevices {
   MediaTrackSupportedConstraints getSupportedConstraints();
   Promise&lt;MediaStream&gt; getUserMedia(optional MediaStreamConstraints constraints = {});
+  readonly attribute GetUserMediaSemantics defaultSemantics;
 };</pre>
         <section>
           <h2>Methods</h2>
@@ -3556,6 +3562,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   argument.</p>
                 </li>
                 <li>
+                  <p>Let <var>mediaDevices</var> be the object on which this
+                  method was invoked.</p>
+                </li>
+                <li>
                   <p>Let <var>semanticsPresent</var> be <code>true</code> if
                   <var>constraints</var><code>.semantics</code> is
                   <a href="https://heycam.github.io/webidl/#dfn-present">present</a>,
@@ -3564,19 +3574,14 @@ interface InputDeviceInfo : MediaDeviceInfo {
                 <li>
                   <p>Let <var>semantics</var> be <var>constraints</var><code>.semantics</code>
                   if <a href="https://heycam.github.io/webidl/#dfn-present">present</a>,
-                  or <code>"browser-chooses"</code> otherwise.</p>
+                  or the value of
+                  <var>mediaDevices</var><code>.<a data-link-for="MediaDevices">defaultSemantics</a></code>
+                  otherwise.</p>
                 </li>
                 <li>
                   <p>Let <var>requestedMediaTypes</var> be the set of media
                   types in <var>constraints</var> with either a dictionary
                   value or a value of "true".</p>
-                </li>
-                <li>
-                  <p>If <var>semantics</var> is <code>"feature-detect"</code>,
-                  return a promise <a>rejected</a> with a
-                  <code><a>DOMException</a></code> object whose
-                  <code>name</code> attribute has the value
-                  <code>InvalidModificationError</code>.</p>
                 </li>
                 <li>
                   <p>If <var>requestedMediaTypes</var> is the empty set, return
@@ -3818,13 +3823,70 @@ interface InputDeviceInfo : MediaDeviceInfo {
               </ol>
             </dd>
           </dl>
+          <div class="note">
+            <p>In the algorithm above, constraints are checked twice - once at
+            device selection, and once after access approval. Time may have passed
+            between those checks, so it is conceivable that the selected device is
+            no longer suitable. In this case, a NotReadableError will result.</p>
+          </div>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="MediaDevices" data-dfn-for="MediaDevices"
+          class="attributes">
+            <dt id="def-mediadevices-defaultSemantics"><dfn><code>defaultSemantics</code></dfn>
+            of type <span class="idlAttrType"><a>GetUserMediaSemantics</a></span>, readonly</dt>
+            <dd>
+              <p>The default <a data-link-for="MediaStreamConstraints">semantics</a> of <a data-link-for=
+              "MediaDevices">getUserMedia()</a> in this user agent.</p>
+              <p>User agents SHOULD default to <code>"browser-chooses"</code>
+              for backwards compatibility, unless a transition plan has been
+              enacted where a majority of user agents collectively switch their
+              defaults to <code>"user-chooses"</code> for improved user privacy,
+              and usage metrics suggest this transition is feasible without
+              major breakage.</p>
+            </dd>
+          </dl>
         </section>
       </div>
-      <div class="note">
-        <p>In the algorithm above, constraints are checked twice - once at
-        device selection, and once after access approval. Time may have passed
-        between those checks, so it is conceivable that the selected device is
-        no longer suitable. In this case, a NotReadableError will result.</p>
+      <div>
+        <pre class="idl"
+>enum GetUserMediaSemantics {
+  "browser-chooses",
+  "user-chooses"
+};</pre>
+        <table data-link-for="GetUserMediaSemantics" data-dfn-for=
+        "GetUserMediaSemantics" class="simple">
+          <tbody>
+            <tr>
+              <th colspan="2"><dfn>GetUserMediaSemantics</dfn> Enumeration
+              description</th>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-GetUserMediaSemantics.browser-chooses">browser-chooses</code></dfn></td>
+              <td>
+                <p>When application-specified constraints do not narrow multiple
+                choices between devices down to one per kind, the user agent is
+                allowed to make the final determination between the remaining
+                choices.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-GetUserMediaSemantics.user-chooses">user-chooses</code></dfn></td>
+              <td>
+                <p>When application-specified constraints do not narrow
+                multiple choices between devices down to one per kind, the user
+                agent MUST
+                <a href="prompt-the-user-to-choose">prompt the user to choose</a>
+                between the remaining choices, even if the application already
+                has permission to some or all of them.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <section>
@@ -3871,73 +3933,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
             <dd>
               <p>In cases where the specified constraints do not narrow
               multiple choices between devices down to one per kind, specifies
-              how the final determination of which to pick from the remaining
-              choices MUST be made.
+              how the final determination of which devices to pick from the
+              remaining choices MUST be made. If not specified, then the
+              <a data-link-for="MediaDevices">defaultSemantics</a> are used.
               </p>
             </dd>
           </dl>
         </section>
-      </div>
-      <div>
-        <pre class="idl"
->enum GetUserMediaSemantics {
-  "browser-chooses",
-  "user-chooses",
-  "feature-detect",
-};</pre>
-        <table data-link-for="GetUserMediaSemantics" data-dfn-for=
-        "GetUserMediaSemantics" class="simple">
-          <tbody>
-            <tr>
-              <th colspan="2"><dfn>GetUserMediaSemantics</dfn> Enumeration
-              description</th>
-            </tr>
-            <tr>
-              <td><dfn><code id=
-              "idl-def-GetUserMediaSemantics.browser-chooses">browser-chooses</code></dfn></td>
-              <td>
-                <p>When application-specified constraints do not narrow multiple
-                choices between devices down to one per kind, the user agent is
-                allowed to make the final determination between the remaining
-                choices.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td><dfn><code id=
-              "idl-def-GetUserMediaSemantics.user-chooses">user-chooses</code></dfn></td>
-              <td>
-                <p>When application-specified constraints do not narrow
-                multiple choices between devices down to one per kind, the user
-                agent MUST
-                <a href="prompt-the-user-to-choose">prompt the user to choose</a>
-                between the remaining choices, even if the application already
-                has permission to some or all of them.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><dfn><code id=
-              "idl-def-GetUserMediaSemantics.feature-detect">feature-detect</code></dfn></td>
-              <td>
-                <p>If provided, will cause
-                <a href="#dom-mediadevices-getusermedia">getUserMedia()</a> to
-                fail with <code>InvalidModificationError</code>.</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="note">
-          <p>Support for <code>semantics</code> may be detected as follows:</p>
-          <pre>
-async function supportsSemantics() {
-  try {
-    await navigator.mediaDevices.getUserMedia({semantics: "feature-detect"});
-  } catch({name}) {
-    return name == "InvalidModificationError";
-  }
-}
-          </pre>
-        </div>
       </div>
     </section>
     <section>
