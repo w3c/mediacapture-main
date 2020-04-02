@@ -3217,9 +3217,11 @@ interface MediaDeviceInfo {
               <p>To to ensure stored identifiers are recognized, the identifier
               MUST be the same in documents of the same origin in <a data-cite=
               "!HTML/#top-level-browsing-context">top-level browsing contexts.</a>
-              In iframes, whether or not the identifier is the same in documents
-              of the same origin or not, MUST follow the user agents'
-              partitioning rules for <a data-cite=
+              In <a data-cite=
+              "!HTML/#nested-browsing-context">nested browsing contexts</a>,
+              the decision of whether or not the identifier is the same across
+              documents, MUST follow the user agents' partitioning rules for
+              <a data-cite=
               "!HTML/#dom-localstorage"><code>localStorage</code></a>, if any,
               to not interfere with mitigations for cross-site correlation.
               The identifier SHOULD be origin-unique,
