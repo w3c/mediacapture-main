@@ -3214,8 +3214,17 @@ interface MediaDeviceInfo {
               <p>The identifier of the represented device. The device MUST be
               uniquely identified by its identifier and its <code><a
               href="#def-mediadeviceinfo-kind">kind</a></code>.</p>
-              <p>The same identifier MUST be valid between browsing sessions of
-              this origin. The identifier SHOULD be origin-unique,
+              <p>To to ensure stored identifiers are recognized, the identifier
+              MUST be the same in documents of the same origin in <a data-cite=
+              "!HTML/#top-level-browsing-context">top-level browsing contexts.</a>
+              In <a data-cite=
+              "!HTML/#nested-browsing-context">nested browsing contexts</a>,
+              the decision of whether or not the identifier is the same across
+              documents, MUST follow the user agents' partitioning rules for
+              storage (such as <a data-cite=
+              "!HTML/#dom-localstorage"><code>localStorage</code></a>), if any,
+              to not interfere with mitigations for cross-site correlation.
+              The identifier SHOULD be origin-unique,
               in which case some sort of UUID is recommended.
               If the identifier can uniquely identify the user, as is usually
               the case with UUID, it MUST be un-guessable by browsing contexts
