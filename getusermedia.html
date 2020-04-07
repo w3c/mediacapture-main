@@ -643,7 +643,7 @@ interface MediaStream : EventTarget {
           <p>Let <var>deviceId</var> be the device's deviceId.</p>
         </li>
         <li>
-          <p>Set [[\devicesLiveMap]]<var>[deviceId]</var> to
+          <p>Set [[\devicesLiveMap]]</a><var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
         <li>
@@ -651,7 +651,7 @@ interface MediaStream : EventTarget {
           "retrieve the permission state">retrieving the permission state</a>
           of the permission associated with the device's kind and
           <var>deviceId</var>, is not “granted”, then set
-          [[\devicesAccessibleMap]]<var>[deviceId]</var> to
+          [[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
       </ol>
@@ -721,7 +721,7 @@ interface MediaStream : EventTarget {
         muted or disabled, and this brings all tracks connected to the device
         to be either muted, disabled, or stopped, then the UA MAY, using the
         device's deviceId, <var>deviceId</var>, set
-        [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>,
+        [[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>,
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
@@ -2833,16 +2833,16 @@ interface MediaStreamTrackEvent : Event {
           object</a>, run the following steps:</p>
           <ol>
             <li>
-              <p>Create three internal slots: [[\devicesLiveMap]],
-              [[\devicesAccessibleMap]], and [[\kindsAccessibleMap]], each
+              <p>Create three internal slots: <dfn>[[\devicesLiveMap]]</dfn>,
+              <dfn>[[\devicesAccessibleMap]]</dfn>, and <dfn>[[\kindsAccessibleMap]]</dfn>, each
               initialized to a different empty object.</p>
             </li>
             <li>
-              <p>Create one internal slot: [[\storedDeviceList]], initialized
+              <p>Create one internal slot: <dfn>[[\storedDeviceList]]</dfn>, initialized
               to null.</p>
             </li>
             <li>
-              <p>Create one internal slot: [[\canExposeDeviceInfo]], initialized
+              <p>Create one internal slot: <dfn>[[\canExposeDeviceInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
           </ol>
@@ -2850,7 +2850,7 @@ interface MediaStreamTrackEvent : Event {
         <li>
           <p>For each kind of device, <var>kind</var>, that <a data-link-for=
           "MediaDevices">getUserMedia()</a> exposes, set
-          [[\kindsAccessibleMap]]<var>[kind]</var> either to <code>true</code>
+          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> either to <code>true</code>
           if the result of <a data-lt=
           "retrieve the permission state">retrieving the permission state</a>
           of the permission associated with <var>kind</var> (e.g. "camera",
@@ -2860,8 +2860,8 @@ interface MediaStreamTrackEvent : Event {
           <p>For each individual device that <a data-link-for=
           "MediaDevices">getUserMedia()</a> exposes, using the device's
           deviceId, <var>deviceId</var>, set
-          [[\devicesLiveMap]]<var>[deviceId]</var> to <code>false</code>, and
-          set [[\devicesAccessibleMap]]<var>[deviceId]</var> either to
+          <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>, and
+          set <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> either to
           <code>true</code> if the result of <a data-lt=
           "retrieve the permission state">retrieving the permission state</a>
           of the permission associated with the device’s kind and
@@ -2876,11 +2876,11 @@ interface MediaStreamTrackEvent : Event {
       <ol>
         <li>
           <p>If the transition is to “granted” from another value, then set
-          [[\kindsAccessibleMap]]<var>[kind]</var> to <code>true</code>.</p>
+          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from “granted” to another value, then set
-          [[\kindsAccessibleMap]]<var>[kind]</var> to <code>false</code>.</p>
+          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
       <p>For each device that <a data-link-for=
@@ -2892,13 +2892,13 @@ interface MediaStreamTrackEvent : Event {
       <ol>
         <li>
           <p>If the transition is to “granted” from another value, then set
-          [[\devicesAccessibleMap]]<var>[deviceId]</var> to <code>true</code>,
+          <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to <code>true</code>,
           if it isn’t already <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from “granted” to another value, and the
           device is currently <a href="#source-stopped">stopped</a>, then set
-          [[\devicesAccessibleMap]]<var>[deviceId]</var> to
+          <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
       </ol>
@@ -2910,7 +2910,7 @@ interface MediaStreamTrackEvent : Event {
       but in no other contexts:</p>
       <ol>
         <li>
-          <p>Set [[\storedDeviceList]] to null.</p>
+          <p>Set <a>[[\storedDeviceList]]</a> to null.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <code><a href=
@@ -2925,7 +2925,7 @@ interface MediaStreamTrackEvent : Event {
       <p>The User Agent MAY combine firing multiple events into firing one
       event when several events are due or when multiple devices are added or
       removed at the same time, e.g. a camera with a microphone.</p>
-      <p>[[\storedDeviceList]] before these two steps can potentially list
+      <p><a>[[\storedDeviceList]]</a> before these two steps can potentially list
       the exact same set of devices in the same order as the list of devices
       generated by a call to <code>enumerateDevices</code> after the two above steps.
       In that case, if the "device-info" permission is not "granted", the User Agent
@@ -2999,10 +2999,10 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li><p>Let <var>resultList</var> be an empty list.</p></li>
                     <li>
-                      <p>If [[\storedDeviceList]] is not null, run the following sub steps:</p>
+                      <p>If <a>[[\storedDeviceList]]</a> is not null, run the following sub steps:</p>
                       <ol>
                         <li>
-                          <p>For each <code><a>MediaDeviceInfo</a></code> object in [[\storedDeviceList]],
+                          <p>For each <code><a>MediaDeviceInfo</a></code> object in <a>[[\storedDeviceList]]</a>,
                           <var>storedDeviceInfo</var>:
                           <ul>
                              <li>
@@ -3081,7 +3081,7 @@ interface MediaDevices : EventTarget {
                       </ol>
                     </li>
                     <li>
-                      <p>Set [[\storedDeviceList]] to
+                      <p>Set <a>[[\storedDeviceList]]</a> to
                       <var>resultList</var>.</p>
                     </li>
                     <li>
@@ -3093,7 +3093,7 @@ interface MediaDevices : EventTarget {
                           <code>live</code> MediaStreamTrack in the current
                           browsing context, set <var>list-permission</var> to
                           "granted", otherwise set <var>list-permission</var>
-                          to "granted" if [[\canExposeDeviceInfo]] is
+                          to "granted" if <a>[[\canExposeDeviceInfo]]</a> is
                           <code>true</code> and "denied" otherwise.</p>
                         </li>
                         <li>
@@ -3168,7 +3168,7 @@ interface MediaDevices : EventTarget {
         "device-information-can-be-exposed">device information can be exposed check</dfn>,
         run the following steps:</p>
         <ol>
-          <li>If [[\canExposeDeviceInfo]] is <code>true</code>, return <code>true</code>.
+          <li>If <a>[[\canExposeDeviceInfo]]</a> is <code>true</code>, return <code>true</code>.
           </li>
           <li>If the <a>current settings object</a>'s <a>responsible
           document</a> is <a data-cite="!HTML/#fully-active">fully
@@ -3184,7 +3184,7 @@ interface MediaDevices : EventTarget {
         "set-device-information-exposure">set the device information exposure</dfn>,
         with a <code>value</code> of type boolean, run the following steps:</p>
         <ol>
-          <li>Set [[\canExposeDeviceInfo]] to <code>value</code>.</li>
+          <li>Set <a>[[\canExposeDeviceInfo]]</a> to <code>value</code>.</li>
         </ol>
         <div class="note">
           <p>A User Agent MAY at any point set the device information exposure back to <code>false</code>,
@@ -3730,10 +3730,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           pre-recorded media files.</p>
                           <p>If the result of the request is "granted", then using
                           the granted device's deviceId, <var>deviceId</var>, set
-                          [[\devicesLiveMap]]<var>[deviceId]</var> to
+                          <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to
                           <code>true</code>, if it isn’t already <code>true</code>,
                           and set the
-                          [[\devicesAccessibleMap]]<var>[deviceId]</var> to
+                          <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
                           <code>true</code>, if it isn’t already
                           <code>true</code>.</p>
                           <p>If the result is "denied", jump to the step labeled
@@ -3761,7 +3761,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       tracks in <var>stream</var> with the appropriate
                       constraints. Should this fail, let
                       <var>failedConstraint</var> be the result of the
-                      algorithm that failed if [[\canExposeDeviceInfo]] is <code>true</code>,
+                      algorithm that failed if <a>[[\canExposeDeviceInfo]]</a> is <code>true</code>,
                       or <code>undefined</code> otherwise, and jump to the step
                       labeled <em>Constraint Failure</em> below.</p>
                     </li>
@@ -5135,13 +5135,13 @@ window.onload = async () =&gt; {
     <ul>
       <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
       <var>anyAudioAccessible</var>, <var>anyVideoAccessible</var>) as the
-      logical OR of the [[\kindsAccessibleMap]]<var>[kind]</var> value and all
-      the [[\devicesAccessibleMap]]<var>[deviceId]</var> values for devices of
+      logical OR of the <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> value and all
+      the <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> values for devices of
       that kind.</li>
       <li>Define any<var>&lt;kind&gt;Live</var> (e.g. <var>anyAudioLive</var>,
       <var>anyVideoLive</var>) to be the logical OR of the
-      [[\kindsLiveMap]]<var>[kind]</var> value and all the
-      [[\devicesLiveMap]]<var>[deviceId]</var> values for devices of that
+      <a>[[\kindsLiveMap]]</a><var>[kind]</var> value and all the
+      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> values for devices of that
       kind.</li>
     </ul>
     <p>Define <var>anyAccessible</var> to be the logical OR of all
@@ -5160,8 +5160,8 @@ window.onload = async () =&gt; {
       when the value changes.</li>
       <li>If the User Agent provides indication to the user per
       <var>device</var>, then for each
-      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
-      [[\devicesLiveMap]]<var>[deviceId]</var> value, it MUST at minimum
+      <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> value and
+      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value, it MUST at minimum
       indicate when the value changes.</li>
       <li>Any false-to-true transition indicated MUST remain observable for a
       sufficient time that a reasonably-observant user could become aware of
@@ -5185,11 +5185,11 @@ window.onload = async () =&gt; {
       match the corresponding any<var>&lt;kind&gt;Live</var> value.</li>
       <li>If the User Agent provides indication to the user per
       <var>device</var>, then for each
-      [[\devicesAccessibleMap]]<var>[deviceId]</var> value and
-      [[\devicesLiveMap]]<var>[deviceId]</var> value, it is encouraged to
+      <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> value and
+      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value, it is encouraged to
       provide ongoing indication of the current state of the value. It is also
       encouraged to make any device-specific hardware indicator light match the
-      corresponding [[\devicesLiveMap]]<var>[deviceId]</var> value.</li>
+      corresponding <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value.</li>
       <li>Any of the above ongoing indications MAY be used instead of the
       corresponding required transition indication provided the false-to-true
       transition requirement is met.</li>
