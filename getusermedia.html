@@ -38,7 +38,7 @@
     <p>Implementations that use ECMAScript [[ECMA-262]] to implement the APIs
     defined in this specification must implement them in a manner consistent
     with the ECMAScript Bindings defined in the Web IDL specification
-    [[!WEBIDL-1]], as this specification uses that specification and
+    [[WEBIDL]], as this specification uses that specification and
     terminology.</p>
   </section>
   <section>
@@ -62,7 +62,7 @@
         <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>,
         <dfn data-lt="reject|rejection|rejecting">rejected</dfn> and
         <dfn data-lt="resolve">resolved</dfn> used in the context of Promises
-        are defined in [[!ES6]].</p>
+        are defined in [[ECMA-262]].</p>
       </dd>
       <dt>DOM</dt>
       <dd>
@@ -185,9 +185,9 @@
         application authors are strongly encouraged to use <a>required
         constraints</a> sparingly.</p>
       </dd>
-      <dt><a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a></dt>
-      <dd><a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is defined in
-      [[WEBRTC]].</dd>
+      <dt><a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a></dt>
+      <dd><a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is defined in
+      [[?WEBRTC]].</dd>
       <dt>Permissions</dt>
       <dd>
         <p>The terms <dfn data-cite="permissions#reading-current-states">reading current permission state</dfn> and [=request permission to
@@ -215,7 +215,7 @@
       synchronized.</p>
       <p class="note">While the intent is to synchronize tracks, it could be
       better in some circumstances to permit tracks to lose synchronization. In
-      particular, when tracks are remotely sourced and real-time [[WEBRTC]],
+      particular, when tracks are remotely sourced and real-time [[?WEBRTC]],
       it can be better to allow loss of synchronization than to accumulate
       delays or risk glitches and other artifacts. Implementations are expected
       to understand the implications of choices regarding synchronization of
@@ -224,7 +224,7 @@
       multi-channel content, such as stereo or 5.1 audio or stereoscopic video,
       where the channels have a well defined relationship to each other.
       Information about channels might be exposed through other APIs, such as
-      [[WEBAUDIO]], but this specification provides no direct access to
+      [[?WEBAUDIO]], but this specification provides no direct access to
       channels.</p>
       <p>A {{MediaStream}} object has an input and an output
       that represent the combined input and output of all the object's tracks.
@@ -249,10 +249,10 @@
       independent of the instance it is cloned from, which allows media from
       the same source to have different constraints applied for different
       <a>consumer</a>s. The {{MediaStream}} object is also used in
-      contexts outside {{MediaDevices/getUserMedia}}, such as [[WEBRTC]].</p>
+      contexts outside {{MediaDevices/getUserMedia}}, such as [[?WEBRTC]].</p>
     </section>
     <section>
-      <h2>MediaStream</h2>
+      <h2>{{MediaStream}}</h2>
       <p id=
       "mediastream-constructor">The MediaStream <dfn data-idl data-dfn-for=MediaStream>constructor</dfn> composes a new
       stream out of existing tracks. It takes an optional argument of type
@@ -327,10 +327,10 @@
       {{MediaStream}} consumers currently include media
       elements (such as [^video^] and
       [^audio^]) [[HTML]], Web Real-Time Communications
-      (WebRTC; <code class=fixme>RTCPeerConnection</code>) [[WEBRTC]], media recording
-      (<code class=fixme>MediaRecorder</code>) [[mediastream-recording]], image capture
-      (<code class=fixme>ImageCapture</code>) [[image-capture]], and web audio
-      ({{MediaStreamAudioSourceNode}}) [[WEBAUDIO]].</p>
+      (WebRTC; <code class=fixme>RTCPeerConnection</code>) [[?WEBRTC]], media recording
+      (<code class=fixme>MediaRecorder</code>) [[?mediastream-recording]], image capture
+      (<code class=fixme>ImageCapture</code>) [[?image-capture]], and web audio
+      ({{MediaStreamAudioSourceNode}}) [[?WEBAUDIO]].</p>
       <p class="note">{{MediaStream}} consumers must be able to
       handle tracks being added and removed. This behavior is specified per
       consumer.</p>
@@ -351,7 +351,7 @@
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
       specifications using the MediaStream API may. One such example is the
-      WebRTC 1.0 [[WEBRTC]] specification where the <a href=
+      WebRTC 1.0 [[?WEBRTC]] specification where the <a href=
       "#track-set">track set</a> of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
@@ -589,7 +589,7 @@ interface MediaStream : EventTarget {
       </div>
     </section>
     <section>
-      <h2>MediaStreamTrack</h2>
+      <h2>{{MediaStreamTrack}}</h2>
       <p>A {{MediaStreamTrack}} object represents a media
       source in the User Agent. An example source is a device connected to the
       User Agent. Other specifications may define sources for
@@ -903,7 +903,7 @@ interface MediaStreamTrack : EventTarget {
                 <p>An example of an algorithm that specifies how the track id
                 must be initialized is the algorithm to represent an incoming
                 network component with a {{MediaStreamTrack}}
-                object. [[WEBRTC]]</p>
+                object. [[?WEBRTC]]</p>
                 <p><dfn data-idl>id</dfn> attribute MUST return the value
                 to which it was initialized when the object was created.</p>
               </dd>
@@ -1833,7 +1833,7 @@ interface MediaStreamTrack : EventTarget {
       </section>
     </section>
     <section>
-      <h3>MediaStreamTrackEvent</h3>
+      <h3>{{MediaStreamTrackEvent}}</h3>
       <p>The {{addtrack}}
       and {{removetrack}} events use the
       {{MediaStreamTrackEvent}} interface.</p>
@@ -1924,20 +1924,20 @@ interface MediaStreamTrackEvent : Event {
     </div>
     <p>Note that {{MediaStream}} sinks (such as
     <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, and even
-    <a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>) will continue to have mechanisms to further
+    <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>) will continue to have mechanisms to further
     transform the source stream beyond that which the <a>Settings</a>,
     <a>Capabilities</a>, and <a>Constraints</a> described in this specification
     offer. (The sink transformation options, including those of
-    <a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>, are outside the scope of this
+    <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>, are outside the scope of this
     specification.)</p>
     <p>The act of changing or applying a track constraint may affect the
     <code><a>settings</a></code> of all tracks sharing that source and
     consequently all down-level sinks that are using that source. Many sinks
     may be able to take these changes in stride, such as the
-    <code>&lt;video&gt;</code> element or <a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>.
+    <code>&lt;video&gt;</code> element or <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>.
     Others like the Recorder API may fail as a result of a source setting
     change.</p>
-    <p>The <a data-cite="WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is an interesting object because it
+    <p>The <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is an interesting object because it
     acts simultaneously as both a sink <strong>and</strong> a source for
     over-the-network streams. As a sink, it has source transformational
     capabilities (e.g., lowering bit-rates, scaling-up / down resolutions, and
@@ -2297,26 +2297,26 @@ interface MediaStreamTrackEvent : Event {
   <section>
     <h2>Error Handling</h2>
     <p>This section and its subsections extend the list of Error subclasses
-    defined in [[!ES6]] following the pattern for NativeError in section 19.5.6
+    defined in [[ECMA-262]] following the pattern for NativeError in section 19.5.6
     of that specification. Assume the following:</p>
     <ul>
       <li>that use of syntax such as [[\something]] and %something% is as used
-      in [[!ES6]].</li>
-      <li>that the rules for ECMAScript standard built-in objects ([[!ES6]],
+      in [[ECMA-262]].</li>
+      <li>that the rules for ECMAScript standard built-in objects ([[ECMA-262]],
       section 17) are in effect in this section.</li>
       <li>that the new intrinsic objects %OverconstrainedError% and
       %OverconstrainedErrorPrototype% are available as if they had been
-      included in ([[!ES6]], Table 7) and all referencing sections, e.g.
-      ([[!ES6]], section 8.2.2), thus behave appropriately.</li>
+      included in ([[ECMA-262]], Table 7) and all referencing sections, e.g.
+      ([[ECMA-262]], section 8.2.2), thus behave appropriately.</li>
     </ul>
     <section>
       <h2>ECMAScript 6 Terminology</h2>
-      <p>The following terms used in this section are defined in [[!ES6]].</p>
+      <p>The following terms used in this section are defined in [[ECMA-262]].</p>
       <table>
         <thead>
           <tr>
             <th>Term/Notation</th>
-            <th>Section in [[!ES6]]</th>
+            <th>Section in [[ECMA-262]]</th>
           </tr>
         </thead>
         <tbody>
@@ -2640,8 +2640,8 @@ interface MediaStreamTrackEvent : Event {
       </div>
     </section>
     <section>
-      <h3>MediaDevices</h3>
-      <p>The <dfn data-dfn-for="">MediaDevices</dfn> object is the entry point
+      <h3>{{MediaDevices}}</h3>
+      <p>The <dfn>MediaDevices</dfn> object is the entry point
       to the API used to examine and get access to media devices available to
       the User Agent.</p>
       <p>On page load, run the following steps:</p>
@@ -3172,7 +3172,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     media input devices available to the User Agent.</p>
     <p>Alternatively, a local {{MediaStream}} can be captured
     from certain types of DOM elements, such as the video element
-    [[mediacapture-fromelement]]. This can be useful for automated testing.</p>
+    [[?mediacapture-fromelement]]. This can be useful for automated testing.</p>
     <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
     to warn about usage of <code>navigator.mediaDevices.getUserMedia</code>,
     <code>navigator.getUserMedia</code>, and any prefixed variants in their
@@ -3285,29 +3285,29 @@ interface InputDeviceInfo : MediaDeviceInfo {
       </div>
     </section>
     <section>
-      <h3>MediaDevices Interface Extensions</h3>
+      <h3>{{MediaDevices}} Interface Extensions</h3>
       <div class="note">
-        The definition of getUserMedia() in this section reflects two major
-        changes from the method definition that has existed under Navigator for
+        The definition of {{Navigator/getUserMedia()}} in this section reflects two major
+        changes from the method definition that has existed under {{Navigator}} for
         many months.
-        <p>First, the official definition for the getUserMedia() method, and
+        <p>First, the official definition for the {{MediaDevices/getUserMedia()}} method, and
         the one which developers are encouraged to use, is now the one defined
-        here under MediaDevices. This decision reflected consensus as long as
+        here under {{MediaDevices}}. This decision reflected consensus as long as
         the original API remained available at <a>Navigator.getUserMedia</a>
-        under the Navigator object for backwards compatibility reasons, since
+        under the {{Navigator}} object for backwards compatibility reasons, since
         the working group acknowledges that early users of these APIs have been
         encouraged to define getUserMedia as "var getUserMedia =
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
         popular browsers. To ensure functional equivalence, the getUserMedia()
-        method under Navigator is defined in terms of the method here.</p>
+        method under {{Navigator}} is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
-        defined under Navigator is currently still callback-based. Developers
+        defined under {{Navigator}} is currently still callback-based. Developers
         expecting to find getUserMedia() defined under Navigator are strongly
         encouraged to read the detailed Note given there.</p>
       </div>
-      <p>The <code>getSupportedConstraints</code> method is provided to allow
+      <p>The {{MediaDevices/getSupportedConstraints}} method is provided to allow
       the application to determine which constraints the User Agent
       recognizes.</p>
       <div>
@@ -3587,7 +3587,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       </div>
     </section>
     <section>
-      <h2>MediaStreamConstraints</h2>
+      <h2>{{MediaStreamConstraints}}</h2>
       <p>The <dfn>MediaStreamConstraints</dfn> dictionary is used to instruct
       the User Agent what sort of {{MediaStreamTrack}}s to include in the
       <a>MediaStream</a> returned by <a data-link-for=
@@ -4818,7 +4818,7 @@ startBtn.onclick = async () =&gt; {
     </div>-->
     <div>
       <p>This example allows people to take photos of themselves from the local
-      video camera. Note that the Image Capture specification [[image-capture]]
+      video camera. Note that the Image Capture specification [[?image-capture]]
       provides a simpler way to accomplish this.</p>
       <pre class="example">
 &lt;script&gt;
@@ -5130,7 +5130,7 @@ window.onload = async () =&gt; {
     or {{MediaStreamTrack}}s will be defined in the future. The
     following section provides guidance.</p>
     <section>
-      <h2>Defining new consumers of MediaStreams and MediaStreamTracks</h2>
+      <h2>Defining new consumers of {{MediaStream}}s and {{MediaStreamTrack}}s</h2>
       <p>At a minimum, any new consumer of a
       {{MediaStreamTrack}} will need to define</p>
       <ul>
