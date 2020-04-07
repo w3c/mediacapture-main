@@ -190,10 +190,8 @@
       [[WEBRTC]].</dd>
       <dt>Permissions</dt>
       <dd>
-        <p>The terms [=permission=], [=retrieve the permission
-        state=], [=request permission to
-        use=] and [=create a permission storage
-        entry=] are defined in [[!permissions]].</p>
+        <p>The terms <dfn data-cite="permissions#reading-current-states">reading current permission state</dfn> and [=request permission to
+        use=]  are defined in [[!permissions]].</p>
       </dd>
     </dl>
   </section>
@@ -621,7 +619,7 @@ interface MediaStream : EventTarget {
         </li>
         <li>
           <p>If the result of <a data-lt=
-          "retrieve the permission state">retrieving the permission state</a>
+          "reading current permission state">reading the current permission state</a>
           of the permission associated with the device's kind and
           <var>deviceId</var>, is not {{PermissionState/"granted"}}, then set
           <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
@@ -2673,9 +2671,9 @@ interface MediaStreamTrackEvent : Event {
           "MediaDevices">getUserMedia()</a> exposes, set
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> either to <code>true</code>
           if the result of <a data-lt=
-          "retrieve the permission state">retrieving the permission state</a>
-          of the permission associated with <var>kind</var> (e.g. "camera",
-          "microphone"), is "granted", or to <code>false</code> otherwise.</p>
+          "reading current permission state">reading the permission state</a>
+          of the permission associated with <var>kind</var> (e.g. {{PermissionName/"camera"}},
+          {{PermissionName/"microphone"}}), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
         </li>
         <li>
           <p>For each individual device that <a data-link-for=
@@ -2684,41 +2682,39 @@ interface MediaStreamTrackEvent : Event {
           <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>, and
           set <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> either to
           <code>true</code> if the result of <a data-lt=
-          "retrieve the permission state">retrieving the permission state</a>
+          "reading current permission state">reading the permission state</a>
           of the permission associated with the device’s kind and
-          <var>deviceId</var>, is “granted”, or to false otherwise.</p>
+          <var>deviceId</var>, is {{PermissionState/"granted"}}, or to false otherwise.</p>
         </li>
       </ol>
-      <p>For each kind of device, <var>kind</var>, that <a data-link-for=
-      "MediaDevices">getUserMedia()</a> exposes, <a data-lt=
-      "retrieve the permission state">whenever a transition occurs of the
+      <p>For each kind of device, <var>kind</var>, that {{MediaDevices/getUserMedia()}} exposes, <a data-lt=
+      "reading current permission state">whenever a transition occurs of the
       permission state</a> of the permission associated with <var>kind</var>,
       run the following steps:</p>
       <ol>
         <li>
-          <p>If the transition is to “granted” from another value, then set
+          <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>true</code>.</p>
         </li>
         <li>
-          <p>If the transition is from “granted” to another value, then set
+          <p>If the transition is from {{PermissionState/"granted"}} to another value, then set
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
-      <p>For each device that <a data-link-for=
-      "MediaDevices">getUserMedia()</a> exposes, <a data-lt=
-      "retrieve the permission state">whenever a transition occurs of the
+      <p>For each device that {{MediaDevices/getUserMedia()}} exposes, <a data-lt=
+      "reading current permission state">whenever a transition occurs of the
       permission state</a> of the permission associated with the device's kind
       and the device's deviceId, <var>deviceId</var>, run the following
       steps:</p>
       <ol>
         <li>
-          <p>If the transition is to “granted” from another value, then set
+          <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
           <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to <code>true</code>,
           if it isn’t already <code>true</code>.</p>
         </li>
         <li>
-          <p>If the transition is from “granted” to another value, and the
-          device is currently <a href="#source-stopped">stopped</a>, then set
+          <p>If the transition is from {{PermissionState/"granted"}} to another value, and the
+          device is currently <a>stopped</a>, then set
           <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
@@ -3440,7 +3436,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           a fingerprinting surface.</p>
                         </li>
                         <li>
-                          <p><a>Retrieve the permission state</a> for all
+                          <p><a data-lt="reading current permission state">Read the current permission state</a> for all
                           candidate devices in <var>candidateSet</var> that are
                           not attached to a live {{MediaStreamTrack}}
                           in the current browsing context. Remove from
@@ -3719,8 +3715,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <dfn id="stored-permissions" class="practicelab">Stored
         Permission</dfn>s
         <p class="practicedesc">When permission is requested for a device, the
-        User Agent may choose to [=create a
-        permission storage entry=] for later use by the same origin, so that
+        User Agent may choose to store this permission for later use by the same origin, so that
         the user does not need to grant permission again at a later time.
         It is a User Agent choice whether it offers functionality to store
         permission to each device separately, all devices of a given class, or
