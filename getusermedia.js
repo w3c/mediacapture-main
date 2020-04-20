@@ -11,9 +11,6 @@ var respecConfig = {
    // if you wish the publication date to be other than today, set this
    // publishDate:  "2009-08-06",
 
-   // new ability to override the copyright completely
-   overrideCopyright:  "<p class='copyright'>Initial Author of this Specification was Ian Hickson, Google Inc., with the following copyright statement:<br /> &#169; Copyright 2004-2011 Apple Computer, Inc., Mozilla Foundation, and Opera Software ASA. You are granted a license to use, reproduce and create derivative works of this document.<\/p> <p class='copyright'>All subsequent changes since 26 July 2011 done by the W3C WebRTC Working Group (and previously the Device APIs Working Group) are under the following <a href='https://www.w3.org/Consortium/Legal/ipr-notice#Copyright'>Copyright<\/a>:<br />&#169; 2011-2017 <a href='https://www.w3.org/'><abbr title='World Wide Web Consortium'>W3C<\/abbr><\/a><sup>&#174;<\/sup> (<a href='https://www.csail.mit.edu/'><abbr title='Massachusetts Institute of Technology'>MIT<\/abbr><\/a>, <a href='https://www.ercim.eu/'><abbr title='European Research Consortium for Informatics and Mathematics'>ERCIM<\/abbr><\/a>, <a href='https://www.keio.ac.jp/'>Keio<\/a>, <a href='http://ev.buaa.edu.cn/'>Beihang<\/a>). <a href='https://www.w3.org/Consortium/Legal/copyright-documents'>Document use<\/a>  rules apply.<\/p> <p class='copyright'>For the entire publication on the W3C site the <a href='https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer'>liability<\/a> and <a href='https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks'>trademark<\/a> rules apply.<\/p>",
-
    // if the specification's copyright date is a range of years, specify
    // the start date here:
    // copyrightStart: "2005",
@@ -33,14 +30,13 @@ var respecConfig = {
    //extraCSS:           ["../../../2009/dap/ReSpec.js/css/respec.css"],
 
    // editors, add as many as you like
-   // only "name" is required
-   editors:  [
-       // { name: "Your Name", url: "http://example.org/",
-       // company: "Your Company", companyURL: "http://example.com/" },
-       { w3cid: "85118", name: "Daniel C. Burnett", company: "Invited Expert" },
-       { w3cid: "45507", name: "Adam Bergkvist", company: "Ericsson" },
+  formerEditors: [
+       { w3cid: "85118", name: "Daniel C. Burnett", company: "Invited Expert", retiredDate: "2018-06-01" },
+       { w3cid: "45507", name: "Adam Bergkvist", company: "Ericsson", retiredDate: "2018-06-01" },
+       { w3cid: "47326", name: "Anant Narayanan", company: "Mozilla", retiredDate: "2012-11-30" },
+  ],
+    editors:  [
        { w3cid: "25254", name: "Cullen Jennings", company: "Cisco" },
-       { w3cid: "47326", name: "Anant Narayanan", company: "Mozilla", note: "until November 2012" },
        { w3cid: "65611", name: "Bernard Aboba", company: "Microsoft Corporation" },
        { w3cid: "79152", name: "Jan-Ivar Bruaroey", company: "Mozilla" },
        { w3cid: "96936", name: "Henrik Bostr\xF6m", company: "Google" }
@@ -71,6 +67,7 @@ var respecConfig = {
    // Team Contact.
    wgPatentURI:   ["https://www.w3.org/2004/01/pp-impl/47318/status"],
    github: "https://github.com/w3c/mediacapture-main/",
+  xref: ["dom", "html", "webidl", "permissions", "feature-policy", "webaudio"],
    otherLinks: [
     {
       key: "Participate",
