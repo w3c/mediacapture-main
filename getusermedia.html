@@ -2955,10 +2955,11 @@ interface MediaDevices : EventTarget {
         information depends on whether or not the browsing context did capture.</p>
         <p>If the browsing context did not capture (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
         {{MediaDeviceInfo}} object will contain a valid value for {{MediaDeviceInfo/kind}} but empty strings
-        for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.</p>
+        for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.
+        Additionally, at most one device of each {{MediaDeviceInfo/kind}} will be listed in {{MediaDevices/enumerateDevices()}} result.</p>
         <p>Otherwise, the
         <dfn>MediaDeviceInfo</dfn> object will contain meaningful values for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}},
-        {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.</p>
+        {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}. All available devices are listed in {{MediaDevices/enumerateDevices()}} result.</p>
       </section>
       <section>
         <h2>Device information can be exposed check</h2>
