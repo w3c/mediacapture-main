@@ -3178,13 +3178,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
     <p>Alternatively, a local {{MediaStream}} can be captured
     from certain types of DOM elements, such as the video element
     [[?mediacapture-fromelement]]. This can be useful for automated testing.</p>
-    <p>When on an insecure origin [[mixed-content]], User Agents are encouraged
-    to warn about usage of <code>navigator.mediaDevices.getUserMedia</code>,
-    <code>navigator.getUserMedia</code>, and any prefixed variants in their
-    developer tools, error logs, etc. It is explicitly permitted for User
-    Agents to remove these APIs entirely when on an insecure origin, as long as
-    they remove all of them at once (e.g., they should not leave just the
-    prefixed version available on insecure origins).</p>
     <section>
       <h3>Legacy Interface Extensions</h3>
       <div class="note">
