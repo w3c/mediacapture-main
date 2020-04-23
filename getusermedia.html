@@ -2952,13 +2952,12 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Access control model</h2>
         <p>The algorithm described above means that the access to media device
-        information depends on whether or not permission has been granted to
-        the page's origin.</p>
-        <p>If no such access has been granted, the
-        {{MediaDeviceInfo}} object will contain the
-        {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}}, and {{MediaDeviceInfo/groupId}}.</p>
-        <p>If access has been granted for a media device, the
-        <dfn>MediaDeviceInfo</dfn> object will contain the {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}},
+        information depends on whether or not the browsing context did capture.</p>
+        <p>If the browsing context did not capture (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
+        {{MediaDeviceInfo}} object will contain a valid value for {{MediaDeviceInfo/kind}} but empty strings
+        for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.</p>
+        <p>Otherwise, the
+        <dfn>MediaDeviceInfo</dfn> object will contain meaningful values for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}},
         {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.</p>
       </section>
       <section>
