@@ -814,6 +814,10 @@ interface MediaStream : EventTarget {
             question.</p>
           </li>
           <li>
+            <p>If <var>track</var>.{{MediaStreamTrack/muted}} is already
+            <var>newState</var>, then abort these steps.</p>
+          </li>
+          <li>
             <p>Set <var>track</var>.{{MediaStreamTrack/muted}} to
             <var>newState</var>.</p>
           </li>
