@@ -2858,7 +2858,8 @@ interface MediaDevices : EventTarget {
                           <p>If a stored {{MediaDeviceInfo/deviceId}} exists for
                           <var>device</var>, initialize <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} to that value.
                           Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} be a
-                          newly generated unique identifier.</p>
+                          newly generated unique identifier as described under
+                          {{MediaDeviceInfo/deviceId}}.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> belongs to the same physical
@@ -2868,13 +2869,6 @@ interface MediaDevices : EventTarget {
                           existing {{MediaDeviceInfo}} object.
                           Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} be a
                           newly generated unique identifier.</p>
-
-                          <p>A good practice for generating {{MediaDeviceInfo/deviceId}}
-                          and {{MediaDeviceInfo/groupId}}
-                          values is to use a UUID [[rfc4122]], which is 36
-                          characters long in its canonical form. To avoid
-                          fingerprinting, implementations SHOULD use the forms in
-                          section 4.4 or 4.5 of RFC 4122.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is the system default camera or the system default
@@ -3022,10 +3016,8 @@ interface MediaDeviceInfo {
               documents, MUST follow the user agents' partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
               to not interfere with mitigations for cross-site correlation.
-              The identifier SHOULD be origin-unique,
-              in which case some sort of UUID is recommended.
-              If the identifier can uniquely identify the user, as is usually
-              the case with UUID, it MUST be un-guessable by browsing contexts
+              The identifier SHOULD be origin-unique. If the identifier can uniquely
+              identify the user, then it MUST be un-guessable by browsing contexts
               of other origins to prevent the identifier from being used to
               correlate the same user across different origins. An identifier
               can be reused across origins as long as it is not tied to the user
@@ -3051,7 +3043,7 @@ interface MediaDeviceInfo {
               as other persistent storage mechanisms such as cookies
               [[COOKIES]], in that user agents MUST NOT persist device
               identifiers for sites that are blocked from using cookies, and
-              user agents MUST reset per-origin device identifiers when other
+              user agents MUST rotate per-origin device identifiers when other
               persistent storage are cleared.</p>
             </dd>
             <dt id="def-mediadeviceinfo-kind"><dfn>kind</dfn> of
