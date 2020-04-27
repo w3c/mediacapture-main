@@ -3750,7 +3750,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <span class="practicelab" id="handling-devices">Generating deviceIds</span>
         <p class="practicedesc">An efficient practice for generating a
         {{MediaDeviceInfo/deviceId}} is to generate a cryptographic hash from
-        a generated privately key + (origin or origin + top-level origin, based
+        a generated private key + (origin or origin + top-level origin, based
         on the user agents' partitioning rules) + salt + device's underlying
         (hardware) id in the driver, presented as an alphanumeric string. Using
         32 bits or lower is recommended, but not much lower, to avoid risk of
