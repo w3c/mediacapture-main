@@ -3013,7 +3013,7 @@ interface MediaDeviceInfo {
               MUST be the same in documents of the same origin in [=top-level browsing contexts=].
               In [=nested browsing contexts=],
               the decision of whether or not the identifier is the same across
-              documents, MUST follow the user agents' partitioning rules for
+              documents, MUST follow the User Agent's partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
               to not interfere with mitigations for cross-site correlation.
               If the identifier can uniquely
@@ -3041,9 +3041,9 @@ interface MediaDeviceInfo {
               across browsing sessions and to reduce its potential as a
               fingerprinting mechanism, {{deviceId}} is to be treated
               as other persistent storage mechanisms such as cookies
-              [[COOKIES]], in that user agents MUST NOT persist device
+              [[COOKIES]], in that User Agents MUST NOT persist device
               identifiers for sites that are blocked from using cookies, and
-              user agents MUST rotate per-origin device identifiers when other
+              User Agents MUST rotate per-origin device identifiers when other
               persistent storage are cleared.</p>
             </dd>
             <dt id="def-mediadeviceinfo-kind"><dfn>kind</dfn> of
@@ -3758,7 +3758,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <p class="practicedesc">A better (lower-entropy) alternative, at the
         cost storage, is to assign the numbers 0 through 255 randomly to each
         new device encountered for each origin or origin + top-level origin,
-        based on the user agents' partitioning rules, retiring the number that
+        based on the User Agent's partitioning rules, retiring the number that
         hasn't been seen the longest if numbers run out.</p>
       </div>
     </section>
