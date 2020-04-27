@@ -3749,13 +3749,15 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <div class="practice">
         <span class="practicelab" id="handling-devices">Generating deviceIds</span>
         <p class="practicedesc">An efficient practice for generating a
-        {{MediaDeviceInfo/deviceId}} is to generate a hash from (origin or
-         origin + top-level origin, based on the user agents' partitioning rules)
-         + salt + device's underlying (hardware) id in the driver, presented as
-         an alpha-numeric string.</p>
+        {{MediaDeviceInfo/deviceId}} is to generate a cryptographic hash from
+        a private key + (origin or origin + top-level origin, based on the user
+        agents' partitioning rules) + salt + device's underlying (hardware) id
+        in the driver, presented as an alpha-numeric string.</p>
         <p class="practicedesc">Another practice may be to assign the numbers
-        0 through 255 randomly to each new device encountered, retiring the
-        number that hasn't been seen the longest if numbers run out.</p>
+        0 through 255 randomly to each new device encountered for each origin or
+        origin + top-level origin, based on the user agents' partitioning rules,
+        retiring the number that hasn't been seen the longest if numbers run
+        out.</p>
       </div>
     </section>
   </section>
