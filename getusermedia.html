@@ -3017,8 +3017,8 @@ interface MediaDeviceInfo {
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
               to not interfere with mitigations for cross-site correlation.
               If the identifier can uniquely
-              identify the user, then it MUST be un-guessable by browsing contexts
-              of other origins to prevent the identifier from being used to
+              identify the user, then it MUST be un-guessable by documents from
+              other origins to prevent the identifier from being used to
               correlate the same user across different origins. An identifier
               can be reused across origins as long as it is not tied to the user
               and can be guessed by other means, like the User-Agent string.</p>
