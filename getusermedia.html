@@ -3752,10 +3752,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
         {{MediaDeviceInfo/deviceId}} is to generate a cryptographic hash from
         a private key + (origin or origin + top-level origin, based on the user
         agents' partitioning rules) + salt + device's underlying (hardware) id
-        in the driver, presented as an alphanumeric string. Using 32 bits or
-        lower is recommended, but not much lower, to avoid risk of collision.
+        in the driver, and then present it as an alphanumeric string. Using 32
+        bits or less the id is recommended, but not much lower, to avoid risk of
+        collision.
         </p>
-        <p class="practicedesc">A better (lower-entropy) alternative, at the
+        <p class="practicedesc">A better, lower-entropy, alternative, at the
         cost storage, is to assign the numbers 0 through 255 randomly to each
         new device encountered for each origin or origin + top-level origin,
         based on the User Agent's partitioning rules, retiring the number that
