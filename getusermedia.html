@@ -2910,17 +2910,8 @@ interface MediaDevices : EventTarget {
                       steps to <a>resolve</a> <var>p</var>:</p>
                       <ol>
                         <li>
-                          JIB
-                          <p>If any of the local devices are attached to a
-                          live MediaStreamTrack in the current
-                          browsing context, set <var>list-permission</var> to
-                          <code>"granted"</code>, otherwise set <var>list-permission</var>
-                          to <code>"granted"</code> if <a>device information can be exposed</a> is
-                          <code>true</code> and <code>"denied"</code> otherwise.</p>
-                        </li>
-                        <li>
-                          <p>If <var>list-permission</var> is <code>"granted"</code>,
-                          then <a>resolve</a> <var>p</var> with
+                          <p>If <a>device information can be exposed</a> is
+                          <code>true</code>, then <a>resolve</a> <var>p</var> with
                           <var>resultList</var>, and abort these steps.</p>
                         </li>
                         <li>
