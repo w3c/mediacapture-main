@@ -2663,7 +2663,7 @@ interface MediaStreamTrackEvent : Event {
             </li>
             <li>
               <p>Create one internal slot: <dfn>[[\storedDeviceList]]</dfn>, initialized
-              to null.</p>
+              to <code>null</code>.</p>
             </li>
             <li>
               <p>Create one internal slot: <dfn>[[\canExposeDeviceInfo]]</dfn>, initialized
@@ -2732,7 +2732,7 @@ interface MediaStreamTrackEvent : Event {
       but in no other contexts:</p>
       <ol>
         <li>
-          <p>Set <a>[[\storedDeviceList]]</a> to null.</p>
+          <p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <a>devicechange</a> at the
@@ -2817,7 +2817,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li><p>Let <var>resultList</var> be an empty list.</p></li>
                     <li>
-                      <p>If <a>[[\storedDeviceList]]</a> is not null, run the following sub steps:</p>
+                      <p>If <a>[[\storedDeviceList]]</a> is not <code>null</code>,
+                      run the following sub steps:</p>
                       <ol>
                         <li>
                           <p>For each {{MediaDeviceInfo}} object in <a>[[\storedDeviceList]]</a>,
@@ -2892,15 +2893,10 @@ interface MediaDevices : EventTarget {
                       steps to <a>resolve</a> <var>p</var>:</p>
                       <ol>
                         <li>
-                          <p>If any of the local devices are attached to a
-                          live MediaStreamTrack in the current
-                          browsing context, set <var>list-permission</var> to
-                          <code>"granted"</code>, otherwise set <var>list-permission</var>
-                          to <code>"granted"</code> if <a>[[\canExposeDeviceInfo]]</a> is
-                          <code>true</code> and <code>"denied"</code> otherwise.</p>
-                        </li>
-                        <li>
-                          <p>If <var>list-permission</var> is <code>"granted"</code>,
+                          <p>If <a>[[\canExposeDeviceInfo]]</a> is
+                          <code>true</code>, or if any of the local devices are
+                          attached to a live MediaStreamTrack in the current
+                          browsing context,
                           then <a>resolve</a> <var>p</var> with
                           <var>resultList</var>, and abort these steps.</p>
                         </li>
@@ -2986,6 +2982,14 @@ interface MediaDevices : EventTarget {
         "set-device-information-exposure">set the device information exposure</dfn>,
         with a <var>value</var> of type boolean, run the following steps:</p>
         <ol>
+          <li>
+            <p>If <a>[[\canExposeDeviceInfo]]</a> is already <var>value</var>,
+            abort these steps.</p>
+          </li>
+          <li>
+            <p>If <var>value</var> is <code>true</code>, set
+            <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
+          </li>
           <li>Set <a>[[\canExposeDeviceInfo]]</a> to <var>value</var>.</li>
         </ol>
         <div class="note">
