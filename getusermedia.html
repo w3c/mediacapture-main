@@ -3756,8 +3756,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
         Using 32 bits or fewer for the hash is recommended, but not much lower,
         to avoid risk of collision.
         </p>
-        <p class="practicedesc">A better, lower-entropy, alternative, at the
-        cost storage, is to assign the numbers 0 through 255 randomly to each
+        <p class="practicedesc">A lower-entropy alternative, at the cost of
+        storage, is to assign the numbers 0 through 255 randomly to each
         new device encountered for each origin or origin + top-level origin,
         based on the User Agent's partitioning rules, retiring the number that
         hasn't been seen the longest if numbers run out.</p>
