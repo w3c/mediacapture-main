@@ -2663,7 +2663,7 @@ interface MediaStreamTrackEvent : Event {
             </li>
             <li>
               <p>Create one internal slot: <dfn>[[\storedDeviceList]]</dfn>, initialized
-              to null.</p>
+              to <code>null</code>.</p>
             </li>
             <li>
               <p>Create one internal slot: <dfn>[[\canExposeDeviceInfo]]</dfn>, initialized
@@ -2740,7 +2740,7 @@ interface MediaStreamTrackEvent : Event {
           abort these steps.</p>
         </li>
         <li>
-          <p>Set <a>[[\storedDeviceList]]</a> to null.</p>
+          <p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <a>devicechange</a> at
@@ -2828,7 +2828,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li><p>Let <var>resultList</var> be an empty list.</p></li>
                     <li>
-                      <p>If <a>[[\storedDeviceList]]</a> is not null, run the following sub steps:</p>
+                      <p>If <a>[[\storedDeviceList]]</a> is not <code>null</code>,
+                      run the following sub steps:</p>
                       <ol>
                         <li>
                           <p>For each {{MediaDeviceInfo}} object in <a>[[\storedDeviceList]]</a>,
@@ -2869,7 +2870,8 @@ interface MediaDevices : EventTarget {
                           <p>If a stored {{MediaDeviceInfo/deviceId}} exists for
                           <var>device</var>, initialize <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} to that value.
                           Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} be a
-                          newly generated unique identifier.</p>
+                          newly generated unique identifier as described under
+                          {{MediaDeviceInfo/deviceId}}.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> belongs to the same physical
@@ -2879,13 +2881,6 @@ interface MediaDevices : EventTarget {
                           existing {{MediaDeviceInfo}} object.
                           Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} be a
                           newly generated unique identifier.</p>
-
-                          <p>A good practice for generating {{MediaDeviceInfo/deviceId}}
-                          and {{MediaDeviceInfo/groupId}}
-                          values is to use a UUID [[rfc4122]], which is 36
-                          characters long in its canonical form. To avoid
-                          fingerprinting, implementations SHOULD use the forms in
-                          section 4.4 or 4.5 of RFC 4122.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is the system default camera or the system default
@@ -3008,6 +3003,14 @@ interface MediaDevices : EventTarget {
         "set-device-information-exposure">set the device information exposure</dfn>,
         with a <var>value</var> of type boolean, run the following steps:</p>
         <ol>
+          <li>
+            <p>If <a>[[\canExposeDeviceInfo]]</a> is already <var>value</var>,
+            abort these steps.</p>
+          </li>
+          <li>
+            <p>If <var>value</var> is <code>true</code>, set
+            <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
+          </li>
           <li>Set <a>[[\canExposeDeviceInfo]]</a> to <var>value</var>.</li>
         </ol>
         <div class="note">
@@ -3041,14 +3044,12 @@ interface MediaDeviceInfo {
               MUST be the same in documents of the same origin in [=top-level browsing contexts=].
               In [=nested browsing contexts=],
               the decision of whether or not the identifier is the same across
-              documents, MUST follow the user agents' partitioning rules for
+              documents, MUST follow the User Agent's partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
               to not interfere with mitigations for cross-site correlation.
-              The identifier SHOULD be origin-unique,
-              in which case some sort of UUID is recommended.
-              If the identifier can uniquely identify the user, as is usually
-              the case with UUID, it MUST be un-guessable by browsing contexts
-              of other origins to prevent the identifier from being used to
+              If the identifier can uniquely
+              identify the user, then it MUST be un-guessable in documents from
+              other origins to prevent the identifier from being used to
               correlate the same user across different origins. An identifier
               can be reused across origins as long as it is not tied to the user
               and can be guessed by other means, like the User-Agent string.</p>
@@ -3071,9 +3072,9 @@ interface MediaDeviceInfo {
               across browsing sessions and to reduce its potential as a
               fingerprinting mechanism, {{deviceId}} is to be treated
               as other persistent storage mechanisms such as cookies
-              [[COOKIES]], in that user agents MUST NOT persist device
+              [[COOKIES]], in that User Agents MUST NOT persist device
               identifiers for sites that are blocked from using cookies, and
-              user agents MUST reset per-origin device identifiers when other
+              User Agents MUST rotate per-origin device identifiers when other
               persistent storage are cleared.</p>
             </dd>
             <dt id="def-mediadeviceinfo-kind"><dfn>kind</dfn> of
@@ -3776,6 +3777,22 @@ interface InputDeviceInfo : MediaDeviceInfo {
         permission for the use of multiple cameras and/or media sources in one
         dialog interaction. The constraints on each getUserMedia call can be
         used to decide which stream gets which media sources.</p>
+      </div>
+      <div class="practice">
+        <span class="practicelab" id="generating-deviceids">Generating deviceIds</span>
+        <p class="practicedesc">An efficient practice for generating a
+        {{MediaDeviceInfo/deviceId}} is to generate a cryptographic hash from
+        a private key + (origin or origin + top-level origin, based on the user
+        agents' partitioning rules) + salt + device's underlying (hardware) id
+        in the driver, and present the resulting hash as an alphanumeric string.
+        Using 32 bits or fewer for the hash is recommended, but not much lower,
+        to avoid risk of collision.
+        </p>
+        <p class="practicedesc">A lower-entropy alternative, at the cost of
+        storage, is to assign the numbers 0 through 255 randomly to each
+        new device encountered for each origin or origin + top-level origin,
+        based on the User Agent's partitioning rules, retiring the number that
+        hasn't been seen the longest if numbers run out.</p>
       </div>
     </section>
   </section>
