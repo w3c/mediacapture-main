@@ -800,9 +800,9 @@ interface MediaStream : EventTarget {
         to the associated events {{mute}} and {{unmute}}. There can be
         several reasons for a {{MediaStreamTrack}} to be muted:
         the user pushing a physical mute button on the microphone, the user
-        toggling a control in the operating system, the user clicking a mute
-        button in the browser chrome, the User Agent (on behalf of the user)
-        mutes, etc.</p>
+        closing a laptop lid with an embedded camera, the user toggling a
+        control in the operating system, the user clicking a mute button in the
+        browser chrome, the User Agent (on behalf of the user) mutes, etc.</p>
         <p>Whenever the User Agent initiates such a change, it MUST queue a
         task, using the user interaction task source, to <a>set a track's muted
         state</a> to the state desired by the user.</p>
