@@ -2847,7 +2847,12 @@ interface MediaDevices : EventTarget {
                              </li>
                            </ul>
                          </li>
-                        <li><p>Jump to the step labeled <em>Complete Enumeration</em>.</p></li>
+                         <li>
+                           <p><a>resolve</a> <var>p</var> with <var>resultList</var>.</p>
+                        </li>
+                        <li>
+                           <p>Abort these steps.</p>
+                        </li>
                       </ol>
                     </li>
                     <li>
@@ -2858,35 +2863,22 @@ interface MediaDevices : EventTarget {
                         <li>
                           <p>If <var>device</var> is a camera, and
                           <var>document</var> is not [=allowed to use=] the feature identified by
-                          <a data-dfn-link-for="">"camera"</a>, abort these steps and continue
+                          <a data-dfn-link-for="">"camera"</a> or if
+                          <a>device information can be exposed</a> is <code>false</code> and <var>resultList</var> already
+                          contains a {{MediaDeviceInfo}} representing a camera, abort these steps and continue
                           with the next device (if any).</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is a microphone, and
                           <var>document</var> is not [=allowed to use=] the feature identified by
-                          <a data-dfn-link-for="">"microphone"</a>, abort these steps and
+                          <a data-dfn-link-for="">"microphone"</a> or if
+                          <a>device information can be exposed</a> is <code>false</code> and <var>resultList</var> already
+                          contains a {{MediaDeviceInfo}} representing a microphone, abort these steps and
                           continue with the next device (if any).</p>
                         </li>
                         <li>
-                          <p>Let <var>deviceInfo</var> be a new
-                          {{MediaDeviceInfo}} object to
-                          represent <var>device</var>.</p>
-                        </li>
-                        <li>
-                          <p>If a stored {{MediaDeviceInfo/deviceId}} exists for
-                          <var>device</var>, initialize <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} to that value.
-                          Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} be a
-                          newly generated unique identifier as described under
-                          {{MediaDeviceInfo/deviceId}}.</p>
-                        </li>
-                        <li>
-                          <p>If <var>device</var> belongs to the same physical
-                          device as a device already represented for <var>document</var>,
-                          initialize <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} to the
-                          {{MediaDeviceInfo/groupId}} value of the
-                          existing {{MediaDeviceInfo}} object.
-                          Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} be a
-                          newly generated unique identifier.</p>
+                          <p>Let <var>deviceInfo</var> be the result of
+                          <a>creating a device info object</a> to represent <var>device</var>.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is the system default camera or the system default
@@ -2900,42 +2892,7 @@ interface MediaDevices : EventTarget {
                       <var>resultList</var>.</p>
                     </li>
                     <li>
-                      <p><em>Complete Enumeration</em>: run the following sub
-                      steps to <a>resolve</a> <var>p</var>:</p>
-                      <ol>
-                        <li>
-                          <p>If <a>device information can be exposed</a> is
-                          <code>true</code>, then <a>resolve</a> <var>p</var> with
-                          <var>resultList</var>, and abort these steps.</p>
-                        </li>
-                        <li>
-                          <p>Let <var>filteredList</var> be an empty list.</p>
-                        </li>
-                        <li>
-                          <p>For each {{MediaDeviceInfo}},
-                          <var>deviceInfo</var>, in <var>resultList</var>,
-                          run the following sub steps:</p>
-                          <ol>
-                            <li>
-                              <p>If <var>filteredList</var> contains a {{MediaDeviceInfo}} object
-                              whose {{MediaDeviceInfo/kind}}
-                              is the same as <var>deviceInfo</var>.{{MediaDeviceInfo/kind}},
-                              skip <var>deviceInfo</var>.</p>
-                            </li>
-                            <li>
-                              <p>Let <var>filteredDeviceInfo</var> be a new {{MediaDeviceInfo}} object
-                              whose {{MediaDeviceInfo/kind}}
-                              is set to <var>deviceInfo</var>.{{MediaDeviceInfo/kind}}.</p>
-                            </li>
-                            <li>
-                              <p>Append <var>filteredDeviceInfo</var> to <var>filteredList</var>.</p>
-                            </li>
-                          </ol>
-                        </li>
-                        <li>
-                          <p><a>resolve</a> <var>p</var> with <var>filteredList</var>.</p>
-                        </li>
-                      </ol>
+                      <p><a>resolve</a> <var>p</var> with <var>resultList</var>.</p>
                     </li>
                   </ol>
                 </li>
@@ -2961,13 +2918,49 @@ interface MediaDevices : EventTarget {
         <h2>Access control model</h2>
         <p>The algorithm described above means that the access to media device
         information depends on whether or not the browsing context did capture.</p>
-        <p>If the browsing context did not capture (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
+        <p>For camera and microphone devices, if the browsing context did not capture
+        (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
         {{MediaDeviceInfo}} object will contain a valid value for {{MediaDeviceInfo/kind}} but empty strings
         for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.
         Additionally, at most one device of each {{MediaDeviceInfo/kind}} will be listed in {{MediaDevices/enumerateDevices()}} result.</p>
         <p>Otherwise, the
         <dfn>MediaDeviceInfo</dfn> object will contain meaningful values for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}},
         {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}. All available devices are listed in {{MediaDevices/enumerateDevices()}} result.</p>
+        <p>To perform <dfn data-lt="creating-a-device-info-object" id=
+        "creating-a-device-info-object">creating a device info object</dfn> to represent a discovered device,
+        <var>device</var>, run the following steps:</p>
+        <ol>
+          <li>
+            <p>Let <var>deviceInfo</var> be a new {{MediaDeviceInfo}} object to represent <var>device</var>.</p>
+          </li>
+          <li>
+            <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} for <var>device</var>.</p>
+          </li>
+          <li>
+            <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "audioinput" or "videoinput"
+            and <a>device information can be exposed</a> is <code>false</code>, return <var>deviceInfo</var></p>
+          </li>
+          <li>
+            <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/label}} for <var>device</var>.</p>
+          </li>
+          <li>
+            <p>If a stored {{MediaDeviceInfo/deviceId}} exists for
+            <var>device</var>, initialize <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} to that value.
+            Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/deviceId}} be a
+            newly generated unique identifier as described under {{MediaDeviceInfo/deviceId}}.</p>
+          </li>
+          <li>
+            <p>If <var>device</var> belongs to the same physical
+            device as a device already represented for <var>document</var>,
+            initialize <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} to the
+            {{MediaDeviceInfo/groupId}} value of the existing {{MediaDeviceInfo}} object.
+            Otherwise, let <var>deviceInfo</var>.{{MediaDeviceInfo/groupId}} be a
+            newly generated unique identifier as described under {{MediaDeviceInfo/groupId}}.</p>
+          </li>
+          <li>
+            <p>Return <var>deviceInfo</var></p>
+          </li>
+        </ol>
       </section>
       <section>
         <h2>Device information exposure</h2>
