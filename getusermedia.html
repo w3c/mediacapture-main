@@ -3800,6 +3800,59 @@ interface InputDeviceInfo : MediaDeviceInfo {
         based on the User Agent's partitioning rules, retiring the number that
         hasn't been seen the longest if numbers run out.</p>
       </div>
+      <div class="practice">
+        <span class="practicelab" id="muting-devices">Device muting initiated by user agent</span>
+        <p class="practicedesc">A track sourced by a camera or microphone may be
+        forcibly <a data-lt=muted>muted</a> by a user agent at any time, in order
+        to manage a user's privacy. However, doing so may create web
+        compatibility issues, as well as leak information about user activity, so
+        caution is advised.
+        </p>
+        <p class="practicedesc">Best practice is to only
+        <a data-lt=muted>mute</a> a camera or microphone track in the following
+        instances:</p>
+        <ul>
+          <li>
+            <p>An OS-level event for which the user agent already suspends media
+            playback globally, but JavaScript is not suspended. The rationale is
+            users may otherwise be surprised if capture were to continue in this
+            situation (unless they've intentionally configured it this way).
+            If the OS-level event already causes frames to stop coming in
+            on the track, then no new information of user activity is revealed
+            by this. Even when this is not the case, revealing that capture is
+            ending seems like a reasonable privacy tradeoff compared to
+            continuing capture in situations that may surprise users.</p>
+          </li>
+          <li>
+            <p>A web page <a data-cite="!HTML/#gains-focus">without focus</a>
+            <a data-lt=enabled>re-enables</a> a track when all tracks from that
+            source are <a data-lt=enabled>disabled</a>, in order to delay
+            resumption of capture until the page
+            <a data-cite="!HTML/#gains-focus">gains focus</a>.
+            </p>
+          </li>
+        </ul>
+        <p class="practicedesc">Best practice is to only
+        <a data-lt=muted>unmute</a> a camera or microphone track it previously
+        <a data-lt=muted>muted</a>, in the following instances:</p>
+        <ul>
+          <li>
+            <p>An OS-level event for which the user agent already resumes media
+            playback globally, and JavaScript was not suspended for the entirety
+            of the down period, <em>and</em> the page is visible to the user
+            (e.g. not during a lock screen). User agents may defer such action
+            if it determines significant time has passed that may jeopardize a
+            users' awareness of the earlier capture session.</p>
+          </li>
+          <li>
+            <p>A web page <a data-cite="!HTML/#gains-focus">gains focus</a> and
+            has one or more <a data-lt=enabled>enabled</a> tracks that are also
+            <a data-lt=muted>muted</a>.
+            </p>
+          </li>
+        </ul>
+        </p>
+      </div>
     </section>
   </section>
   <section id="constrainable-interface">
