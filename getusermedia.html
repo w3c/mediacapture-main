@@ -860,6 +860,13 @@ interface MediaStream : EventTarget {
         APIs defined in the <a>ConstrainablePattern</a> Interface allow the
         retrieval and manipulation of the constraints currently established on
         a track.</p>
+        <p>Once ended, a track will continue exposing a
+        <dfn data-lt="list-of-inherent-constrainable-track-properties" id="list-of-inherent-constrainable-track-properties">
+        list of inherent constrainable track properties</dfn>.
+        This list contains <code><a href="#def-constraint-deviceId">deviceId</a></code>,
+        <code><a href="#def-constraint-facingMode">facingMode</a></code> and
+        <code><a href="#def-constraint-groupId">groupId</a></code>.
+        </p>
       </section>
       <section id="media-stream-track-interface-definition">
         <h3>Interface Definition</h3>
@@ -1016,8 +1023,30 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>getSettings</dfn></dt>
               <dd>
-                <p>See <a href="#constrainable-interface">ConstrainablePattern
-                Interface</a> for the definition of this method.</p>
+                <p>When a <code><a>MediaStreamTrack</a></code> object's <code>getSettings()</code> method is invoked,
+                the User Agent MUST run following steps:</p>
+                <ol>
+                  <li>
+                    <p>Let <var>track</var> be the current <code><a>MediaStreamTrack</a></code> object.</p>
+                  </li>
+                  <li>
+                    <p>If <var>track</var>'s <code><a href="#dom-mediastreamtrack-readystate">readyState</a></code>
+                    attribute is ended, run the following sub steps:</p>
+                    <ol>
+                      <li><p>Let <var>settings</var> be a new <a><code>MediaTrackSettings</code></a> dictionary.</p></li>
+                      <li><p>
+                        For each <var>property</var> of the <a>list of inherent constrainable track properties</a>,
+                        add a corresponding property to <var>settings</var> if <var>track</var> had such property
+                        at the time it was ended, with the value at the time <var>track</var> was ended.
+                      </p></li>
+                      <li><p>Return <var>settings</var>.</p></li>
+                    </ol>
+                  </li>
+                  <li>
+                    <p>Return the current settings of the track as defined in
+                    <a href="#constrainable-interface">ConstrainablePattern Interface</a>.</p>
+                  </li>
+                </ol>
               </dd>
               <dt><dfn>applyConstraints</dfn></dt>
               <dd>
