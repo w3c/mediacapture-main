@@ -4975,14 +4975,14 @@ window.onload = async () =&gt; {
     </div>
   </section>
   <section>
-    <h1 id=feature-policy-integration>Feature Policy Integration</h1>
+    <h1 id=permissions-policy-integration>Permissions Policy Integration</h1>
     <p>This specification defines two [=policy-controlled feature=]s
     identified by the strings
     <code><dfn>"camera"</dfn></code> and
     <code><dfn>"microphone"</dfn></code>.
-    Both have a [=default allowlist=] of <code class=featurepolicy>"self"</code>.
+    Both have a [=default allowlist=] of <code class=permissionspolicy>"self"</code>.
     <div class="note">
-      <p>A [=document=]'s [=Document/feature policy=]
+      <p>A [=document=]'s [=Document/permissions policy=]
       determines whether any content in that document is allowed to use
       {{MediaDevices/getUserMedia}} to request camera or microphone respectively. If
       disabled in any document, no content in the document will be [=allowed to use=]
