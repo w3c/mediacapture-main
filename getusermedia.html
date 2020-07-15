@@ -3116,7 +3116,8 @@ interface MediaDeviceInfo {
               <p>A label describing this device (for example "External USB
               Webcam"). This label is for display purposes only. There is no
               requirement the label contain any identifying information about
-              the device.</p>
+              the device. If the device has no associated label, then this
+              attribute MUST return the empty string.</p>
             </dd>
             <dt id="def-mediadeviceinfo-groupId"><dfn>groupId</dfn>
             of type {{DOMString}}, readonly</dt>
