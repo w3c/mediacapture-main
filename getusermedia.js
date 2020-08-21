@@ -67,7 +67,7 @@ var respecConfig = {
    // Team Contact.
    wgPatentURI:   ["https://www.w3.org/2004/01/pp-impl/47318/status"],
    github: "https://github.com/w3c/mediacapture-main/",
-  xref: ["dom", "html", "webidl", "permissions", "feature-policy", "webaudio"],
+  xref: ["dom", "html", "webidl", "permissions", "permissions-policy", "webaudio"],
    otherLinks: [
     {
       key: "Participate",

@@ -402,8 +402,8 @@ interface MediaStream : EventTarget {
   sequence&lt;MediaStreamTrack&gt; getVideoTracks();
   sequence&lt;MediaStreamTrack&gt; getTracks();
   MediaStreamTrack? getTrackById(DOMString trackId);
-  void addTrack(MediaStreamTrack track);
-  void removeTrack(MediaStreamTrack track);
+  undefined addTrack(MediaStreamTrack track);
+  undefined removeTrack(MediaStreamTrack track);
   MediaStream clone();
   readonly attribute boolean active;
   attribute EventHandler onaddtrack;
@@ -884,11 +884,11 @@ interface MediaStreamTrack : EventTarget {
   readonly attribute MediaStreamTrackState readyState;
   attribute EventHandler onended;
   MediaStreamTrack clone();
-  void stop();
+  undefined stop();
   MediaTrackCapabilities getCapabilities();
   MediaTrackConstraints getConstraints();
   MediaTrackSettings getSettings();
-  Promise&lt;void&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
+  Promise&lt;undefined&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
 };</pre>
           <section>
             <h2>Attributes</h2>
@@ -3266,7 +3266,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <div>
         <pre class="idl"
 >partial interface Navigator {
-  [SecureContext] void getUserMedia(MediaStreamConstraints constraints,
+  [SecureContext] undefined getUserMedia(MediaStreamConstraints constraints,
                                     NavigatorUserMediaSuccessCallback successCallback,
                                     NavigatorUserMediaErrorCallback errorCallback);
 };</pre>
@@ -3682,7 +3682,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <h2><dfn>NavigatorUserMediaSuccessCallback</dfn></h2>
       <div>
         <pre class="idl"
->callback NavigatorUserMediaSuccessCallback = void (MediaStream stream);</pre>
+>callback NavigatorUserMediaSuccessCallback = undefined (MediaStream stream);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaSuccessCallback</a>
           Parameters</h2>
@@ -3702,7 +3702,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <h2><dfn>NavigatorUserMediaErrorCallback</dfn></h2>
       <div>
         <pre class="idl"
->callback NavigatorUserMediaErrorCallback = void (MediaStreamError error);</pre>
+>callback NavigatorUserMediaErrorCallback = undefined (MediaStreamError error);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaErrorCallback</a>
           Parameters</h2>
@@ -4080,7 +4080,7 @@ interface ConstrainablePattern {
   Capabilities  getCapabilities();
   Constraints   getConstraints();
   Settings      getSettings();
-  Promise&lt;void&gt; applyConstraints(optional Constraints constraints = {});
+  Promise&lt;undefined&gt; applyConstraints(optional Constraints constraints = {});
 };</pre></div>
         <section>
           <h2>Methods</h2>
