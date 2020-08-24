@@ -103,9 +103,9 @@
         the same capabilities, but may get different settings that are tailored
         to satisfy their individual constraints).</p>
       </dd>
-      <dt>Setting (Source Setting)</dt>
+      <dt><dfn data-lt=settings>Setting</dfn> (Source Setting)</dt>
       <dd>
-        <p>A <a href="#settings">setting</a> refers to the immediate, current
+        <p>A setting refers to the immediate, current
         value of the source's constrainable properties. Settings are always
         read-only.</p>
         <p>A source conditions may dynamically change, such as when a camera
@@ -119,7 +119,7 @@
         exposed to the application through the tracks attached to the source.
         This is exposed via the <a>ConstrainablePattern</a> interface.</p>
       </dd>
-      <dt>Capabilities</dt>
+      <dt><dfn data-lt=capabilities>Capability</dfn></dt>
       <dd>
         <p>For each constrainable property, there is a capability that
         describes whether it is supported by the source and if so, the range of
@@ -453,7 +453,7 @@ interface MediaStream : EventTarget {
               created.</p>
             </dd>
             <dt><dfn>active</dfn> of type {{boolean}}, readonly</dt>
-            <dd>
+            <dd data-link-for="">
               <p>The {{active}} attribute MUST return
               <code>true</code> if this {{MediaStream}} is
               [= active =] and <code>false</code>
@@ -4709,7 +4709,7 @@ async function specifyCamera() {
     </section>
     <section id="capabilities">
       <h3>Capabilities</h3>
-      <p><dfn>Capabilities</dfn> is a dictionary containing one or more
+      <p><dfn data-dfn-type=dictionary>Capabilities</dfn> is a dictionary containing one or more
       key-value pairs, where each key MUST be a constrainable property, and
       each value MUST be a subset of the set of values allowed for that
       property. The exact syntax of the value expression depends on the type of
