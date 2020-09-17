@@ -4271,15 +4271,13 @@ interface ConstrainablePattern {
                 either contains no member named 'ideal', or, if bare values are
                 to be treated as 'ideal', isn't a bare value), the fitness
                 distance is 0.</li>
-                <li>For all positive numeric
-                <a data-lt="required">non-required</a> constraints (such as
+                <li>For all positive numeric constraints (such as
                 height, width, frameRate, aspectRatio, sampleRate and
                 sampleSize), the fitness distance is the result of the formula
                   <pre>
 (actual == ideal) ? 0 : |actual - ideal| / max(|actual|, |ideal|)</pre>
                 </li>
-                <li>For all string and enum
-                <a data-lt="required">non-required</a> constraints (e.g.
+                <li>For all string, enum and boolean constraints (e.g.
                 deviceId, groupId, facingMode, resizeMode, echoCancellation),
                 the fitness distance is the result of the formula
                   <pre>(actual == ideal) ? 0 : 1</pre>
