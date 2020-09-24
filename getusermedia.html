@@ -2885,41 +2885,92 @@ interface MediaDevices : EventTarget {
                       </ol>
                     </li>
                     <li>
-                      <p>Probe the User Agent for available media devices, and
-                      run the following sub steps for each discovered device,
-                      <var>device</var>:</p>
+                      <p>Probe the User Agent for available media devices, and let be <var>deviceList</var>
+                      be the list of all discovered devices.</p>
+                    </li>
+                    <li>
+                      <p>Let <var>microphoneList</var> and <var>cameraList</var> be empty lists.</p>
+                    </li>
+                    <li>
+                      <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
                       <ol>
                         <li>
-                          <p>If <var>device</var> is a camera, and
-                          <var>document</var> is not [=allowed to use=] the feature identified by
-                          <a data-dfn-link-for="">"camera"</a> or if
-                          <a>device information can be exposed</a> is <code>false</code> and <var>resultList</var> already
-                          contains a {{MediaDeviceInfo}} representing a camera, abort these steps and continue
-                          with the next device (if any).</p>
-                        </li>
-                        <li>
-                          <p>If <var>device</var> is a microphone, and
-                          <var>document</var> is not [=allowed to use=] the feature identified by
-                          <a data-dfn-link-for="">"microphone"</a> or if
-                          <a>device information can be exposed</a> is <code>false</code> and <var>resultList</var> already
-                          contains a {{MediaDeviceInfo}} representing a microphone, abort these steps and
-                          continue with the next device (if any).</p>
-                        </li>
-                        <li>
-                          <p>If <var>device</var> is neither a camera nor a microphone, run the
-                          <a>exposure decision algorithm for devices other than camera and microphone</a>,
-                          with <var>device</var> as input.
-                          If the result of this algorithm is <code>false</code>,
-                          abort these steps and continue with the next device (if any).</p>
+                          <p>If <var>device</var> is not a microphone, or <var>document</var> is not
+                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"microphone"</a>,
+                          abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
                           <p>Let <var>deviceInfo</var> be the result of
                           <a>creating a device info object</a> to represent <var>device</var>.</p>
                         </li>
                         <li>
-                          <p>If <var>device</var> is the system default camera or the system default
-                          microphone, prepend <var>deviceInfo</var> to <var>resultList</var>.
-                          Otherwise, append <var>deviceInfo</var> to <var>resultList</var>.</p>
+                          <p>If <var>device</var> is the system default microphone,
+                          prepend <var>deviceInfo</var> to <var>microphoneList</var>.
+                          Otherwise, append <var>deviceInfo</var> to <var>microphoneList</var>.</p>
+                        </li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
+                      <ol>
+                        <li>
+                          <p>If <var>device</var> is not a camera, or <var>document</var> is not
+                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"camera"</a>,
+                          abort these sub steps and continue with the next device (if any).</p>
+                        </li>
+                        <li>
+                          <p>Let <var>deviceInfo</var> be the result of
+                          <a>creating a device info object</a> to represent <var>device</var>.</p>
+                        </li>
+                        <li>
+                          <p>If <var>device</var> is the system default camera,
+                          prepend <var>deviceInfo</var> to <var>cameraList</var>.
+                          Otherwise, append <var>deviceInfo</var> to <var>cameraList</var>.</p>
+                        </li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>If <a>device information can be exposed</a> is <code>false</code>,
+                      run the following sub steps:<p>
+                      <ol>
+                        <li>
+                          <p>Add to <var>resultList</var> the first item of <var>microphoneList</var> if <var>microphoneList</var> is not empty.</p>
+                        </li>
+                        <li>
+                          <p>Add to <var>resultList</var> the first item of <var>cameraList</var> if <var>cameraList</var> is not empty.</p>
+                        </li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>Otherwise, run the following steps:<p>
+                      <ol>
+                        <li>
+                          <p>Append to <var>resultList</var> all devices of <var>microphoneList</var> in order.</p>
+                        </li>
+                        <li>
+                          <p>Append to <var>resultList</var> all devices of <var>cameraList</var> in order.</p>
+                        </li>
+                        <li>
+                          <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
+                          <ol>
+                            <li>
+                              <p>If <var>device</var> is a microphone or <var>device</var> is a camera,
+                              abort these sub steps and continue with the next device (if any).</p>
+                            </li>
+                            <li>
+                              <p>Run the <a>exposure decision algorithm for devices other than camera and microphone</a>,
+                              with <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input.
+                              If the result of this algorithm is <code>false</code>,
+                              abort these sub steps and continue with the next device (if any).</p>
+                            </li>
+                            <li>
+                              <p>Let <var>deviceInfo</var> be the result of
+                              <a>creating a device info object</a> to represent <var>device</var>.</p>
+                            </li>
+                            <li>
+                              <p>Append <var>deviceInfo</var> to <var>resultList</var>.</p>
+                            </li>
+                          </ol>
                         </li>
                       </ol>
                     </li>
@@ -3056,8 +3107,9 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Exposure decision algorithm for devices other than camera and microphone</h2>
         <p>The <dfn data-lt="device-exposure-decision-non-camera-microphone" id=
-        "device-exposure-decision-non-camera-microphone">exposure decision algorithm for devices other than camera and microphone</dfn>
-        takes a <var>device</var> as input and returns a boolean to decide whether exposing the device to the web page or not.</p>
+          "device-exposure-decision-non-camera-microphone">exposure decision algorithm for devices other than camera and microphone</dfn>
+          takes a <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input
+          and returns a boolean to decide whether exposing the device to the web page or not.</p>
         <p>By default, it returns <code>false</code>.</p>
         <p>Other specifications can define the algorithm for specific device types.
       </section>
