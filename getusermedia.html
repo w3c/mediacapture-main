@@ -3479,9 +3479,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         inside of <a>"video"</a> and video-only constraints inside of
                         <a>"audio"</a> are simply ignored rather than causing
                         <code>OverconstrainedError</code>.</li>
-                        <li>Remove any constrainable property inside of
-                        <var>CS</var> that is <a data-lt="required">required</a>
-                        and whose name is not in <a>getUserMedia allowed required constraint list</a>.</li>
+                        <li><p>If <var>CS</var> contains a constrainable property
+                        that is <a data-lt="required">required</a> and whose name is not in the
+                        list of <a>allowed required constraints for device selection</a>,
+                        jump to the step labeled <em>Constraint Failure</em> below.</p></li>
                         <li>
                           <p>Run the <a>SelectSettings</a> algorithm on each
                           track in <var>candidateSet</var> with <var>CS</var>
@@ -3668,7 +3669,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         no longer suitable. In this case, a NotReadableError will result.</p>
       </div>
       <div>
-        <p>The <dfn>getUserMedia allowed required constraint list</dfn>
+        <p>The <dfn>allowed required constraints for device selection</dfn>
         contains the following constraint names:
           <a>width</a>,
           <a>height</a>,
