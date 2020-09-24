@@ -52,6 +52,7 @@ var respecConfig = {
    //],
 
    group: "webrtc",
+   implementationReportURI: "https://wpt.fyi/mediacapture-streams",
 
    // name (without the @w3.org) of the public mailing to which comments are due
    wgPublicList: "public-webrtc",
