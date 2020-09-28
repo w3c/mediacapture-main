@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download latest ReSpec
-        run:  wget https://www.w3.org/Tools/respec/respec-w3c.js
+        run:  wget https://www.w3.org/Tools/respec/respec-w3c.js -O respec-w3c.js
       - name: Find respec version
         run: echo "::set-env name=RESPEC_VERSION::$(cat respec-w3c.js | head -1 | cut -d '"' -f 2)"
       - uses: peter-evans/create-pull-request@v2
