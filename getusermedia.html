@@ -1802,19 +1802,19 @@ interface MediaStreamTrack : EventTarget {
           </thead>
           <tbody>
             <tr id="def-constraint-sampleRate">
-              <td>sampleRate</td>
+              <td><dfn>sampleRate</dfn></td>
               <td>{{ConstrainULong}}</td>
               <td>The sample rate in samples per second for the audio
               data.</td>
             </tr>
             <tr id="def-constraint-sampleSize">
-              <td>sampleSize</td>
+              <td><dfn>sampleSize</dfn></td>
               <td>{{ConstrainULong}}</td>
               <td>The linear sample size in bits. This constraint can only be
               satisfied for audio devices that produce linear samples.</td>
             </tr>
             <tr id="def-constraint-echoCancellation">
-              <td>echoCancellation</td>
+              <td><dfn>echoCancellation</dfn></td>
               <td>{{ConstrainBoolean}}</td>
               <td>When one or more audio streams is being played in the
               processes of various microphones, it is often desirable to
@@ -1826,7 +1826,7 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-autoGainControl">
-              <td>autoGainControl</td>
+              <td><dfn>autoGainControl</dfn></td>
               <td>{{ConstrainBoolean}}</td>
               <td>Automatic gain control is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
@@ -1835,7 +1835,7 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-noiseSuppression">
-              <td>noiseSuppression</td>
+              <td><dfn>noiseSuppression</dfn></td>
               <td>{{ConstrainBoolean}}</td>
               <td>Noise suppression is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
@@ -1844,7 +1844,7 @@ interface MediaStreamTrack : EventTarget {
               behavior.</td>
             </tr>
             <tr id="def-constraint-latency">
-              <td>latency</td>
+              <td><dfn>latency</dfn></td>
               <td>{{ConstrainDouble}}</td>
               <td>The latency or latency range, in seconds. The latency is the
               time between start of processing (for instance, when sound occurs
@@ -1856,7 +1856,7 @@ interface MediaStreamTrack : EventTarget {
               some variation from that.</td>
             </tr>
             <tr id="def-constraint-channelCount">
-              <td>channelCount</td>
+              <td><dfn>channelCount</dfn></td>
               <td>{{ConstrainULong}}</td>
               <td>The number of independent channels of sound that the audio
               data contains, i.e. the number of audio samples per sample
@@ -3531,6 +3531,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         inside of <a>"video"</a> and video-only constraints inside of
                         <a>"audio"</a> are simply ignored rather than causing
                         <code>OverconstrainedError</code>.</li>
+                        <li><p>If <var>CS</var> contains a member that is a
+                        <a>required constraint</a> and whose name is not in the
+                        list of <a>allowed required constraints for device selection</a>,
+                        then <a>reject</a> <var>p</var> with a {{TypeError}}, and abort
+                        these steps.</p></li>
                         <li>
                           <p>Run the <a>SelectSettings</a> algorithm on each
                           track in <var>candidateSet</var> with <var>CS</var>
@@ -3716,6 +3721,27 @@ interface InputDeviceInfo : MediaDeviceInfo {
         between those checks, so it is conceivable that the selected device is
         no longer suitable. In this case, a NotReadableError will result.</p>
       </div>
+      <div>
+        <p>The <dfn>allowed required constraints for device selection</dfn>
+        contains the following constraint names:
+          <a>width</a>,
+          <a>height</a>,
+          <a>aspectRatio</a>,
+          <a>frameRate</a>,
+          <a>facingMode</a>,
+          <a>resizeMode</a>,
+          <a>sampleRate</a>,
+          <a>sampleSize</a>,
+          <a>echoCancellation</a>,
+          <a>autoGainControl</a>,
+          <a>noiseSuppression</a>,
+          <a>latency</a>,
+          <a>channelCount</a>,
+          <a>deviceId</a>,
+          <a>groupId</a>.
+        </p>
+      </div>
+
     </section>
     <section>
       <h2>{{MediaStreamConstraints}}</h2>
