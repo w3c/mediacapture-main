@@ -3479,10 +3479,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         inside of <a>"video"</a> and video-only constraints inside of
                         <a>"audio"</a> are simply ignored rather than causing
                         <code>OverconstrainedError</code>.</li>
-                        <li><p>If <var>CS</var> contains a constrainable property
-                        that is <a>required</a> and whose name is not in the
+                        <li><p>If <var>CS</var> contains a member that is a
+                        <a>required constraint</a> and whose name is not in the
                         list of <a>allowed required constraints for device selection</a>,
-                        jump to the step labeled <em>Constraint Failure</em> below.</p></li>
+                        then <a>reject</a> <var>p</var> with a {{TypeError}}, and abort
+                        these steps.</p></li>
                         <li>
                           <p>Run the <a>SelectSettings</a> algorithm on each
                           track in <var>candidateSet</var> with <var>CS</var>
