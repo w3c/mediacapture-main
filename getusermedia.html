@@ -4351,6 +4351,14 @@ interface ConstrainablePattern {
                 either contains no member named 'ideal', or, if bare values are
                 to be treated as 'ideal', isn't a bare value), the fitness
                 distance is 0.</li>
+                <li>
+                  <p>If <var>constraintName</var> is not in the list of
+                  <a>allowed required constraints for device selection</a> and
+                  the <a>settings dictionary</a>'s value for the constraint
+                  does not exist (because the source does not support the
+                  constraint or because the support is not exposed), the fitness
+                  distance is 1.</p>
+                </li>
                 <li>For all positive numeric constraints (such as
                 height, width, frameRate, aspectRatio, sampleRate and
                 sampleSize), the fitness distance is the result of the formula
