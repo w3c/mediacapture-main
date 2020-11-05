@@ -1659,7 +1659,7 @@ interface MediaStreamTrack : EventTarget {
               <td>The exact frame rate (frames per second) or frame rate range.
               If video source's pre-set can determine frame rate values, the range, as a capacity,
               should span the video source's pre-set frame rate values with
-              min being equal to 1 and max being the largest frame rate.
+              min being equal to 0 and max being the largest frame rate.
               The User Agent MUST support integral frame rates obtained from
               integral decimation between 1 and the native resolution frame rate.
               If this frame rate cannot be determined (e.g. the source does not
