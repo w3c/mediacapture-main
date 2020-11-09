@@ -338,7 +338,7 @@
       have any tracks or only has tracks that are [= track/ended =]
       is <dfn data-dfn-for="stream" id="stream-inactive">inactive</dfn>.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for=stream id=
-      "stream-audible" for=stream>audible</dfn> when it has at least one
+      "stream-audible" data-dfn-for=stream>audible</dfn> when it has at least one
       {{MediaStreamTrack}} whose {{MediaStreamTrack/kind}} is <a>"audio"</a> that
       has not [= track/ended =]. A
       {{MediaStream}} that does not have any audio tracks or
@@ -2891,7 +2891,7 @@ interface MediaDevices : EventTarget {
                       <ol>
                         <li>
                           <p>If <var>device</var> is not a microphone, or <var>document</var> is not
-                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"microphone"</a>,
+                          [=allowed to use=] the feature identified by <a data-link-for="">"microphone"</a>,
                           abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
@@ -2910,7 +2910,7 @@ interface MediaDevices : EventTarget {
                       <ol>
                         <li>
                           <p>If <var>device</var> is not a camera, or <var>document</var> is not
-                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"camera"</a>,
+                          [=allowed to use=] the feature identified by <a data-link-for="">"camera"</a>,
                           abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
@@ -5195,7 +5195,7 @@ window.onload = async () =&gt; {
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
     <p>For origins to which permission has been granted, the
-    <a dfn-link-type=event>devicechange</a> event will be emitted across browsing
+    <a data-link-type=event>devicechange</a> event will be emitted across browsing
     contexts and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events.</p>
