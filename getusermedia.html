@@ -3650,13 +3650,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <h2><dfn>NavigatorUserMediaErrorCallback</dfn></h2>
       <div>
         <pre class="idl"
->callback NavigatorUserMediaErrorCallback = undefined (MediaStreamError error);</pre>
+>callback NavigatorUserMediaErrorCallback = undefined (DOMException error);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaErrorCallback</a>
           Parameters</h2>
           <dl data-link-for="NavigatorUserMediaErrorCallback" data-dfn-for=
           "NavigatorUserMediaErrorCallback" class="callback-members">
-            <dt>error of type {{MediaStreamError}}</dt>
+            <dt>error of type {{DOMException}}</dt>
             <dd>
               Error in obtaining a {{MediaStream}} as described
               in the failure steps of the {{Navigator.getUserMedia}}
@@ -3664,14 +3664,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
             </dd>
           </dl>
         </section>
-      </div>
-      <div>
-        <pre class="idl">typedef object MediaStreamError;</pre>
-        <div class="idlTypedefDesc">
-          A <dfn>MediaStreamError</dfn> object is either a
-          {{DOMException}} object or an
-          <code><a>OverconstrainedError</a></code> object.
-        </div>
       </div>
     </section>
     <section class="informative">
