@@ -3626,11 +3626,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           the User Agent and may be determined by asking the user.
                           Once selected, the source of the
                           {{MediaStreamTrack}} MUST NOT change.</p>
-                          <p>The User Agent MAY use the value of the computed
-                          "fitness distance" from the <a>SelectSettings</a>
-                          algorithm, or any other internally-available information
-                          about the devices, as an input to the selection
-                          algorithm.</p>
+                          <p>The User Agent SHOULD use the value of the computed
+                          <a>fitness distance</a> from the <a>SelectSettings</a>
+                          algorithm as an input to the selection algorithm.
+                          However, it MAY also use other internally-available
+                          information about the devices, such as user preference.</p>
                           <p>User Agents are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
                           (when possible). User Agents
