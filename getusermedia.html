@@ -58,8 +58,7 @@
         <p>The terms [=event handlers=]
         and [=environment settings object/responsible
         document =] are defined in [[!HTML]].</p>
-        <p>The term [=current settings
-        object=] is defined in [[!HTML]].</p>
+        <p>The term [=relevant settings object=] is defined in [[!HTML]].</p>
         <p>The term [=allowed to
         use=] is defined in [[!HTML]].</p>
         <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>,
@@ -709,7 +708,7 @@ interface MediaStream : EventTarget {
         device as soon as any live track sourced by the device
         becomes both <a data-lt=muted>unmuted</a> and
         <a>enabled</a> again, provided that track's
-        <a>current settings object</a>'s [=environment settings object/responsible document=]
+        [=relevant settings object=]'s [=environment settings object/responsible document=]
         <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
         document does not <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
         the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
@@ -2717,7 +2716,7 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>Let <var>document</var> be the <a>current settings object</a>'s
+                      <p>Let <var>document</var> be the [=relevant settings object=]'s
                       [=environment settings object/responsible document=].</p>
                     </li>
                     <li>
@@ -2927,7 +2926,7 @@ interface MediaDevices : EventTarget {
             return <code>true</code>.</p>
           </li>
           <li>
-            <p>If the <a>current settings object</a>'s [=environment settings
+            <p>If the [=relevant settings object=]'s [=environment settings
             object/responsible document=] is [=Document/fully active=] and
             <a data-cite="!HTML/#gains-focus">has focus</a>, return
             <code>true</code>.</p>
@@ -2941,7 +2940,7 @@ interface MediaDevices : EventTarget {
         <ol>
           <li>
             <p>If any of the local devices are attached to a live
-            {{MediaStreamTrack}} in the <a>current settings object</a>'s
+            {{MediaStreamTrack}} in the [=relevant settings object=]'s
             [=environment settings object/responsible document=], return
             <code>true</code>.</p>
           </li>
@@ -3347,12 +3346,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If the <a>current settings object</a>'s [=environment settings object/responsible
-                  document=] is NOT [=Document/fully active=], return
-                  a promise <a>rejected</a> with a
-                  {{DOMException}} object whose
-                  {{DOMException/name}} attribute has the value
-                  {{"InvalidStateError"}}.</p>
+                  <p>If the [=relevant settings object=]'s
+                  [=environment settings object/responsible document=] is NOT
+                  [=Document/fully active=], return a promise <a>rejected</a>
+                  with a {{DOMException}} object whose {{DOMException/name}}
+                  attribute has the value {{"InvalidStateError"}}.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3362,10 +3360,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <ol>
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until
-                      the <a>current settings object</a>'s [=environment settings object/responsible
-                      document=] is [=Document/fully active=]
-                      and <a data-cite="!HTML/#gains-focus">has
-                      focus.</a></p>
+                      the [=relevant settings object=]'s
+                      [=environment settings object/responsible document=] is
+                      [=Document/fully active=] and
+                      <a data-cite="!HTML/#gains-focus">has focus.</a></p>
                     </li>
                     <li>
                       <p>Let <var>finalSet</var> be an (initially) empty
