@@ -738,7 +738,7 @@ interface MediaStream : EventTarget {
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
-        the operating system / browser chrome. A track can also be muted by the
+        the operating system / User Agent chrome. A track can also be muted by the
         User Agent.</p>
         <p>Applications are able to <a href="#track-enabled">enable</a> or
         disable a {{MediaStreamTrack}} to prevent it from
@@ -830,7 +830,7 @@ interface MediaStream : EventTarget {
         the user pushing a physical mute button on the microphone, the user
         closing a laptop lid with an embedded camera, the user toggling a
         control in the operating system, the user clicking a mute button in the
-        browser chrome, the User Agent (on behalf of the user) mutes, etc.</p>
+        User Agent chrome, the User Agent (on behalf of the user) mutes, etc.</p>
         <p>Whenever the User Agent initiates such a change, it MUST queue a
         task, using the user interaction task source, to <a>set a track's muted
         state</a> to the state desired by the user.</p>
@@ -1335,7 +1335,7 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>resizeMode</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
               <dd>
-                <p>The user agent MAY use cropping and downscaling to offer
+                <p>The User Agent MAY use cropping and downscaling to offer
                 more resolution choices than this camera naturally produces.
                 The reported sequence MUST list all the means the UA may employ
                 to derive resolution choices for this camera. The value {{VideoResizeModeEnum/"none"}}
@@ -1810,7 +1810,7 @@ interface MediaStreamTrack : EventTarget {
                 "idl-def-VideoResizeModeEnum.right">crop-and-scale</dfn></td>
                 <td>
                   <p>This resolution is downscaled and/or cropped from a higher
-                  camera resolution by the user agent. The media MUST NOT be
+                  camera resolution by the User Agent. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
                   occur in the input source.</p>
                 </td>
@@ -1962,7 +1962,7 @@ interface MediaStreamTrackEvent : Event {
   <section class="informative" id=
   "the-model-sources-sinks-constraints-and-settings">
     <h2>The model: sources, sinks, constraints, and settings</h2>
-    <p>Browsers provide a media pipeline from sources to sinks. In a browser,
+    <p>User Agents provide a media pipeline from sources to sinks. In a User Agent,
     sinks are the &lt;img&gt;, &lt;video&gt;, and &lt;audio&gt; tags.
     Traditional sources include streamed content, files, and web resources. The
     media produced by these sources typically does not change over time - these
@@ -2071,7 +2071,7 @@ interface MediaStreamTrackEvent : Event {
     "Changing media stream sinks may affect sources: before the requested change"
     src="images/change_states_before2.svg">
     <p>When the application changes sink A to a smaller dimension (from 1920 to
-    1024 pixels wide and from 1200 to 768 pixels tall), the browser's media
+    1024 pixels wide and from 1200 to 768 pixels tall), the User Agent's media
     pipeline may recognize that none of its sinks require the higher source
     resolution, and needless work is being done both on the part of the source
     and sink A. In such a case and without any other constraints forcing the
@@ -2665,7 +2665,7 @@ interface OverconstrainedError : DOMException {
       context at that time.</p>
       <div class="note">
         <p class="fingerprint">These events are potentially triggered
-        simultaneously on documents of different origins. User agents MAY add
+        simultaneously on documents of different origins. User Agents MAY add
         fuzzing on the timing of events to avoid cross-origin activity
         correlation.</p>
       </div>
@@ -2856,7 +2856,7 @@ interface MediaDevices : EventTarget {
               <p class="fingerprint">Since this method returns persistent
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
-              fingerprinting surface exposed by the user agent.</p>
+              fingerprinting surface exposed by the User Agent.</p>
               <p class="fingerprint">Once authorization has been granted to one
               of the capture devices, it provides additional persistent
               cross-origin information via the list of all media capture devices,
@@ -3023,9 +3023,9 @@ interface MediaDeviceInfo {
               visits.</p>
               <p>However, as long as no local device has been attached to a
               live MediaStreamTrack in a page from this origin, and no [=stored permission=] to access local
-              devices has been granted to this origin, then the user agent MAY
+              devices has been granted to this origin, then the User Agent MAY
               clear this identifier once the last browsing session from this
-              origin has been closed. If the user agent chooses not to clear
+              origin has been closed. If the User Agent chooses not to clear
               the identifier in this condition, then it MUST provide for the
               user to visibly inspect and delete the identifier, like a
               cookie.</p>
@@ -3180,7 +3180,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular browsers. To ensure functional equivalence, the getUserMedia()
+        popular User Agents. To ensure functional equivalence, the getUserMedia()
         method here is defined in terms of the method under MediaDevices.</p>
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
@@ -3285,7 +3285,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular browsers. To ensure functional equivalence, the getUserMedia()
+        popular User Agents. To ensure functional equivalence, the getUserMedia()
         method under {{Navigator}} is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
         defined under {{Navigator}} is currently still callback-based. Developers
@@ -3311,7 +3311,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               properties known to the User Agent. A supported constrainable
               property MUST be represented and any constrainable properties not
               supported by the User Agent MUST NOT be present in the returned
-              dictionary. The values returned represent what the browser
+              dictionary. The values returned represent what the User Agent
               implements and will not change during a browsing session.</p>
             </dd>
             <dt>getUserMedia</dt>
@@ -3458,7 +3458,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <var>requestedMediaTypes</var>, run the following sub steps,
                       preferably at the same time:</p>
                       <div class="note">
-                        <p>User agents are encouraged to bundle concurrent
+                        <p>User Agents are encouraged to bundle concurrent
                         requests for different kinds of media into a single
                         user-facing permission prompt.</p>
                       </div>
@@ -3479,7 +3479,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           {{MediaStreamTrack}} that required the same level of
                           permission to obtain as what is being requested (e.g. not
                           isolated).</p>
-                          <p>When asking the user’s permission, the user agent
+                          <p>When asking the user’s permission, the User Agent
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
@@ -3791,9 +3791,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         hasn't been seen the longest if numbers run out.</p>
       </div>
       <div class="practice">
-        <span class="practicelab" id="muting-devices">Device muting initiated by user agent</span>
+        <span class="practicelab" id="muting-devices">Device muting initiated by User Agent</span>
         <p class="practicedesc">A track sourced by a camera or microphone may be
-        forcibly <a data-lt=muted>muted</a> by a user agent at any time, in order
+        forcibly <a data-lt=muted>muted</a> by a User Agent at any time, in order
         to manage a user's privacy. However, doing so may create web
         compatibility issues, as well as leak information about user activity, so
         caution is advised.
@@ -3803,7 +3803,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the user agent already suspends media
+            <p>An OS-level event for which the User Agent already suspends media
             playback globally, but JavaScript is not suspended. The rationale is
             users may otherwise be surprised if capture were to continue in this
             situation (unless they've intentionally configured it this way).
@@ -3827,9 +3827,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <a data-lt=muted>muted</a>, in the following instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the user agent already resumes media
+            <p>An OS-level event for which the User Agent already resumes media
             playback globally, <em>and</em> the page is visible to the user
-            (e.g. not during a lock screen). User agents may defer such action
+            (e.g. not during a lock screen). User Agents may defer such action
             if it determines significant time has passed that may jeopardize a
             user's awareness of the earlier capture session.</p>
           </li>
@@ -3888,17 +3888,17 @@ interface InputDeviceInfo : MediaDeviceInfo {
     promise.</p>
     <div class="note">
       Any constraint provided via this API will only be considered if the given
-      constrainable property is supported by the browser. JavaScript
+      constrainable property is supported by the User Agent. JavaScript
       application code is expected to first check, via
       <code>getSupportedConstraints()</code>, that all the named properties
-      that are used are supported by the browser. The reason for this is that
+      that are used are supported by the User Agent. The reason for this is that
       WebIDL drops any unsupported names from the dictionary holding the
-      constraints, so the browser does not see them and the unsupported names
+      constraints, so the User Agent does not see them and the unsupported names
       end up being silently ignored. This will cause confusing programming
-      errors as the JavaScript code will be setting constraints but the browser
-      will be ignoring them. Browsers that support (recognize) the name of a
+      errors as the JavaScript code will be setting constraints but the User Agent
+      will be ignoring them. User Agents that support (recognize) the name of a
       required constraint but cannot satisfy it will generate an error, while
-      browsers that do not support the constrainable property will not generate
+      User Agents that do not support the constrainable property will not generate
       an error.
     </div>
     <p>The following examples may help to understand how constraints work. The
@@ -4189,7 +4189,7 @@ interface ConstrainablePattern {
               <ol>
                 <li>
                   <p>If <var>constraintName</var> is not supported by the
-                  browser, the fitness distance is 0.</p>
+                  User Agent, the fitness distance is 0.</p>
                 </li>
                 <li>
                   <p>If the constraint is <dfn>required</dfn>
@@ -4734,7 +4734,7 @@ async function specifyCamera() {
       <p>A conforming User Agent MUST support all the constrainable properties
       defined in this specification.</p>
       <p>An example of a Settings dictionary is shown below. This example is
-      not very realistic in that a browser would actually be required to
+      not very realistic in that a User Agent would actually be required to
       support more constrainable properties than just these.</p>
       <pre class="example">
 {
@@ -5081,7 +5081,7 @@ window.onload = async () =&gt; {
     room by disparate users (e.g. via analysis of ambient audio or of unique
     audio purposely played out of the device speaker). User-level mitigation
     for both audio and video consists of covering up the camera and/or
-    microphone or revoking permission via browser chrome controls.</p>
+    microphone or revoking permission via User Agent chrome controls.</p>
     <p>It is possible to use constraints so that the failure of a getUserMedia
     call will return information about devices on the system without prompting
     the user, which increases the surface available for fingerprinting. The
