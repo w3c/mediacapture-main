@@ -73,7 +73,7 @@
       <dd>
         The term {{DOMException}} is defined in [[!WEBIDL]]
       </dd>
-      <dt><dfn>source</dfn></dt>
+      <dt><dfn data-export>source</dfn></dt>
       <dd>
         <p>A source is the "thing" providing the source of a media stream
         track. The source is the broadcaster of the media itself. A source can
@@ -313,7 +313,7 @@
         </li>
       </ol>
       <p>The tracks of a {{MediaStream}} are stored in a
-      <dfn id="track-set">track set</dfn>. The track set MUST contain the
+      <dfn id="track-set" data-export>track set</dfn>. The track set MUST contain the
       {{MediaStreamTrack}} objects that correspond to the
       tracks of the stream. The relative order of the tracks in the set is User
       Agent defined and the API will never put any requirements on the order.
@@ -321,7 +321,7 @@
       object in the set is to look it up by its {{MediaStreamTrack/id}}.</p>
       <p>An object that reads data from the output of a
       {{MediaStream}} is referred to as a
-      {{MediaStream}} <dfn>consumer</dfn>. The list of
+      {{MediaStream}} <dfn data-export data-for=MediaStream>consumer</dfn>. The list of
       {{MediaStream}} consumers currently include media
       elements (such as [^video^] and
       [^audio^]) [[HTML]], Web Real-Time Communications
@@ -343,7 +343,7 @@
       has not [= track/ended =]. A
       {{MediaStream}} that does not have any audio tracks or
       only has audio tracks that are [= track/ended =] is
-      <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
+      <dfn id="stream-inaudible" data-dfn-for=MediaStream>inaudible</dfn>.</p>
       <p>The User Agent may update a {{MediaStream}}'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -759,7 +759,7 @@ interface MediaStream : EventTarget {
         Agent has instructed the track to end for any reason) it is said to be
         <dfn id="track-ended" data-dfn-for="track">ended</dfn>.</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
-        <dfn data-lt="track ended by the User agent" id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
+        <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
         invoked</dfn>, the User Agent MUST queue a task that runs the following
         steps:</p>
         <ol>
@@ -787,7 +787,7 @@ interface MediaStream : EventTarget {
         <p>There are two dimensions related to the media flow for a
         {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
         muted, and enabled / disabled.</p>
-        <p><dfn id=
+        <p><dfn data-export id=
         "track-muted">Muted</dfn> refers to the input to the
         {{MediaStreamTrack}}. If live samples are not made
         available to the {{MediaStreamTrack}} it is muted.</p>
@@ -802,7 +802,9 @@ interface MediaStream : EventTarget {
         <p>Whenever the User Agent initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
-        <p>To <dfn id="set-track-muted">set a track's muted state</dfn> to
+        task, using the user interaction task source, to [=set a track's muted
+        state=] to the state desired by the user.</p>
+        <p>To <dfn data-export id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the User Agent MUST run the following steps:</p>
         <ol>
           <li>
@@ -827,7 +829,7 @@ interface MediaStream : EventTarget {
             <var>track</var>.</p>
           </li>
         </ol>
-        <p><dfn id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
+        <p><dfn data-export id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
         available to the application to control (and observe) via the
         {{MediaStreamTrack/enabled}}
         attribute.</p>
@@ -2609,7 +2611,7 @@ interface MediaStreamTrackEvent : Event {
           again after having been temporarily unable to provide data.</td>
         </tr>
         <tr>
-          <td><dfn  data-dfn-type=event id="event-mediastreamtrack-ended">ended</dfn></td>
+          <td><dfn data-dfn-type=event id="event-mediastreamtrack-ended">ended</dfn></td>
           <td>{{Event}}</td>
           <td>
             <p>The {{MediaStreamTrack}} object's source will no
@@ -3101,7 +3103,7 @@ interface MediaDevices : EventTarget {
       </section>
       <section>
         <h2>Exposure decision algorithm for devices other than camera and microphone</h2>
-        <p>The <dfn data-lt="device-exposure-decision-non-camera-microphone" id=
+        <p>The <dfn data-export id=
           "device-exposure-decision-non-camera-microphone">exposure decision algorithm for devices other than camera and microphone</dfn>
           takes a <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input
           and returns a boolean to decide whether exposing the device to the web page or not.</p>
@@ -4313,7 +4315,7 @@ interface ConstrainablePattern {
               <p>For string valued constraints, we define "==" below to be true
               if one of the values in the sequence is exactly the same as the
               value being compared against.</p>
-              <p>We define the <dfn>fitness distance</dfn> between a
+              <p>We define the <dfn data-export>fitness distance</dfn> between a
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
               the sum, for each member (represented by a
               <var>constraintName</var> and <var>constraintValue</var> pair)
@@ -4387,7 +4389,7 @@ interface ConstrainablePattern {
                 to choose such a sequence of values that satisfy CS1...CSn and
                 assign them as the settings for the properties of O.</li>
               </ul>
-              <p>We define the <dfn>SelectSettings</dfn> algorithm as
+              <p>We define the <dfn data-export>SelectSettings</dfn> algorithm as
               follows:</p>
               <ol>
                 <li>Each <a>constraint</a> specifies one
@@ -4452,7 +4454,7 @@ interface ConstrainablePattern {
                   <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
-              <p>To apply the <dfn>ApplyConstraints algorithm</dfn> to an
+              <p>To apply the <dfn data-export>ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an
               argument, the User Agent MUST run the following steps:</p>
               <ol>
