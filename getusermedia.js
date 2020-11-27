@@ -58,7 +58,7 @@ var respecConfig = {
    wgPublicList: "public-webrtc",
 
   github: "https://github.com/w3c/mediacapture-main/",
-  xref: ["dom", "html", "webidl", "permissions", "permissions-policy", "webaudio"],
+  xref: ["dom", "html", "webidl", "permissions", "permissions-policy", "webaudio", "infra"],
    otherLinks: [
     {
       key: "Participate",
