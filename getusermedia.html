@@ -1668,21 +1668,28 @@ interface MediaStreamTrack : EventTarget {
               <td>{{ConstrainULong}}</td>
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
-              min being the smallest width and max being the largest
-              width.</td>
+              min being equal to 1 and max being the largest
+              width. The User Agent MUST support downsampling to any value
+              between the min width range value and the native resolution width.</td>
             </tr>
             <tr id="def-constraint-height">
               <td><dfn>height</dfn></td>
               <td>{{ConstrainULong}}</td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
-              min being the smallest height and max being the largest
-              height.</td>
+              min being equal to 1 and max being the largest
+              height. The User Agent MUST support downsampling to any value
+              between the min height range value and the native resolution height.</td>
             </tr>
             <tr id="def-constraint-frameRate">
               <td><dfn>frameRate</dfn></td>
               <td>{{ConstrainDouble}}</td>
               <td>The exact frame rate (frames per second) or frame rate range.
+              If video source's pre-set can determine frame rate values, the range, as a capacity,
+              should span the video source's pre-set frame rate values with
+              min being equal to 0 and max being the largest frame rate.
+              The User Agent MUST support frame rates obtained from
+              integral decimation of the native resolution frame rate.
               If this frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
               determined from the source stream), then this value MUST refer to
