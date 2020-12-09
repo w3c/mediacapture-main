@@ -343,7 +343,7 @@
       has not [= track/ended =]. A
       {{MediaStream}} that does not have any audio tracks or
       only has audio tracks that are [= track/ended =] is
-      <dfn id="stream-inaudible" data-dfn-for=MediaStream>inaudible</dfn>.</p>
+      <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
       <p>The User Agent may update a {{MediaStream}}'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -4310,7 +4310,7 @@ interface ConstrainablePattern {
               <p>The [=ApplyConstraints algorithm=] for applying constraints
               is stated below. Here are some preliminary definitions that are
               used in the statement of the algorithm:</p>
-              <p>We use the term <dfn>settings dictionary</dfn> for the set of
+              <p>We use the term <dfn data-export>settings dictionary</dfn> for the set of
               values that might be applied as settings to the object.</p>
               <p>For string valued constraints, we define "==" below to be true
               if one of the values in the sequence is exactly the same as the
