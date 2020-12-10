@@ -8,7 +8,9 @@
   <script class="remove" src="getusermedia.js" type="text/javascript"></script>
 </head>
 <body>
-  <p class='copyright'>Initial Author of this Specification was Ian Hickson, Google Inc., with the following copyright statement:<br /> &#169; Copyright 2004-2011 Apple Computer, Inc., Mozilla Foundation, and Opera Software ASA. You are granted a license to use, reproduce and create derivative works of this document.</p> <p class='copyright'>All subsequent changes since 26 July 2011 done by the W3C WebRTC Working Group (and previously the Device APIs Working Group) are under the following <a href='https://www.w3.org/Consortium/Legal/ipr-notice#Copyright'>Copyright</a>:<br />&#169; 2011-2020 <a href='https://www.w3.org/'><abbr title='World Wide Web Consortium'>W3C</abbr></a><sup>&#174;</sup> (<a href='https://www.csail.mit.edu/'><abbr title='Massachusetts Institute of Technology'>MIT</abbr></a>, <a href='https://www.ercim.eu/'><abbr title='European Research Consortium for Informatics and Mathematics'>ERCIM</abbr></a>, <a href='https://www.keio.ac.jp/'>Keio</a>, <a href='http://ev.buaa.edu.cn/'>Beihang</a>). <a href='https://www.w3.org/Consortium/Legal/copyright-documents'>Document use</a>  rules apply.</p> <p class='copyright'>For the entire publication on the W3C site the <a href='https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer'>liability</a> and <a href='https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks'>trademark</a> rules apply.</p>
+  <p class='copyright'>Initial Author of this Specification was Ian Hickson, Google Inc., with the following copyright statement:<br /> &#169; Copyright 2004-2011 Apple Computer, Inc., Mozilla Foundation, and Opera Software ASA. You are granted a license to use, reproduce and create derivative works of this document.</p> <p class='copyright'>All subsequent changes since 26 July 2011 done by the W3C WebRTC Working Group (and previously the Device APIs Working Group) are under the following <a href='https://www.w3.org/Consortium/Legal/ipr-notice#Copyright'>Copyright</a>:<br />&#169; 2011-2020 <a href='https://www.w3.org/'><abbr title='World Wide Web Consortium'>W3C</abbr></a><sup>&#174;</sup> (<a href='https://www.csail.mit.edu/'><abbr title='Massachusetts Institute of Technology'>MIT</abbr></a>, <a href='https://www.ercim.eu/'><abbr title='European Research Consortium for Informatics and Mathematics'>ERCIM</abbr></a>, <a href='https://www.keio.ac.jp/'>Keio</a>, <a href='http://ev.buaa.edu.cn/'>Beihang</a>).  W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a rel="license" href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document">permissive document license</a> rules
+    apply.
   <section id="abstract">
     <p>This document defines a set of JavaScript APIs that allow local media,
     including audio and video, to be requested from a platform.</p>
@@ -56,8 +58,7 @@
         <p>The terms [=event handlers=]
         and [=environment settings object/responsible
         document =] are defined in [[!HTML]].</p>
-        <p>The term [=current settings
-        object=] is defined in [[!HTML]].</p>
+        <p>The term [=relevant settings object=] is defined in [[!HTML]].</p>
         <p>The term [=allowed to
         use=] is defined in [[!HTML]].</p>
         <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>,
@@ -703,7 +704,7 @@ interface MediaStream : EventTarget {
         device as soon as any live track sourced by the device
         becomes both [= track/muted | unmuted =] and
         [= track/enabled =] again, provided that track's
-        <a>current settings object</a>'s [=environment settings object/responsible document=]
+        [=relevant settings object=]'s [=environment settings object/responsible document=]
         <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
         document does not <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
         the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
@@ -733,7 +734,7 @@ interface MediaStream : EventTarget {
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
-        the operating system / browser chrome. A track can also be muted by the
+        the operating system / User Agent chrome. A track can also be muted by the
         User Agent.</p>
         <p>Applications are able to [= track/enabled | enable =] or
         disable a {{MediaStreamTrack}} to prevent it from
@@ -783,6 +784,33 @@ interface MediaStream : EventTarget {
         </ol>
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
+        <p>To invoke the <dfn>device permission revocation algorithm</dfn> with
+        {{PermissionName}} <var>permissionName</var> and
+        {{DevicePermissionDescriptor/deviceId}} <var>deviceId</var>, run the
+        following steps:</p>
+        <ol>
+          <li>
+            <p>Let <var>tracks</var> be the set of all currently
+            {{MediaStreamTrackState/"live"}} <code>MediaStreamTrack</code>s
+            that fit the following criteria:</p>
+            <ul>
+              <li>
+                If <var>deviceId</var> is not <code>undefined</code>, tracks
+                whose associated <a>deviceId</a> matches <var>deviceId</var>
+              </li>
+              <li>
+                If <var>deviceId</var> is <code>undefined</code>, tracks whose
+                permission associated with this kind of track (e.g.
+                {{PermissionName/"camera"}}, {{PermissionName/"microphone"}})
+                matches <var>permissionName</var>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>For each <var>track</var> in <var>tracks</var>,
+            <a href="#ends-nostop">end</a> the track.</p>
+          </li>
+        </ol>
         <h4>Media Flow</h4>
         <p>There are two dimensions related to the media flow for a
         {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
@@ -798,7 +826,7 @@ interface MediaStream : EventTarget {
         the user pushing a physical mute button on the microphone, the user
         closing a laptop lid with an embedded camera, the user toggling a
         control in the operating system, the user clicking a mute button in the
-        browser chrome, the User Agent (on behalf of the user) mutes, etc.</p>
+        User Agent chrome, the User Agent (on behalf of the user) mutes, etc.</p>
         <p>Whenever the User Agent initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
@@ -1304,7 +1332,7 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>resizeMode</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
               <dd>
-                <p>The user agent MAY use cropping and downscaling to offer
+                <p>The User Agent MAY use cropping and downscaling to offer
                 more resolution choices than this camera naturally produces.
                 The reported sequence MUST list all the means the UA may employ
                 to derive resolution choices for this camera. The value {{VideoResizeModeEnum/"none"}}
@@ -1637,21 +1665,28 @@ interface MediaStreamTrack : EventTarget {
               <td>{{ConstrainULong}}</td>
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
-              min being the smallest width and max being the largest
-              width.</td>
+              min being equal to 1 and max being the largest
+              width. The User Agent MUST support downsampling to any value
+              between the min width range value and the native resolution width.</td>
             </tr>
             <tr id="def-constraint-height">
               <td><dfn>height</dfn></td>
               <td>{{ConstrainULong}}</td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
-              min being the smallest height and max being the largest
-              height.</td>
+              min being equal to 1 and max being the largest
+              height. The User Agent MUST support downsampling to any value
+              between the min height range value and the native resolution height.</td>
             </tr>
             <tr id="def-constraint-frameRate">
               <td><dfn>frameRate</dfn></td>
               <td>{{ConstrainDouble}}</td>
               <td>The exact frame rate (frames per second) or frame rate range.
+              If video source's pre-set can determine frame rate values, the range, as a capacity,
+              should span the video source's pre-set frame rate values with
+              min being equal to 0 and max being the largest frame rate.
+              The User Agent MUST support frame rates obtained from
+              integral decimation of the native resolution frame rate.
               If this frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
               determined from the source stream), then this value MUST refer to
@@ -1779,7 +1814,7 @@ interface MediaStreamTrack : EventTarget {
                 "idl-def-VideoResizeModeEnum.right">crop-and-scale</dfn></td>
                 <td>
                   <p>This resolution is downscaled and/or cropped from a higher
-                  camera resolution by the user agent. The media MUST NOT be
+                  camera resolution by the User Agent. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
                   occur in the input source.</p>
                 </td>
@@ -1931,7 +1966,7 @@ interface MediaStreamTrackEvent : Event {
   <section class="informative" id=
   "the-model-sources-sinks-constraints-and-settings"  data-cite="?webrtc">
     <h2>The model: sources, sinks, constraints, and settings</h2>
-    <p>Browsers provide a media pipeline from sources to sinks. In a browser,
+    <p>User Agents provide a media pipeline from sources to sinks. In a User Agent,
     sinks are the &lt;[^img^]&gt;, &lt;[^video^]&gt;, and &lt;[^audio^]&gt; tags.
     Traditional sources include streamed content, files, and web resources. The
     media produced by these sources typically does not change over time - these
@@ -2040,7 +2075,7 @@ interface MediaStreamTrackEvent : Event {
     "Changing media stream sinks may affect sources: before the requested change"
     src="images/change_states_before2.svg">
     <p>When the application changes sink A to a smaller dimension (from 1920 to
-    1024 pixels wide and from 1200 to 768 pixels tall), the browser's media
+    1024 pixels wide and from 1200 to 768 pixels tall), the User Agent's media
     pipeline may recognize that none of its sinks require the higher source
     resolution, and needless work is being done both on the part of the source
     and sink A. In such a case and without any other constraints forcing the
@@ -2327,230 +2362,68 @@ interface MediaStreamTrackEvent : Event {
   </section>
   <section>
     <h2>Error Handling</h2>
-    <p>This section and its subsections extend the list of Error subclasses
-    defined in [[ECMA-262]] following the pattern for NativeError in section 19.5.6
-    of that specification. Assume the following:</p>
-    <ul>
-      <li>that use of syntax such as [[\something]] and %something% is as used
-      in [[ECMA-262]].</li>
-      <li>that the rules for ECMAScript standard built-in objects ([[ECMA-262]],
-      section 17) are in effect in this section.</li>
-      <li>that the new intrinsic objects %OverconstrainedError% and
-      %OverconstrainedErrorPrototype% are available as if they had been
-      included in ([[ECMA-262]], Table 7) and all referencing sections, e.g.
-      ([[ECMA-262]], section 8.2.2), thus behave appropriately.</li>
-    </ul>
+    <p>Some operations throw or fire <code>OverconstrainedError</code>. This is
+    an extension of {{DOMException}} that carries additional
+    information related to constraints failure.</p>
     <section>
-      <h2>ECMAScript 6 Terminology</h2>
-      <p>The following terms used in this section are defined in [[ECMA-262]].</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Term/Notation</th>
-            <th>Section in [[ECMA-262]]</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Type(X)</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>intrinsic object</td>
-            <td>6.1.7.4</td>
-          </tr>
-          <tr>
-            <td>[[\ErrorData]]</td>
-            <td>19.5.1</td>
-          </tr>
-          <tr>
-            <td>internal slot</td>
-            <td>6.1.7.2</td>
-          </tr>
-          <tr>
-            <td>NewTarget</td>
-            <td>various uses, but no definition</td>
-          </tr>
-          <tr>
-            <td>active function object</td>
-            <td>8.3</td>
-          </tr>
-          <tr>
-            <td>OrdinaryCreateFromConstructor()</td>
-            <td>9.1.14</td>
-          </tr>
-          <tr>
-            <td>ReturnIfAbrupt()</td>
-            <td>6.2.2.4</td>
-          </tr>
-          <tr>
-            <td>Assert</td>
-            <td>5.2</td>
-          </tr>
-          <tr>
-            <td>String</td>
-            <td>4.3.17-19, depending on context</td>
-          </tr>
-          <tr>
-            <td>PropertyDescriptor</td>
-            <td>6.2.4</td>
-          </tr>
-          <tr>
-            <td>[[\Value]]</td>
-            <td>6.1.7.1</td>
-          </tr>
-          <tr>
-            <td>[[\Writable]]</td>
-            <td>6.1.7.1</td>
-          </tr>
-          <tr>
-            <td>[[\Enumerable]]</td>
-            <td>6.1.7.1</td>
-          </tr>
-          <tr>
-            <td>[[\Configurable]]</td>
-            <td>6.1.7.1</td>
-          </tr>
-          <tr>
-            <td>DefinePropertyOrThrow()</td>
-            <td>7.3.7</td>
-          </tr>
-          <tr>
-            <td>abrupt completion</td>
-            <td>6.2.2</td>
-          </tr>
-          <tr>
-            <td>ToString()</td>
-            <td>7.1.12</td>
-          </tr>
-          <tr>
-            <td>[[\Prototype]]</td>
-            <td>9.1</td>
-          </tr>
-          <tr>
-            <td>%Error%</td>
-            <td>19.5.1</td>
-          </tr>
-          <tr>
-            <td>Error</td>
-            <td>19.5</td>
-          </tr>
-          <tr>
-            <td>%ErrorPrototype%</td>
-            <td>19.5.3</td>
-          </tr>
-          <tr>
-            <td>Object.prototype.toString</td>
-            <td>19.1.3.6</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    <section>
-      <h2>OverconstrainedError Object</h2>
+      <h2>OverconstrainedError Interface</h2>
+      <div>
+        <pre class="idl" data-tests
+>[Exposed=Window]
+interface OverconstrainedError : DOMException {
+  constructor(DOMString constraint, optional DOMString message = "");
+  readonly attribute DOMString constraint;
+};</pre>
+      </div>
       <section>
-        <h2>OverconstrainedError Constructor</h2>
-        <p>The OverconstrainedError Constructor is the %OverconstrainedError%
-        intrinsic object. When <code>OverconstrainedError</code> is called as a
-        function rather than as a constructor, it creates and initializes a new
-        OverconstrainedError object. A call of the object as a function is
-        equivalent to calling it as a constructor with the same arguments. Thus
-        the function call <code><b>OverconstrainedError(</b>...<b>)</b></code>
-        is equivalent to the object creation expression <code><b>new
-        OverconstrainedError(</b>...<b>)</b></code> with the same
-        arguments.</p>
-        <p>The <code>OverconstrainedError</code> constructor is designed to be
-        subclassable. It may be used as the value of an <code>extends</code>
-        clause of a class definition. Subclass constructors that intend to
-        inherit the specified <code>OverconstrainedError</code> behaviour must
-        include a <code>super</code> call to the
-        <code>OverconstrainedError</code> constructor to create and initialize
-        the subclass instance with an [[\ErrorData]] internal slot.</p>
-        <section>
-          <h2>OverconstrainedError ( constraint, message )</h2>
-          <p>When the <code><dfn>OverconstrainedError</dfn></code> function is
-          called with arguments <i>constraint</i> and <i>message</i> the
-          following steps are taken:</p>
-          <ol>
-            <li>If NewTarget is <b>undefined</b>, let <i>newTarget</i> be the
-            active function object, else let <i>newTarget</i> be
-            NewTarget.</li>
-            <li>Let <i>O</i> be OrdinaryCreateFromConstructor(<i>newTarget</i>,
-            <code>"%OverconstrainedErrorPrototype%"</code>, «[[\ErrorData]]»
-            ).</li>
-            <li>ReturnIfAbrupt(<i>O</i>).</li>
-            <li>If <i>constraint</i> is not <b>undefined</b>, then
-              <ol>
-                <li>Let <i>constraintDesc</i> be the
-                PropertyDescriptor{[[\Value]]: <i>constraint</i>,
-                [[\Writable]]: <b>false</b>, [[\Enumerable]]: <b>false</b>,
-                [[\Configurable]]: <b>false</b>}.</li>
-                <li>Let <i>cStatus</i> be DefinePropertyOrThrow(O,
-                "<code>constraint</code>", <i>constraintDesc</i>).</li>
-                <li>Assert: <i>cStatus</i> is not an abrupt completion.</li>
-              </ol>
-            </li>
-            <li>If <i>message</i> is not <b>undefined</b>, then
-              <ol>
-                <li>Let <i>msg</i> be ToString(<i>message</i>).</li>
-                <li>Let <i>msgDesc</i> be the PropertyDescriptor{[[\Value]]:
-                <i>msg</i>, [[\Writable]]: <b>true</b>, [[\Enumerable]]:
-                <b>false</b>, [[\Configurable]]: <b>true</b>}.</li>
-                <li>Let <i>mStatus</i> be DefinePropertyOrThrow(O,
-                "<code>message</code>", <i>msgDesc</i>).</li>
-                <li>Assert: <i>mStatus</i> is not an abrupt completion.</li>
-              </ol>
-            </li>
-            <li>Return <i>O</i>.</li>
-          </ol>
-        </section>
+        <h2>Constructors</h2>
+        <dl data-link-for="OverconstrainedError" data-dfn-for="OverconstrainedError"
+        class="constructors">
+          <dt><dfn data-idl><code>OverconstrainedError</code></dfn></dt>
+          <dd>
+            <p>Run the following steps:</p>
+            <ol>
+              <li>
+                <p>Let <var>constraint</var> be the constructor's first
+                argument.</p>
+              </li>
+              <li>
+                <p>Let <var>message</var> be the constructor's second argument.
+                </p>
+              </li>
+              <li>
+                <p>Let <var>e</var> be a new
+                {{OverconstrainedError}} object.</p>
+              </li>
+              <li>
+                <p>Invoke the {{DOMException}} constructor of
+                <var>e</var> with the <code>message</code> argument set to
+                <var>message</var> and the <code>name</code> argument set to
+                <code>"OverconstrainedError"</code>.</p>
+                <p class="note">This name does not have a mapping to a legacy
+                code so <var>e</var>'s <code>code</code> attribute will return
+                0.</p>
+              </li>
+              <li>
+                <p>Set <var>e.constraint</var> to <var>constraint</var>.</p>
+              </li>
+              <li>
+                <p>Return <var>e</var>.</p>
+              </li>
+            </ol>
+          </dd>
+        </dl>
       </section>
       <section>
-        <h2>Properties of the OverconstrainedError Constructor</h2>
-        <p>The value of the [[\Prototype]] internal slot of the
-        OverconstrainedError constructor is the intrinsic object %Error%.</p>
-        <p>Besides the <code>length</code> property (whose value is <b>1</b>),
-        the OverconstrainedError constructor has the following properties:</p>
-        <section>
-          <h2>OverconstrainedError.prototype</h2>
-          <p>The initial value of <code>OverconstrainedError.prototype</code>
-          is the <a href=
-          "#properties-of-the-overconstrainederror-prototype-object">OverconstrainedError
-          prototype object</a>. This property has the attributes {
-          [[\Writable]]: <b>false</b>, [[\Enumerable]]: <b>false</b>,
-          [[\Configurable]]: <b>false</b> }.</p>
-        </section>
-      </section>
-      <section>
-        <h2>Properties of the OverconstrainedError Prototype Object</h2>
-        <p>The OverconstrainedError prototype object is an ordinary object. It
-        is not an Error instance and does not have an [[\ErrorData]] internal
-        slot.</p>
-        <p>The value of the [[\Prototype]] internal slot of the
-        OverconstrainedError prototype object is the intrinsic object
-        %ErrorPrototype%.</p>
-        <section>
-          <h2>OverconstrainedError.prototype.constructor</h2>
-          <p>The initial value of the constructor property of the prototype for
-          the OverconstrainedError constructor is the intrinsic object <a href=
-          "#error-handling">%OverconstrainedError%</a>.</p>
-        </section>
-        <section>
-          <h2>OverconstrainedError.prototype.constraint</h2>
-          <p>The initial value of the constraint property of the prototype for
-          the OverconstrainedError constructor is the empty String.</p>
-        </section>
-        <section>
-          <h2>OverconstrainedError.prototype.message</h2>
-          <p>The initial value of the message property of the prototype for the
-          OverconstrainedError constructor is the empty String.</p>
-        </section>
-        <section>
-          <h2>OverconstrainedError.prototype.name</h2>
-          <p>The initial value of the name property of the prototype for the
-          OverconstrainedError constructor is
-          <code>"<b>OverconstrainedError</b>"</code>.</p>
-        </section>
+        <h2>Attributes</h2>
+        <dl data-link-for="OverconstrainedError" data-dfn-for="OverconstrainedError" class="attributes">
+          <dt><dfn data-idl><code>constraint</code></dfn> of type <span
+          class="idlAttrType">{{DOMString}}</span>, readonly</dt>
+          <dd>
+            <p>The name of a constraint associated with this error, or
+            <code>""</code> if no specific constraint name is revealed.</p>
+          </dd>
+        </dl>
       </section>
     </section>
   </section>
@@ -2796,7 +2669,7 @@ interface MediaStreamTrackEvent : Event {
       context at that time.</p>
       <div class="note">
         <p class="fingerprint">These events are potentially triggered
-        simultaneously on documents of different origins. User agents MAY add
+        simultaneously on documents of different origins. User Agents MAY add
         fuzzing on the timing of events to avoid cross-origin activity
         correlation.</p>
       </div>
@@ -2847,7 +2720,8 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>Let <var>document</var> be the [=current settings object=]'s
+
+                      <p>Let <var>document</var> be the [=relevant settings object=]'s
                       [=environment settings object/responsible document=].</p>
                     </li>
                     <li>
@@ -2987,7 +2861,7 @@ interface MediaDevices : EventTarget {
               <p class="fingerprint">Since this method returns persistent
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
-              fingerprinting surface exposed by the user agent.</p>
+              fingerprinting surface exposed by the User Agent.</p>
               <p class="fingerprint">Once authorization has been granted to one
               of the capture devices, it provides additional persistent
               cross-origin information via the list of all media capture devices,
@@ -3057,7 +2931,7 @@ interface MediaDevices : EventTarget {
             return <code>true</code>.</p>
           </li>
           <li>
-            <p>If the <a>current settings object</a>'s [=environment settings
+            <p>If the [=relevant settings object=]'s [=environment settings
             object/responsible document=] is [=Document/fully active=] and
             <a data-cite="!HTML/#gains-focus">has focus</a>, return
             <code>true</code>.</p>
@@ -3071,7 +2945,7 @@ interface MediaDevices : EventTarget {
         <ol>
           <li>
             <p>If any of the local devices are attached to a live
-            {{MediaStreamTrack}} in the <a>current settings object</a>'s
+            {{MediaStreamTrack}} in the [=relevant settings object=]'s
             [=environment settings object/responsible document=], return
             <code>true</code>.</p>
           </li>
@@ -3154,9 +3028,9 @@ interface MediaDeviceInfo {
               visits.</p>
               <p>However, as long as no local device has been attached to a
               live MediaStreamTrack in a page from this origin, and no [=stored permission=] to access local
-              devices has been granted to this origin, then the user agent MAY
+              devices has been granted to this origin, then the User Agent MAY
               clear this identifier once the last browsing session from this
-              origin has been closed. If the user agent chooses not to clear
+              origin has been closed. If the User Agent chooses not to clear
               the identifier in this condition, then it MUST provide for the
               user to visibly inspect and delete the identifier, like a
               cookie.</p>
@@ -3181,6 +3055,7 @@ interface MediaDeviceInfo {
               Webcam"). This label is intended to allow the end user to tell the
               difference between devices. Applications can’t assume that the
               label contains any specific information, such as the device type or model.
+              If the device has no associated label, then this
               attribute MUST return the empty string.</p>
             </dd>
             <dt id="def-mediadeviceinfo-groupId"><dfn>groupId</dfn>
@@ -3310,7 +3185,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular browsers. To ensure functional equivalence, the getUserMedia()
+        popular User Agents. To ensure functional equivalence, the getUserMedia()
         method here is defined in terms of the method under MediaDevices.</p>
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
@@ -3415,7 +3290,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular browsers. To ensure functional equivalence, the getUserMedia()
+        popular User Agents. To ensure functional equivalence, the getUserMedia()
         method under {{Navigator}} is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
         defined under {{Navigator}} is currently still callback-based. Developers
@@ -3441,7 +3316,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               properties known to the User Agent. A supported constrainable
               property MUST be represented and any constrainable properties not
               supported by the User Agent MUST NOT be present in the returned
-              dictionary. The values returned represent what the browser
+              dictionary. The values returned represent what the User Agent
               implements and will not change during a browsing session.</p>
             </dd>
             <dt>getUserMedia</dt>
@@ -3476,12 +3351,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If the <a>current settings object</a>'s [=environment settings object/responsible
-                  document=] is NOT [=Document/fully active=], return
-                  a promise <a>rejected</a> with a
-                  {{DOMException}} object whose
-                  {{DOMException/name}} attribute has the value
-                  {{"InvalidStateError"}}.</p>
+                  <p>If the [=relevant settings object=]'s
+                  [=environment settings object/responsible document=] is NOT
+                  [=Document/fully active=], return a promise <a>rejected</a>
+                  with a {{DOMException}} object whose {{DOMException/name}}
+                  attribute has the value {{"InvalidStateError"}}.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3491,10 +3365,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <ol>
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until
-                      the <a>current settings object</a>'s [=environment settings object/responsible
-                      document=] is [=Document/fully active=]
-                      and <a data-cite="!HTML/#gains-focus">has
-                      focus.</a></p>
+                      the [=relevant settings object=]'s
+                      [=environment settings object/responsible document=] is
+                      [=Document/fully active=] and
+                      <a data-cite="!HTML/#gains-focus">has focus.</a></p>
                     </li>
                     <li>
                       <p>Let <var>finalSet</var> be an (initially) empty
@@ -3547,7 +3421,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <a data-lt="required constraints">required constraint</a>
                           whose fitness distance was infinity for
                           all settings dictionaries examined while executing
-                          the <a>SelectSettings</a> algorithm, and jump to the
+                          the <a>SelectSettings</a> algorithm, or
+                          <code>""</code> if there isn't one, and jump to the
                           step labeled <em>Constraint Failure</em> below.</p>
                           <p class="fingerprint">This error gives information
                           about what the underlying device is not capable of
@@ -3588,7 +3463,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <var>requestedMediaTypes</var>, run the following sub steps,
                       preferably at the same time:</p>
                       <div class="note">
-                        <p>User agents are encouraged to bundle concurrent
+                        <p>User Agents are encouraged to bundle concurrent
                         requests for different kinds of media into a single
                         user-facing permission prompt.</p>
                       </div>
@@ -3609,7 +3484,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           {{MediaStreamTrack}} that required the same level of
                           permission to obtain as what is being requested (e.g. not
                           isolated).</p>
-                          <p>When asking the user’s permission, the user agent
+                          <p>When asking the user’s permission, the User Agent
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
@@ -3620,11 +3495,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           the User Agent and may be determined by asking the user.
                           Once selected, the source of the
                           {{MediaStreamTrack}} MUST NOT change.</p>
-                          <p>The User Agent MAY use the value of the computed
-                          "fitness distance" from the <a>SelectSettings</a>
-                          algorithm, or any other internally-available information
-                          about the devices, as an input to the selection
-                          algorithm.</p>
+                          <p>The User Agent SHOULD use the value of the computed
+                          <a>fitness distance</a> from the <a>SelectSettings</a>
+                          algorithm as an input to the selection algorithm.
+                          However, it MAY also use other internally-available
+                          information about the devices, such as user preference.</p>
                           <p>User Agents are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
                           (when possible). User Agents
@@ -3640,16 +3515,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         </li>
                         <li>
                           <p>The result of the request is {{PermissionState/"granted"}}.
-                          Using the granted device's deviceId, <var>deviceId</var>, set
-                          <a>[[\devicesLiveMap]]</a>[<var>deviceId</var>] to
-                          <code>true</code>, if it isn’t already <code>true</code>,
-                          and set the
-                          <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
-                          <code>true</code>, if it isn’t already
-                          <code>true</code>.</p>
-                        </li>
-                        <li>
-                          <p>If a hardware error such as an OS/program/webpage lock prevents access,
+                          If a hardware error such as an OS/program/webpage lock prevents access,
                           remove <var>track</var> from <var>finalSet</var>.
                           If <var>finalSet</var> has no track of type <var>kind</var>,
                           [= reject =] <var>p</var> with a new
@@ -3666,6 +3532,15 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           Otherwise, restart these sub steps with the updated <var>finalSet</var>.</p>
                         </li>
                         <li>
+                          <p>Using the granted device's deviceId, <var>deviceId</var>, set
+                          <a>[[\devicesLiveMap]]</a>[<var>deviceId</var>] to
+                          <code>true</code>, if it isn’t already <code>true</code>,
+                          and set the
+                          <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
+                          <code>true</code>, if it isn’t already
+                          <code>true</code>.</p>
+                        </li>
+                        <li>
                           <p>Add <var>track</var> to <var>stream</var>'s track set.</p>
                         </li>
                       </ol>
@@ -3673,12 +3548,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     <li>
                       <p>Run the <a>ApplyConstraints algorithm</a> on all
                       tracks in <var>stream</var> with the appropriate
-                      constraints. Should this fail, let
-                      <var>failedConstraint</var> be the result of the
-                      algorithm that failed if
-                      [=device information can be exposed=] is <code>true</code>,
-                      or <code>undefined</code> otherwise, and jump to the step
-                      labeled <em>Constraint Failure</em> below.</p>
+                      constraints. If any of them returns something other than
+                      <code>undefined</code>, let <var>failedConstraint</var> be
+                      that result and jump to the step labeled
+                      <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
                       <p>[=Set the device information exposure=] to <code>true</code>.</p>
@@ -3696,10 +3569,14 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     <li>
                       <p><em>Constraint Failure</em>: Let <var>message</var> be
                       either <code>undefined</code> or an informative
-                      human-readable message, and then [= reject =]
+                      human-readable message, let <var>constraint</var> be
+                      <var>failedConstraint</var> if
+                      [=device information can be exposed=] is
+                      <code>true</code>, or <code>""</code> otherwise,
+                      and then [=reject=]
                       <var>p</var> with a new <code>OverconstrainedError</code>
                       created by calling
-                      <code>OverconstrainedError(<var>failedConstraint</var>,
+                      <code>OverconstrainedError(<var>constraint</var>,
                       <var>message</var>)</code>.</p>
                     </li>
                   </ol>
@@ -3804,13 +3681,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <h2><dfn>NavigatorUserMediaErrorCallback</dfn></h2>
       <div>
         <pre class="idl"
->callback NavigatorUserMediaErrorCallback = undefined (MediaStreamError error);</pre>
+>callback NavigatorUserMediaErrorCallback = undefined (DOMException error);</pre>
         <section>
           <h2>Callback <a class="idlType">NavigatorUserMediaErrorCallback</a>
           Parameters</h2>
           <dl data-link-for="NavigatorUserMediaErrorCallback" data-dfn-for=
           "NavigatorUserMediaErrorCallback" class="callback-members">
-            <dt>error of type {{MediaStreamError}}</dt>
+            <dt>error of type {{DOMException}}</dt>
             <dd>
               Error in obtaining a {{MediaStream}} as described
               in the failure steps of the {{Navigator.getUserMedia}}
@@ -3818,14 +3695,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
             </dd>
           </dl>
         </section>
-      </div>
-      <div>
-        <pre class="idl">typedef object MediaStreamError;</pre>
-        <div class="idlTypedefDesc">
-          A <dfn>MediaStreamError</dfn> object is either a
-          {{DOMException}} object or an
-          <code><a>OverconstrainedError</a></code> object.
-        </div>
       </div>
     </section>
     <section class="informative">
@@ -3927,9 +3796,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         hasn't been seen the longest if numbers run out.</p>
       </div>
       <div class="practice">
-        <span class="practicelab" id="muting-devices">Device muting initiated by user agent</span>
+        <span class="practicelab" id="muting-devices">Device muting initiated by User Agent</span>
         <p class="practicedesc">A track sourced by a camera or microphone may be
-        forcibly [= muted =] by a user agent at any time, in order
+        forcibly [= track/muted =] by a User Agent at any time, in order
         to manage a user's privacy. However, doing so may create web
         compatibility issues, as well as leak information about user activity, so
         caution is advised.
@@ -3939,7 +3808,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the user agent already suspends media
+            <p>An OS-level event for which the User Agent already suspends media
             playback globally, but JavaScript is not suspended. The rationale is
             users may otherwise be surprised if capture were to continue in this
             situation (unless they've intentionally configured it this way).
@@ -3963,9 +3832,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         [= muted =], in the following instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the user agent already resumes media
+            <p>An OS-level event for which the User Agent already resumes media
             playback globally, <em>and</em> the page is visible to the user
-            (e.g. not during a lock screen). User agents may defer such action
+            (e.g. not during a lock screen). User Agents may defer such action
             if it determines significant time has passed that may jeopardize a
             user's awareness of the earlier capture session.</p>
           </li>
@@ -4024,17 +3893,17 @@ interface InputDeviceInfo : MediaDeviceInfo {
     promise.</p>
     <div class="note">
       Any constraint provided via this API will only be considered if the given
-      constrainable property is supported by the browser. JavaScript
+      constrainable property is supported by the User Agent. JavaScript
       application code is expected to first check, via
       <code>getSupportedConstraints()</code>, that all the named properties
-      that are used are supported by the browser. The reason for this is that
+      that are used are supported by the User Agent. The reason for this is that
       WebIDL drops any unsupported names from the dictionary holding the
-      constraints, so the browser does not see them and the unsupported names
+      constraints, so the User Agent does not see them and the unsupported names
       end up being silently ignored. This will cause confusing programming
-      errors as the JavaScript code will be setting constraints but the browser
-      will be ignoring them. Browsers that support (recognize) the name of a
+      errors as the JavaScript code will be setting constraints but the User Agent
+      will be ignoring them. User Agents that support (recognize) the name of a
       required constraint but cannot satisfy it will generate an error, while
-      browsers that do not support the constrainable property will not generate
+      User Agents that do not support the constrainable property will not generate
       an error.
     </div>
     <p>The following examples may help to understand how constraints work. The
@@ -4324,7 +4193,7 @@ interface ConstrainablePattern {
               <ol>
                 <li>
                   <p>If <var>constraintName</var> is not supported by the
-                  browser, the fitness distance is 0.</p>
+                  User Agent, the fitness distance is 0.</p>
                 </li>
                 <li>
                   <p>If the constraint is <dfn>required</dfn>
@@ -4469,8 +4338,9 @@ interface ConstrainablePattern {
                   any <a data-lt="required constraints">required constraint</a>
                   whose fitness distance was infinity
                   for all settings dictionaries examined while executing the
-                  <a>SelectSettings</a> algorithm, return
-                  <var>failedConstraint</var>, and abort these steps.</p>
+                  <a>SelectSettings</a> algorithm, or <code>""</code> if there
+                  isn't one, and then return
+                  <var>failedConstraint</var> and abort these steps.</p>
                 </li>
                 <li>In a single operation, remove the existing constraints from
                 <var>object</var>, apply <var>newConstraints</var>, and apply
@@ -4868,7 +4738,7 @@ async function specifyCamera() {
       <p>A conforming User Agent MUST support all the constrainable properties
       defined in this specification.</p>
       <p>An example of a Settings dictionary is shown below. This example is
-      not very realistic in that a browser would actually be required to
+      not very realistic in that a User Agent would actually be required to
       support more constrainable properties than just these.</p>
       <pre class="example">
 {
@@ -5131,7 +5001,7 @@ window.onload = async () =&gt; {
       indicate when the value changes.</li>
       <li>Any false-to-true transition indicated MUST remain observable for a
       sufficient time that a reasonably-observant user could become aware of
-      it.</li>
+      it. This SHOULD be at least 3 seconds.</li>
       <li>Any of the above transition indications MAY be combined as long as
       the combined indication cannot transition to false if any of its
       component indications are still true.</li>
@@ -5214,7 +5084,7 @@ window.onload = async () =&gt; {
     room by disparate users (e.g. via analysis of ambient audio or of unique
     audio purposely played out of the device speaker). User-level mitigation
     for both audio and video consists of covering up the camera and/or
-    microphone or revoking permission via browser chrome controls.</p>
+    microphone or revoking permission via User Agent chrome controls.</p>
     <p>It is possible to use constraints so that the failure of a getUserMedia
     call will return information about devices on the system without prompting
     the user, which increases the surface available for fingerprinting. The
