@@ -2867,8 +2867,15 @@ interface MediaDevices : EventTarget {
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
               fingerprinting surface exposed by the User Agent.</p>
-              <p class="fingerprint">Once authorization has been granted to one
-              of the capture devices, it provides additional persistent
+              <p class="fingerprint">As long as the [=environment settings
+              object/responsible document=] did not capture, this method will
+              limit exposure to two bits of information: whether there is a camera
+              and whether there is a microphone. A User Agent may mitigate this by
+              pretending the system has a camera and a microphone, for instance until the
+              [=environment settings object/responsible document=] calls
+              {{MediaDevices/getUserMedia()}} with constraints deemed reasonable.</p>
+              <p class="fingerprint">After the [=environment settings object/responsible document=]
+              started capture, it provides additional persistent
               cross-origin information via the list of all media capture devices,
               including their grouping and human readable labels associated
               with the capture devices, which further adds to the
@@ -2880,7 +2887,7 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Access control model</h2>
         <p>The algorithm described above means that the access to media device
-        information depends on whether or not the browsing context did capture.</p>
+        information depends on whether or not the [=environment settings object/responsible document=] did capture.</p>
         <p>For camera and microphone devices, if the browsing context did not capture
         (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
         {{MediaDeviceInfo}} object will contain a valid value for {{MediaDeviceInfo/kind}} but empty strings
