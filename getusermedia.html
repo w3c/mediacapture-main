@@ -1733,6 +1733,22 @@ interface MediaStreamTrack : EventTarget {
             </tr>
           </tbody>
         </table>
+        <p>On systems where it's desirable to sometimes automatically flip the X
+        and Y axis of the resulting captured video in response to ongoing
+        environmental factors, the {{width}}, {{height}} and {{aspectRatio}}
+        constraints and capabilities MUST remain unaffected in all algorithms
+        and be considered in the <a>primary orientation</a> only, except for the
+        {{MediaStreamTrack/getSettings()}} algorithm where settings for these
+        constrainable properties MUST be flipped if necessary to match the
+        returned dimensions of the captured video at any point in time.</p>
+        <p>The <dfn>primary orientation</dfn> of a system that supports flipping
+        the X and Y axis of resulting captured video is defined by the User
+        Agent for the particular system.</p>
+        <div class="note">
+          <p>On systems that support automatic switching between landscape and
+          portrait mode, User Agents are encouraged to make landscape mode the
+          <a>primary orientation</a>.</p>
+        </div>
         <div>
           <pre class="idl"
 >enum VideoFacingModeEnum {
