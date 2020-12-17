@@ -74,7 +74,7 @@
       <dd>
         The term {{DOMException}} is defined in [[!WEBIDL]]
       </dd>
-      <dt><dfn>source</dfn></dt>
+      <dt><dfn data-export>source</dfn></dt>
       <dd>
         <p>A source is the "thing" providing the source of a media stream
         track. The source is the broadcaster of the media itself. A source can
@@ -187,9 +187,6 @@
         application authors are strongly encouraged to use <a>required
         constraints</a> sparingly.</p>
       </dd>
-      <dt><a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a></dt>
-      <dd><a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is defined in
-      [[?WEBRTC]].</dd>
       <dt>Permissions</dt>
       <dd>
         <p>The terms <dfn data-cite="permissions#reading-current-states">reading current permission state</dfn> and [=request permission to
@@ -317,7 +314,7 @@
         </li>
       </ol>
       <p>The tracks of a {{MediaStream}} are stored in a
-      <dfn id="track-set">track set</dfn>. The track set MUST contain the
+      <dfn id="track-set" data-export>track set</dfn>. The track set MUST contain the
       {{MediaStreamTrack}} objects that correspond to the
       tracks of the stream. The relative order of the tracks in the set is User
       Agent defined and the API will never put any requirements on the order.
@@ -325,30 +322,29 @@
       object in the set is to look it up by its {{MediaStreamTrack/id}}.</p>
       <p>An object that reads data from the output of a
       {{MediaStream}} is referred to as a
-      {{MediaStream}} <dfn>consumer</dfn>. The list of
+      {{MediaStream}} <dfn data-export data-for=MediaStream>consumer</dfn>. The list of
       {{MediaStream}} consumers currently include media
       elements (such as [^video^] and
       [^audio^]) [[HTML]], Web Real-Time Communications
-      (WebRTC; <code class=fixme>RTCPeerConnection</code>) [[?WEBRTC]], media recording
+      (WebRTC; {{RTCPeerConnection}}) [[?WEBRTC]], media recording
       (<code class=fixme>MediaRecorder</code>) [[?mediastream-recording]], image capture
       (<code class=fixme>ImageCapture</code>) [[?image-capture]], and web audio
       ({{MediaStreamAudioSourceNode}}) [[?WEBAUDIO]].</p>
       <p class="note">{{MediaStream}} consumers must be able to
       handle tracks being added and removed. This behavior is specified per
       consumer.</p>
-      <p>A {{MediaStream}} object is said to be <dfn id=
+      <p>A {{MediaStream}} object is said to be <dfn data-dfn-for="stream" id=
       "stream-active">active</dfn> when it has at least one
-      {{MediaStreamTrack}} that has not <a href=
-      "#track-ended">ended</a>. A {{MediaStream}} that does not
-      have any tracks or only has tracks that are <a href=
-      "#track-ended">ended</a> is <dfn id="stream-inactive">inactive</dfn>.</p>
-      <p>A {{MediaStream}} object is said to be <dfn id=
-      "stream-audible">audible</dfn> when it has at least one
+      {{MediaStreamTrack}} that has not [= track/ended =]. A {{MediaStream}} that does not
+      have any tracks or only has tracks that are [= track/ended =]
+      is <dfn data-dfn-for="stream" id="stream-inactive">inactive</dfn>.</p>
+      <p>A {{MediaStream}} object is said to be <dfn data-dfn-for=stream id=
+      "stream-audible" data-dfn-for=stream>audible</dfn> when it has at least one
       {{MediaStreamTrack}} whose {{MediaStreamTrack/kind}} is <a>"audio"</a> that
-      has not <a data-lt="track ended state">ended</a>. A
+      has not [= track/ended =]. A
       {{MediaStream}} that does not have any audio tracks or
-      only has audio tracks that are <a data-lt="track ended state">ended</a> is
-      <dfn id="stream-inaudible">inaudible</dfn>.</p>
+      only has audio tracks that are [= track/ended =] is
+      <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
       <p>The User Agent may update a {{MediaStream}}'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -454,10 +450,10 @@ interface MediaStream : EventTarget {
               created.</p>
             </dd>
             <dt><dfn>active</dfn> of type {{boolean}}, readonly</dt>
-            <dd data-link-for="">
+            <dd>
               <p>The {{active}} attribute MUST return
               <code>true</code> if this {{MediaStream}} is
-              [= active =] and <code>false</code>
+              [= stream/active =] and <code>false</code>
               otherwise.</p>
             </dd>
             <dt><dfn>onaddtrack</dfn> of type {{EventHandler}}</dt>
@@ -680,7 +676,7 @@ interface MediaStream : EventTarget {
         <p>In the live state, the track is active and media is
         available for use by consumers (but may be replaced by
         zero-information-content if the {{MediaStreamTrack}} is
-        <a>muted</a> or <a data-lt=enabled>disabled</a>, see below).</p>
+        [= muted =]  or [= enabled | disabled =], see below).</p>
         <p>A muted or disabled {{MediaStreamTrack}} renders
         either silence (audio), black frames (video), or a
         zero-information-content equivalent. For example, a video element
@@ -696,18 +692,18 @@ interface MediaStream : EventTarget {
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
-        <p>When a live, <a data-lt="muted">unmuted</a>, and
-        <a>enabled</a> track sourced by a device exposed
+        <p>When a {{MediaStreamTrackState/"live"}}, [= track/muted | unmuted =], and
+        [= track/enabled =] track sourced by a device exposed
         by {{MediaDevices/getUserMedia()}} becomes either
-        <a>muted</a> or <a data-lt="enabled">disabled</a>,
+        [= track/muted or [= track/enabled | disabled =],
         and this brings <em>all</em> tracks connected to the device (regardless
         of browsing context) to be either
         muted, disabled, or stopped, then the UA SHOULD relinquish the device
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA SHOULD attempt to reacquire the
         device as soon as any live track sourced by the device
-        becomes both <a data-lt=muted>unmuted</a> and
-        <a>enabled</a> again, provided that track's
+        becomes both [= track/muted | unmuted =] and
+        [= track/enabled =] again, provided that track's
         [=relevant settings object=]'s [=environment settings object/responsible document=]
         <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
         document does not <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
@@ -715,7 +711,7 @@ interface MediaStream : EventTarget {
         track, and not queue a task to <a data-lt=muted>unmute</a> it until
         the document <a data-cite="!HTML/#gains-focus">regains focus</a>.
         If reacquiring the device fails, the UA MUST
-        <a href="#ends-nostop">end the track</a> (The UA MAY end it earlier
+        [= track ended by the User agent | end the track =] (The UA MAY end it earlier
         should it detect a device problem, like the device being physically
         removed).</p>
         <div class="note">
@@ -733,14 +729,14 @@ interface MediaStream : EventTarget {
         its consumers). Hence, media from the source only flows when a
         {{MediaStreamTrack}} object is both unmuted and
         enabled.</p>
-        <p>A {{MediaStreamTrack}} is <a href=
-        "#track-muted">muted</a> when the source is temporarily unable to
+        <p>A {{MediaStreamTrack}} is [= track/muted =]
+        when the source is temporarily unable to
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
         the operating system / User Agent chrome. A track can also be muted by the
         User Agent.</p>
-        <p>Applications are able to <a href="#track-enabled">enable</a> or
+        <p>Applications are able to [= track/enabled | enable =] or
         disable a {{MediaStreamTrack}} to prevent it from
         rendering media from the source. A muted track will however, regardless
         of the enabled state, render silence and blackness. A disabled track is
@@ -754,17 +750,17 @@ interface MediaStream : EventTarget {
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
         <p>If all {{MediaStreamTrack}}s that are using the same
-        source are <a data-lt="track ended state">ended</a>, the source will be
-        <a href="#source-stopped">stopped</a>.</p>
+        source are [= track/ended =], the source will be
+        [= source/stopped =].</p>
         <p>When a {{MediaStreamTrack}} object ends for any
         reason (e.g., because the user rescinds the permission for the page to
         use the local camera, or because the application invoked the
         {{MediaStreamTrack/stop()}} method on
         the {{MediaStreamTrack}} object, or because the User
         Agent has instructed the track to end for any reason) it is said to be
-        <dfn id="track-ended" data-lt="track ended state">ended</dfn>.</p>
+        <dfn id="track-ended" data-dfn-for="track">ended</dfn>.</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
-        <dfn id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
+        <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
         invoked</dfn>, the User Agent MUST queue a task that runs the following
         steps:</p>
         <ol>
@@ -779,11 +775,11 @@ interface MediaStream : EventTarget {
           </li>
           <li>
             <p>Notify <var>track</var>'s source that <var>track</var> is
-            <a data-lt="track ended state">ended</a> so that the source may be <a>stopped</a>, unless other
+            [= track/ended =] so that the source may be [= source/stopped =], unless other
             {{MediaStreamTrack}} objects depend on it.</p>
           </li>
           <li>
-            <p>[=Fire an event=] named <a data-lt="ended event">ended</a> at the object.</p>
+            <p>[=Fire an event=] named <a data-link-type=event>ended</a> at the object.</p>
           </li>
         </ol>
         <p>If the end of the track was reached due to a user request, the event
@@ -819,7 +815,7 @@ interface MediaStream : EventTarget {
         <p>There are two dimensions related to the media flow for a
         {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
         muted, and enabled / disabled.</p>
-        <p><dfn data-lt="track muted state" id=
+        <p><dfn data-export id=
         "track-muted">Muted</dfn> refers to the input to the
         {{MediaStreamTrack}}. If live samples are not made
         available to the {{MediaStreamTrack}} it is muted.</p>
@@ -832,9 +828,11 @@ interface MediaStream : EventTarget {
         control in the operating system, the user clicking a mute button in the
         User Agent chrome, the User Agent (on behalf of the user) mutes, etc.</p>
         <p>Whenever the User Agent initiates such a change, it MUST queue a
-        task, using the user interaction task source, to <a>set a track's muted
-        state</a> to the state desired by the user.</p>
-        <p>To <dfn id="set-track-muted">set a track's muted state</dfn> to
+        task, using the user interaction task source, to [=set a track's muted
+        state=] to the state desired by the user.</p>
+        task, using the user interaction task source, to [=set a track's muted
+        state=] to the state desired by the user.</p>
+        <p>To <dfn data-export id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the User Agent MUST run the following steps:</p>
         <ol>
           <li>
@@ -859,7 +857,7 @@ interface MediaStream : EventTarget {
             <var>track</var>.</p>
           </li>
         </ol>
-        <p><dfn id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
+        <p><dfn data-export id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
         available to the application to control (and observe) via the
         {{MediaStreamTrack/enabled}}
         attribute.</p>
@@ -960,26 +958,26 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled">enabled</dfn>
-                attribute controls the <a data-lt="track enabled state">enabled</a> state for the object.</p>
+                attribute controls the [= track/enabled =] state for the object.</p>
                 <p>On getting, the attribute MUST return the value to which it
                 was last set. On setting, it MUST be set to the new value.</p>
                 <p class="note">Thus, after a
-                {{MediaStreamTrack}} has <a data-lt="track ended state">ended</a>, its {{MediaStreaMtrack/enabled}} attribute
+                {{MediaStreamTrack}} has [= track/ended =], its {{MediaStreaMtrack/enabled}} attribute
                 still changes value when set; it just doesn't do anything with
                 that new value.</p>
               </dd>
               <dt>{{muted}} of type {{boolean}}, readonly</dt>
               <dd>
                 <p>The <dfn data-idl>muted</dfn> attribute
-                MUST return <code>true</code> if the track is <a>muted</a>, and <code>false</code> otherwise.</p>
+                MUST return <code>true</code> if the track is [= track/muted =], and <code>false</code> otherwise.</p>
               </dd>
               <dt><dfn>onmute</dfn> of type {{EventHandler}}</dt>
               <dd>
-                <p>The event type of this event handler is <a>mute</a>.</p>
+                <p>The event type of this event handler is <a data-link-type=event>mute</a>.</p>
               </dd>
               <dt><dfn>onunmute</dfn> of type {{EventHandler}}</dt>
               <dd>
-                <p>The event type of this event handler is <a>unmute</a>.</p>
+                <p>The event type of this event handler is <a data-link-type=event>unmute</a>.</p>
               </dd>
               <dt>{{readyState}} of type {{MediaStreamTrackState}}, readonly</dt>
               <dd>
@@ -990,7 +988,7 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>onended</dfn> of type {{EventHandler}}</dt>
               <dd>
-                <p>The event type of this event handler is <a data-lt="ended event">ended</a>.</p>
+                <p>The event type of this event handler is <a data-link-type=event>ended</a>.</p>
               </dd>
             </dl>
           </section>
@@ -1002,8 +1000,8 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>Clones this {{MediaStreamTrack}}.</p>
                 <p>When the {{clone()}} method is invoked, the User
-                Agent MUST return the result of <a data-lt="clone a track">cloning
-                this track</a>.</p>
+                Agent MUST return the result of [= clone a track |cloning
+                this track =].</p>
               </dd>
               <dt>{{stop}}</dt>
               <dd>
@@ -1021,9 +1019,9 @@ interface MediaStreamTrack : EventTarget {
                   </li>
                   <li>
                     <p>Notify <var>track</var>'s source that <var>track</var>
-                    is <a>ended</a>.</p>
+                    is [= track/ended =].</p>
                     <p>A source that is notified of a track ending will be
-                    <a>stopped</a>, unless other
+                    [= source/stopped =], unless other
                     {{MediaStreamTrack}} objects depend on
                     it.</p>
                   </li>
@@ -1051,17 +1049,17 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>getSettings</dfn></dt>
               <dd>
-                <p>When a <code><a>MediaStreamTrack</a></code> object's <code>getSettings()</code> method is invoked,
+                <p>When a {{MediaStreamTrack}} object's {{MediaStreamTrack.getSettings()}} method is invoked,
                 the User Agent MUST run following steps:</p>
                 <ol>
                   <li>
-                    <p>Let <var>track</var> be the current <code><a>MediaStreamTrack</a></code> object.</p>
+                    <p>Let <var>track</var> be the current {{MediaStreamTrack}} object.</p>
                   </li>
                   <li>
-                    <p>If <var>track</var>'s <code><a href="#dom-mediastreamtrack-readystate">readyState</a></code>
-                    attribute is ended, run the following sub steps:</p>
+                    <p>If <var>track</var>.{{MediaStreamTrack.readyState}}
+                    is {{MediaStreamTrackState/"ended"}}, run the following sub steps:</p>
                     <ol>
-                      <li><p>Let <var>settings</var> be a new <a><code>MediaTrackSettings</code></a> dictionary.</p></li>
+                      <li><p>Let <var>settings</var> be a new {{MediaTrackSettings}} dictionary.</p></li>
                       <li><p>
                         For each <var>property</var> of the <a>list of inherent constrainable track properties</a>,
                         add a corresponding property to <var>settings</var> if <var>track</var> had such property
@@ -1091,7 +1089,7 @@ interface MediaStreamTrack : EventTarget {
                     is {{MediaStreamTrackState/"ended"}}, run the following sub steps:</p>
                     <ol>
                       <li><p>Let <var>p</var> be a new promise.</p></li>
-                      <li><p><a>resolve</a> <var>p</var> with <code>undefined</code>.</p></li>
+                      <li><p>[= resolve =] <var>p</var> with <code>undefined</code>.</p></li>
                       <li><p>Return <var>p</var>.</p></li>
                     </ol>
                   </li>
@@ -1146,16 +1144,16 @@ interface MediaStreamTrack : EventTarget {
                   <p>The track is active (the track's underlying media source
                   is making a best-effort attempt to provide data in real
                   time).</p>
-                  <p>The output of a track in the {{live}} state can
+                  <p>The output of a track in the {{MediaStreamTrackState/"live"}} state can
                   be switched on and off with the {{MediaStreamTrack/enabled}}
                   attribute.</p>
                 </td>
               </tr>
               <tr>
-                <td><dfn data-lt="ended event" data-lt-noDefault id=
+                <td><dfn id=
                 "idl-def-MediaStreamTrackState.ended">ended</dfn></td>
                 <td>
-                  <p>The track has <a data-lt="track ended state">ended</a> (the
+                  <p>The track has [= track/ended =] (the
                   track's underlying media source is no longer providing data,
                   and will never provide more data for this track). Once a
                   track enters this state, it never exits it.</p>
@@ -1180,7 +1178,7 @@ interface MediaStreamTrack : EventTarget {
         type {{boolean}}.</p>
         <p class="note">The constraints specified in this specification apply
         only to instances of {{MediaStreamTrack}} generated by
-        <a data-link-for="MediaDevices">getUserMedia()</a>, unless stated
+        {{MediaDevices.getUserMedia()}}, unless stated
         otherwise in other specifications.</p>
         <div>
           <pre class="idl"
@@ -1202,8 +1200,7 @@ interface MediaStreamTrack : EventTarget {
   boolean groupId = true;
 };</pre>
           <section>
-            <h2>Dictionary <a class=
-            "idlType">MediaTrackSupportedConstraints</a> Members</h2>
+            <h2>Dictionary {{MediaTrackSupportedConstraints}} Members</h2>
             <dl data-link-for="MediaTrackSupportedConstraints" data-dfn-for=
             "MediaTrackSupportedConstraints" class="dictionary-members">
               <dt><dfn>width</dfn> of type {{boolean}}, defaulting to
@@ -1307,7 +1304,7 @@ interface MediaStreamTrack : EventTarget {
   DOMString groupId;
 };</pre>
           <section>
-            <h2>Dictionary <a class="idlType">MediaTrackCapabilities</a>
+            <h2>Dictionary {{MediaTrackCapabilities}}
             Members</h2>
             <dl data-link-for="MediaTrackCapabilities" data-dfn-for=
             "MediaTrackCapabilities" class="dictionary-members">
@@ -1410,7 +1407,7 @@ interface MediaStreamTrack : EventTarget {
   sequence&lt;MediaTrackConstraintSet&gt; advanced;
 };</pre>
           <section>
-            <h2>Dictionary <a class="idlType">MediaTrackConstraints</a>
+            <h2>Dictionary {{MediaTrackConstraints}}
             Members</h2>
             <dl data-link-for="MediaTrackConstraints" data-dfn-for=
             "MediaTrackConstraints" class="dictionary-members">
@@ -1445,7 +1442,7 @@ interface MediaStreamTrack : EventTarget {
   ConstrainDOMString groupId;
 };</pre>
           <section>
-            <h2>Dictionary <a class="idlType">MediaTrackConstraintSet</a>
+            <h2>Dictionary {{MediaTrackConstraintSet}}
             Members</h2>
             <dl data-link-for="MediaTrackConstraintSet" data-dfn-for=
             "MediaTrackConstraintSet" class="dictionary-members">
@@ -1534,7 +1531,7 @@ interface MediaStreamTrack : EventTarget {
   DOMString groupId;
 };</pre>
           <section>
-            <h2>Dictionary <a class="idlType">MediaTrackSettings</a>
+            <h2>Dictionary {{MediaTrackSettings}}
             Members</h2>
             <dl data-link-for="MediaTrackSettings" data-dfn-for=
             "MediaTrackSettings" class="dictionary-members">
@@ -1967,22 +1964,22 @@ interface MediaStreamTrackEvent : Event {
     </section>
   </section>
   <section class="informative" id=
-  "the-model-sources-sinks-constraints-and-settings">
+  "the-model-sources-sinks-constraints-and-settings"  data-cite="?webrtc">
     <h2>The model: sources, sinks, constraints, and settings</h2>
     <p>User Agents provide a media pipeline from sources to sinks. In a User Agent,
-    sinks are the &lt;img&gt;, &lt;video&gt;, and &lt;audio&gt; tags.
+    sinks are the &lt;[^img^]&gt;, &lt;[^video^]&gt;, and &lt;[^audio^]&gt; tags.
     Traditional sources include streamed content, files, and web resources. The
     media produced by these sources typically does not change over time - these
     sources can be considered to be static.</p>
     <p>The sinks that display these sources to the user (the actual tags
     themselves) have a variety of controls for manipulating the source content.
-    For example, an &lt;img&gt; tag scales down a huge source image of
+    For example, an &lt;[^img^]&gt; tag scales down a huge source image of
     1600x1200 pixels to fit in a rectangle defined with
     <code>width="400"</code> and <code>height="300"</code>.</p>
     <p>The getUserMedia API adds dynamic sources such as microphones and
     cameras - the characteristics of these sources can change in response to
     application needs. These sources can be considered to be dynamic in nature.
-    A &lt;video&gt; element that displays media from a dynamic source can
+    A &lt;[^video^]&gt; element that displays media from a dynamic source can
     either perform scaling or it can feed back information along the media
     pipeline and have the source produce content more suitable for display.</p>
     <div class="note">
@@ -1992,21 +1989,21 @@ interface MediaStreamTrackEvent : Event {
       etc...</p>
     </div>
     <p>Note that {{MediaStream}} sinks (such as
-    <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, and even
-    <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>) will continue to have mechanisms to further
+    &lt;[^video^]&gt;, &lt;[^audio^]&gt;, and even
+    {{RTCPeerConnection}}) will continue to have mechanisms to further
     transform the source stream beyond that which the <a>Settings</a>,
     <a>Capabilities</a>, and <a>Constraints</a> described in this specification
     offer. (The sink transformation options, including those of
-    <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>, are outside the scope of this
+    {{RTCPeerConnection}}, are outside the scope of this
     specification.)</p>
     <p>The act of changing or applying a track constraint may affect the
-    <code><a>settings</a></code> of all tracks sharing that source and
+    [=settings=] of all tracks sharing that source and
     consequently all down-level sinks that are using that source. Many sinks
     may be able to take these changes in stride, such as the
-    <code>&lt;video&gt;</code> element or <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a>.
+    <code>&lt;[^video^]&gt;</code> element or {{RTCPeerConnection}}.
     Others like the Recorder API may fail as a result of a source setting
     change.</p>
-    <p>The <a data-cite="?WEBRTC#dom-rtcpeerconnection">RTCPeerConnection</a> is an interesting object because it
+    <p>The {{RTCPeerConnection}} is an interesting object because it
     acts simultaneously as both a sink <strong>and</strong> a source for
     over-the-network streams. As a sink, it has source transformational
     capabilities (e.g., lowering bit-rates, scaling-up / down resolutions, and
@@ -2020,12 +2017,12 @@ interface MediaStreamTrackEvent : Event {
     are 800 pixels and 600 pixels, respectively. Three
     {{MediaStream}} objects on the home client contain tracks
     that use this same <{{MediaStreamTrack/deviceId}}. The three media streams
-    are connected to three different sinks: a <code>&lt;video&gt;</code>
-    element (A), another <code>&lt;video&gt;</code> element (B), and a peer
+    are connected to three different sinks: a <code>&lt;[^video^]&gt;</code>
+    element (A), another <code>&lt;[^video^]&gt;</code> element (B), and a peer
     connection (C). The peer connection is streaming the source video to a
     remote client. On the remote client there are two media streams with tracks
     that use the peer connection as a source. These two media streams are
-    connected to two <code>&lt;video&gt;</code> element sinks (Y and
+    connected to two <code>&lt;[^video^]&gt;</code> element sinks (Y and
     Z).</p><img alt=
     "Changing media stream source effects: before the requested change" src=
     "images/change_states_before.svg">
@@ -2069,7 +2066,7 @@ interface MediaStreamTrackEvent : Event {
     flexible as far as the application is concerned. Two
     {{MediaStream}} objects contain tracks with the same
     {{MediaStreamTrack/deviceId}}, and those {{MediaStream}}s
-    are connected to two different <code>&lt;video&gt;</code> element sinks A
+    are connected to two different <code>&lt;[^video^]&gt;</code> element sinks A
     and B. Sink A has been sized to <code>width="1920"</code> and
     <code>height="1200"</code> and is displaying the source's video content
     without any transformations. Sink B has been sized smaller and, as a
@@ -2166,14 +2163,14 @@ interface MediaStreamTrackEvent : Event {
             <ol>
               <li>
                 <p>The {{MediaStream}} state is
-                [= inactive =] after having been
-                [= active =], or</p>
+                [= stream/inactive =] after having been
+                [= stream/active =], or</p>
               </li>
               <li>
                 <p>The {{MediaStream}} state is
-                [= active =] after having been
-                [= inactive =] after having been
-                [= active =] after
+                [= stream/active =] after having been
+                [= stream/inactive =] after having been
+                [= stream/active =] after
                 {{HTMLMediaElement/play()}} was last called, and
                 {{HTMLMediaElement/autoplay}} is <code>false</code>.</p>
               </li>
@@ -2202,14 +2199,14 @@ interface MediaStreamTrackEvent : Event {
             <ol>
               <li>
                 <p>The {{MediaStream}} state is
-                <a href="#stream-inaudible">inaudible</a> after having been
-                <a href="#stream-audible">audible</a>, or</p>
+                [= stream/inaudible =] after having been
+                [= stream/audible =], or</p>
               </li>
               <li>
                 <p>The {{MediaStream}} state is
-                <a href="#stream-audible">audible</a> after having been
-                <a href="#stream-inaudible">inaudible</a> after having been
-                <a href="#stream-audible">audible</a> after {{HTMLMediaElement/play()}} was last called, and
+                [= stream/audible =] after having been
+                [= stream/inaudible =] after having been
+                [= stream/audible =] after {{HTMLMediaElement/play()}} was last called, and
                 {{HTMLMediaElement/autoplay}} is <code>false</code>.</p>
               </li>
             </ol>
@@ -2271,7 +2268,7 @@ interface MediaStreamTrackEvent : Event {
           the values increments linearly in real time whenever the stream is
           playing.</td>
           <td>
-            The value is the <a class="externalDFN" data-cite=
+            The value is the <a data-cite=
             "!HTML/#official-playback-position">
             official playback position</a>, in seconds. Any attempt to alter it
             MUST be ignored.
@@ -2445,7 +2442,7 @@ interface OverconstrainedError : DOMException {
       <tbody>
         <tr>
           <td><dfn id=
-          "event-mediastream-addtrack"><code class=event>addtrack</code></dfn></td>
+          "event-mediastream-addtrack" data-dfn-type=event>addtrack</dfn></td>
           <td>{{MediaStreamTrackEvent}}</td>
           <td>A new {{MediaStreamTrack}} has been added to this
           stream. Note that this event is not fired when the script directly
@@ -2453,7 +2450,7 @@ interface OverconstrainedError : DOMException {
         </tr>
         <tr>
           <td><dfn id=
-          "event-mediastream-removetrack"><code class=event>removetrack</code></dfn></td>
+          "event-mediastream-removetrack" data-dfn-type=event>removetrack</dfn></td>
           <td>{{MediaStreamTrackEvent}}</td>
           <td>A {{MediaStreamTrack}} has been removed from this
           stream. Note that this event is not fired when the script directly
@@ -2474,20 +2471,20 @@ interface OverconstrainedError : DOMException {
       <tbody>
         <tr>
           <td><dfn id=
-          "event-mediastreamtrack-mute"><code class=event>mute</code></dfn></td>
+          "event-mediastreamtrack-mute" data-dfn-type=event>mute</dfn></td>
           <td>{{Event}}</td>
           <td>The {{MediaStreamTrack}} object's source is
           temporarily unable to provide data.</td>
         </tr>
         <tr>
           <td><dfn id=
-          "event-mediastreamtrack-unmute"><code class=event>unmute</code></dfn></td>
+          "event-mediastreamtrack-unmute" data-dfn-type=event>unmute</dfn></td>
           <td>{{Event}}</td>
           <td>The {{MediaStreamTrack}} object's source is live
           again after having been temporarily unable to provide data.</td>
         </tr>
         <tr>
-          <td><code  class=event id="event-mediastreamtrack-ended">ended</code></td>
+          <td><dfn data-dfn-type=event id="event-mediastreamtrack-ended">ended</dfn></td>
           <td>{{Event}}</td>
           <td>
             <p>The {{MediaStreamTrack}} object's source will no
@@ -2511,7 +2508,7 @@ interface OverconstrainedError : DOMException {
       <tbody>
         <tr>
           <td><dfn id=
-          "event-mediadevices-devicechange"><code class=event>devicechange</code></dfn></td>
+          "event-mediadevices-devicechange" data-dfn-type=event>devicechange</dfn></td>
           <td>{{Event}}</td>
           <td>The set of media devices, available to the User Agent, has
           changed. The current list devices can be retrieved with the
@@ -2574,8 +2571,8 @@ interface OverconstrainedError : DOMException {
           </ol>
         </li>
         <li>
-          <p>For each kind of device, <var>kind</var>, that <a data-link-for=
-          "MediaDevices">getUserMedia()</a> exposes, set
+          <p>For each kind of device, <var>kind</var>, that
+          {{MediaDevices.getUserMedia()}} exposes, set
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> either to <code>true</code>
           if the result of <a data-lt=
           "reading current permission state">reading the permission state</a>
@@ -2583,8 +2580,8 @@ interface OverconstrainedError : DOMException {
           {{PermissionName/"microphone"}}), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
         </li>
         <li>
-          <p>For each individual device that <a data-link-for=
-          "MediaDevices">getUserMedia()</a> exposes, using the device's
+          <p>For each individual device that {{MediaDevices.getUserMedia()}}
+          exposes, using the device's
           deviceId, <var>deviceId</var>, set
           <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>, and
           set <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> either to
@@ -2621,7 +2618,7 @@ interface OverconstrainedError : DOMException {
         </li>
         <li>
           <p>If the transition is from {{PermissionState/"granted"}} to another value, and the
-          device is currently <a>stopped</a>, then set
+          device is currently [= source/stopped =], then set
           <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
@@ -2631,8 +2628,8 @@ interface OverconstrainedError : DOMException {
       available before, or the lone input and/or output device of a
       {{MediaDeviceKind}} becomes unavailable, the User Agent MUST run the
       following <dfn>device change notification steps</dfn> in browsing contexts
-      for which <a>device enumeration can proceed</a> is <code>true</code> and
-      <a>device information can be exposed</a> is <code>false</code>, but in no
+      for which [=device enumeration can proceed=] is <code>true</code> and
+      [=device information can be exposed=] is <code>false</code>, but in no
       other contexts:</p>
       <ol>
         <li>
@@ -2642,7 +2639,7 @@ interface OverconstrainedError : DOMException {
           abort these steps.</p>
           <div class="note">
             <p>Due to the {{MediaDevices/enumerateDevices}} algorithm, the
-            above step limits firing the <a>devicechange</a> event to documents
+            above step limits firing the <a data-link-type=event>devicechange</a> event to documents
             [=allowed to use=] {{MediaDevices/enumerateDevices}} to enumerate
             devices of a particular {{MediaDeviceKind}}.</p>
           </div>
@@ -2651,7 +2648,7 @@ interface OverconstrainedError : DOMException {
           <p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
         </li>
         <li>
-          <p>Queue a task that fires a simple event named <a>devicechange</a> at the
+          <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at the
           {{MediaDevices}} object.</p>
           <p>The User Agent MAY combine firing multiple events into firing one
           event when several events are due or when multiple devices are added
@@ -2661,14 +2658,14 @@ interface OverconstrainedError : DOMException {
       <p>Additionally, when new media input and/or output devices are made
       available, or any available input and/or output device becomes unavailable,
       or the system default for camera or microphone changed, the User Agent MUST
-      run the <a>device change notification steps</a> in browsing contexts for
-      which <a>device enumeration can proceed</a> is <code>true</code> and
-      <a>device information can be exposed</a> is <code>true</code>, but in no
+      run the [=device change notification steps=] in browsing contexts for
+      which [=device enumeration can proceed=] is <code>true</code> and
+      [=device information can be exposed=] is <code>true</code>, but in no
       other contexts.</p>
       <p>In both cases above, if a browsing context that was traversed comes
-      to meet the <a>device enumeration can proceed</a> criteria later (e.g.
+      to meet the [=device enumeration can proceed=] criteria later (e.g.
       <a data-cite="!HTML/#gains-focus">gains focus</a>), the User Agent MUST
-      execute the <a>device change notification steps</a> on the browsing
+      execute the [=device change notification steps=] on the browsing
       context at that time.</p>
       <div class="note">
         <p class="fingerprint">These events are potentially triggered
@@ -2689,7 +2686,7 @@ interface MediaDevices : EventTarget {
           "attributes">
             <dt><dfn>ondevicechange</dfn> of type {{EventHandler}}</dt>
             <dd>
-              <p>The event type of this event handler is <a>devicechange</a>.</p>
+              <p>The event type of this event handler is <a data-link-type=event>devicechange</a>.</p>
             </dd>
           </dl>
         </section>
@@ -2702,7 +2699,7 @@ interface MediaDevices : EventTarget {
               <p>Collects information about the User Agent's available media
               input and output devices.</p>
               <p>This method returns a promise. The promise will be
-              <a>fulfilled</a> with a sequence of
+              [=fulfilled=] with a sequence of
               {{MediaDeviceInfo}} objects representing the
               User Agent's available media input and output devices if
               enumeration is successful.</p>
@@ -2723,12 +2720,13 @@ interface MediaDevices : EventTarget {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
+
                       <p>Let <var>document</var> be the [=relevant settings object=]'s
                       [=environment settings object/responsible document=].</p>
                     </li>
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until
-                      <a>device enumeration can proceed</a> is <code>true</code>.</p>
+                      [=device enumeration can proceed=] is <code>true</code>.</p>
                       <p>The User Agent MAY wait to proceed to the next step
                       until <var>document</var> is [=Document/fully active=]
                       and <a data-cite="!HTML/#gains-focus">has
@@ -2750,7 +2748,7 @@ interface MediaDevices : EventTarget {
                            </ul>
                          </li>
                          <li>
-                           <p><a>resolve</a> <var>p</var> with <var>resultList</var>.</p>
+                           <p>[=resolve=] <var>p</var> with <var>resultList</var>.</p>
                         </li>
                         <li>
                            <p>Abort these steps.</p>
@@ -2769,12 +2767,12 @@ interface MediaDevices : EventTarget {
                       <ol>
                         <li>
                           <p>If <var>device</var> is not a microphone, or <var>document</var> is not
-                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"microphone"</a>,
+                          [=allowed to use=] the feature identified by <a data-link-for="">"microphone"</a>,
                           abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
                           <p>Let <var>deviceInfo</var> be the result of
-                          <a>creating a device info object</a> to represent <var>device</var>.</p>
+                          [=creating a device info object=] to represent <var>device</var>.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is the system default microphone,
@@ -2788,12 +2786,12 @@ interface MediaDevices : EventTarget {
                       <ol>
                         <li>
                           <p>If <var>device</var> is not a camera, or <var>document</var> is not
-                          [=allowed to use=] the feature identified by <a data-dfn-link-for="">"camera"</a>,
+                          [=allowed to use=] the feature identified by <a data-link-for="">"camera"</a>,
                           abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
                           <p>Let <var>deviceInfo</var> be the result of
-                          <a>creating a device info object</a> to represent <var>device</var>.</p>
+                          [=creating a device info object=] to represent <var>device</var>.</p>
                         </li>
                         <li>
                           <p>If <var>device</var> is the system default camera,
@@ -2803,7 +2801,7 @@ interface MediaDevices : EventTarget {
                       </ol>
                     </li>
                     <li>
-                      <p>If <a>device information can be exposed</a> is <code>false</code>,
+                      <p>If [=device information can be exposed=] is <code>false</code>,
                       run the following sub steps:<p>
                       <ol>
                         <li>
@@ -2831,14 +2829,14 @@ interface MediaDevices : EventTarget {
                               abort these sub steps and continue with the next device (if any).</p>
                             </li>
                             <li>
-                              <p>Run the <a>exposure decision algorithm for devices other than camera and microphone</a>,
+                              <p>Run the [=exposure decision algorithm for devices other than camera and microphone=],
                               with <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input.
                               If the result of this algorithm is <code>false</code>,
                               abort these sub steps and continue with the next device (if any).</p>
                             </li>
                             <li>
                               <p>Let <var>deviceInfo</var> be the result of
-                              <a>creating a device info object</a> to represent <var>device</var>.</p>
+                              [=creating a device info object=] to represent <var>device</var>.</p>
                             </li>
                             <li>
                               <p>Append <var>deviceInfo</var> to <var>resultList</var>.</p>
@@ -2852,7 +2850,7 @@ interface MediaDevices : EventTarget {
                       <var>resultList</var>.</p>
                     </li>
                     <li>
-                      <p><a>resolve</a> <var>p</var> with <var>resultList</var>.</p>
+                      <p>[= resolve =] <var>p</var> with <var>resultList</var>.</p>
                     </li>
                   </ol>
                 </li>
@@ -2898,7 +2896,7 @@ interface MediaDevices : EventTarget {
           </li>
           <li>
             <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "audioinput" or "videoinput"
-            and <a>device information can be exposed</a> is <code>false</code>, return <var>deviceInfo</var></p>
+            and [=device information can be exposed=] is <code>false</code>, return <var>deviceInfo</var></p>
           </li>
           <li>
             <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/label}} for <var>device</var>.</p>
@@ -2929,7 +2927,7 @@ interface MediaDevices : EventTarget {
         run the following steps:</p>
         <ol>
           <li>
-            <p>If <a>device information can be exposed</a> is <code>true</code>,
+            <p>If [=device information can be exposed=] is <code>true</code>,
             return <code>true</code>.</p>
           </li>
           <li>
@@ -2979,7 +2977,7 @@ interface MediaDevices : EventTarget {
       </section>
       <section>
         <h2>Exposure decision algorithm for devices other than camera and microphone</h2>
-        <p>The <dfn data-lt="device-exposure-decision-non-camera-microphone" id=
+        <p>The <dfn data-export id=
           "device-exposure-decision-non-camera-microphone">exposure decision algorithm for devices other than camera and microphone</dfn>
           takes a <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input
           and returns a boolean to decide whether exposing the device to the web page or not.</p>
@@ -3387,7 +3385,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>Call this set of tracks the
                           <var>candidateSet</var>.</p>
                           <p>If <var>candidateSet</var> is the empty set,
-                          <a>reject</a> <var>p</var> with a new
+                          [= reject =] <var>p</var> with a new
                           {{DOMException}} object whose
                           {{DOMException/name}} attribute has the value
                           {{"NotFoundError"}} and abort these steps.</p>
@@ -3407,7 +3405,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         <li><p>If <var>CS</var> contains a member that is a
                         <a>required constraint</a> and whose name is not in the
                         list of <a>allowed required constraints for device selection</a>,
-                        then <a>reject</a> <var>p</var> with a {{TypeError}}, and abort
+                        then [= reject =] <var>p</var> with a {{TypeError}}, and abort
                         these steps.</p></li>
                         <li>
                           <p>Run the <a>SelectSettings</a> algorithm on each
@@ -3520,7 +3518,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           If a hardware error such as an OS/program/webpage lock prevents access,
                           remove <var>track</var> from <var>finalSet</var>.
                           If <var>finalSet</var> has no track of type <var>kind</var>,
-                          <a>reject</a> <var>p</var> with a new
+                          [= reject =] <var>p</var> with a new
                           {{DOMException}} object whose
                           {{DOMException/name}} attribute has the value
                           {{"NotReadableError"}} and abort these steps.
@@ -3528,7 +3526,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>If device access fails for any reason other than those listed above,
                           remove <var>track</var> from <var>finalSet</var>.
                           If <var>finalSet</var> has no track of type <var>kind</var>,
-                          <a>reject</a> <var>p</var> with a new {{DOMException}}
+                          [= reject =] <var>p</var> with a new {{DOMException}}
                           object whose {{DOMException/name}} attribute has the
                           value {{"AbortError"}} and abort these steps.
                           Otherwise, restart these sub steps with the updated <var>finalSet</var>.</p>
@@ -3556,14 +3554,14 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
-                      <p><a>Set the device information exposure</a> to <code>true</code>.</p>
+                      <p>[=Set the device information exposure=] to <code>true</code>.</p>
                     </li>
                     <li>
-                      <p><a>Resolve</a> <var>p</var> with <var>stream</var> and
+                      <p>[= resolve =] <var>p</var> with <var>stream</var> and
                       abort these steps.</p>
                     </li>
                     <li>
-                      <p><em>Permission Failure</em>: <a>Reject</a>
+                      <p><em>Permission Failure</em>: [= Reject =]
                       <var>p</var> with a new {{DOMException}}
                       object whose {{DOMException/name}} attribute has the
                       value {{"NotAllowedError"}}.</p>
@@ -3573,9 +3571,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       either <code>undefined</code> or an informative
                       human-readable message, let <var>constraint</var> be
                       <var>failedConstraint</var> if
-                      <a>device information can be exposed</a> is
+                      [=device information can be exposed=] is
                       <code>true</code>, or <code>""</code> otherwise,
-                      and then <a>reject</a>
+                      and then [=reject=]
                       <var>p</var> with a new <code>OverconstrainedError</code>
                       created by calling
                       <code>OverconstrainedError(<var>constraint</var>,
@@ -3800,7 +3798,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <div class="practice">
         <span class="practicelab" id="muting-devices">Device muting initiated by User Agent</span>
         <p class="practicedesc">A track sourced by a camera or microphone may be
-        forcibly <a data-lt=muted>muted</a> by a User Agent at any time, in order
+        forcibly [= track/muted =] by a User Agent at any time, in order
         to manage a user's privacy. However, doing so may create web
         compatibility issues, as well as leak information about user activity, so
         caution is advised.
@@ -3830,8 +3828,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
           </li>
         </ul>
         <p class="practicedesc">Best practice is to
-        <a data-lt=muted>unmute</a> a camera or microphone track it previously
-        <a data-lt=muted>muted</a>, in the following instances:</p>
+        [= muted | unmute =] a camera or microphone track it previously
+        [= muted =], in the following instances:</p>
         <ul>
           <li>
             <p>An OS-level event for which the User Agent already resumes media
@@ -3843,7 +3841,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           <li>
             <p>A web page <a data-cite="!HTML/#gains-focus">gains focus</a> and
             has one or more <a data-lt=enabled>enabled</a> tracks that are also
-            <a data-lt=muted>muted</a>.
+            [= muted =].
             </p>
           </li>
         </ul>
@@ -3880,7 +3878,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     'min', 'max', and 'exact' constraints in the basic Constraint structure are
     together treated as the <a>required constraints</a>, and if it is not possible
     to satisfy simultaneously all of those individual constraints for the
-    indicated property names, the User Agent MUST <a>reject</a> the returned
+    indicated property names, the User Agent MUST [= reject =] the returned
     promise. Otherwise, it must apply the required constraints. Next, it will
     consider any ConstraintSets given in the
     <code><a href="#dom-constraints-advanced">advanced</a></code> list, in the
@@ -3891,7 +3889,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     'ideal' constraints or a constraint given as a bare value for the property
     (referred to as <a>optional basic constraints</a>).
     Of these properties, it MUST satisfy the largest number that it can, in any
-    order. Finally, the User Agent MUST <a>resolve</a> the returned
+    order. Finally, the User Agent MUST [= resolve =] the returned
     promise.</p>
     <div class="note">
       Any constraint provided via this API will only be considered if the given
@@ -3932,9 +3930,9 @@ const constraints = {
     <p>This next example adds a small bit of complexity. The ideal values are
     still given for width and height, but this time with minimum requirements
     on each as well as a minimum frameRate that must be satisfied. If it cannot
-    satisfy the frameRate, width or height minimum it will <a>reject</a> the
+    satisfy the frameRate, width or height minimum it will [= reject =] the
     promise. Otherwise, it will try to satisfy the width, height, and
-    aspectRatio target values as well and then <a>resolve</a> the promise.</p>
+    aspectRatio target values as well and then [= resolve =] the promise.</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
 if (!supports.aspectRatio || !supports.frameRate) {
@@ -4149,7 +4147,7 @@ interface ConstrainablePattern {
                           <p>If <var>failedConstraint</var> is not
                           <code>undefined</code>, let <var>message</var> be either
                           <code>undefined</code> or an informative human-readable
-                          message, <a>reject</a> <var>p</var> with a new
+                          message, [= reject =] <var>p</var> with a new
                           <code>OverconstrainedError</code> created by calling
                           <code>OverconstrainedError(<var>failedConstraint</var>,
                           <var>message</var>)</code>, and abort these steps. The
@@ -4167,7 +4165,7 @@ interface ConstrainablePattern {
                           internal slot to <var>successfulSettings</var>.</p>
                         </li>
                         <li>
-                          <p><a>Resolve</a> <var>p</var> with
+                          <p>[= resolve =] <var>p</var> with
                           <code>undefined</code>.</p>
                         </li>
                       </ol>
@@ -4178,20 +4176,19 @@ interface ConstrainablePattern {
                   <p>Return <var>p</var>.</p>
                 </li>
               </ol>
-              <p>The <a>ApplyConstraints algorithm</a> for applying constraints
+              <p>The [=ApplyConstraints algorithm=] for applying constraints
               is stated below. Here are some preliminary definitions that are
               used in the statement of the algorithm:</p>
-              <p>We use the term <dfn>settings dictionary</dfn> for the set of
+              <p>We use the term <dfn data-export>settings dictionary</dfn> for the set of
               values that might be applied as settings to the object.</p>
               <p>For string valued constraints, we define "==" below to be true
               if one of the values in the sequence is exactly the same as the
               value being compared against.</p>
-              <p>We define the <dfn>fitness distance</dfn> between a
+              <p>We define the <dfn data-export>fitness distance</dfn> between a
               <a>settings dictionary</a> and a constraint set <var>CS</var> as
               the sum, for each member (represented by a
               <var>constraintName</var> and <var>constraintValue</var> pair)
-              <a href=
-              "https://heycam.github.io/webidl/#dfn-present">present</a> in
+              which [= map/exist =]s in
               <var>CS</var>, of the following values:</p>
               <ol>
                 <li>
@@ -4261,7 +4258,7 @@ interface ConstrainablePattern {
                 to choose such a sequence of values that satisfy CS1...CSn and
                 assign them as the settings for the properties of O.</li>
               </ul>
-              <p>We define the <dfn>SelectSettings</dfn> algorithm as
+              <p>We define the <dfn data-export>SelectSettings</dfn> algorithm as
               follows:</p>
               <ol>
                 <li>Each <a>constraint</a> specifies one
@@ -4326,7 +4323,7 @@ interface ConstrainablePattern {
                   <code>"none"</code> over <code>"crop-and-scale"</code>.</p>
                 </li>
               </ol>
-              <p>To apply the <dfn>ApplyConstraints algorithm</dfn> to an
+              <p>To apply the <dfn data-export>ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an
               argument, the User Agent MUST run the following steps:</p>
               <ol>
@@ -4749,8 +4746,7 @@ async function specifyCamera() {
   facingMode: 'user'
 }
       </pre>A specification using the Constrainable Pattern should not subclass
-the below dictionary, but instead provide its own definition. See <code><a>
-      MediaTrackSettings</a></code> for an example.
+the below dictionary, but instead provide its own definition. See {{MediaTrackSettings}} for an example.
       <div>
         <pre class="idl">dictionary Settings {};</pre>
       </div>
@@ -4783,7 +4779,7 @@ the below dictionary, but instead provide its own definition. See <code><a>
           <dl data-link-for="Constraints" data-dfn-for="Constraints" class=
           "dictionary-members">
             <dt><dfn><code>advanced</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>ConstraintSet</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;{{ConstraintSet}}&gt;</span></dt>
             <dd>
               <p>This is the list of ConstraintSets that the User Agent MUST
               attempt to satisfy, in order, skipping only those that cannot be
@@ -5070,7 +5066,7 @@ window.onload = async () =&gt; {
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
     <p>For origins to which permission has been granted, the
-    <code class=event><a>devicechange</a></code> event will be emitted across browsing
+    <a data-link-type=event>devicechange</a> event will be emitted across browsing
     contexts and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events.</p>
@@ -5153,7 +5149,7 @@ window.onload = async () =&gt; {
         <li>updating how the {{HTMLMediaElement}} works with a
           {{MediaStream}} containing a track of the new media type
           (see <a href="#mediastreams-in-media-elements"></a>), including
-          adding a corollary to <a href="#stream-audible">audible</a>/inaudible
+          adding a corollary to [= stream/audible =]/inaudible
           for the new media type,
         </li>
         <li>updating {{MediaDeviceKind}} if the new type has
