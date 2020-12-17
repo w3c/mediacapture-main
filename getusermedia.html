@@ -2760,7 +2760,7 @@ interface MediaDevices : EventTarget {
                       be the list of all discovered devices.</p>
                     </li>
                     <li>
-                      <p>Let <var>microphoneList</var> and <var>cameraList</var> be empty lists.</p>
+                      <p>Let <var>microphoneList</var>, <var>cameraList</var> and <var>otherDeviceList</var> be empty lists.</p>
                     </li>
                     <li>
                       <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
@@ -2816,12 +2816,6 @@ interface MediaDevices : EventTarget {
                       <p>Otherwise, run the following steps:<p>
                       <ol>
                         <li>
-                          <p>Append to <var>resultList</var> all devices of <var>microphoneList</var> in order.</p>
-                        </li>
-                        <li>
-                          <p>Append to <var>resultList</var> all devices of <var>cameraList</var> in order.</p>
-                        </li>
-                        <li>
                           <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
                           <ol>
                             <li>
@@ -2839,9 +2833,20 @@ interface MediaDevices : EventTarget {
                               [=creating a device info object=] to represent <var>device</var>.</p>
                             </li>
                             <li>
-                              <p>Append <var>deviceInfo</var> to <var>resultList</var>.</p>
+                              <p>If <var>device</var> is the system default audio output,
+                              prepend <var>deviceInfo</var> to <var>otherDeviceList</var>.
+                              Otherwise, append <var>deviceInfo</var> to <var>otherDeviceList</var>.</p>
                             </li>
                           </ol>
+                        </li>
+                        <li>
+                          <p>Append to <var>resultList</var> all devices of <var>microphoneList</var> in order.</p>
+                        </li>
+                        <li>
+                          <p>Append to <var>resultList</var> all devices of <var>cameraList</var> in order.</p>
+                        </li>
+                        <li>
+                          <p>Append to <var>resultList</var> all devices of <var>otherDeviceList</var> in order.</p>
                         </li>
                       </ol>
                     </li>
