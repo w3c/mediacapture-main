@@ -1107,7 +1107,11 @@ interface MediaStreamTrack : EventTarget {
                           <li>
                             <a>settings dictionary</a> refers to a possible
                             instance of the {{MediaTrackSettings}}
-                            dictionary.
+                            dictionary. The User Agent MUST NOT include inherent
+                            unchangeable device properties as members unless
+                            they are in the <a>list of inherent constrainable
+                            track properties</a> (to avoid a "broken clock being
+                            right twice a day" problem).
                           </li>
                         </ul>
                       </li>
@@ -4234,14 +4238,23 @@ interface ConstrainablePattern {
                   either contains one or more members named 'min', 'max', or
                   'exact', or is itself a bare value and bare values are to be
                   treated as 'exact'), and the <a>settings dictionary</a>'s
-                  value for the constraint does not satisfy the constraint, the
-                  fitness distance is positive infinity.</p>
+                  <var>constraintName</var> member does not [= map/exist =], or
+                  its value does not satisfy the constraint, the fitness
+                  distance is positive infinity.</p>
                 </li>
                 <li>
                   <p>If the constraint is
                   <a data-lt="required">not required</a>, and does not apply for
-                  this type of device, the fitness distance is 0 (that is, the
+                  this type of object, the fitness distance is 0 (that is, the
                   constraint does not influence the fitness distance).</p>
+                </li>
+                <li>
+                  <p>If the constraint is
+                  <a data-lt="required">not required</a>, applies for this type
+                  of object (but not necessarily this specific instance), and
+                  the <a>settings dictionary</a>'s <var>constraintName</var>
+                  member does [= map/exist | not exist=], the fitness distance
+                  is 1.</p>
                 </li>
                 <li>If no ideal value is specified (<var>constraintValue</var>
                 either contains no member named 'ideal', or, if bare values are
