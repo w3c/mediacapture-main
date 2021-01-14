@@ -4242,9 +4242,9 @@ interface ConstrainablePattern {
                   either contains one or more members named 'min', 'max', or
                   'exact', or is itself a bare value and bare values are to be
                   treated as 'exact'), and the <a>settings dictionary</a>'s
-                  <var>constraintName</var> member does not [= map/exist =], or
-                  its value does not satisfy the constraint, the fitness
-                  distance is positive infinity.</p>
+                  <var>constraintName</var> member's value does not satisfy the
+                  constraint or doesn't [= map/exist =], the fitness distance is
+                  positive infinity.</p>
                 </li>
                 <li>
                   <p>If the constraint does not apply for this type of object,
