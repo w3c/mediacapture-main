@@ -4252,6 +4252,14 @@ interface ConstrainablePattern {
                   influence the fitness distance).</p>
                 </li>
                 <li>
+                  <p>If <var>constraintValue</var> is boolean, but the
+                  constrainable property is not, then the fitness distance is
+                  based on whether the <a>settings dictionary</a>'s
+                  <var>constraintName</var> member [= map/exist | exists =] or
+                  not, from the formula
+                  <pre>(constraintValue == exists) ? 0 : 1</pre>
+                </li>
+                <li>
                   <p>If the <a>settings dictionary</a>'s <var>constraintName</var>
                   member does [= map/exist | not exist=], the fitness distance
                   is 1.</p>
