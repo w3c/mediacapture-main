@@ -4247,16 +4247,12 @@ interface ConstrainablePattern {
                   distance is positive infinity.</p>
                 </li>
                 <li>
-                  <p>If the constraint is
-                  <a data-lt="required">not required</a>, and does not apply for
-                  this type of object, the fitness distance is 0 (that is, the
-                  constraint does not influence the fitness distance).</p>
+                  <p>If the constraint does not apply for this type of object,
+                  the fitness distance is 0 (that is, the constraint does not
+                  influence the fitness distance).</p>
                 </li>
                 <li>
-                  <p>If the constraint is
-                  <a data-lt="required">not required</a>, applies for this type
-                  of object (but not necessarily this specific instance), and
-                  the <a>settings dictionary</a>'s <var>constraintName</var>
+                  <p>If the <a>settings dictionary</a>'s <var>constraintName</var>
                   member does [= map/exist | not exist=], the fitness distance
                   is 1.</p>
                 </li>
