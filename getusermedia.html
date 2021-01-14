@@ -1111,7 +1111,11 @@ interface MediaStreamTrack : EventTarget {
                             unchangeable device properties as members unless
                             they are in the <a>list of inherent constrainable
                             track properties</a> (to avoid a "broken clock being
-                            right twice a day" problem).
+                            right twice a day" problem), or otherwise include
+                            device properties that <dfn>must not be exposed</dfn>.
+                            <p class="note">Other specifications may define
+                            constrainable properties that at times <a>must not
+                            be exposed</a>.</p>
                           </li>
                         </ul>
                       </li>
