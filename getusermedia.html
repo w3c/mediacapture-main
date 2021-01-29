@@ -4772,7 +4772,7 @@ async function specifyCamera() {
       specification using the Constrainable Pattern should not subclass the
       below dictionary, but instead provide its own definition. See
       {{MediaTrackCapabilities}} for an example.
-      <div class=example>
+      <div class=example>Template:
         <pre class="idl">dictionary Capabilities {};</pre>
       </div>
     </section>
@@ -4800,7 +4800,7 @@ async function specifyCamera() {
 }
       </pre>A specification using the Constrainable Pattern should not subclass
 the below dictionary, but instead provide its own definition. See {{MediaTrackSettings}} for an example.
-      <div class=example>
+      <div class=example>Template:
         <pre class="idl">dictionary Settings {};</pre>
       </div>
     </section>
@@ -4812,7 +4812,7 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
       own definitions that follow this pattern. See <a href=
       "#media-track-constraints">MediaTrackConstraints</a> for an example of
       this.</p>
-      <div class=example>
+      <div class=example>Template:
         <pre class="idl">dictionary ConstraintSet {};</pre>
       </div>
       <p>Each member of a <dfn>ConstraintSet</dfn> corresponds to a
@@ -4822,11 +4822,12 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
       the specified values or ranges of values. A given property MAY occur both
       in the basic Constraints set and in the advanced ConstraintSets list, and
       MAY occur at most once in each ConstraintSet in the advanced list.</p>
-      <div class=example>
+      <div class=example>Template:
         <pre class="idl"
 >dictionary Constraints : ConstraintSet {
   sequence&lt;ConstraintSet&gt; advanced;
 };</pre>
+      </div>
         <section>
           <h2>Dictionary <dfn>Constraints</dfn> Members</h2>
           <dl data-link-for="Constraints" data-dfn-for="Constraints" class=
