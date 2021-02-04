@@ -1825,8 +1825,8 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn id=
                 "idl-def-VideoResizeModeEnum.user">none</dfn></td>
                 <td>
-                  <p>This resolution is offered by the camera, its driver, or
-                  the OS.</p>
+                  <p>This resolution and frame rate is offered by the camera,
+                  its driver, or the OS.</p>
                   <p class="fingerprint">Note: The UA MAY report this value to
                   disguise concurrent use, but only when the camera is in use
                   in another browsing context.</p>
@@ -1837,7 +1837,8 @@ interface MediaStreamTrack : EventTarget {
                 "idl-def-VideoResizeModeEnum.right">crop-and-scale</dfn></td>
                 <td>
                   <p>This resolution is downscaled and/or cropped from a higher
-                  camera resolution by the User Agent. The media MUST NOT be
+                  camera resolution by the User Agent, or its frame rate is
+                  decimated by the User Agent. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
                   occur in the input source.</p>
                 </td>
