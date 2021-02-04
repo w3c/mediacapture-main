@@ -4557,7 +4557,7 @@ async function nativeResolutionButDecimatedFrameRate() {
     video: {
       width: 1280,
       height: 720
-      aspectRatio: 16 / 9, // avoid exact with aspect ratios in case of rounding
+      aspectRatio: 16 / 9, // aspect ratios may not be exactly accurate
       resizeMode: {exact: 'none'} // may give native frame rates only
     }
   });
