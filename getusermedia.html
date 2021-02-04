@@ -4543,6 +4543,43 @@ async function specifyCamera() {
   });
 }
       </pre>
+      <p>Here's an example of "I want a native 16:9 resolution near 720p, but
+      with a decimated frame-rate". This needs to be done in two steps, and
+      shows how to derive constraints from current settings, which may be
+      rotated:</p>
+      <pre class="example">
+async function nativeResolutionButDecimatedFrameRate() {
+  const supports = navigator.mediaDevices.getSupportedConstraints();
+  if (!supports.width || !supports.height || !supports.resizeMode) {
+    // Treat like an error (aspectRatio optional, for demonstration only)
+  }
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: 1280,
+      height: 720
+      aspectRatio: 16 / 9, // avoid exact with aspect ratios in case of rounding
+      resizeMode: {exact: 'none'} // may give native frame rates only
+    }
+  });
+  const [track] = stream.getVideoTracks();
+  const {width, height, aspectRatio} = track.getSettings();
+
+  // Constraints are in landscape, but settings may be rotated (portrait)
+  if (width < height) {
+    [width, height] = [height, width];
+    aspectRatio = 1 / aspectRatio;
+  }
+  await track.applyConstraints({
+    width: {exact: width},
+    height: {exact: height},
+    aspectRatio,
+    frameRate: 10,
+    resizeMode: 'crop-and-scale'
+  });
+}
+      </pre>
+      <div class="note">This example assumes the <a>primary orientation</a> is
+      landscape.</div>
     </section>
     <section>
       <h2>Types for Constrainable Properties</h2>
