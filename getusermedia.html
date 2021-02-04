@@ -3340,7 +3340,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
       </div>
       <p>The {{MediaDevices/getSupportedConstraints}} method is provided to allow
       the application to determine which constraints the User Agent
-      recognizes.</p>
+      recognizes. Applications may need this information to use
+      <a>required constraints</a> or <a>advanced constraints</a> reliably.</p>
       <div>
         <pre class="idl"
 >partial interface MediaDevices {
@@ -3958,10 +3959,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
     two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
     <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.aspectRatio) {
-  // Treat like an error.
-}
 const constraints = {
   width: 1280,
   height: 720,
@@ -3976,7 +3973,7 @@ const constraints = {
     aspectRatio target values as well and then [= resolve =] the promise.</p>
     <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.aspectRatio || !supports.frameRate) {
+if (!supports.width || !supports.height || !supports.frameRate) {
   // Treat like an error.
 }
 const constraints = {
@@ -4447,7 +4444,7 @@ interface ConstrainablePattern {
       defined for {{MediaStreamTrack}}.</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.facingMode) {
+if (!supports.width || !supports.height || !supports.frameRate) {
   // Treat like an error.
 }
 const constraints = {
@@ -4467,7 +4464,7 @@ const constraints = {
       height:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.deviceId) {
+if (!supports.deviceId || !supports.width) {
   // Treat like an error.
 }
 const constraints = {
@@ -4481,7 +4478,7 @@ const constraints = {
       <p>And here's one for an audio track:</p>
       <pre class="example">
 const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.deviceId || !supports.channelCount) {
+if (!supports.deviceId) {
   // Treat like an error.
 }
 const constraints = {
@@ -4495,7 +4492,7 @@ const constraints = {
       <pre class="example">
 async function useIdeal() {
   const supports = navigator.mediaDevices.getSupportedConstraints();
-  if (!supports.aspectRatio || !supports.facingMode) {
+  if (!supports.width || supports.height || !supports.facingMode) {
     // Treat like an error.
   }
   const stream = await navigator.mediaDevices.getUserMedia({
