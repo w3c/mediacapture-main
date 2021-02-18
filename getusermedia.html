@@ -3383,7 +3383,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
       </div>
       <p>The {{MediaDevices/getSupportedConstraints}} method is provided to allow
       the application to determine which constraints the User Agent
-      recognizes.</p>
+      recognizes. Applications may need this information to use
+      <a>required constraints</a> reliably or get predictable results from
+      combinatory logic in <a>advanced constraints</a>.</p>
       <div>
         <pre class="idl"
 >partial interface MediaDevices {
@@ -4001,15 +4003,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
     two constraints that could be satisfied. If so, the User Agent will
     choose.</p>
     <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.aspectRatio) {
-  // Treat like an error.
-}
-const constraints = {
-  width: 1280,
-  height: 720,
-  aspectRatio: 3/2
-};
+const stream = await navigator.mediaDevices.getUserMedia({
+  video: {
+    width: 1280,
+    height: 720,
+    aspectRatio: 3/2
+  }
+});
     </pre>
     <p>This next example adds a small bit of complexity. The ideal values are
     still given for width and height, but this time with minimum requirements
@@ -4018,16 +4018,21 @@ const constraints = {
     promise. Otherwise, it will try to satisfy the width, height, and
     aspectRatio target values as well and then [= resolve =] the promise.</p>
     <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.aspectRatio || !supports.frameRate) {
-  // Treat like an error.
+try {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: {min: 640, ideal: 1280},
+      height: {min: 480, ideal: 720},
+      aspectRatio: 3/2,
+      frameRate: {min: 20}
+    }
+  });
+} catch (error) {
+  if (error.name != "OverconstrainedError") {
+    throw error;
+  }
+  // Overconstrained. Try again with a different combination (no prompt was shown)
 }
-const constraints = {
-  frameRate: {min: 20},
-  width: {min: 640, ideal: 1280},
-  height: {min: 480, ideal: 720},
-  aspectRatio: 3/2
-};
     </pre>
     <p>This example illustrates the full control possible with the Constraints
     structure by adding the 'advanced' property. In this case, the User Agent
@@ -4042,39 +4047,45 @@ const constraints = {
     give me an aspectRatio of 4x3 if at all possible. If even that is not
     possible, give me a resolution as close to 1280x720 as possible."</p>
     <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.width || !supports.height) {
-  // Treat like an error.
+try {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: {min: 640, ideal: 1280},
+      height: {min: 480, ideal: 720},
+      frameRate: {min: 30},
+      advanced: [
+        {width: 1920, height: 1280},
+        {aspectRatio: 4/3},
+        {frameRate: {min: 50}},
+        {frameRate: {min: 40}}
+      ]
+    }
+  });
+} catch (error) {
+  if (error.name != "OverconstrainedError") {
+    throw error;
+  }
+  // Overconstrained. Try again with a different combination (no prompt was shown)
 }
-const constraints = {
-  width: {min: 640, ideal: 1280},
-  height: {min: 480, ideal: 720},
-  advanced: [
-    {width: 1920, height: 1280},
-    {aspectRatio: 4/3}
-  ]
-};
     </pre>
     <p>The ordering of advanced ConstraintSets is significant. In the preceding
     example it is impossible to satisfy both the 1920x1280 ConstraintSet and
     the 4x3 aspect ratio ConstraintSet at the same time. Since the 1920x1280
     occurs first in the list, the User Agent will attempt to satisfy it first.
     Application authors can therefore implement a backoff strategy by
-    specifying multiple advanced ConstraintSets for the same property. For
-    example, an application might specify three advanced ConstraintSets, the
-    first asking for a frame rate greater than 500, the second asking for a
-    frame rate greater than 400, and the third asking for one greater than 300.
-    If the User Agent is capable of setting a frame rate greater than 500, it
-    will (and the subsequent two ConstraintSets will be trivially satisfied).
-    However, if the User Agent cannot set the frame rate above 500, it will
-    skip that ConstraintSet and attempt to set the frame rate above 400. If
-    that fails, it will then try to set it above 300. If the User Agent cannot
-    satisfy any of the three ConstraintSets, it will set the frame rate to any
-    value it can get. If the developers wanted to insist on 300 as a lower
-    bound, they could provide that as a 'min' value in the basic ConstraintSet.
-    In that case, the User Agent would fail altogether if it couldn't get a
-    value over 300, but would choose a value over 500 if possible, then try for
-    a value over 400.</p>
+    specifying multiple advanced ConstraintSets for the same property. The
+    application also specifies two more advanced ConstraintSets, the
+    first asking for a frame rate greater than 50, the second asking for a
+    frame rate greater than 40.
+    If the User Agent is capable of setting a frame rate greater than 50, it
+    will (and the subsequent ConstraintSet will be trivially satisfied).
+    However, if the User Agent cannot set the frame rate above 50, it will
+    skip that ConstraintSet and attempt to set the frame rate above 40.
+    In case the User Agent cannot satisfy either of the two ConstraintSets, the
+    'min' value in the basic ConstraintSet insists on 30 as a lower bound.
+    In other words, the User Agent would fail altogether if it couldn't get a
+    value over 30, but would choose a value over 50 if possible, then try for
+    a value over 40.</p>
     <p>Note that, unlike basic constraints, the constraints within a
     ConstraintSet in the advanced list must be satisfied together or skipped
     together. Thus, {width: 1920, height: 1280} is a request for that specific
@@ -4487,143 +4498,179 @@ interface ConstrainablePattern {
       {{MediaStreamTrack/applyConstraints()}}
       or returned as a value of <code><a>constraints</a></code> is below. It
       uses the <a href="#constrainable-properties">constrainable properties</a>
-      defined for {{MediaStreamTrack}}.</p>
+      defined for camera-sourced {{MediaStreamTrack}}s. In this example, all
+      constraints are ideal values, which means results are "best effort" based
+      on the user's specific camera:</p>
       <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.facingMode) {
-  // Treat like an error.
-}
-const constraints = {
-  width: {min: 640},
-  height: {min: 480},
-  advanced: [
-    {width: 650},
-    {width: {min: 650}},
-    {frameRate: 60},
-    {width: {max: 800}},
-    {facingMode: 'user'}
-  ]
-};
+await track.applyConstraints({
+  width: 1920,
+  height: 1080,
+  frameRate: 30,
+});
+const {width, height, frameRate} = track.getSettings();
+
+console.log(&#96;${width}x${height}x${frameRate}&#96;); // 1920x1080x30, or it might be e.g.
+                                                // 1280x720x30 as best effort
       </pre>
-      <p>Here is another example, specifically for a video track where I must
-      have a particular camera and have separate preferences for the width and
-      height:</p>
+      <p>For finer control, an application can insist on an exact match, provided
+      it's prepared to handle failure:
       <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.deviceId) {
-  // Treat like an error.
-}
-const constraints = {
-  deviceId: {exact: '20983-20o198-109283-098-09812'},
-  advanced: [
-    {width: {min: 800, max: 1200}},
-    {height: {min: 600}}
-  ]
-};
-      </pre>
-      <p>And here's one for an audio track:</p>
-      <pre class="example">
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports.deviceId || !supports.channelCount) {
-  // Treat like an error.
-}
-const constraints = {
-  advanced: [
-    {deviceId: '64815-wi3c89-1839dk-x82-392aa'},
-    {channelCount: 2}
-  ]
-};
-      </pre>
-      <p>Here's an example of use of ideal:</p>
-      <pre class="example">
-async function useIdeal() {
-  const supports = navigator.mediaDevices.getSupportedConstraints();
-  if (!supports.aspectRatio || !supports.facingMode) {
-    // Treat like an error.
+try {
+  await track.applyConstraints({
+    width: {exact: 1920},
+    height: {exact: 1080},
+    frameRate: {min: 25, ideal: 30, max: 30},
+  });
+  const {width, height, frameRate} = track.getSettings();
+
+  console.log(&#96;${width}x${height}x${frameRate}&#96;); // 1920x1080x25-30!
+
+} catch (error) {
+  if (error.name != "OverconstrainedError") {
+    throw error;
   }
+  console.log(&#96;This camera cannot produce the requested ${error.constraint}.&#96;);
+}
+
+      </pre>
+      </p>
+      <p>Constraints can also be passed into {{MediaDevices/getUserMedia}}, not
+      just as an initialization convenience, but to influence device selection.
+      In this case,
+      [= list of inherent constrainable track properties | inherent constraints =]
+      are also available.
+      </p>
+      <p>Here's an example of using constraints to prefer a specific
+      camera and microphone from a previous visit, with requirements on
+      dimensions and a preference for stereo, to be applied once granted, and to
+      help find suitable replacements in case the requested devices are no
+      longer available (or in some user agents, overriden by the user).</p>
+      <pre class="example">
+try {
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
-      width: {min: 320, ideal: 1280, max: 1920},
-      height: {min: 240, ideal: 720, max: 1080},
-      frameRate: 30, // Shorthand for ideal.
-      facingMode: {
-        exact: 'environment'
-        // facingMode: "environment" would be optional.
-      }
+      deviceId: localStorage.camId,
+      width: {min: 800, ideal: 1024, max: 1280},
+      height: {min: 600}
+    },
+    audio: {
+      deviceId: localStorage.micId,
+      channelCount: 2
     }
   });
+
+  // Granted. Store deviceIds for next time
+  localStorage.camId = stream.getVideoTracks()[0].getSettings().deviceId;
+  localStorage.micId = stream.getAudioTracks()[0].getSettings().deviceId;
+
+} catch (error) {
+  if (error.name != "OverconstrainedError") {
+    throw error;
+  }
+  // Overconstrained. No suitable replacements found
 }
       </pre>
-      <p>Here's an example of "I want 720p, but I can accept up to 1080p and
-      down to VGA.":</p>
+      <div class="note">
+        <p>The above example avoids using <code>{exact: deviceId}</code>,
+        so that browsers can immediately offer a choice between different cameras
+        if your preferred device is not available.</p>
+        <p>The example also stores the <code>deviceId</code>s on every grant, in
+        case they represent a new choice.</p>
+      </div>
+      <p>In contrast, here's an example of using constraints to implement an
+      in-content camera picker. In this case, we use <code>exact</code> and rely
+      solely on a <code>deviceId</code> that comes from the user picking from
+      a list of choices:</p>
       <pre class="example">
-async function constrainVideo() {
-  const supports = navigator.mediaDevices.getSupportedConstraints();
-  if (!supports.width || !supports.height) {
-    // Treat like an error.
+async function switchCameraTrack(freshlyChosenDeviceId, oldTrack) {
+  if (isMobile) {
+    oldTrack.stop(); // Some platforms can only open one camera at a time.
   }
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
-      width: {min: 640, ideal: 1280, max: 1920},
-      height: {min: 480, ideal: 720, max: 1080},
+      deviceId: {exact: freshlyChosenDeviceId}
     }
   });
+  const [track] = stream.getVideoTracks();
+  localStorage.camId = track.getSettings().deviceId;
+  return track;
 }
       </pre>
-      <p>Here's an example of "I want a front-facing camera and it must be
-      VGA.":</p>
+      <p>Here's an example asking for a back camera on a phone, ideally in 720p,
+      but accepting anything close to that. Note how constraints on dimensions
+      are specified in landscape mode:</p>
       <pre class="example">
-async function specifyCamera() {
-  const supports = navigator.mediaDevices.getSupportedConstraints();
-  if (!supports.width || !supports.height || !supports.facingMode) {
-    // Treat like an error.
-  }
-  const stream = await navigator.mediaDevices.getUserMedia({
+async function getBackCamera() {
+  return await navigator.mediaDevices.getUserMedia({
     video: {
-      facingMode: {exact: 'user'},
-      width: {exact: 640},
-      height: {exact: 480}
+      facingMode: {exact: 'environment'},
+      width: 1280,
+      height: 720
     }
   });
 }
       </pre>
       <p>Here's an example of "I want a native 16:9 resolution near 720p, but
-      with a decimated frame-rate". This needs to be done in two steps, and
-      shows how to derive constraints from current settings, which may be
-      rotated:</p>
+      with an exact frame rate of 10 even if not natively available". This needs
+      to be done in two steps: One to discover the native mode, and a second
+      step to apply the custom frame rate. This also shows how to derive
+      constraints from current settings, which may be rotated:</p>
       <pre class="example">
 async function nativeResolutionButDecimatedFrameRate() {
-  const supports = navigator.mediaDevices.getSupportedConstraints();
-  if (!supports.width || !supports.height || !supports.resizeMode) {
-    // Treat like an error (aspectRatio optional, for demonstration only)
-  }
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
+      resizeMode: 'none', // means native resolution and frame rate
       width: 1280,
       height: 720,
-      aspectRatio: 16 / 9, // aspect ratios may not be exactly accurate
-      resizeMode: 'none' // gives native frame rates only
+      aspectRatio: 16 / 9 // aspect ratios may not be exactly accurate
     }
   });
   const [track] = stream.getVideoTracks();
   const {width, height, aspectRatio} = track.getSettings();
 
-  // Constraints are in landscape, but settings may be rotated (portrait)
+  // Constraints are in landscape, while settings may be rotated (portrait)
   if (width < height) {
     [width, height] = [height, width];
     aspectRatio = 1 / aspectRatio;
   }
+
   await track.applyConstraints({
+    resizeMode: 'crop-and-scale',
     width: {exact: width},
     height: {exact: height},
+    frameRate: {exact: 10},
     aspectRatio,
-    frameRate: 10,
-    resizeMode: 'crop-and-scale'
+  });
+
+  return stream;
+}
+      </pre>
+      <div class="note">The above example assumes the <a>primary orientation</a>
+      is landscape.</div>
+      <p>Here's an example showing how to use
+      {{MediaDevices/getSupportedConstraints}}, for cases where a constraint
+      being ignored due to lack of support in a user agent is not tolerated by
+      the application:
+      <pre class="example">
+async function getFrontCameraRes() {
+  const supports = navigator.mediaDevices.getSupportedConstraints();
+
+  for (const constraint of ["facingMode", "aspectRatio", "resizeMode"]) {
+    if (!(constraint in supports) {
+      throw new OverconstrainedError(constraint, "Not supported");
+    }
+  }
+  return await navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: {exact: 'user'},
+      advanced: [
+        {aspectRatio: 16/9, height: 1080, resizeMode: "none"},
+        {aspectRatio: 4/3, width: 1280, resizeMode: "none"}
+      ]
+    }
   });
 }
       </pre>
-      <div class="note">This example assumes the <a>primary orientation</a> is
-      landscape.</div>
     </section>
     <section>
       <h2>Types for Constrainable Properties</h2>
@@ -4960,7 +5007,7 @@ startBtn.onclick = async () =&gt; {
 
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-    for (let track of stream.getTracks()) {
+    for (const track of stream.getTracks()) {
       track.onended = () =&gt; {
         startBtn.disabled = stream.getTracks().some((t) =&gt; t.readyState == 'live');
       };
@@ -5052,7 +5099,7 @@ window.onload = async () =&gt; {
   try {
     video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
 
-    await new Promise((resolve) =&gt; video.onloadedmetadata = resolve);
+    await new Promise(resolve =&gt; video.onloadedmetadata = resolve);
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     document.getElementById('splash').hidden = true;
