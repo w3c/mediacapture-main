@@ -4528,9 +4528,9 @@ try {
 }
       </pre>
       <div class="note">
-        <p>The above example avoids using <code>{exact: deviceId}</code>, to
-        prevent a permission ultimatum in browsers with per-device permissions.
-        Using ideal values instead affords user substitutions.</p>
+        <p>The above example avoids using <code>{exact: deviceId}</code>,
+        so that browsers can immediately offer a choice between different cameras
+        if your preferred device is not available.</p>
         <p>The example also stores the <code>deviceId</code>s on every grant, in
         case they represent a new choice.</p>
       </div>
