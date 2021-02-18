@@ -2589,7 +2589,11 @@ interface OverconstrainedError : DOMException {
               to <code>null</code>.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn>[[\canExposeDeviceInfo]]</dfn>, initialized
+              <p>Create one internal slot: <dfn>[[\canExposeCameraInfo]]</dfn>, initialized
+              to <code>false</code>.</p>
+            </li>
+            <li>
+              <p>Create one internal slot: <dfn>[[\canExposeMicrophoneInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
           </ol>
@@ -2936,8 +2940,12 @@ interface MediaDevices : EventTarget {
             <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} for <var>device</var>.</p>
           </li>
           <li>
-            <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "audioinput" or "videoinput"
-            and [=device information can be exposed=] is <code>false</code>, return <var>deviceInfo</var></p>
+            <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "videoinput"
+            and [=camera information can be exposed=] is <code>false</code>, return <var>deviceInfo</var>.</p>
+          </li>
+          <li>
+            <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "audioinput"
+            and [=microphone information can be exposed=] is <code>false</code>, return <var>deviceInfo</var>.</p>
           </li>
           <li>
             <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/label}} for <var>device</var>.</p>
@@ -2985,13 +2993,43 @@ interface MediaDevices : EventTarget {
         check, run the following steps:</p>
         <ol>
           <li>
-            <p>If any of the local devices are attached to a live
+            <p>If [=camera information can be exposed=] is <code>true</code>,
+            return <code>true</code>.</p>
+          </li>
+          <li>
+            <p>If [=microphone information can be exposed=] is <code>true</code>,
+            return <code>true</code>.</p>
+          </li>
+          <li>
+            <p>Return <code>false</code>.</p>
+          </li>
+        </ol>
+        <p>To perform a <dfn data-lt="camera-information-can-be-exposed" id=
+        "camera-information-can-be-exposed">camera information can be exposed</dfn>
+        check, run the following steps:</p>
+        <ol>
+          <li>
+            <p>If any of the local devices of kind "videoinput" are attached to a live
             {{MediaStreamTrack}} in the [=relevant settings object=]'s
             [=environment settings object/responsible document=], return
             <code>true</code>.</p>
           </li>
           <li>
-            <p>Return <a>[[\canExposeDeviceInfo]]</a>.</p>
+            <p>Return <a>[[\canExposeCameraInfo]]</a>.</p>
+          </li>
+        </ol>
+        <p>To perform a <dfn data-lt="microphone-information-can-be-exposed" id=
+        "microphone-information-can-be-exposed">microphone information can be exposed</dfn>
+        check, run the following steps:</p>
+        <ol>
+          <li>
+            <p>If any of the local devices of kind "audioinput" are attached to a live
+            {{MediaStreamTrack}} in the [=relevant settings object=]'s
+            [=environment settings object/responsible document=], return
+            <code>true</code>.</p>
+          </li>
+          <li>
+            <p>Return <a>[[\canExposeMicrophoneInfo]]</a>.</p>
           </li>
         </ol>
       </section>
@@ -2999,17 +3037,22 @@ interface MediaDevices : EventTarget {
         <h2>Set device information exposure</h2>
         <p>To <dfn data-lt="set-device-information-exposure" id=
         "set-device-information-exposure">set the device information exposure</dfn>,
-        with a <var>value</var> of type boolean, run the following steps:</p>
+        with a <var>requestedTypes</var> set and <var>value</var> of type boolean, run the following steps:</p>
         <ol>
           <li>
-            <p>If <a>[[\canExposeDeviceInfo]]</a> is already <var>value</var>,
-            abort these steps.</p>
+            <p>If <a>"video"</a> is in <var>requestedTypes</var> and <a>[[\canExposeCameraInfo]]</a> is not <var>value</var>, run the following sub steps:</p>
+            <ol>
+              <li><p>Set <a>[[\canExposeCameraInfo]]</a> to <var>value</var>.</p></li>
+              <li><p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p></li>
+            </ol>
           </li>
           <li>
-            <p>If <var>value</var> is <code>true</code>, set
-            <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
+            <p>If <a>"audio"</a> is in <var>requestedTypes</var> and <a>[[\canExposeMicrophoneInfo]]</a> is not <var>value</var>, run the following sub steps:</p>
+            <ol>
+              <li><p>Set <a>[[\canExposeMicrophoneInfo]]</a> to <var>value</var>.</p></li>
+              <li><p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p></li>
+            </ol>
           </li>
-          <li>Set <a>[[\canExposeDeviceInfo]]</a> to <var>value</var>.</li>
         </ol>
         <div class="note">
           <p>A User Agent MAY at any point set the device information exposure back to <code>false</code>,
@@ -3595,7 +3638,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <em>Constraint Failure</em> below.</p>
                     </li>
                     <li>
-                      <p>[=Set the device information exposure=] to <code>true</code>.</p>
+                      <p>[=Set the device information exposure=] with <code>requestedMediaTypes</code> and <code>true</code>.</p>
                     </li>
                     <li>
                       <p>[= resolve =] <var>p</var> with <var>stream</var> and
