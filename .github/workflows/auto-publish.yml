@@ -22,6 +22,6 @@ jobs:
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_MANIFEST_URL: "https://w3c.github.io/mediacapture-main/W3CTRMANIFEST"
           W3C_BUILD_OVERRIDE: |
-            shortname: mediacapture-streams
-            status: CRD
+            shortName: mediacapture-streams
+            specStatus: CRD
 
