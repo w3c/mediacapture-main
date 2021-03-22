@@ -2,6 +2,8 @@ name: Auto Publish
 
 on:
   push:
+    paths:
+      - getusermedia.html
     branches:
       - main
   pull_request: {}
@@ -20,7 +22,6 @@ jobs:
           SOURCE: getusermedia.html
           TOOLCHAIN: respec
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
-          W3C_MANIFEST_URL: "https://w3c.github.io/mediacapture-main/W3CTRMANIFEST"
           W3C_BUILD_OVERRIDE: |
             shortName: mediacapture-streams
             specStatus: CRD
