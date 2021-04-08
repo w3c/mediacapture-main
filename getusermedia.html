@@ -4428,9 +4428,29 @@ interface ConstrainablePattern {
                   algorithm. The User Agent MUST use one with the smallest
                   <a>fitness distance</a>, as calculated in step 3. If more than
                   one settings dictionary have the smallest fitness distance,
-                  the User Agent chooses one of them.</p>
+                  the User Agent chooses one of them based on system default property values
+                  and User Agent default property values.</p>
                 </li>
               </ol>
+              <p>For any property with a system default value, the system default value SHOULD
+                be used if compatible with the above algorithm. This is usually the case for properties
+                like <a href="#def-constraint-sampleRate">sampleRate</a> or <a href="#def-constraint-sampleSize">sampleSize</a>.
+                Other properties, like <a href="#def-constraint-echoCancellation">echoCancellation</a> or
+                <a href="#def-constraint-resizeMode">resizeMode</a> do not usually have system default values.
+                The User Agent defines its own default values for these properties.
+                Implementors need to be cautious to select good default values since they will often have
+                an impact on how media content is generated.</p>
+              <div class="note">
+                <p>It is recommended to look at existing implementations to select meaningful default values.
+                Note that default values may differ based on the system, for instance desktop vs. mobile.
+                At time of writing, User Agent implementations tend to use the following default values:</p>
+                <ol>
+                  <li><p><a href="#def-constraint-width">width</a> set to 640.</p></li>
+                  <li><p><a href="#def-constraint-height">height</a> set to 480.</p></li>
+		  <li><p><a href="#def-constraint-frameRate">frameRate</a> set to 30.</p></li>
+                  <li><p><a href="#def-constraint-echoCancellation">echoCancellation</a> set to <code>true</code>.</p></li>
+                </ol>
+              </div>
               <p>To apply the <dfn data-export>ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an
               argument, the User Agent MUST run the following steps:</p>
