@@ -47,33 +47,6 @@
   <section>
     <h2>Terminology</h2>
     <dl>
-      <dt><i>HTML Terms:</i></dt>
-      <dd>
-        <p>The {{EventHandler}}
-        interface represents a callback used for event handlers as defined in
-        [[!HTML]].</p>
-        <p>The concept [= queue
-        a task =] is defined in [[!HTML]] and [= fire an event =] is 
-        defined in [[!DOM]].</p>
-        <p>The terms [=event handlers=]
-        and [=environment settings object/responsible
-        document =] are defined in [[!HTML]].</p>
-        <p>The term [=relevant settings object=] is defined in [[!HTML]].</p>
-        <p>The term [=allowed to
-        use=] is defined in [[!HTML]].</p>
-        <p>The terms <dfn data-lt="fulfill|fulfillment">fulfilled</dfn>,
-        <dfn data-lt="reject|rejection|rejecting">rejected</dfn> and
-        <dfn data-lt="resolve">resolved</dfn> used in the context of Promises
-        are defined in [[ECMA-262]].</p>
-      </dd>
-      <dt>DOM</dt>
-      <dd>
-	<p>The terms {{Event}}, {{EventInit}} and {{EventTarget}} are defined in the [[!DOM]] specification. </p>
-      </dd>
-      <dt>{{DOMException}}</dt>
-      <dd>
-        The term {{DOMException}} is defined in [[!WEBIDL]]
-      </dd>
       <dt><dfn data-export>source</dfn></dt>
       <dd>
         <p>A source is the "thing" providing the source of a media stream
@@ -186,11 +159,6 @@
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use <a>required
         constraints</a> sparingly.</p>
-      </dd>
-      <dt>Permissions</dt>
-      <dd>
-        <p>The terms <dfn data-cite="permissions#reading-current-states">reading current permission state</dfn> and [=request permission to
-        use=]  are defined in [[!permissions]].</p>
       </dd>
     </dl>
   </section>
@@ -616,8 +584,7 @@ interface MediaStream : EventTarget {
           <code>false</code>.</p>
         </li>
         <li>
-          <p>If the result of <a data-lt=
-          "reading current permission state">reading the current permission state</a>
+          <p>If the [=permission state=]
           of the permission associated with the device's kind and
           <var>deviceId</var>, is not {{PermissionState/"granted"}}, then set
           <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
@@ -2151,9 +2118,9 @@ interface MediaStreamTrackEvent : Event {
     <p>User Agents that support this specification MUST support the
     {{HTMLMediaElement/srcObject}}
     attribute of the {{HTMLMediaElement}} interface defined in
-    [[!HTML]], which includes support for playing {{MediaStream}}
+    [[HTML]], which includes support for playing {{MediaStream}}
     objects.</p>
-    <p>The [[!HTML]] document outlines how the <code>HTMLMediaElement</code>
+    <p>The [[HTML]] document outlines how the <code>HTMLMediaElement</code>
     works with a <em>media provider object</em>. The following applies when the
     <em>media provider object</em> is a {{MediaStream}}:</p>
     <ul>
@@ -2602,8 +2569,7 @@ interface OverconstrainedError : DOMException {
           <p>For each kind of device, <var>kind</var>, that
           {{MediaDevices.getUserMedia()}} exposes, set
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> either to <code>true</code>
-          if the result of <a data-lt=
-          "reading current permission state">reading the permission state</a>
+          if the [=permission state=]
           of the permission associated with <var>kind</var> (e.g. {{PermissionName/"camera"}},
           {{PermissionName/"microphone"}}), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
         </li>
@@ -2613,15 +2579,13 @@ interface OverconstrainedError : DOMException {
           deviceId, <var>deviceId</var>, set
           <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>, and
           set <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> either to
-          <code>true</code> if the result of <a data-lt=
-          "reading current permission state">reading the permission state</a>
+          <code>true</code> if the [=permission state=]
           of the permission associated with the device’s kind and
           <var>deviceId</var>, is {{PermissionState/"granted"}}, or to false otherwise.</p>
         </li>
       </ol>
-      <p>For each kind of device, <var>kind</var>, that {{MediaDevices/getUserMedia()}} exposes, <a data-lt=
-      "reading current permission state">whenever a transition occurs of the
-      permission state</a> of the permission associated with <var>kind</var>,
+      <p>For each kind of device, <var>kind</var>, that {{MediaDevices/getUserMedia()}} exposes, [=permission state|whenever a transition occurs of the
+        permission state=] of the permission associated with <var>kind</var>,
       run the following steps:</p>
       <ol>
         <li>
@@ -2633,9 +2597,8 @@ interface OverconstrainedError : DOMException {
           <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
-      <p>For each device that {{MediaDevices/getUserMedia()}} exposes, <a data-lt=
-      "reading current permission state">whenever a transition occurs of the
-      permission state</a> of the permission associated with the device's kind
+      <p>For each device that {{MediaDevices/getUserMedia()}} exposes, whenever a transition occurs of the
+      [=permission state=] of the permission associated with the device's kind
       and the device's deviceId, <var>deviceId</var>, run the following
       steps:</p>
       <ol>
@@ -2727,7 +2690,7 @@ interface MediaDevices : EventTarget {
               <p>Collects information about the User Agent's available media
               input and output devices.</p>
               <p>This method returns a promise. The promise will be
-              [=fulfilled=] with a sequence of
+              [=upon fulfillment|fulfilled=] with a sequence of
               {{MediaDeviceInfo}} objects representing the
               User Agent's available media input and output devices if
               enumeration is successful.</p>
@@ -3161,7 +3124,7 @@ interface MediaDeviceInfo {
           class="methods">
             <dt><dfn>toJSON</dfn></dt>
             <dd>
-              When called, run [[!WEBIDL]]'s <a>default toJSON steps</a>.
+              When called, run [[WEBIDL]]'s <a>default toJSON steps</a>.
             </dd>
           </dl>
         </section>
@@ -3333,7 +3296,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <var>p</var> be the resulting promise.</p>
                 </li>
                 <li>
-                  <p>Upon <a>fulfillment</a> of <var>p</var> with value
+                  <p>[=upon fulfillment=] of <var>p</var> with value
                   <var>stream</var>, run the following step:</p>
                   <ol>
                     <li>
@@ -3343,7 +3306,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   </ol>
                 </li>
                 <li>
-                  <p>Upon <a>rejection</a> of <var>p</var> with reason
+                  <p>[=Upon rejection=] of <var>p</var> with reason
                   <var>r</var>, run the following step:</p>
                   <ol>
                     <li>
@@ -3412,7 +3375,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               <p>The <var>constraints</var> argument is a dictionary of type
               {{MediaStreamConstraints}}.</p>
               <p>This method returns a promise. The promise will be
-              <a>fulfilled</a> with a suitable {{MediaStream}}
+              [=upon fulfillment|fulfilled=] with a suitable {{MediaStream}}
               object if the user accepts valid tracks as described below.</p>
               <p>The promise will be <a>rejected</a> if there is a failure in
               finding valid tracks or if the user denies permission, as
@@ -3517,7 +3480,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           a fingerprinting surface.</p>
                         </li>
                         <li>
-                          <p><a data-lt="reading current permission state">Read the current permission state</a> for all
+                          <p>Read the current [=permission state=] for all
                           candidate devices in <var>candidateSet</var> that are
                           not attached to a live {{MediaStreamTrack}}
                           in the current browsing context. Remove from
