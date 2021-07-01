@@ -2796,12 +2796,10 @@ interface MediaDevices : EventTarget {
                       run the following sub steps:<p>
                       <ol>
                         <li>
-                          <p>If <var>microphoneList</var> is not empty, let <var>reducedMicrophoneList</var> be a list containing the first item of <var>microphoneList</var>.
-                          Set <var>microphoneList</var> to <var>reducedMicrophoneList</var>.</p>
+                          <p>If <var>microphoneList</var> is not empty, truncate <var>microphoneList</var> to its first item.</p>
                         </li>
                         <li>
-                          <p>If <var>cameraList</var> is not empty, let <var>reducedCameraList</var> be a list containing the first item of <var>cameraList</var>.
-                          Set <var>cameraList</var> to <var>reducedCameraList</var>.</p>
+                          <p>If <var>cameraList</var> is not empty, truncate <var>cameraList</var> to its first item.</p>
                         </li>
                       </ol>
                     </li>
