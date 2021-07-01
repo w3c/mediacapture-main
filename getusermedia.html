@@ -2796,50 +2796,45 @@ interface MediaDevices : EventTarget {
                       run the following sub steps:<p>
                       <ol>
                         <li>
-                          <p>Add to <var>resultList</var> the first item of <var>microphoneList</var> if <var>microphoneList</var> is not empty.</p>
+                          <p>If <var>microphoneList</var> is not empty, truncate <var>microphoneList</var> to its first item.</p>
                         </li>
                         <li>
-                          <p>Add to <var>resultList</var> the first item of <var>cameraList</var> if <var>cameraList</var> is not empty.</p>
+                          <p>If <var>cameraList</var> is not empty, truncate <var>cameraList</var> to its first item.</p>
                         </li>
                       </ol>
                     </li>
                     <li>
-                      <p>Otherwise, run the following steps:<p>
+                      <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
                       <ol>
                         <li>
-                          <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
-                          <ol>
-                            <li>
-                              <p>If <var>device</var> is a microphone or <var>device</var> is a camera,
-                              abort these sub steps and continue with the next device (if any).</p>
-                            </li>
-                            <li>
-                              <p>Run the [=exposure decision algorithm for devices other than camera and microphone=],
-                              with <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input.
-                              If the result of this algorithm is <code>false</code>,
-                              abort these sub steps and continue with the next device (if any).</p>
-                            </li>
-                            <li>
-                              <p>Let <var>deviceInfo</var> be the result of
-                              [=creating a device info object=] to represent <var>device</var>.</p>
-                            </li>
-                            <li>
-                              <p>If <var>device</var> is the system default audio output,
-                              prepend <var>deviceInfo</var> to <var>otherDeviceList</var>.
-                              Otherwise, append <var>deviceInfo</var> to <var>otherDeviceList</var>.</p>
-                            </li>
-                          </ol>
+                          <p>If <var>device</var> is a microphone or <var>device</var> is a camera,
+                          abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
-                          <p>Append to <var>resultList</var> all devices of <var>microphoneList</var> in order.</p>
+                          <p>Run the [=exposure decision algorithm for devices other than camera and microphone=],
+                          with <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input.
+                          If the result of this algorithm is <code>false</code>,
+                          abort these sub steps and continue with the next device (if any).</p>
                         </li>
                         <li>
-                          <p>Append to <var>resultList</var> all devices of <var>cameraList</var> in order.</p>
+                          <p>Let <var>deviceInfo</var> be the result of
+                          [=creating a device info object=] to represent <var>device</var>.</p>
                         </li>
                         <li>
-                          <p>Append to <var>resultList</var> all devices of <var>otherDeviceList</var> in order.</p>
+                          <p>If <var>device</var> is the system default audio output,
+                          prepend <var>deviceInfo</var> to <var>otherDeviceList</var>.
+                          Otherwise, append <var>deviceInfo</var> to <var>otherDeviceList</var>.</p>
                         </li>
                       </ol>
+                    </li>
+                    <li>
+                      <p>Append to <var>resultList</var> all devices of <var>microphoneList</var> in order.</p>
+                    </li>
+                    <li>
+                      <p>Append to <var>resultList</var> all devices of <var>cameraList</var> in order.</p>
+                    </li>
+                    <li>
+                      <p>Append to <var>resultList</var> all devices of <var>otherDeviceList</var> in order.</p>
                     </li>
                     <li>
                       <p>Set <a>[[\storedDeviceList]]</a> to
