@@ -591,6 +591,21 @@ interface MediaStream : EventTarget {
           <code>false</code>.</p>
         </li>
       </ol>
+      <p>At creation of a {{MediaStreamTrack}} object, create an internal slot named <dfn data-dfn-for="MediaStreamTrack" data-dfn-export="">[[\shouldStopSource]]</dfn> on it,
+      initialized to <code>true</code>. When a browsing context, <var>context</var>, goes away, the User Agent MUST run the following steps:
+      <ol>
+        <li>
+          <p>Let <var>globalObject</var> be <var>context</var>'s [=relevant global object=].</p>
+        </li>
+        <li>
+          <p>For each {{MediaStreamTrack}} object <var>track</var> whose [=relevant global object=] is <var>globalObject</var>, run the following steps:
+            <ol>
+              <li><p>Set <var>track</var>.{{MediaStreamTrack/readyState}} to {{MediaStreamTrackState/"ended"}}.</p></li>
+              <li><p>If <var>track</track>.{{MediaStreamTrack/[[shouldStopSource]]}} is <code>true</code>, [= source/stopped | stop =] <var>track</var>'s underlying source.</p></li>
+            </ol>
+        </li>
+      </ol>
+      </p>
       <p>An implementation may use a per-source reference count to keep track
       of source usage, but the specifics are out of scope for this
       specification.</p>
@@ -609,6 +624,10 @@ interface MediaStream : EventTarget {
           <p>Initialize <var>trackClone</var>.{{MediaStreamTrack/id}}
           to a newly
           generated value.</p>
+        </li>
+        <li>
+          <p>Initialize <var>trackClone</var>.{{MediaStreamTrack/[[shouldStopSource]]}} to
+          <var>track</var>.{{MediaStreamTrack/[[shouldStopSource]]}}.</p>
         </li>
         <li>
           <p>Initialize <var>trackClone</var>'s {{MediaStreamTrack/kind}},
@@ -1967,6 +1986,17 @@ interface MediaStreamTrackEvent : Event {
     For example, an &lt;[^img^]&gt; tag scales down a huge source image of
     1600x1200 pixels to fit in a rectangle defined with
     <code>width="400"</code> and <code>height="300"</code>.</p>
+    <p>Sources have a lifetime. By default, a source lifetime is tied
+    to the context that created it. For instance, sources created
+    by {{MediaDevices.getUserMedia()}} are considered as created
+    by its navigator.{{mediaDevices}} context.
+    Similarly, sources of a {{RTCPeerConnection}} object are bound
+    to the {{RTCPeerConnection}} itself, which is bound to its creation context.
+    Except stated explicitly in the definition of specific sources,
+    a source is always [= source/stopped =] when its creation context goes away.
+    It should be noted that two sources, for instance of different contexts may use the same capture
+    device at the same time. Stopping one of the source is independent of stopping the other one.
+    </p>
     <p>The getUserMedia API adds dynamic sources such as microphones and
     cameras - the characteristics of these sources can change in response to
     application needs. These sources can be considered to be dynamic in nature.
