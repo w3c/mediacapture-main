@@ -580,14 +580,14 @@ interface MediaStream : EventTarget {
           <p>Let <var>deviceId</var> be the device's {{MediaDeviceInfo/deviceId}}.</p>
         </li>
         <li>
-          <p>Set <a>[[\devicesLiveMap]]</a>[<var>deviceId</var>] to
+          <p>Set {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
           <code>false</code>.</p>
         </li>
         <li>
           <p>If the [=permission state=]
           of the permission associated with the device's kind and
           <var>deviceId</var>, is not {{PermissionState/"granted"}}, then set
-          <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
+          {{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
           <code>false</code>.</p>
         </li>
       </ol>
@@ -655,7 +655,7 @@ interface MediaStream : EventTarget {
         muted or disabled, and this brings all tracks connected to the device
         to be either muted, disabled, or stopped, then the UA MAY, using the
         device's {{MediaDeviceInfo/deviceId}}, <var>deviceId</var>, set
-        <a>[[\devicesLiveMap]]</a>[<var>deviceId</var>] to <code>false</code>,
+        {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to <code>false</code>,
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
@@ -2547,20 +2547,20 @@ interface OverconstrainedError : DOMException {
           object</a>, run the following steps:</p>
           <ol>
             <li>
-              <p>Create three internal slots: <dfn>[[\devicesLiveMap]]</dfn>,
-              <dfn>[[\devicesAccessibleMap]]</dfn>, and <dfn>[[\kindsAccessibleMap]]</dfn>, each
+              <p>Create three internal slots: <dfn data-dfn-for="MediaDevices">[[\devicesLiveMap]]</dfn>,
+              <dfn data-dfn-for="MediaDevices">[[\devicesAccessibleMap]]</dfn>, and <dfn data-dfn-for="MediaDevices">[[\kindsAccessibleMap]]</dfn>, each
               initialized to a different empty object.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn>[[\storedDeviceList]]</dfn>, initialized
+              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\storedDeviceList]]</dfn>, initialized
               to <code>null</code>.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn>[[\canExposeCameraInfo]]</dfn>, initialized
+              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeCameraInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn>[[\canExposeMicrophoneInfo]]</dfn>, initialized
+              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeMicrophoneInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
           </ol>
@@ -2568,7 +2568,7 @@ interface OverconstrainedError : DOMException {
         <li>
           <p>For each kind of device, <var>kind</var>, that
           {{MediaDevices.getUserMedia()}} exposes, set
-          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> either to <code>true</code>
+          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> either to <code>true</code>
           if the [=permission state=]
           of the permission associated with <var>kind</var> (e.g. {{PermissionName/"camera"}},
           {{PermissionName/"microphone"}}), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
@@ -2577,8 +2577,8 @@ interface OverconstrainedError : DOMException {
           <p>For each individual device that {{MediaDevices.getUserMedia()}}
           exposes, using the device's
           deviceId, <var>deviceId</var>, set
-          <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> to <code>false</code>, and
-          set <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> either to
+          {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> to <code>false</code>, and
+          set {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> either to
           <code>true</code> if the [=permission state=]
           of the permission associated with the device’s kind and
           <var>deviceId</var>, is {{PermissionState/"granted"}}, or to false otherwise.</p>
@@ -2590,11 +2590,11 @@ interface OverconstrainedError : DOMException {
       <ol>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
-          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>true</code>.</p>
+          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from {{PermissionState/"granted"}} to another value, then set
-          <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> to <code>false</code>.</p>
+          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
       <p>For each device that {{MediaDevices/getUserMedia()}} exposes, whenever a transition occurs of the
@@ -2604,13 +2604,13 @@ interface OverconstrainedError : DOMException {
       <ol>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
-          <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to <code>true</code>,
+          {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to <code>true</code>,
           if it isn’t already <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from {{PermissionState/"granted"}} to another value, and the
           device is currently [= source/stopped =], then set
-          <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> to
+          {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
       </ol>
@@ -2624,7 +2624,7 @@ interface OverconstrainedError : DOMException {
       other contexts:</p>
       <ol>
         <li>
-          <p>If <a>[[\storedDeviceList]]</a> already lists the exact same set of
+          <p>If {{MediaDevices/[[storedDeviceList]]}} already lists the exact same set of
           devices in the same order as the list of devices that would be
           generated by a call to {{MediaDevices/enumerateDevices}} now, then
           abort these steps.</p>
@@ -2636,7 +2636,7 @@ interface OverconstrainedError : DOMException {
           </div>
         </li>
         <li>
-          <p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p>
+          <p>Set {{MediaDevices/[[storedDeviceList]]}} to <code>null</code>.</p>
         </li>
         <li>
           <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at the
@@ -2725,11 +2725,11 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li><p>Let <var>resultList</var> be an empty list.</p></li>
                     <li>
-                      <p>If <a>[[\storedDeviceList]]</a> is not <code>null</code>,
+                      <p>If {{MediaDevices/[[storedDeviceList]]}} is not <code>null</code>,
                       run the following sub steps:</p>
                       <ol>
                         <li>
-                          <p>For each {{MediaDeviceInfo}} object in <a>[[\storedDeviceList]]</a>,
+                          <p>For each {{MediaDeviceInfo}} object in {{MediaDevices/[[storedDeviceList]]}},
                           <var>storedDeviceInfo</var>:
                           <ul>
                              <li>
@@ -2837,7 +2837,7 @@ interface MediaDevices : EventTarget {
                       <p>Append to <var>resultList</var> all devices of <var>otherDeviceList</var> in order.</p>
                     </li>
                     <li>
-                      <p>Set <a>[[\storedDeviceList]]</a> to
+                      <p>Set {{MediaDevices/[[storedDeviceList]]}} to
                       <var>resultList</var>.</p>
                     </li>
                     <li>
@@ -2973,7 +2973,7 @@ interface MediaDevices : EventTarget {
             <code>true</code>.</p>
           </li>
           <li>
-            <p>Return <a>[[\canExposeCameraInfo]]</a>.</p>
+            <p>Return {{MediaDevices/[[canExposeCameraInfo]]}}.</p>
           </li>
         </ol>
         <p>To perform a <dfn data-lt="microphone-information-can-be-exposed" id=
@@ -2987,7 +2987,7 @@ interface MediaDevices : EventTarget {
             <code>true</code>.</p>
           </li>
           <li>
-            <p>Return <a>[[\canExposeMicrophoneInfo]]</a>.</p>
+            <p>Return {{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
           </li>
         </ol>
       </section>
@@ -2998,17 +2998,17 @@ interface MediaDevices : EventTarget {
         with a <var>requestedTypes</var> set and <var>value</var> of type boolean, run the following steps:</p>
         <ol>
           <li>
-            <p>If <a>"video"</a> is in <var>requestedTypes</var> and <a>[[\canExposeCameraInfo]]</a> is not <var>value</var>, run the following sub steps:</p>
+            <p>If <a>"video"</a> is in <var>requestedTypes</var> and {{MediaDevices/[[canExposeCameraInfo]]}} is not <var>value</var>, run the following sub steps:</p>
             <ol>
-              <li><p>Set <a>[[\canExposeCameraInfo]]</a> to <var>value</var>.</p></li>
-              <li><p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p></li>
+              <li><p>Set {{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p></li>
+              <li><p>Set {{MediaDevices/[[storedDeviceList]]}} to <code>null</code>.</p></li>
             </ol>
           </li>
           <li>
-            <p>If <a>"audio"</a> is in <var>requestedTypes</var> and <a>[[\canExposeMicrophoneInfo]]</a> is not <var>value</var>, run the following sub steps:</p>
+            <p>If <a>"audio"</a> is in <var>requestedTypes</var> and {{MediaDevices/[[canExposeMicrophoneInfo]]}} is not <var>value</var>, run the following sub steps:</p>
             <ol>
-              <li><p>Set <a>[[\canExposeMicrophoneInfo]]</a> to <var>value</var>.</p></li>
-              <li><p>Set <a>[[\storedDeviceList]]</a> to <code>null</code>.</p></li>
+              <li><p>Set {{MediaDevices/[[canExposeMicrophoneInfo]]}} to <var>value</var>.</p></li>
+              <li><p>Set {{MediaDevices/[[storedDeviceList]]}} to <code>null</code>.</p></li>
             </ol>
           </li>
         </ol>
@@ -3577,10 +3577,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         </li>
                         <li>
                           <p>Using the granted device's deviceId, <var>deviceId</var>, set
-                          <a>[[\devicesLiveMap]]</a>[<var>deviceId</var>] to
+                          {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already <code>true</code>,
                           and set the
-                          <a>[[\devicesAccessibleMap]]</a>[<var>deviceId</var>] to
+                          {{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already
                           <code>true</code>.</p>
                         </li>
@@ -4077,7 +4077,7 @@ try {
       internal slots:</p>
       <ol>
         <li>
-          <p>A <dfn>[[\Capabilities]]</dfn> internal slot, initialized to a
+          <p>A <dfn data-dfn-for="constrainable object">[[\Capabilities]]</dfn> internal slot, initialized to a
           <code>Capabilities</code> dictionary describing the aggregate
           allowable values for each constrainable property exposed, as
           explained under
@@ -4085,11 +4085,11 @@ try {
           if it has none.</p>
         </li>
         <li>
-          <p>A <dfn>[[\Constraints]]</dfn> internal slot, initialized to an
+          <p>A <dfn data-dfn-for="constrainable object">[[\Constraints]]</dfn> internal slot, initialized to an
           empty <code>Constraints</code> dictionary.</p>
         </li>
         <li>
-          <p>A <dfn>[[\Settings]]</dfn> internal slot, initialized to a
+          <p>A <dfn data-dfn-for="constrainable object">[[\Settings]]</dfn> internal slot, initialized to a
           <code>Settings</code> dictionary describing the currently active
           settings values for each constrainable property exposed, as
           explained under <a href="#dom-settings">Settings</a>, or an empty
@@ -4116,7 +4116,7 @@ interface ConstrainablePattern {
               "ConstrainablePattern.getCapabilities">getCapabilities()</dfn>
               method returns the dictionary of the names of the constrainable
               properties that the object supports. When invoked, the User Agent
-              MUST return the value of the <a>[[\Capabilities]]</a> internal
+              MUST return the value of the <a data-link-for="constrainable object" data-link-type="attribute">[[\Capabilities]]</a> internal
               slot.</p>
               <div class="note">
                 <p>It is possible that the underlying hardware may not exactly
@@ -4149,7 +4149,7 @@ interface ConstrainablePattern {
               returning the exact constraints as described above, the UA MAY
               return a constraint set that has the identical effect in all
               situations as the applied constraints. When invoked, the User Agent
-              MUST return the value of the <a>[[\Constraints]]</a> internal slot.
+              MUST return the value of the <a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a> internal slot.
               </p>
             </dd>
             <dt>getSettings</dt>
@@ -4160,7 +4160,7 @@ interface ConstrainablePattern {
               <a>ApplyConstraints algorithm</a>. Note that a setting is a
               target value that complies with constraints, and therefore may
               differ from measured performance at times. When invoked, the User
-              Agent MUST return the value of the <a>[[\Settings]]</a>
+              Agent MUST return the value of the <a data-link-for="constrainable object" data-link-type="attribute">[[\Settings]]</a>
               internal slot.</p>
             </dd>
             <dt>applyConstraints</dt>
@@ -4207,14 +4207,14 @@ interface ConstrainablePattern {
                           existing constraints remain in effect in this case.</p>
                         </li>
                         <li>
-                          <p>Set <var>object</var>'s <a>[[\Constraints]]</a>
+                          <p>Set <var>object</var>'s <a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a>
                           internal slot to <var>newConstraints</var> or a
                           <code>Constraints</code> dictionary that has the
                           identical effect in all situations as
                           <var>newConstraints</var>.</p>
                         </li>
                         <li>
-                          <p>Set <var>object</var>'s <a>[[\Settings]]</a>
+                          <p>Set <var>object</var>'s <a data-link-for="constrainable object" data-link-type="attribute">[[\Settings]]</a>
                           internal slot to <var>successfulSettings</var>.</p>
                         </li>
                         <li>
@@ -4465,7 +4465,7 @@ interface ConstrainablePattern {
                   </p>
                 </li>
                 <li>
-                  <p>Set <var>object</var>'s <a>[[\Settings]]</a> internal
+                  <p>Set <var>object</var>'s <a data-link-for="constrainable object" data-link-type="attribute">[[\Settings]]</a> internal
                   slot to <var>successfulSettings</var>.</p>
                 </li>
               </ol>
@@ -5132,13 +5132,13 @@ window.onload = async () =&gt; {
     <ul>
       <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
       <var>anyAudioAccessible</var>, <var>anyVideoAccessible</var>) as the
-      logical OR of the <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> value and all
-      the <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> values for devices of
+      logical OR of the {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> value and all
+      the {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> values for devices of
       that kind.</li>
       <li>Define any<var>&lt;kind&gt;Live</var> (e.g. <var>anyAudioLive</var>,
       <var>anyVideoLive</var>) to be the logical OR of the
-      <a>[[\kindsAccessibleMap]]</a><var>[kind]</var> value and all the
-      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> values for devices of that
+      {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> value and all the
+      {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> values for devices of that
       kind.</li>
     </ul>
     <p>Define <var>anyAccessible</var> to be the logical OR of all
@@ -5157,8 +5157,8 @@ window.onload = async () =&gt; {
       when the value changes.</li>
       <li>If the User Agent provides indication to the user per
       <var>device</var>, then for each
-      <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> value and
-      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value, it MUST at minimum
+      {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> value and
+      {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> value, it MUST at minimum
       indicate when the value changes.</li>
       <li>Any false-to-true transition indicated MUST remain observable for a
       sufficient time that a reasonably-observant user could become aware of
@@ -5182,11 +5182,11 @@ window.onload = async () =&gt; {
       match the corresponding any<var>&lt;kind&gt;Live</var> value.</li>
       <li>If the User Agent provides indication to the user per
       <var>device</var>, then for each
-      <a>[[\devicesAccessibleMap]]</a><var>[deviceId]</var> value and
-      <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value, it is encouraged to
+      {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> value and
+      {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> value, it is encouraged to
       provide ongoing indication of the current state of the value. It is also
       encouraged to make any device-specific hardware indicator light match the
-      corresponding <a>[[\devicesLiveMap]]</a><var>[deviceId]</var> value.</li>
+      corresponding {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> value.</li>
       <li>Any of the above ongoing indications MAY be used instead of the
       corresponding required transition indication provided the false-to-true
       transition requirement is met.</li>
