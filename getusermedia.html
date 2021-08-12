@@ -591,6 +591,36 @@ interface MediaStream : EventTarget {
           <code>false</code>.</p>
         </li>
       </ol>
+      <p>At creation of any {{MediaStreamTrack}}, its underlying source is initialized.
+      To <dfn>initialize the underlying source</dfn> of a {{MediaStreamTrack}}
+      named <var>track</var> to a source named <var>source</var>, with an optional parameter
+      <var><dfn data-dfn-for="MediaStreamTrack" data-dfn-export="">tieSourceToContext</dfn></var>,
+      which value is <code>true</code> unless specified explicitely,
+      the User Agent MUST run the following steps :</p>
+      <ol>
+        <li><p>Let <var>source</var> be <var>track</var>'s underlying source.</p></li>
+        <li><p>If <var>tieSourceToContext</var> is set to <code>false</code>, abort these steps.</p></li>
+        <li><p>Let <var>globalObject</var> be <var>track</var>'s [=relevant global object=].</p></li>
+        <li><p>Add <var>source</var> to <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}}.</p></li>
+      </ol>
+
+      <p>To <dfn>stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
+      the User Agent MUST run the following steps:</p>
+      <ol>
+        <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
+        <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
+        set <var>track</var>.{{MediaStreamTrack/readyState}} to {{MediaStreamTrackState/"ended"}}.</p></li>
+        <li><p>For each <var>source</var> in <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
+        [= source/stopped | stop =] <var>source</var>.</p></li>
+      </ol>
+      <p>The User Agent MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
+      <ol>
+        <li><p>If <var>globalObject</var> is a {{Window}} object and the [=unloading document cleanup steps=]
+        are executed for its [=associated document=].</p></li>
+        <li><p>If <var>globalObject</var> is a {{WorkerGlobalScope}} object and its
+        <a data-cite="!HTML/workers.html#dom-workerglobalscope-closing">closing</a> flag is set to true.</p></li>
+      </ol>
+
       <p>An implementation may use a per-source reference count to keep track
       of source usage, but the specifics are out of scope for this
       specification.</p>
@@ -619,8 +649,9 @@ interface MediaStream : EventTarget {
           <var>track</var>.</p>
         </li>
         <li>
-          <p>Let <var>trackClone</var>'s underlying source be the source of
-          <var>track</var>.</p>
+          <p>[=Initialize the underlying source=] of <var>trackClone</var> to
+          the source of <var>track</var> with {{MediaStreamTrack/tieSourceToContext}} equal to <code>false</code>.
+          </p>
         </li>
         <li>
           <p>Set <var>trackClone</var>'s constraints to the active constrains
@@ -1967,6 +1998,18 @@ interface MediaStreamTrackEvent : Event {
     For example, an &lt;[^img^]&gt; tag scales down a huge source image of
     1600x1200 pixels to fit in a rectangle defined with
     <code>width="400"</code> and <code>height="300"</code>.</p>
+    <p>Sources have a lifetime. By default, a source lifetime is tied
+    to the context that created it. For instance, sources created
+    by {{MediaDevices.getUserMedia()}} are considered as created
+    by its navigator.{{mediaDevices}} context.
+    Similarly, sources of {{RTCRtpReceiver}} objects are bound
+    to the {{RTCPeerConnection}} itself, which is bound to its creation context.
+    Except if stated explicitly in the definition of specific sources,
+    a source is always [= source/stopped =] when its creation context goes away.
+    It should be noted that two sources of different contexts
+    may use the same capture device at the same time.
+    One source can be stopped independently of the other one.
+    </p>
     <p>The getUserMedia API adds dynamic sources such as microphones and
     cameras - the characteristics of these sources can change in response to
     application needs. These sources can be considered to be dynamic in nature.
@@ -2562,6 +2605,10 @@ interface OverconstrainedError : DOMException {
             <li>
               <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeMicrophoneInfo]]</dfn>, initialized
               to <code>false</code>.</p>
+            </li>
+            <li>
+              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\mediaStreamTrackSources]]</dfn>, initialized
+              to an empty set.</p>
             </li>
           </ol>
         </li>
