@@ -592,9 +592,9 @@ interface MediaStream : EventTarget {
         </li>
       </ol>
       <p>At creation of any {{MediaStreamTrack}}, its underlying source is initialized.
-      To <dfn>initialize the underlying source</dfn> of a {{MediaStreamTrack}}
+      To <dfn data-export data-dfn-for="MediaStreamTrack">initialize the underlying source</dfn> of a {{MediaStreamTrack}}
       named <var>track</var> to a source named <var>source</var>, with an optional parameter
-      <var><dfn data-dfn-for="MediaStreamTrack" data-dfn-export="">tieSourceToContext</dfn></var>,
+      <var><dfn data-dfn-for="MediaStreamTrack/initialize the underlying source" data-dfn-export="">tieSourceToContext</dfn></var>,
       which value is <code>true</code> unless specified explicitely,
       the User Agent MUST run the following steps :</p>
       <ol>
@@ -649,8 +649,8 @@ interface MediaStream : EventTarget {
           <var>track</var>.</p>
         </li>
         <li>
-          <p>[=Initialize the underlying source=] of <var>trackClone</var> to
-          the source of <var>track</var> with {{MediaStreamTrack/tieSourceToContext}} equal to <code>false</code>.
+          <p>[=MediaStreamTrack/Initialize the underlying source=] of <var>trackClone</var> to
+          the source of <var>track</var> with [=MediaStreamTrack/initialize the underlying source/tieSourceToContext=] equal to <code>false</code>.
           </p>
         </li>
         <li>
