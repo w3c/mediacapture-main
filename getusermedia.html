@@ -591,14 +591,16 @@ interface MediaStream : EventTarget {
           <code>false</code>.</p>
         </li>
       </ol>
-      <p>At creation of any {{MediaStreamTrack}}, its underlying source is initialized.
+      <p>At creation of any {{MediaStreamTrack}}, its <dfn>underlying source</dfn>
+      is initialized.
       To <dfn data-export data-dfn-for="MediaStreamTrack">initialize the underlying source</dfn> of a {{MediaStreamTrack}}
       named <var>track</var> to a source named <var>source</var>, with an optional parameter
       <var><dfn data-dfn-for="MediaStreamTrack/initialize the underlying source" data-dfn-export="">tieSourceToContext</dfn></var>,
       which value is <code>true</code> unless specified explicitely,
       the User Agent MUST run the following steps :</p>
       <ol>
-        <li><p>Let <var>source</var> be <var>track</var>'s underlying source.</p></li>
+        <li><p>Set <var>track</var>'s [=underlying source=]</dfn>
+          to <var>source</var>.</p></li>
         <li><p>If <var>tieSourceToContext</var> is set to <code>false</code>, abort these steps.</p></li>
         <li><p>Let <var>globalObject</var> be <var>track</var>'s [=relevant global object=].</p></li>
         <li><p>Add <var>source</var> to <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}}.</p></li>
@@ -654,8 +656,28 @@ interface MediaStream : EventTarget {
           </p>
         </li>
         <li>
-          <p>Set <var>trackClone</var>'s constraints to the active constrains
-          of <var>track</var>.</p>
+          <p>Set <var>trackClone</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Capabilities]]</a> to a clone of
+          <var>track</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Capabilities]]</a>.</p>
+        </li>
+        <li>
+          <p>Set <var>trackClone</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Constraints]]</a> to a clone of
+          <var>track</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Constraints]]</a>.</p>
+        </li>
+        <li>
+          <p>Set <var>trackClone</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Settings]]</a> to a clone of
+          <var>track</var>'s
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Settings]]</a>.</p>
         </li>
         <li>
           <p>Return <var>trackClone</var>.</p>
