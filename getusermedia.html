@@ -603,49 +603,46 @@ interface MediaStream : EventTarget {
       following steps:</p>
       <ol>
         <li>
-          <p>Let <var>track</var> be a new {{MediaStreamTrack}} object.</p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have a
-          <dfn data-dfn-for="MediaStreamTrack">[[\Source]]</dfn> internal slot,
-          initialized to <var>source</var>.</p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have an
-          <dfn data-dfn-for="MediaStreamTrack">[[\Id]]</dfn> internal slot,
-          initialized to a newly generated unique identifier string. See
-          {{MediaStream.id}} attribute for guidelines on how to generate
-          such an identifier.</p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have a
-          <dfn data-dfn-for="MediaStreamTrack">[[\Kind]]</dfn> internal slot,
-          initialized to <dfn><code>"audio"</code></dfn> if <var>source</var> is
-          an audio source, or <dfn><code>"video"</code></dfn> if
-          <var>source</var> is a video source.</p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have a
-          <dfn data-dfn-for="MediaStreamTrack">[[\Label]]</dfn> internal slot,
-          initialized to <var>source</var>'s label, if provided by the User
-          Agent, or <code>""</code> otherwise. User Agents MAY label audio and
-          video sources (e.g., "Internal microphone" or "External USB Webcam").
-          </p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have a
-          <dfn data-dfn-for="MediaStreamTrack">[[\ReadyState]]</dfn> internal
-          slot, initialized to {{MediaStreamTrackState/"live"}}.</p>
-        </li>
-        <li>
-          <p>Let <var>track</var> have the internal slots
-          <a data-link-for="constrainable object"
-             data-link-type="attribute">[[\Capabilities]]</a>,
-          <a data-link-for="constrainable object"
-             data-link-type="attribute">[[\Constraints]]</a>, and
-          <a data-link-for="constrainable object"
-             data-link-type="attribute">[[\Settings]]</a>, all initialized as
-          specified in the {{ConstrainablePattern}}.</p>
+          <p>Let <var>track</var> be a new {{MediaStreamTrack}} object with the
+          following internal slots:</p>
+          <ul>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Source]]</dfn>,
+              initialized to <var>source</var>.</p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Id]]</dfn>,
+              initialized to a newly generated unique identifier string. See
+              {{MediaStream.id}} attribute for guidelines on how to generate
+              such an identifier.</p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Kind]]</dfn>,
+              initialized to <dfn><code>"audio"</code></dfn> if <var>source</var> is
+              an audio source, or <dfn><code>"video"</code></dfn> if
+              <var>source</var> is a video source.</p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Label]]</dfn>,
+              initialized to <var>source</var>'s label, if provided by the User
+              Agent, or <code>""</code> otherwise. User Agents MAY label audio and
+              video sources (e.g., "Internal microphone" or "External USB Webcam").
+              </p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\ReadyState]]</dfn>,
+              initialized to {{MediaStreamTrackState/"live"}}.</p>
+            </li>
+            <li>
+              <a data-link-for="constrainable object"
+                 data-link-type="attribute">[[\Capabilities]]</a>,
+              <a data-link-for="constrainable object"
+                 data-link-type="attribute">[[\Constraints]]</a>, and
+              <a data-link-for="constrainable object"
+                 data-link-type="attribute">[[\Settings]]</a>, all initialized as
+              specified in the {{ConstrainablePattern}}.</p>
+            </li>
+          </ul>
         </li>
         <li>
           <p>If <var>tieSourceToContext</var> is <code>true</code>,
