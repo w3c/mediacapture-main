@@ -634,6 +634,15 @@ interface MediaStream : EventTarget {
               initialized to {{MediaStreamTrackState/"live"}}.</p>
             </li>
             <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Enabled]]</dfn>,
+              initialized to <code>true</code>.</p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaStreamTrack">[[\Muted]]</dfn>,
+              initialized to <code>true</code> if <var>source</var> is
+              [= muted =], and <code>false</code> otherwise.</p>
+            </li>
+            <li>
               <a data-link-for="constrainable object"
                  data-link-type="attribute">[[\Capabilities]]</a>,
               <a data-link-for="constrainable object"
@@ -909,11 +918,13 @@ interface MediaStream : EventTarget {
             question.</p>
           </li>
           <li>
-            <p>If <var>track</var>.{{MediaStreamTrack/muted}} is already
+            <p>If <var>track</var>.<a data-link-for="MediaStreamTrack"
+            data-link-type="attribute">[[\Muted]]</a> is already
             <var>newState</var>, then abort these steps.</p>
           </li>
           <li>
-            <p>Set <var>track</var>.{{MediaStreamTrack/muted}} to
+            <p>Set <var>track</var>.<a data-link-for="MediaStreamTrack"
+              data-link-type="attribute">[[\Muted]]</a> to
             <var>newState</var>.</p>
           </li>
           <li>
@@ -991,19 +1002,19 @@ interface MediaStreamTrack : EventTarget {
             "MediaStreamTrack" class="attributes">
               <dt>{{kind}} of type {{DOMString}}, readonly</dt>
               <dd>
-                <p>On getting, the <dfn>kind</dfn> attribute MUST return
+                <p>The <dfn>kind</dfn> attribute MUST return
                 [=this=].<a data-link-for="MediaStreamTrack"
                   data-link-type="attribute">[[\Kind]]</a>.</p>
               </dd>
               <dt>{{id}} of type {{DOMString}}, readonly</dt>
               <dd>
-                <p>On getting, the <dfn>id</dfn> attribute MUST return
+                <p>The <dfn>id</dfn> attribute MUST return
                 [=this=].<a data-link-for="MediaStreamTrack"
                   data-link-type="attribute">[[\Id]]</a>.</p>
               </dd>
               <dt>{{label}} of type {{DOMString}}, readonly</dt>
               <dd>
-                <p>On getting, the <dfn>label</dfn> attribute MUST return
+                <p>The <dfn>label</dfn> attribute MUST return
                 [=this=].<a data-link-for="MediaStreamTrack"
                   data-link-type="attribute">[[\Label]]</a>.</p>
                </dd>
@@ -1012,8 +1023,13 @@ interface MediaStreamTrack : EventTarget {
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled">enabled</dfn>
                 attribute controls the [= track/enabled =] state for the object.</p>
-                <p>On getting, the attribute MUST return the value to which it
-                was last set. On setting, it MUST be set to the new value.</p>
+                <p>On getting,
+                [=this=].<a data-link-for="MediaStreamTrack"
+                  data-link-type="attribute">[[\Enabled]]</a> MUST be returned.
+                On setting,
+                [=this=].<a data-link-for="MediaStreamTrack"
+                  data-link-type="attribute">[[\Enabled]]</a> MUST be set to the
+                new value.</p>
                 <p class="note">Thus, after a
                 {{MediaStreamTrack}} has [= track/ended =], its {{MediaStreaMtrack/enabled}} attribute
                 still changes value when set; it just doesn't do anything with
@@ -1022,7 +1038,9 @@ interface MediaStreamTrack : EventTarget {
               <dt>{{muted}} of type {{boolean}}, readonly</dt>
               <dd>
                 <p>The <dfn data-idl>muted</dfn> attribute
-                MUST return <code>true</code> if the track is [= track/muted =], and <code>false</code> otherwise.</p>
+                reflects whether the track is [= track/muted =]. It MUST return
+                [=this=].<a data-link-for="MediaStreamTrack"
+                  data-link-type="attribute">[[\Muted]]</a>.</p>
               </dd>
               <dt><dfn>onmute</dfn> of type {{EventHandler}}</dt>
               <dd>
