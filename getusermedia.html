@@ -5175,6 +5175,88 @@ window.onload = async () =&gt; {
     </div>
   </section>
   <section>
+    <h1 id="permissions-integration">Permissions Integration</h1>
+    <p>This specification defines two [=powerful features=] identified by the
+    [=powerful feature/names=] <code>"camera"</code> and <code>"microphone"</code>.</p>
+    <p>It defines the following types and algorithms:</p>
+    <dl>
+      <dt>
+        [=powerful feature/permission descriptor type=]
+      </dt>
+      <dd>
+        <pre class="idl">
+          dictionary DevicePermissionDescriptor : PermissionDescriptor {
+            DOMString deviceId;
+          };
+
+          dictionary CameraDevicePermissionDescriptor : DevicePermissionDescriptor {
+            boolean panTiltZoom = false;
+          };
+        </pre>
+        <p>
+          A permission covers access to the device given in the associated descriptor.
+        </p>
+        <p>
+          If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, its
+          semantic is that it queries for access to all devices of that class. Thus, if a query
+          for the {{PermissionName/"camera"}} permission with no
+          {{DevicePermissionDescriptor/deviceId}} returns {{PermissionState/"granted"}}, the
+          client knows that there will never be a permission prompt for a camera, and if
+          {{PermissionState/"denied"}} is returned, it knows that no getUserMedia request for a
+          camera will succeed.
+        </p>
+        <p>
+          If a permission state is present for access to some, but not all, cameras, a query
+          without the {{DevicePermissionDescriptor/deviceId}} will return
+          {{PermissionState/"prompt"}}.
+        </p>
+        <p>
+          `{name: "camera", panTiltZoom: true}` is [=PermissionDescriptor/stronger than=]
+          `{name: "camera", panTiltZoom: false}`.
+        </p>
+        <p>
+          Note that a "granted" permission is no guarantee that getUserMedia will succeed. It
+          only guarantees that the user will not be prompted for permission. There are many
+          other things (such as constraints or the camera being in use) that can cause
+          getUserMedia to fail.
+        </p>
+      </dd>
+      <dt>
+        [=powerful feature/extra permission data type=]
+      </dt>
+      <dd>
+        A list of {{MediaDeviceInfo/deviceId}} values for the devices the user has made a
+        non-default decision on access to.
+      </dd>
+      <dt>
+        [=powerful feature/permission query algorithm=]
+      </dt>
+      <dd>
+        The permission query algorithm runs the following steps:
+        <ol class="algorithm">
+          <li>If |permissionDesc|.deviceId exists in the [=powerful feature/extra permission
+          data=], set <code>|status|.state</code> to |permissionDesc|'s <a>permission state</a>
+          and terminate these steps.
+          </li>
+          <li>Let <var>global</var> be a copy of |permissionDesc| with the
+          {{DevicePermissionDescriptor/deviceId}} member removed.
+          </li>
+          <li>Set <code>|status|.state</code> to <var>global</var>'s <a>permission state</a>.
+          </li>
+        </ol>
+      </dd>
+      <dt>
+        [=powerful feature/permission revocation algorithm=]
+      </dt>
+      <dd>
+        This is the result of calling the [=device permission revocation algorithm=] passing
+        {{PermissionDescriptor/name}} and {{DevicePermissionDescriptor/deviceId}} as arguments.
+        If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, then
+        <code>undefined</code> is passed in place of {{DevicePermissionDescriptor/deviceId}}.
+      </dd>
+    </dl>
+  </section>
+  <section>
     <h1 id=permissions-policy-integration>Permissions Policy Integration</h1>
     <p>This specification defines two [=policy-controlled feature=]s
     identified by the strings
