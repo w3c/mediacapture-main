@@ -101,7 +101,7 @@
         application via the <a>ConstrainablePattern</a> interface.</p>
         <p>The values of the supported capabilities must be normalized to the
         ranges and enumerated types defined in this specification.</p>
-        <p>A <a data-link-for="MediaStreamTrack">getCapabilities()</a> call on
+        <p>A {{MediaStreamTrack/getCapabilities}} call on
         a track returns the same underlying per-source capabilities for all
         tracks connected to the source.</p>
         <p>Source capabilities are effectively constant. Applications should be
@@ -126,13 +126,13 @@
         ranges of its supported capabilities. Implementations may also adjust
         source settings at any time within the bounds imposed by all applied
         constraints.</p>
-        <p><a data-link-for="MediaDevices">getUserMedia()</a> uses constraints
+        <p>{{MediaDevices/getUserMedia()}} uses constraints
         to help select an appropriate source for a track and configure it.
         Additionally, the <a>ConstrainablePattern</a> interface on tracks
         includes an API for dynamically changing the track's constraints at any
         later time.</p>
-        <p>A track will not be connected to a source using <a data-link-for=
-        "MediaDevices">getUserMedia()</a> if its initial constraints cannot be
+        <p>A track will not be connected to a source using
+        {{MediaDevices/getUserMedia()}} if its initial constraints cannot be
         satisfied. However, the ability to meet the constraints on a track can
         change over time, and constraints can be changed. If circumstances
         change such that constraints cannot be met, the
@@ -308,11 +308,9 @@
       is <dfn data-dfn-for="stream" id="stream-inactive">inactive</dfn>.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for=stream id=
       "stream-audible" data-dfn-for=stream>audible</dfn> when it has at least one
-      {{MediaStreamTrack}} whose <a data-link-for="MediaStreamTrack"
-        data-link-type="attribute">[[\Kind]]</a> is <a>"audio"</a> that
-      has not [= track/ended =]. A
-      {{MediaStream}} that does not have any audio tracks or
-      only has audio tracks that are [= track/ended =] is
+      {{MediaStreamTrack}} whose {{MediaStreamTrack/[[Kind]]}} is <a>"audio"</a>
+      that has not [= track/ended =]. A {{MediaStream}} that does not have any
+      audio tracks or only has audio tracks that are [= track/ended =] is
       <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
       <p>The User Agent may update a {{MediaStream}}'s <a href=
       "#track-set">track set</a> in response to, for example, an external
@@ -448,8 +446,7 @@ interface MediaStream : EventTarget {
               <p>The {{getAudioTracks}}
               method MUST return a sequence that represents a snapshot of all
               the {{MediaStreamTrack}} objects in this stream's
-              [=track set=] whose <a data-link-for="MediaStreamTrack"
-                data-link-type="attribute">[[\Kind]]</a> is equal to
+              [=track set=] whose {{MediaStreamTrack/[[Kind]]}} is equal to
               <a>"audio"</a>. The conversion from the [=track set=] to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
             </dd>
@@ -460,8 +457,7 @@ interface MediaStream : EventTarget {
               <p>The {{getVideoTracks}}
               method MUST return a sequence that represents a snapshot of all
               the {{MediaStreamTrack}} objects in this stream's
-              [=track set=] whose <a data-link-for="MediaStreamTrack"
-                data-link-type="attribute">[[\Kind]]</a> is equal to
+              [=track set=] whose {{MediaStreamTrack/[[Kind]]}} is equal to
               <a>"video"</a>. The conversion from the
               [=track set=] to the sequence is User Agent defined
               and the order does not have to be stable between calls.</p>
@@ -473,9 +469,8 @@ interface MediaStream : EventTarget {
               <p>The {{getTracks}} method
               MUST return a sequence that represents a snapshot of all the
               {{MediaStreamTrack}} objects in this stream's
-              [=track set=], regardless of <a data-link-for="MediaStreamTrack"
-                data-link-type="attribute">[[\Kind]]</a>. The conversion from
-              the [=track set=] to the sequence is User
+              [=track set=], regardless of {{MediaStreamTrack/[[Kind]]}}. The
+              conversion from the [=track set=] to the sequence is User
               Agent defined and the order does not have to be stable between
               calls.</p>
             </dd>
@@ -484,8 +479,7 @@ interface MediaStream : EventTarget {
               <p>The {{getTrackById}}
               method MUST return either a {{MediaStreamTrack}}
               object from this stream's [=track set=]
-              whose <a data-link-for="MediaStreamTrack"
-                data-link-type="attribute">[[\Id]]</a> is
+              whose {{MediaStreamTrack/[[Id]]}} is
               equal to <var>trackId</var>, or <code>null</code>, if no such track
               exists.</p>
             </dd>
@@ -676,8 +670,7 @@ interface MediaStream : EventTarget {
       <ol>
         <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
-        set <var>track</var>'s <a data-link-for="MediaStreamTrack"
-          data-link-type="attribute">[[\ReadyState]]</a> to
+        set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}} to
         {{MediaStreamTrackState/"ended"}}.</p></li>
         <li><p>For each <var>source</var> in <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
         [= source/stopped | stop =] <var>source</var>.</p></li>
@@ -702,8 +695,7 @@ interface MediaStream : EventTarget {
         </li>
         <li>
           <p>Let <var>source</var> be <var>track</var>'s
-          <a data-link-for="MediaStreamTrack"
-             data-link-type="attribute">[[\Source]]</a>.</p>
+          {{MediaStreamTrack/[[Source]]}}.</p>
         </li>
         <li>
           <p>Let <var>trackClone</var> be the result of
@@ -841,14 +833,12 @@ interface MediaStream : EventTarget {
         steps:</p>
         <ol>
           <li>
-            <p>If <var>track</var>'s <a data-link-for="MediaStreamTrack"
-              data-link-type="attribute">[[\ReadyState]]</a>
+            <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
             has the value {{MediaStreamTrackState/"ended"}} already, then abort these
             steps.</p>
           </li>
           <li>
-            <p>Set <var>track</var>'s <a data-link-for="MediaStreamTrack"
-              data-link-type="attribute">[[\ReadyState]]</a>
+            <p>Set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
             to {{MediaStreamTrackState/"ended"}}.</p>
           </li>
           <li>
@@ -918,13 +908,11 @@ interface MediaStream : EventTarget {
             question.</p>
           </li>
           <li>
-            <p>If <var>track</var>.<a data-link-for="MediaStreamTrack"
-            data-link-type="attribute">[[\Muted]]</a> is already
+            <p>If <var>track</var>.{{MediaStreamTrack/[[Muted]]}} is already
             <var>newState</var>, then abort these steps.</p>
           </li>
           <li>
-            <p>Set <var>track</var>.<a data-link-for="MediaStreamTrack"
-              data-link-type="attribute">[[\Muted]]</a> to
+            <p>Set <var>track</var>.{{MediaStreamTrack/[[Muted]]}} to
             <var>newState</var>.</p>
           </li>
           <li>
@@ -1003,20 +991,17 @@ interface MediaStreamTrack : EventTarget {
               <dt>{{kind}} of type {{DOMString}}, readonly</dt>
               <dd>
                 <p>The <dfn>kind</dfn> attribute MUST return
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Kind]]</a>.</p>
+                [=this=].{{MediaStreamTrack/[[Kind]]}}.</p>
               </dd>
               <dt>{{id}} of type {{DOMString}}, readonly</dt>
               <dd>
                 <p>The <dfn>id</dfn> attribute MUST return
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Id]]</a>.</p>
+                [=this=].{{MediaStreamTrack/[[Id]]}}.</p>
               </dd>
               <dt>{{label}} of type {{DOMString}}, readonly</dt>
               <dd>
                 <p>The <dfn>label</dfn> attribute MUST return
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Label]]</a>.</p>
+                [=this=].{{MediaStreamTrack/[[Label]]}}.</p>
                </dd>
               <dt>{{enabled}} of type {{boolean}}</dt>
               <dd>
@@ -1024,11 +1009,9 @@ interface MediaStreamTrack : EventTarget {
                 "dom-mediastreamtrack-enabled">enabled</dfn>
                 attribute controls the [= track/enabled =] state for the object.</p>
                 <p>On getting,
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Enabled]]</a> MUST be returned.
+                [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be returned.
                 On setting,
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Enabled]]</a> MUST be set to the
+                [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be set to the
                 new value.</p>
                 <p class="note">Thus, after a
                 {{MediaStreamTrack}} has [= track/ended =], its {{MediaStreaMtrack/enabled}} attribute
@@ -1039,8 +1022,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The <dfn data-idl>muted</dfn> attribute
                 reflects whether the track is [= track/muted =]. It MUST return
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\Muted]]</a>.</p>
+                [=this=].{{MediaStreamTrack/[[Muted]]}}.</p>
               </dd>
               <dt><dfn>onmute</dfn> of type {{EventHandler}}</dt>
               <dd>
@@ -1053,8 +1035,7 @@ interface MediaStreamTrack : EventTarget {
               <dt>{{readyState}} of type {{MediaStreamTrackState}}, readonly</dt>
               <dd>
                 <p>On getting, the <dfn>readyState</dfn> attribute MUST return
-                [=this=].<a data-link-for="MediaStreamTrack"
-                  data-link-type="attribute">[[\ReadyState]]</a>.</p>
+                [=this=].{{MediaStreamTrack/[[ReadyState]]}}.</p>
               </dd>
               <dt><dfn>onended</dfn> of type {{EventHandler}}</dt>
               <dd>
@@ -1084,8 +1065,7 @@ interface MediaStreamTrack : EventTarget {
                     {{MediaStreamTrack}} object.</p>
                   </li>
                   <li>
-                    <p>If <var>track</var>'s <a data-link-for="MediaStreamTrack"
-                      data-link-type="attribute">[[\ReadyState]]</a>
+                    <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
                     is {{MediaStreamTrackState/"ended"}}, then abort these steps.</p>
                   </li>
                   <li>
@@ -1097,8 +1077,7 @@ interface MediaStreamTrack : EventTarget {
                     it.</p>
                   </li>
                   <li>
-                    <p>Set <var>track</var>'s <a data-link-for="MediaStreamTrack"
-                      data-link-type="attribute">[[\ReadyState]]</a>
+                    <p>Set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
                     to {{MediaStreamTrackState/"ended"}}.</p>
                   </li>
                 </ol>
@@ -1128,8 +1107,7 @@ interface MediaStreamTrack : EventTarget {
                     <p>Let <var>track</var> be the current {{MediaStreamTrack}} object.</p>
                   </li>
                   <li>
-                    <p>If <var>track</var>'s <a data-link-for="MediaStreamTrack"
-                      data-link-type="attribute">[[\ReadyState]]</a>
+                    <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
                     is {{MediaStreamTrackState/"ended"}}, run the following sub steps:</p>
                     <ol>
                       <li><p>Let <var>settings</var> be a new {{MediaTrackSettings}} dictionary.</p></li>
@@ -1158,8 +1136,7 @@ interface MediaStreamTrack : EventTarget {
                     {{MediaStreamTrack}} object.</p>
                   </li>
                   <li>
-                    <p>If <var>track</var>'s <a data-link-for="MediaStreamTrack"
-                      data-link-type="attribute">[[\ReadyState]]</a>
+                    <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
                     is {{MediaStreamTrackState/"ended"}}, run the following sub steps:</p>
                     <ol>
                       <li><p>Let <var>p</var> be a new promise.</p></li>
@@ -3724,8 +3701,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     <li>
                       <p>For each <var>track</var> in <var>stream</var>,
                       [=tie track source to context=] with
-                      <var>track</var>'s <a data-link-for="MediaStreamTrack"
-                      data-link-type="attribute">[[\Source]]</a>.</p>
+                      <var>track</var>'s {{MediaStreamTrack/[[Source]]}}.</p>
                     </li>
                     <li>
                       <p>[=Set the device information exposure=] with <code>requestedMediaTypes</code> and <code>true</code>.</p>
@@ -3795,8 +3771,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <h2>{{MediaStreamConstraints}}</h2>
       <p>The <dfn>MediaStreamConstraints</dfn> dictionary is used to instruct
       the User Agent what sort of {{MediaStreamTrack}}s to include in the
-      <a>MediaStream</a> returned by <a data-link-for=
-      "MediaDevices">getUserMedia()</a>.</p>
+      <a>MediaStream</a> returned by {{MediaDevices/getUserMedia()}}.</p>
       <div>
         <pre class="idl"
 >dictionary MediaStreamConstraints {
@@ -3877,10 +3852,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <span class="practicelab" id="resource-reservation">Resource
         reservation</span>
         <p class="practicedesc">The User Agent is encouraged to reserve
-        resources when it has determined that a given call to <a data-link-for=
-        "MediaDevices">getUserMedia()</a> will be successful. It is preferable
+        resources when it has determined that a given call to
+        {{MediaDevices/getUserMedia()}} will be successful. It is preferable
         to reserve the resource prior to resolving the returned promise.
-        Subsequent calls to <a data-link-for="MediaDevices">getUserMedia()</a>
+        Subsequent calls to {{MediaDevices/getUserMedia()}}
         (in this page or any other) should treat the resource that was
         previously allocated, as well as resources held by other applications,
         as busy. Resources marked as busy should not be provided as sources to
@@ -5339,8 +5314,7 @@ window.onload = async () =&gt; {
   </section>
   <section>
     <h1>Privacy Indicator Requirements</h1>
-    <p>For each <var>kind</var> of device that <a data-link-for=
-    "MediaDevices">getUserMedia()</a> exposes,</p>
+    <p>For each <var>kind</var> of device that {{MediaDevices/getUserMedia()}} exposes,</p>
     <ul>
       <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
       <var>anyAudioAccessible</var>, <var>anyVideoAccessible</var>) as the
