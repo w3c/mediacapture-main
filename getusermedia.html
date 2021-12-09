@@ -887,7 +887,7 @@ interface MediaStream : EventTarget {
         "track-muted">Muted</dfn> refers to the input to the
         {{MediaStreamTrack}}. If live samples are not made
         available to the {{MediaStreamTrack}} it is muted.</p>
-        <p>Muted is out of control for the application, but can be observed by
+        <p>Muted is out of control for the web application, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
         to the associated events {{mute}} and {{unmute}}. There can be
         several reasons for a {{MediaStreamTrack}} to be muted:
@@ -895,6 +895,12 @@ interface MediaStream : EventTarget {
         closing a laptop lid with an embedded camera, the user toggling a
         control in the operating system, the user clicking a mute button in the
         User Agent chrome, the User Agent (on behalf of the user) mutes, etc.</p>
+        <p>On some operating systems, microphone access may
+        get stolen from the User Agent when another application with higher-audio priority gets access to it,
+        for instance in case of an incoming phone call on mobile OS. The User Agent SHOULD provide
+        this information to the web application through {{MediaStreamTrack/muted}} and
+        its associated events.</p>
+
         <p>Whenever the User Agent initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
