@@ -3529,11 +3529,12 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <var>requestedMediaTypes</var>, run the following steps:</p>
                       <ol>
                         <li>
-                          <p>For each possible <var>source</var> for
-                          media of type <var>kind</var>,
-                          [=create a MediaStreamTrack=] with <var>source</var>
-                          and the value <code>false</code>.</p>
-                          <p>Call this set of tracks the
+                          <p>For each possible configuration of each possible
+                          source device of media of type <var>kind</var>, conceive a
+                          <dfn>candidate</dfn> as a placeholder for an eventual
+                          {{MediaStreamTrack}} holding a source device and configured with a <a>settings
+                          dictionary</a> comprised of its specific settings.</p>
+                          <p>Call this set of candidates the
                           <var>candidateSet</var>.</p>
                           <p>If <var>candidateSet</var> is the empty set,
                           [= reject =] <var>p</var> with a new
@@ -3560,9 +3561,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         these steps.</p></li>
                         <li>
                           <p>Run the <a>SelectSettings</a> algorithm on each
-                          track in <var>candidateSet</var> with <var>CS</var>
+                          candidate in <var>candidateSet</var> with <var>CS</var>
                           as the constraint set. If the algorithm returns
-                          <code>undefined</code>, remove the track from
+                          <code>undefined</code>, remove the candidate from
                           <var>candidateSet</var>. This eliminates devices
                           unable to satisfy the constraints, by verifying that
                           at least one settings dictionary exists that
@@ -3586,7 +3587,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           candidate devices in <var>candidateSet</var> that are
                           not attached to a live {{MediaStreamTrack}}
                           in the current browsing context. Remove from
-                          <var>candidateSet</var> any device for which the
+                          <var>candidateSet</var> any candidate whose device's
                           permission state is {{PermissionState/"denied"}}.</p>
                           <p>If <var>candidateSet</var> is now empty,
                           indicating that all devices of this type are in state
@@ -3600,7 +3601,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           Failure</em> below.</p>
                         </li>
                         <li>
-                          <p>Add all tracks from <var>candidateSet</var> to
+                          <p>Add all candidates from <var>candidateSet</var> to
                           <var>finalSet</var>.</p>
                         </li>
                       </ol>
@@ -3639,13 +3640,12 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
-                          <p>Let <var>track</var> be the provided media, which
-                          MUST be precisely one track of type <var>kind</var> from
-                          <var>finalSet</var>. The decision of which track to
+                          <p>Let <var>finalCandidate</var> be the provided media, which
+                          MUST be precisely one candidate of type <var>kind</var> from
+                          <var>finalSet</var>. The decision of which candidate to
                           choose from the <var>finalSet</var> is completely up to
                           the User Agent and may be determined by asking the user.
-                          Once selected, the source of the
-                          {{MediaStreamTrack}} MUST NOT change.</p>
+                          </p>
                           <p>The User Agent SHOULD use the value of the computed
                           <a>fitness distance</a> from the <a>SelectSettings</a>
                           algorithm as an input to the selection algorithm.
@@ -3683,13 +3683,22 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           Otherwise, restart these sub steps with the updated <var>finalSet</var>.</p>
                         </li>
                         <li>
-                          <p>Using the granted device's deviceId, <var>deviceId</var>, set
+                          <p>Let <var>grantedDevice</var> be
+                            <var>finalCandidate</var>'s source device.</p>
+                        <li>
+                          <p>Using <var>grantedDevice</var>'s deviceId, <var>deviceId</var>, set
                           {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already <code>true</code>,
                           and set the
                           {{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already
                           <code>true</code>.</p>
+                        </li>
+                        <li>
+                          <p>Let <var>track</var> be the result of
+                          [=create a MediaStreamTrack|creating a MediaStreamTrack=]
+                          with <var>grantedDevice</var> and the value <code>false</code> for <var>tieSourceToContext</var>.
+                          The source of the {{MediaStreamTrack}} MUST NOT change.</p>
                         </li>
                         <li>
                           <p>Add <var>track</var> to <var>stream</var>'s track set.</p>
