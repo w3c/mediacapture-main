@@ -3640,7 +3640,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
                           <p>Let <var>finalCandidate</var> be the provided media, which
-                          MUST be precisely one candidate of type <var>kind</var> from
+                          MUST be precisely one <a>candidate</a> of type <var>kind</var> from
                           <var>finalSet</var>. The decision of which candidate to
                           choose from the <var>finalSet</var> is completely up to
                           the User Agent and may be determined by asking the user.
@@ -3666,16 +3666,16 @@ interface InputDeviceInfo : MediaDeviceInfo {
                         <li>
                           <p>The result of the request is {{PermissionState/"granted"}}.
                           If a hardware error such as an OS/program/webpage lock prevents access,
-                          remove <var>track</var> from <var>finalSet</var>.
-                          If <var>finalSet</var> has no track of type <var>kind</var>,
+                          remove the corresponding candidate from <var>finalSet</var>.
+                          If <var>finalSet</var> has no candidates of type <var>kind</var>,
                           [= reject =] <var>p</var> with a new
                           {{DOMException}} object whose
                           {{DOMException/name}} attribute has the value
                           {{"NotReadableError"}} and abort these steps.
                           Otherwise, restart these sub steps with the updated <var>finalSet</var>.</p>
                           <p>If device access fails for any reason other than those listed above,
-                          remove <var>track</var> from <var>finalSet</var>.
-                          If <var>finalSet</var> has no track of type <var>kind</var>,
+                          remove the corresponding candidate from <var>finalSet</var>.
+                          If <var>finalSet</var> has no candidates of type <var>kind</var>,
                           [= reject =] <var>p</var> with a new {{DOMException}}
                           object whose {{DOMException/name}} attribute has the
                           value {{"AbortError"}} and abort these steps.
