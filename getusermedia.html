@@ -3527,10 +3527,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>Call this set of candidates the
                           <var>candidateSet</var>.</p>
                           <p>If <var>candidateSet</var> is the empty set,
-                          [= reject =] <var>p</var> with a new
-                          {{DOMException}} object whose
-                          {{DOMException/name}} attribute has the value
-                          {{"NotFoundError"}} and abort these steps.</p>
+                          jump to the step labeled <em>NotFound Failure</em> below.</p>
                         </li>
                         <li>If the value of the <var>kind</var> entry of
                         <var>constraints</var> is <code>true</code>, set <var>CS</var> to
@@ -3712,27 +3709,55 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <p>[=Set the device information exposure=] with <code>requestedMediaTypes</code> and <code>true</code>.</p>
                     </li>
                     <li>
-                      <p>[= resolve =] <var>p</var> with <var>stream</var> and
+                      <p>[= Resolve =] <var>p</var> with <var>stream</var> and
                       abort these steps.</p>
+                    </li>
+                    <li>
+                      <p><em>NotFound Failure</em>:</p>
+                      <ol>
+                        <li><p>
+                          If [=getUserMedia specific failure is allowed=]
+                          given <var>requestedMediaTypes</var>
+                          returns <code>false</code>, jump to the step
+                          labeled <em>Permission Failure</em> below.
+                        </p></li>
+                        <li><p>
+                          [=Reject=] <var>p</var> with a new
+                          {{DOMException}} object whose {{DOMException/name}} attribute
+                          has the value {{"NotFoundError"}}.</p>
+                        </p></li>
+                      </ol>
+                   </li>
+                    <li>
+                      <p><em>Constraint Failure</em>:</p>
+                      <ol>
+                        <li><p>
+                          If [=getUserMedia specific failure is allowed=]
+                          given <var>requestedMediaTypes</var>
+                          returns <code>false</code>, jump to the step
+                          labeled <em>Permission Failure</em> below.
+                        </p></li>
+                        <li><p>
+                          Let <var>message</var> be
+                          either <code>undefined</code> or an informative
+                          human-readable message, let <var>constraint</var> be
+                          <var>failedConstraint</var> if
+                          [=device information can be exposed=] is
+                          <code>true</code>, or <code>""</code> otherwise.
+                        </p></li>
+                        <li><p>
+                          [=Reject=] <var>p</var> with a new
+                          <code>OverconstrainedError</code> created by calling
+                          <code>OverconstrainedError(<var>constraint</var>,
+                          <var>message</var>)</code>.</p>
+                        </p></li>
+                      </ol>
                     </li>
                     <li>
                       <p><em>Permission Failure</em>: [= Reject =]
                       <var>p</var> with a new {{DOMException}}
                       object whose {{DOMException/name}} attribute has the
                       value {{"NotAllowedError"}}.</p>
-                    </li>
-                    <li>
-                      <p><em>Constraint Failure</em>: Let <var>message</var> be
-                      either <code>undefined</code> or an informative
-                      human-readable message, let <var>constraint</var> be
-                      <var>failedConstraint</var> if
-                      [=device information can be exposed=] is
-                      <code>true</code>, or <code>""</code> otherwise,
-                      and then [=reject=]
-                      <var>p</var> with a new <code>OverconstrainedError</code>
-                      created by calling
-                      <code>OverconstrainedError(<var>constraint</var>,
-                      <var>message</var>)</code>.</p>
                     </li>
                   </ol>
                 </li>
@@ -3743,6 +3768,20 @@ interface InputDeviceInfo : MediaDeviceInfo {
             </dd>
           </dl>
         </section>
+      </div>
+      <div>
+        <p>To check whether <dfn data-lt="getUserMedia-specific-failure-is-allowed" id=
+        "getUserMedia-specific-failure-is-allowed">getUserMedia specific failure is allowed</dfn>,
+        given <var>requestedMediaTypes</var>, run the following steps:</p>
+        <ol>
+          <li><p>If <var>requestedMediaTypes</var> contains "audio", read the [=permission state=]
+            for the descriptor whose name is "microphone". If the result of the request is
+            {{PermissionState/"denied"}}, return <code>false</code>.</p></li>
+         <li><p>If <var>requestedMediaTypes</var> contains "video", read the [=permission state=]
+            for the descriptor whose name is "camera". If the result of the request is
+            {{PermissionState/"denied"}}, return <code>false</code>.</p></li>
+         <li><p>Return <code>true</code>.</p></li>
+        </ol>
       </div>
       <div class="note">
         <p>In the algorithm above, constraints are checked twice - once at
