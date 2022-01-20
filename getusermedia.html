@@ -3495,11 +3495,26 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>If the [=relevant settings object=]'s
-                  [=environment settings object/responsible document=] is NOT
+                  <p>Let <var>document</var> be the [=relevant settings object=]'s
+                  [=environment settings object/responsible document=].</p>
+                </li>
+                <li>
+                  <p>If <var>document</var> is NOT
                   [=Document/fully active=], return a promise <a>rejected</a>
                   with a {{DOMException}} object whose {{DOMException/name}}
                   attribute has the value {{"InvalidStateError"}}.</p>
+                </li>
+                <li>
+                  <p>If <var>requestedMediaTypes</var> contains "audio" and
+                    <var>document</var> is not [=allowed to use=] the
+                    feature identified by the "microphone" permission name,
+                    jump to the step labeled <em>Permission Failure</em> below.</p>
+                </li>
+                <li>
+                  <p>If <var>requestedMediaTypes</var> contains "video" and
+                    <var>document</var> is not [=allowed to use=] the
+                    feature identified by the "camera" permission name,
+                    jump to the step labeled <em>Permission Failure</em> below.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
