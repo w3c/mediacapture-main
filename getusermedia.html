@@ -5453,11 +5453,10 @@ window.onload = async () =&gt; {
     applications, and this specification requires obtaining explicit user
     consent before sharing it.</p>
     <p>Without authorization (to the "drive-by web"), it offers the ability to
-    tell how many devices there are of each class, and how they are grouped
-    together (e.g. a microphone and camera belonging to a single Web cam). The
+    tell whether the user has a camera or a microphone (but not how many). The
     identifiers for the devices are designed to not be useful for a fingerprint
-    that can track the user between origins, but the number and grouping of
-    devices adds to the fingerprint surface. It recommends to treat the
+    that can track the user between origins, but the presence of camera or
+    microphone ability adds two bits to the fingerprint surface. It recommends to treat the
     per-origin persistent identifier {{MediaDeviceInfo/deviceId}} as other persistent
     storage (e.g. cookies) are treated.</p>
     <p>When authorization is given, this document describes how to get access
@@ -5475,6 +5474,14 @@ window.onload = async () =&gt; {
     cases, the labels are persistent across browsing sessions and across
     origins that have also been granted authorization, and thus potentially
     provide a way to track a given device across time and origins.</p>
+    <p class="note">
+    This specification exposes device information of devices other than those in
+    use. This is for backwards compatibility and legacy reasons. Future
+    specifications are adviced to not use this model and instead follow
+    best practices as described in the
+    <a href="https://w3ctag.github.io/design-principles/#device-enumeration">
+    device enumeration design principles</a>.
+    </p>
     <p>For origins to which permission has been granted, the
     <a data-link-type=event>devicechange</a> event will be emitted across browsing
     contexts and origins each time a new media device is added or removed; user
