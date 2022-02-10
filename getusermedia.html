@@ -2837,10 +2837,6 @@ interface MediaDevices : EventTarget {
                     <li>
                       <p>The User Agent MUST wait to proceed to the next step until
                       [=device enumeration can proceed=] is <code>true</code>.</p>
-                      <p>The User Agent MAY wait to proceed to the next step
-                      until <var>document</var> is [=Document/fully active=]
-                      and <a data-cite="!HTML/#gains-focus">has
-                      focus.</a></p>
                     </li>
                     <li>
                       <p>Let <var>resultList</var> be the result of
@@ -3039,8 +3035,8 @@ interface MediaDevices : EventTarget {
         run the following steps:</p>
         <ol>
           <li>
-            <p>If [=device information can be exposed=] is <code>true</code>,
-            return <code>true</code>.</p>
+            <p>The User Agent MAY return <code>true</code> if
+            [=device information can be exposed=] is <code>true</code>.
           </li>
           <li>
             <p>If the [=relevant settings object=]'s [=environment settings
