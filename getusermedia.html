@@ -698,9 +698,12 @@ interface MediaStream : EventTarget {
           {{MediaStreamTrack/[[Source]]}}.</p>
         </li>
         <li>
-          <p>Let <var>trackClone</var> be the result of
-          [=create a MediaStreamTrack | creating a MediaStreamTrack=] with
-          <var>source</var> and the value <code>false</code>.
+          <p>
+            Let <var>trackClone</var> be the result of
+            [=create a MediaStreamTrack | creating a MediaStreamTrack=] with
+            <var>source</var> and the value <code>false</code>.
+            <var>trackClone</var> MUST be of the same sub-type of
+            {{MediaStreamTrack}} as <var>track</var>.
           </p>
         </li>
         <li>
