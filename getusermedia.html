@@ -62,7 +62,7 @@
         <p>Sources <strong>do not</strong> have constraints — tracks have
         constraints. When a source is connected to a track, it must produce
         media that conforms to the constraints present on that track, to that
-        track. Multiple tracks can be attached to the same source. User Agent
+        track. Multiple tracks can be attached to the same source. [=User Agent=]
         processing, such as downsampling, MAY be used to ensure that all tracks
         have appropriate media.</p>
         <p>Sources have constrainable properties which have
@@ -154,7 +154,7 @@
         using the <code><a href="#dom-constraints-advanced">advanced</a></code>
         keyword.</li>
         </ul>
-        <p>In general, User Agents will have more flexibility to optimize the
+        <p>In general, [=User Agent=]s will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use <a>required
         constraints</a> sparingly.</p>
@@ -168,7 +168,7 @@
       <p>The two main components in the MediaStream API are the
       {{MediaStreamTrack}} and {{MediaStream}} interfaces. The
       {{MediaStreamTrack}} object represents media of a single
-      type that originates from one media source in the User Agent, e.g. video
+      type that originates from one media source in the [=User Agent=], e.g. video
       produced by a web camera. A {{MediaStream}} is used to
       group several {{MediaStreamTrack}} objects into one unit
       that can be recorded or rendered in a media element.</p>
@@ -311,7 +311,7 @@
       that has not [= track/ended =]. A {{MediaStream}} that does not have any
       audio tracks or only has audio tracks that are [= track/ended =] is
       <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
-      <p>The User Agent may update a {{MediaStream}}'s <a href=
+      <p>The [=User Agent=] may update a {{MediaStream}}'s <a href=
       "#track-set">track set</a> in response to, for example, an external
       event. This specification does not specify any such cases, but other
       specifications using the MediaStream API may. One such example is the
@@ -319,8 +319,8 @@
       "#track-set">track set</a> of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
-      <p>To <dfn id="add-track">add a track</dfn> <var>track</var> to a
-      {{MediaStream}} <var>stream</var>, the User Agent MUST
+      <p>To <dfn data-dfn-type="abstract-op" id="add-track">add a track</dfn> <var>track</var> to a
+      {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
         <li>
@@ -332,12 +332,12 @@
           "#track-set">track set</a>.</p>
         </li>
         <li>
-          <p>Fire a track event named {{addtrack}} with
+          <p>[= Fire a track event=] named {{addtrack}} with
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
-      <p>To <dfn id="remove-track">remove a track</dfn> <var>track</var> from a
-      {{MediaStream}} <var>stream</var>, the User Agent MUST
+      <p>To <dfn data-dfn-type="abstract-op" id="remove-track">remove a track</dfn> <var>track</var> from a
+      {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
         <li>
@@ -349,7 +349,7 @@
           "#track-set">track set</a>.</p>
         </li>
         <li>
-          <p>Fire a track event named {{removetrack}} with
+          <p>[= Fire a track event =] named {{removetrack}} with
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
@@ -446,7 +446,7 @@ interface MediaStream : EventTarget {
               method MUST return a sequence that represents a snapshot of all
               the {{MediaStreamTrack}} objects in this stream's
               [=track set=] whose {{MediaStreamTrack/[[Kind]]}} is equal to
-              <a>"audio"</a>. The conversion from the [=track set=] to the sequence is User Agent defined
+              <a>"audio"</a>. The conversion from the [=track set=] to the sequence is [=User Agent=] defined
               and the order does not have to be stable between calls.</p>
             </dd>
             <dt><dfn id="dom-mediastream-getvideotracks">getVideoTracks</dfn></dt>
@@ -458,7 +458,7 @@ interface MediaStream : EventTarget {
               the {{MediaStreamTrack}} objects in this stream's
               [=track set=] whose {{MediaStreamTrack/[[Kind]]}} is equal to
               <a>"video"</a>. The conversion from the
-              [=track set=] to the sequence is User Agent defined
+              [=track set=] to the sequence is [=User Agent=] defined
               and the order does not have to be stable between calls.</p>
             </dd>
             <dt><dfn id="dom-mediastream-gettracks">getTracks</dfn></dt>
@@ -487,7 +487,7 @@ interface MediaStream : EventTarget {
               <p>Adds the given {{MediaStreamTrack}} to this
               {{MediaStream}}.</p>
               <p>When the {{addTrack}} method is
-              invoked, the User Agent MUST run the following steps:</p>
+              invoked, the [=User Agent=] MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>track</var> be the methods argument and
@@ -509,7 +509,7 @@ interface MediaStream : EventTarget {
               <p>Removes the given {{MediaStreamTrack}} object
               from this {{MediaStream}}.</p>
               <p>When the {{removeTrack}}
-              method is invoked, the User Agent MUST run the following
+              method is invoked, the [=User Agent=] MUST run the following
               steps:</p>
               <ol>
                 <li>
@@ -556,8 +556,8 @@ interface MediaStream : EventTarget {
     <section>
       <h2>{{MediaStreamTrack}}</h2>
       <p>A {{MediaStreamTrack}} object represents a media
-      source in the User Agent. An example source is a device connected to the
-      User Agent. Other specifications may define sources for
+      source in the [=User Agent=]. An example source is a device connected to the
+      [=User Agent=]. Other specifications may define sources for
       {{MediaStreamTrack}} that override the behavior specified
       here. Several {{MediaStreamTrack}} objects can represent
       the same media source, e.g., when the user chooses the same camera in the
@@ -565,7 +565,7 @@ interface MediaStream : EventTarget {
       <p>The data from a {{MediaStreamTrack}} object does not
       necessarily have a canonical binary form; for example, it could just be
       "the video currently coming from the user's video camera". This allows
-      User Agents to manipulate media in whatever fashion is most suitable on
+      [=User Agent=]s to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
       <p>A script can indicate that a {{MediaStreamTrack}}
       object no longer needs its source with the {{MediaStreamTrack/stop()}}
@@ -618,7 +618,7 @@ interface MediaStream : EventTarget {
             <li>
               <p><dfn data-dfn-for="MediaStreamTrack">[[\Label]]</dfn>,
               initialized to <var>source</var>'s label, if provided by the User
-              Agent, or <code>""</code> otherwise. User Agents MAY label audio and
+              Agent, or <code>""</code> otherwise. [=User Agent=]s MAY label audio and
               video sources (e.g., "Internal microphone" or "External USB Webcam").
               </p>
             </li>
@@ -665,7 +665,7 @@ interface MediaStream : EventTarget {
       </ol>
 
       <p>To <dfn>stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
-      the User Agent MUST run the following steps:</p>
+      the [=User Agent=] MUST run the following steps:</p>
       <ol>
         <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
@@ -674,7 +674,7 @@ interface MediaStream : EventTarget {
         <li><p>For each <var>source</var> in <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
         [= source/stopped | stop =] <var>source</var>.</p></li>
       </ol>
-      <p>The User Agent MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
+      <p>The [=User Agent=] MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
       <ol>
         <li><p>If <var>globalObject</var> is a {{Window}} object and the [=unloading document cleanup steps=]
         are executed for its [=associated document=].</p></li>
@@ -685,7 +685,7 @@ interface MediaStream : EventTarget {
       <p>An implementation may use a per-source reference count to keep track
       of source usage, but the specifics are out of scope for this
       specification.</p>
-      <p>To <dfn id="track-clone">clone a track</dfn> the User Agent MUST run
+      <p>To <dfn id="track-clone">clone a track</dfn> the [=User Agent=] MUST run
       the following steps:</p>
       <ol>
         <li>
@@ -805,8 +805,8 @@ interface MediaStream : EventTarget {
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
-        the operating system / User Agent chrome. A track can also be muted by the
-        User Agent.</p>
+        the operating system / [=User Agent=] chrome. A track can also be muted by the
+        [=User Agent=].</p>
         <p>Applications are able to [= track/enabled | enable =] or
         disable a {{MediaStreamTrack}} to prevent it from
         rendering media from the source. A muted track will however, regardless
@@ -832,7 +832,7 @@ interface MediaStream : EventTarget {
         <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
         <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
-        invoked</dfn>, the User Agent MUST queue a task that runs the following
+        invoked</dfn>, the [=User Agent=] MUST queue a task that runs the following
         steps:</p>
         <ol>
           <li>
@@ -855,8 +855,7 @@ interface MediaStream : EventTarget {
         </ol>
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
-        <p>To invoke the <dfn data-export="">device permission revocation algorithm</dfn> with
-        {{PermissionName}} <var>permissionName</var> and
+        <p>To invoke the <dfn data-export="">device permission revocation algorithm</dfn> with <var>permissionName</var> and
         {{DevicePermissionDescriptor/deviceId}} <var>deviceId</var>, run the
         following steps:</p>
         <ol>
@@ -871,8 +870,7 @@ interface MediaStream : EventTarget {
               </li>
               <li>
                 If <var>deviceId</var> is <code>undefined</code>, tracks whose
-                permission associated with this kind of track (e.g.
-                {{PermissionName/"camera"}}, {{PermissionName/"microphone"}})
+                permission associated with this kind of track [="camera"=], [="microphone"=]
                 matches <var>permissionName</var>
               </li>
             </ul>
@@ -897,20 +895,20 @@ interface MediaStream : EventTarget {
         the user pushing a physical mute button on the microphone, the user
         closing a laptop lid with an embedded camera, the user toggling a
         control in the operating system, the user clicking a mute button in the
-        User Agent chrome, the User Agent (on behalf of the user) mutes, etc.</p>
+        [=User Agent=] chrome, the [=User Agent=] (on behalf of the user) mutes, etc.</p>
         <p>On some operating systems, microphone access may
-        get stolen from the User Agent when another application with higher-audio priority gets access to it,
-        for instance in case of an incoming phone call on mobile OS. The User Agent SHOULD provide
+        get stolen from the [=User Agent=] when another application with higher-audio priority gets access to it,
+        for instance in case of an incoming phone call on mobile OS. The [=User Agent=] SHOULD provide
         this information to the web application through {{MediaStreamTrack/muted}} and
         its associated events.</p>
 
-        <p>Whenever the User Agent initiates such a change, it MUST queue a
+        <p>Whenever the [=User Agent=] initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
         <p>To <dfn data-export id="set-track-muted">set a track's muted state</dfn> to
-        <var>newState</var>, the User Agent MUST run the following steps:</p>
+        <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
         <ol>
           <li>
             <p>Let <var>track</var> be the {{MediaStreamTrack}} in
@@ -1110,7 +1108,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>getSettings</dfn></dt>
               <dd>
                 <p>When a {{MediaStreamTrack}} object's {{MediaStreamTrack.getSettings()}} method is invoked,
-                the User Agent MUST run following steps:</p>
+                the [=User Agent=] MUST run following steps:</p>
                 <ol>
                   <li>
                     <p>Let <var>track</var> be the current {{MediaStreamTrack}} object.</p>
@@ -1167,7 +1165,7 @@ interface MediaStreamTrack : EventTarget {
                           <li>
                             <a>settings dictionary</a> refers to a possible
                             instance of the {{MediaTrackSettings}}
-                            dictionary. The User Agent MUST NOT include inherent
+                            dictionary. The [=User Agent=] MUST NOT include inherent
                             unchangeable device properties as members unless
                             they are in the <a>list of inherent constrainable
                             track properties</a>, or otherwise include
@@ -1236,7 +1234,7 @@ interface MediaStreamTrack : EventTarget {
       <section id="media-track-supported-constraints">
         <h2><dfn>MediaTrackSupportedConstraints</dfn></h2>
         <p>{{MediaTrackSupportedConstraints}} represents the
-        list of constraints recognized by a User Agent for controlling the
+        list of constraints recognized by a [=User Agent=] for controlling the
         <a>Capabilities</a> of a {{MediaStreamTrack}} object.
         This dictionary is used as a function return value, and never as an
         operation argument.</p>
@@ -1399,7 +1397,7 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>resizeMode</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
               <dd>
-                <p>The User Agent MAY use cropping and downscaling to offer
+                <p>The [=User Agent=] MAY use cropping and downscaling to offer
                 more resolution choices than this camera naturally produces.
                 The reported sequence MUST list all the means the UA may employ
                 to derive resolution choices for this camera. The value {{VideoResizeModeEnum/"none"}}
@@ -1733,7 +1731,7 @@ interface MediaStreamTrack : EventTarget {
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
               min being equal to 1 and max being the largest
-              width. The User Agent MUST support downsampling to any value
+              width. The [=User Agent=] MUST support downsampling to any value
               between the min width range value and the native resolution width.</td>
             </tr>
             <tr id="def-constraint-height">
@@ -1742,7 +1740,7 @@ interface MediaStreamTrack : EventTarget {
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
               min being equal to 1 and max being the largest
-              height. The User Agent MUST support downsampling to any value
+              height. The [=User Agent=] MUST support downsampling to any value
               between the min height range value and the native resolution height.</td>
             </tr>
             <tr id="def-constraint-frameRate">
@@ -1752,12 +1750,12 @@ interface MediaStreamTrack : EventTarget {
               If video source's pre-set can determine frame rate values, the range, as a capacity,
               should span the video source's pre-set frame rate values with
               min being equal to 0 and max being the largest frame rate.
-              The User Agent MUST support frame rates obtained from
+              The [=User Agent=] MUST support frame rates obtained from
               integral decimation of the native resolution frame rate.
               If this frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
               determined from the source stream), then this value MUST refer to
-              the User Agent's vsync display rate.</td>
+              the [=User Agent=]'s vsync display rate.</td>
             </tr>
             <tr id="def-constraint-aspect">
               <td><dfn>aspectRatio</dfn></td>
@@ -1813,7 +1811,7 @@ interface MediaStreamTrack : EventTarget {
         Agent for the particular system.</p>
         <div class="note">
           <p>On systems that support automatic switching between landscape and
-          portrait mode, User Agents are encouraged to make landscape mode the
+          portrait mode, [=User Agent=]s are encouraged to make landscape mode the
           <a>primary orientation</a>.</p>
         </div>
         <div>
@@ -1897,8 +1895,8 @@ interface MediaStreamTrack : EventTarget {
                 "idl-def-VideoResizeModeEnum.right">crop-and-scale</dfn></td>
                 <td>
                   <p>This resolution is downscaled and/or cropped from a higher
-                  camera resolution by the User Agent, or its frame rate is
-                  decimated by the User Agent. The media MUST NOT be
+                  camera resolution by the [=User Agent=], or its frame rate is
+                  decimated by the [=User Agent=]. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
                   occur in the input source.</p>
                 </td>
@@ -1989,7 +1987,7 @@ interface MediaStreamTrack : EventTarget {
       {{MediaStreamTrackEvent}} interface.</p>
       <p>The {{addtrack}} and {{removetrack}} events notify
       the script that the [=track set=] of a
-      {{MediaStream}} has been updated by the User Agent.</p>
+      {{MediaStream}} has been updated by the [=User Agent=].</p>
       <p><dfn data-lt="Fire a track event">Firing a track event named
       <var>e</var></dfn> with a {{MediaStreamTrack}}
       <var>track</var> means that an event with the name <var>e</var>, which
@@ -2050,7 +2048,7 @@ interface MediaStreamTrackEvent : Event {
   <section class="informative" id=
   "the-model-sources-sinks-constraints-and-settings"  data-cite="?webrtc">
     <h2>The model: sources, sinks, constraints, and settings</h2>
-    <p>User Agents provide a media pipeline from sources to sinks. In a User Agent,
+    <p>[=User Agent=]s provide a media pipeline from sources to sinks. In a [=User Agent=],
     sinks are the &lt;[^img^]&gt;, &lt;[^video^]&gt;, and &lt;[^audio^]&gt; tags.
     Traditional sources include streamed content, files, and web resources. The
     media produced by these sources typically does not change over time - these
@@ -2171,7 +2169,7 @@ interface MediaStreamTrackEvent : Event {
     "Changing media stream sinks may affect sources: before the requested change"
     src="images/change_states_before2.svg">
     <p>When the application changes sink A to a smaller dimension (from 1920 to
-    1024 pixels wide and from 1200 to 768 pixels tall), the User Agent's media
+    1024 pixels wide and from 1200 to 768 pixels tall), the [=User Agent=]'s media
     pipeline may recognize that none of its sinks require the higher source
     resolution, and needless work is being done both on the part of the source
     and sink A. In such a case and without any other constraints forcing the
@@ -2220,7 +2218,7 @@ interface MediaStreamTrackEvent : Event {
     media element is <a data-cite="!HTML/#potentially-playing">
     potentially playing</a>. The timeline does not increment when
     the playout of the {{MediaStream}} is paused.</p>
-    <p>User Agents that support this specification MUST support the
+    <p>[=User Agent=]s that support this specification MUST support the
     {{HTMLMediaElement/srcObject}}
     attribute of the {{HTMLMediaElement}} interface defined in
     [[HTML]], which includes support for playing {{MediaStream}}
@@ -2238,7 +2236,7 @@ interface MediaStreamTrackEvent : Event {
         initialized to <code>"main"</code> and the <code>language</code> attribute to the
         empty string</p>
       </li>
-      <li>The User Agent MUST always play the current data from the
+      <li>The [=User Agent=] MUST always play the current data from the
       {{MediaStream}} and MUST NOT buffer.</li>
       <li>
         <p>Since the order in the {{MediaStream}} 's [=track set=] is undefined, no requirements are put on how
@@ -2249,7 +2247,7 @@ interface MediaStreamTrackEvent : Event {
       <li>
         <p>If the element is an {{HTMLVideoElement}}, then it is said
         to have <a data-cite="!HTML/#ended-playback">ended playback</a> when it
-        has <dfn>ended video playback</dfn>, which is when:</p>
+        has ended video playback, which is when:</p>
         <ol>
           <li>
             <p>The element's
@@ -2285,7 +2283,7 @@ interface MediaStreamTrackEvent : Event {
       <li>
         <p>If the element is an {{HTMLAudioElement}}, then it is said
         to have <a data-cite="!HTML/#ended-playback">ended playback</a> when it
-        has <dfn>ended audio playback</dfn>, which is when:</p>
+        has ended audio playback, which is when:</p>
         <ol>
           <li>
             <p>The element's
@@ -2606,7 +2604,7 @@ interface OverconstrainedError : DOMException {
           <td><dfn id=
           "event-mediadevices-devicechange" data-dfn-type=event>devicechange</dfn></td>
           <td>{{Event}}</td>
-          <td>The set of media devices, available to the User Agent, has
+          <td>The set of media devices, available to the [=User Agent=], has
           changed. The current list devices can be retrieved with the
           {{MediaDevices/enumerateDevices()}}
           method.</td>
@@ -2643,7 +2641,7 @@ interface OverconstrainedError : DOMException {
       <h3>{{MediaDevices}}</h3>
       <p>The <dfn>MediaDevices</dfn> object is the entry point
       to the API used to examine and get access to media devices available to
-      the User Agent.</p>
+      the [=User Agent=].</p>
       <p>On page load, run the following steps:</p>
       <ol>
         <li>
@@ -2659,7 +2657,7 @@ interface OverconstrainedError : DOMException {
             <li>
               <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\storedDeviceList]]</dfn>, initialized
               to the list of all media input and/or output devices available
-              to the User Agent.</p>
+              to the [=User Agent=].</p>
             </li>
             <li>
               <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeCameraInfo]]</dfn>, initialized
@@ -2680,8 +2678,8 @@ interface OverconstrainedError : DOMException {
           {{MediaDevices.getUserMedia()}} exposes, set
           {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> either to <code>true</code>
           if the [=permission state=]
-          of the permission associated with <var>kind</var> (e.g. {{PermissionName/"camera"}},
-          {{PermissionName/"microphone"}}), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
+          of the permission associated with <var>kind</var> (e.g. [="camera"=],
+          [="microphone"=]), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
         </li>
         <li>
           <p>For each individual device that {{MediaDevices.getUserMedia()}}
@@ -2725,9 +2723,9 @@ interface OverconstrainedError : DOMException {
         </li>
       </ol>
       <p>When new media input and/or output devices are made available to the
-      User Agent, or any available input and/or output device becomes
+      [=User Agent=], or any available input and/or output device becomes
       unavailable, or the system default for input and/or output devices of a
-      {{MediaDeviceKind}} changed, the User Agent MUST run the following
+      {{MediaDeviceKind}} changed, the [=User Agent=] MUST run the following
       <dfn>device change notification steps</dfn> for each {{MediaDevices}}
       object for which [=device enumeration can proceed=] is <code>true</code>,
       but for no other {{MediaDevices}} object:</p>
@@ -2741,7 +2739,7 @@ interface OverconstrainedError : DOMException {
         </li>
         <li>
           <p>Let <var>deviceList</var> be the list of all media input and/or
-          output devices available to the User Agent.</p>
+          output devices available to the [=User Agent=].</p>
         </li>
         <li>
           <p>Let <var>newExposedDevices</var> be the result of
@@ -2767,19 +2765,19 @@ interface OverconstrainedError : DOMException {
         <li>
           <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at the
           {{MediaDevices}} object.</p>
-          <p>The User Agent MAY combine firing multiple events into firing one
+          <p>The [=User Agent=] MAY combine firing multiple events into firing one
           event when several events are due or when multiple devices are added
           or removed at the same time, e.g. a camera with a microphone.</p>
         </li>
       </ol>
       <p>Additionally, if a {{MediaDevices}} object that was traversed comes
       to meet the [=device enumeration can proceed=] criteria later (e.g.
-      <a data-cite="!HTML/#gains-focus">gains focus</a>), the User Agent MUST
+      <a data-cite="!HTML/#gains-focus">gains focus</a>), the [=User Agent=] MUST
       execute the [=device change notification steps=] on the {{MediaDevices}}
       object at that time.</p>
       <div class="note">
         <p class="fingerprint">These events are potentially triggered
-        simultaneously on documents of different origins. User Agents MAY add
+        simultaneously on documents of different origins. [=User Agent=]s MAY add
         fuzzing on the timing of events to avoid cross-origin activity
         correlation.</p>
       </div>
@@ -2806,12 +2804,12 @@ interface MediaDevices : EventTarget {
           "methods">
             <dt><dfn>enumerateDevices</dfn></dt>
             <dd>
-              <p>Collects information about the User Agent's available media
+              <p>Collects information about the [=User Agent=]'s available media
               input and output devices.</p>
               <p>This method returns a promise. The promise will be
               [=upon fulfillment|fulfilled=] with a sequence of
               {{MediaDeviceInfo}} objects representing the
-              User Agent's available media input and output devices if
+              [=User Agent=]'s available media input and output devices if
               enumeration is successful.</p>
               <p>Elements of this sequence that represent input devices will be
               of type {{InputDeviceInfo}} which extends
@@ -2821,7 +2819,7 @@ interface MediaDevices : EventTarget {
               will provide recommendations about whether the source type should
               be enumerable.</p>
               <p>When the {{MediaDevices/enumerateDevices()}} method is
-              called, the User Agent must run the following steps:</p>
+              called, the [=User Agent=] must run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -2835,7 +2833,7 @@ interface MediaDevices : EventTarget {
                       [=environment settings object/responsible document=].</p>
                     </li>
                     <li>
-                      <p>The User Agent MUST wait to proceed to the next step until
+                      <p>The [=User Agent=] MUST wait to proceed to the next step until
                       [=device enumeration can proceed=] is <code>true</code>.</p>
                     </li>
                     <li>
@@ -2953,11 +2951,11 @@ interface MediaDevices : EventTarget {
               <p class="fingerprint">Since this method returns persistent
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
-              fingerprinting surface exposed by the User Agent.</p>
+              fingerprinting surface exposed by the [=User Agent=].</p>
               <p class="fingerprint">As long as the [=environment settings
               object/responsible document=] did not capture, this method will
               limit exposure to two bits of information: whether there is a camera
-              and whether there is a microphone. A User Agent may mitigate this by
+              and whether there is a microphone. A [=User Agent=] may mitigate this by
               pretending the system has a camera and a microphone, for instance until the
               [=environment settings object/responsible document=] calls
               {{MediaDevices/getUserMedia()}} with constraints deemed reasonable.</p>
@@ -2966,7 +2964,7 @@ interface MediaDevices : EventTarget {
               cross-origin information via the list of all media capture devices,
               including their grouping and human readable labels associated
               with the capture devices, which further adds to the
-              fingerprinting surface. A User Agent may limit exposure by sanitizing
+              fingerprinting surface. A [=User Agent=] may limit exposure by sanitizing
               device labels. This could for instance mean removing user names found
               in labels, but keeping device manufacturer or model information.
               It is important that the sanitized labels allow users to identify
@@ -3035,7 +3033,7 @@ interface MediaDevices : EventTarget {
         run the following steps:</p>
         <ol>
           <li>
-            <p>The User Agent MAY return <code>true</code> if
+            <p>The [=User Agent=] MAY return <code>true</code> if
             [=device information can be exposed=] is <code>true</code>.
           </li>
           <li>
@@ -3109,8 +3107,8 @@ interface MediaDevices : EventTarget {
           </li>
         </ol>
         <div class="note">
-          <p>A User Agent MAY at any point set the device information exposure back to <code>false</code>,
-          for instance if the User Agent decides to revoke device access on a given browsing context.</p>
+          <p>A [=User Agent=] MAY at any point set the device information exposure back to <code>false</code>,
+          for instance if the [=User Agent=] decides to revoke device access on a given browsing context.</p>
         </div>
       </section>
       <section>
@@ -3148,7 +3146,7 @@ interface MediaDeviceInfo {
               MUST be the same in documents of the same origin in [=top-level browsing contexts=].
               In [=nested browsing contexts=],
               the decision of whether or not the identifier is the same across
-              documents, MUST follow the User Agent's partitioning rules for
+              documents, MUST follow the [=User Agent=]'s partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
               to not interfere with mitigations for cross-site correlation.
               If the identifier can uniquely
@@ -3166,9 +3164,9 @@ interface MediaDeviceInfo {
               visits.</p>
               <p>However, as long as no local device has been attached to a
               live MediaStreamTrack in a page from this origin, and no [=stored permission=] to access local
-              devices has been granted to this origin, then the User Agent MAY
+              devices has been granted to this origin, then the [=User Agent=] MAY
               clear this identifier once the last browsing session from this
-              origin has been closed. If the User Agent chooses not to clear
+              origin has been closed. If the [=User Agent=] chooses not to clear
               the identifier in this condition, then it MUST provide for the
               user to visibly inspect and delete the identifier, like a
               cookie.</p>
@@ -3176,9 +3174,9 @@ interface MediaDeviceInfo {
               across browsing sessions and to reduce its potential as a
               fingerprinting mechanism, {{deviceId}} is to be treated
               as other persistent storage mechanisms such as cookies
-              [[COOKIES]], in that User Agents MUST NOT persist device
+              [[COOKIES]], in that [=User Agent=]s MUST NOT persist device
               identifiers for sites that are blocked from using cookies, and
-              User Agents MUST rotate per-origin device identifiers when other
+              [=User Agent=]s MUST rotate per-origin device identifiers when other
               persistent storage are cleared.</p>
             </dd>
             <dt id="def-mediadeviceinfo-kind"><dfn>kind</dfn> of
@@ -3304,7 +3302,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     <h2>Obtaining local multimedia content</h2>
     <p>This section extends {{Navigator}} and
     {{MediaDevices}} with APIs to request permission to access
-    media input devices available to the User Agent.</p>
+    media input devices available to the [=User Agent=].</p>
     <p>Alternatively, a local {{MediaStream}} can be captured
     from certain types of DOM elements, such as the video element
     [[?mediacapture-fromelement]]. This can be useful for automated testing.</p>
@@ -3323,7 +3321,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular User Agents. To ensure functional equivalence, the getUserMedia()
+        popular [=User Agent=]s. To ensure functional equivalence, the getUserMedia()
         method here is defined in terms of the method under MediaDevices.</p>
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
@@ -3366,7 +3364,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               as described in {{MediaDevices/getUserMedia()}} on
               {{MediaDevices}}.</p>
               <p>When the {{getUserMedia()}} method is called,
-              the User Agent MUST run the following steps:</p>
+              the [=User Agent=] MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>constraints</var> be the method's first
@@ -3428,7 +3426,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular User Agents. To ensure functional equivalence, the getUserMedia()
+        popular [=User Agent=]s. To ensure functional equivalence, the getUserMedia()
         method under {{Navigator}} is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
         defined under {{Navigator}} is currently still callback-based. Developers
@@ -3436,7 +3434,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         encouraged to read the detailed Note given there.</p>
       </div>
       <p>The {{MediaDevices/getSupportedConstraints}} method is provided to allow
-      the application to determine which constraints the User Agent
+      the application to determine which constraints the [=User Agent=]
       recognizes. Applications may need this information to use
       <a>required constraints</a> reliably or get predictable results from
       combinatory logic in <a>advanced constraints</a>.</p>
@@ -3453,10 +3451,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
             <dt><dfn>getSupportedConstraints</dfn></dt>
             <dd>
               <p>Returns a dictionary whose members are the constrainable
-              properties known to the User Agent. A supported constrainable
+              properties known to the [=User Agent=]. A supported constrainable
               property MUST be represented and any constrainable properties not
-              supported by the User Agent MUST NOT be present in the returned
-              dictionary. The values returned represent what the User Agent
+              supported by the [=User Agent=] MUST NOT be present in the returned
+              dictionary. The values returned represent what the [=User Agent=]
               implements and will not change during a browsing session.</p>
             </dd>
             <dt>getUserMedia</dt>
@@ -3472,7 +3470,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               finding valid tracks or if the user denies permission, as
               described below.</p>
               <p>When the <dfn>getUserMedia()</dfn> method is
-              called, the User Agent MUST run the following steps:</p>
+              called, the [=User Agent=] MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>constraints</var> be the method's first
@@ -3519,7 +3517,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>The User Agent MUST wait to proceed to the next step until
+                      <p>The [=User Agent=] MUST wait to proceed to the next step until
                       the [=relevant settings object=]'s
                       [=environment settings object/responsible document=] is
                       [=Document/fully active=] and
@@ -3617,7 +3615,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <var>requestedMediaTypes</var>, run the following sub steps,
                       preferably at the same time:</p>
                       <div class="note">
-                        <p>User Agents are encouraged to bundle concurrent
+                        <p>[=User Agent=]s are encouraged to bundle concurrent
                         requests for different kinds of media into a single
                         user-facing permission prompt.</p>
                       </div>
@@ -3626,7 +3624,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>[=Request permission to
                           use=] a {{PermissionDescriptor}} with its {{PermissionDescriptor/name}} member set
                           to the permission name associated with <var>kind</var>
-                          (e.g. {{PermissionName/"camera"}} for <a>"video"</a>, {{PermissionName/"microphone"}} for <a>"audio"</a>),
+                          (e.g. [="camera"=] for <a>"video"</a>, [="microphone"=] for <a>"audio"</a>),
                           and, optionally, consider its deviceId member set to
                           any appropriate device's <var>deviceId</var>,
                           while considering all devices attached to a
@@ -3638,7 +3636,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           {{MediaStreamTrack}} that required the same level of
                           permission to obtain as what is being requested (e.g. not
                           isolated).</p>
-                          <p>When asking the user’s permission, the User Agent
+                          <p>When asking the user’s permission, the [=User Agent=]
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
@@ -3646,16 +3644,16 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           MUST be precisely one <a>candidate</a> of type <var>kind</var> from
                           <var>finalSet</var>. The decision of which candidate to
                           choose from the <var>finalSet</var> is completely up to
-                          the User Agent and may be determined by asking the user.
+                          the [=User Agent=] and may be determined by asking the user.
                           </p>
-                          <p>The User Agent SHOULD use the value of the computed
+                          <p>The [=User Agent=] SHOULD use the value of the computed
                           <a>fitness distance</a> from the <a>SelectSettings</a>
                           algorithm as an input to the selection algorithm.
                           However, it MAY also use other internally-available
                           information about the devices, such as user preference.</p>
-                          <p>User Agents are encouraged to default to using the
+                          <p>[=User Agent=]s are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
-                          (when possible). User Agents
+                          (when possible). [=User Agent=]s
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
                         </li>
@@ -3829,7 +3827,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
     <section>
       <h2>{{MediaStreamConstraints}}</h2>
       <p>The <dfn>MediaStreamConstraints</dfn> dictionary is used to instruct
-      the User Agent what sort of {{MediaStreamTrack}}s to include in the
+      the [=User Agent=] what sort of {{MediaStreamTrack}}s to include in the
       <a>MediaStream</a> returned by {{MediaDevices/getUserMedia()}}.</p>
       <div>
         <pre class="idl"
@@ -3910,7 +3908,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
       <div class="practice">
         <span class="practicelab" id="resource-reservation">Resource
         reservation</span>
-        <p class="practicedesc">The User Agent is encouraged to reserve
+        <p class="practicedesc">The [=User Agent=] is encouraged to reserve
         resources when it has determined that a given call to
         {{MediaDevices/getUserMedia()}} will be successful. It is preferable
         to reserve the resource prior to resolving the returned promise.
@@ -3919,7 +3917,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         previously allocated, as well as resources held by other applications,
         as busy. Resources marked as busy should not be provided as sources to
         the current web page, unless specified by the user. Optionally, the
-        User Agent may choose to provide a stream sourced from a busy source
+        [=User Agent=] may choose to provide a stream sourced from a busy source
         but only to a page whose origin matches the owner of the original
         stream that is keeping the source busy.</p>
         <p class="practicedesc">This document recommends that in the permission
@@ -3927,7 +3925,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         user be allowed to select any available hardware as a source for the
         stream requested by the page (provided the resource is able to fulfill
         any specified <a>required constraints</a>). Although not specifically
-        recommended as best practice, note that some User Agents may support
+        recommended as best practice, note that some [=User Agent=]s may support
         the ability to substitute a video or audio source with local files and
         other media. A file picker may be used to provide this functionality to
         the user.</p>
@@ -3946,9 +3944,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <dfn id="stored-permissions" class="practicelab">Stored
         Permission</dfn>s
         <p class="practicedesc">When permission is requested for a device, the
-        User Agent may choose to store this permission for later use by the same origin, so that
+        [=User Agent=] may choose to store this permission for later use by the same origin, so that
         the user does not need to grant permission again at a later time.
-        It is a User Agent choice whether it offers functionality to store
+        It is a [=User Agent=] choice whether it offers functionality to store
         permission to each device separately, all devices of a given class, or
         all devices; the choice needs to be apparent to the user, and
         permission must have been granted for the entire set whose permission
@@ -4000,13 +3998,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <p class="practicedesc">A lower-entropy alternative, at the cost of
         storage, is to assign the numbers 0 through 255 randomly to each
         new device encountered for each origin or origin + top-level origin,
-        based on the User Agent's partitioning rules, retiring the number that
+        based on the [=User Agent=]'s partitioning rules, retiring the number that
         hasn't been seen the longest if numbers run out.</p>
       </div>
       <div class="practice">
-        <span class="practicelab" id="muting-devices">Device muting initiated by User Agent</span>
+        <span class="practicelab" id="muting-devices">Device muting initiated by [=User Agent=]</span>
         <p class="practicedesc">A track sourced by a camera or microphone may be
-        forcibly [= track/muted =] by a User Agent at any time, in order
+        forcibly [= track/muted =] by a [=User Agent=] at any time, in order
         to manage a user's privacy. However, doing so may create web
         compatibility issues, as well as leak information about user activity, so
         caution is advised.
@@ -4016,7 +4014,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the User Agent already suspends media
+            <p>An OS-level event for which the [=User Agent=] already suspends media
             playback globally, but JavaScript is not suspended. The rationale is
             users may otherwise be surprised if capture were to continue in this
             situation (unless they've intentionally configured it this way).
@@ -4040,9 +4038,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
         [= muted =], in the following instances:</p>
         <ul>
           <li>
-            <p>An OS-level event for which the User Agent already resumes media
+            <p>An OS-level event for which the [=User Agent=] already resumes media
             playback globally, <em>and</em> the page is visible to the user
-            (e.g. not during a lock screen). User Agents may defer such action
+            (e.g. not during a lock screen). [=User Agent=]s may defer such action
             if it determines significant time has passed that may jeopardize a
             user's awareness of the earlier capture session.</p>
           </li>
@@ -4086,43 +4084,43 @@ interface InputDeviceInfo : MediaDeviceInfo {
     'min', 'max', and 'exact' constraints in the basic Constraint structure are
     together treated as the <a>required constraints</a>, and if it is not possible
     to satisfy simultaneously all of those individual constraints for the
-    indicated property names, the User Agent MUST [= reject =] the returned
+    indicated property names, the [=User Agent=] MUST [= reject =] the returned
     promise. Otherwise, it must apply the required constraints. Next, it will
     consider any ConstraintSets given in the
     <code><a href="#dom-constraints-advanced">advanced</a></code> list, in the
     order in which they are specified, and will try to satisfy/apply each complete
     ConstraintSet (i.e., all constraints in the ConstraintSet together), but
     will skip a ConstraintSet if and only if it cannot satisfy/apply it in its
-    entirety. Next, the User Agent MUST attempt to apply, individually, any
+    entirety. Next, the [=User Agent=] MUST attempt to apply, individually, any
     'ideal' constraints or a constraint given as a bare value for the property
     (referred to as <a>optional basic constraints</a>).
     Of these properties, it MUST satisfy the largest number that it can, in any
-    order. Finally, the User Agent MUST [= resolve =] the returned
+    order. Finally, the [=User Agent=] MUST [= resolve =] the returned
     promise.</p>
     <div class="note">
       Any constraint provided via this API will only be considered if the given
-      constrainable property is supported by the User Agent. JavaScript
+      constrainable property is supported by the [=User Agent=]. JavaScript
       application code is expected to first check, via
       <code>getSupportedConstraints()</code>, that all the named properties
-      that are used are supported by the User Agent. The reason for this is that
+      that are used are supported by the [=User Agent=]. The reason for this is that
       WebIDL drops any unsupported names from the dictionary holding the
-      constraints, so the User Agent does not see them and the unsupported names
+      constraints, so the [=User Agent=] does not see them and the unsupported names
       end up being silently ignored. This will cause confusing programming
-      errors as the JavaScript code will be setting constraints but the User Agent
-      will be ignoring them. User Agents that support (recognize) the name of a
+      errors as the JavaScript code will be setting constraints but the [=User Agent=]
+      will be ignoring them. [=User Agent=]s that support (recognize) the name of a
       required constraint but cannot satisfy it will generate an error, while
-      User Agents that do not support the constrainable property will not generate
+      [=User Agent=]s that do not support the constrainable property will not generate
       an error.
     </div>
     <p>The following examples may help to understand how constraints work. The
     first shows a basic Constraint structure. Three constraints are given, each
-    of which the User Agent will attempt to satisfy individually. Depending
+    of which the [=User Agent=] will attempt to satisfy individually. Depending
     upon the resolutions available for this camera, it is possible that not all
-    three constraints can be satisfied at the same time. If so, the User Agent
+    three constraints can be satisfied at the same time. If so, the [=User Agent=]
     will satisfy two if it can, or only one if not even two constraints can be
     satisfied together. Note that if not all three can be satisfied
     simultaneously, it is possible that there is more than one combination of
-    two constraints that could be satisfied. If so, the User Agent will
+    two constraints that could be satisfied. If so, the [=User Agent=] will
     choose.</p>
     <pre class="example">
 const stream = await navigator.mediaDevices.getUserMedia({
@@ -4157,7 +4155,7 @@ try {
 }
     </pre>
     <p>This example illustrates the full control possible with the Constraints
-    structure by adding the 'advanced' property. In this case, the User Agent
+    structure by adding the 'advanced' property. In this case, the [=User Agent=]
     behaves the same way with respect to the required constraints, but before
     attempting to satisfy the ideal values it will process the 'advanced' list.
     In this example the 'advanced' list contains two ConstraintSets. The first
@@ -4193,19 +4191,19 @@ try {
     <p>The ordering of advanced ConstraintSets is significant. In the preceding
     example it is impossible to satisfy both the 1920x1280 ConstraintSet and
     the 4x3 aspect ratio ConstraintSet at the same time. Since the 1920x1280
-    occurs first in the list, the User Agent will attempt to satisfy it first.
+    occurs first in the list, the [=User Agent=] will attempt to satisfy it first.
     Application authors can therefore implement a backoff strategy by
     specifying multiple advanced ConstraintSets for the same property. The
     application also specifies two more advanced ConstraintSets, the
     first asking for a frame rate greater than 50, the second asking for a
     frame rate greater than 40.
-    If the User Agent is capable of setting a frame rate greater than 50, it
+    If the [=User Agent=] is capable of setting a frame rate greater than 50, it
     will (and the subsequent ConstraintSet will be trivially satisfied).
-    However, if the User Agent cannot set the frame rate above 50, it will
+    However, if the [=User Agent=] cannot set the frame rate above 50, it will
     skip that ConstraintSet and attempt to set the frame rate above 40.
-    In case the User Agent cannot satisfy either of the two ConstraintSets, the
+    In case the [=User Agent=] cannot satisfy either of the two ConstraintSets, the
     'min' value in the basic ConstraintSet insists on 30 as a lower bound.
-    In other words, the User Agent would fail altogether if it couldn't get a
+    In other words, the [=User Agent=] would fail altogether if it couldn't get a
     value over 30, but would choose a value over 50 if possible, then try for
     a value over 40.</p>
     <p>Note that, unlike basic constraints, the constraints within a
@@ -4217,7 +4215,7 @@ try {
     'and' of the individual constraints in the ConstraintSet. An application
     may inspect the full set of Constraints currently in effect via the
     <code>getConstraints()</code> accessor.</p>
-    <p>The specific value that the User Agent chooses for a constrainable
+    <p>The specific value that the [=User Agent=] chooses for a constrainable
     property is referred to as a Setting. For example, if the application
     applies a ConstraintSet specifying that the frameRate must be at least 30
     frames per second, and no greater than 40, the Setting can be any
@@ -4279,7 +4277,7 @@ interface ConstrainablePattern {
               <p>The <dfn data-lt=
               "ConstrainablePattern.getCapabilities">getCapabilities()</dfn>
               method returns the dictionary of the names of the constrainable
-              properties that the object supports. When invoked, the User Agent
+              properties that the object supports. When invoked, the [=User Agent=]
               MUST return the value of the <a data-link-for="constrainable object" data-link-type="attribute">[[\Capabilities]]</a> internal
               slot.</p>
               <div class="note">
@@ -4291,10 +4289,10 @@ interface ConstrainablePattern {
                 fluxCapacitance property ranges from -10 (min) to 10 (max), but
                 there are common hardware devices that support only values of
                 "off" "medium" and "full". The constrainable property
-                definition might specify that for such hardware, the User Agent
+                definition might specify that for such hardware, the [=User Agent=]
                 should map the range value of -10 to "off", 10 to "full", and 0
                 to "medium". It might also indicate that given a ConstraintSet
-                imposing a strict value of 3, the User Agent should attempt to
+                imposing a strict value of 3, the [=User Agent=] should attempt to
                 set the value of "medium" on the hardware, and that
                 {{getSettings()}} should return a
                 fluxCapacitance of 0, since that is the value defined as
@@ -4312,7 +4310,7 @@ interface ConstrainablePattern {
               the application should use {{getSettings}}. Instead of
               returning the exact constraints as described above, the UA MAY
               return a constraint set that has the identical effect in all
-              situations as the applied constraints. When invoked, the User Agent
+              situations as the applied constraints. When invoked, the [=User Agent=]
               MUST return the value of the <a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a> internal slot.
               </p>
             </dd>
@@ -4330,7 +4328,7 @@ interface ConstrainablePattern {
             <dt>applyConstraints</dt>
             <dd>
               <p>When the <dfn>applyConstraints template method</dfn> is invoked, the
-              User Agent MUST run the following steps:</p>
+              [=User Agent=] MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>object</var> be the object on which this method
@@ -4410,7 +4408,7 @@ interface ConstrainablePattern {
               <ol>
                 <li>
                   <p>If <var>constraintName</var> is not supported by the
-                  User Agent, the fitness distance is 0.</p>
+                  [=User Agent=], the fitness distance is 0.</p>
                 </li>
                 <li>
                   <p>If the constraint is <dfn>required</dfn>
@@ -4547,11 +4545,11 @@ interface ConstrainablePattern {
                 <li>
                   <p>Select one settings dictionary from <var>candidates</var>,
                   and return it as the result of the <a>SelectSettings</a>
-                  algorithm. The User Agent MUST use one with the smallest
+                  algorithm. The [=User Agent=] MUST use one with the smallest
                   <a>fitness distance</a>, as calculated in step 3. If more than
                   one settings dictionary have the smallest fitness distance,
-                  the User Agent chooses one of them based on system default property values
-                  and User Agent default property values.</p>
+                  the [=User Agent=] chooses one of them based on system default property values
+                  and [=User Agent=] default property values.</p>
                 </li>
               </ol>
               <p>For any property with a system default value for the selected device, the system default value SHOULD
@@ -4559,13 +4557,13 @@ interface ConstrainablePattern {
                 like <a href="#def-constraint-sampleRate">sampleRate</a> or <a href="#def-constraint-sampleSize">sampleSize</a>.
                 Other properties, like <a href="#def-constraint-echoCancellation">echoCancellation</a> or
                 <a href="#def-constraint-resizeMode">resizeMode</a> do not usually have system default values.
-                The User Agent defines its own default values for these properties.
+                The [=User Agent=] defines its own default values for these properties.
                 Implementors need to be cautious to select good default values since they will often have
                 an impact on how media content is generated.</p>
               <div class="note">
                 <p>It is recommended to look at existing implementations to select meaningful default values.
                 Note that default values may differ based on the system, for instance desktop vs. mobile.
-                At time of writing, User Agent implementations tend to use the following default values,
+                At time of writing, [=User Agent=] implementations tend to use the following default values,
                 which were chosen for their suitability for using RTCPeerConnection as a sink:</p>
                 <ol>
                   <li><p><a href="#def-constraint-width">width</a> set to 640.</p></li>
@@ -4576,7 +4574,7 @@ interface ConstrainablePattern {
               </div>
               <p>To apply the <dfn data-export>ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an
-              argument, the User Agent MUST run the following steps:</p>
+              argument, the [=User Agent=] MUST run the following steps:</p>
               <ol>
                 <li>
                   <p>Let <var>successfulSettings</var> be the result of running
@@ -4615,7 +4613,7 @@ interface ConstrainablePattern {
                 dictionary will cause the device driver to apply
                 resampling.</p>
               </div>
-              <p>The User Agent MAY choose new settings for the constrainable
+              <p>The [=User Agent=] MAY choose new settings for the constrainable
               properties of the object at any time. When it does so it MUST
               attempt to satisfy all current Constraints, in the manner
               described in the algorithm above, let
@@ -4826,10 +4824,10 @@ async function getFrontCameraRes() {
       ["left", "right", "user", "environment"], this means that 'facingMode'
       can have the values "left", "right", "environment", and "user". Similarly
       <a>Constraints</a> restricting 'facingMode' to ["user", "left", "right"]
-      would mean that the User Agent should select a camera (or point the
+      would mean that the [=User Agent=] should select a camera (or point the
       camera, if that is possible) so that "facingMode" is either "user",
       "left", or "right". This Constraint would thus request that the camera
-      not be facing away from the user, but would allow the User Agent to allow
+      not be facing away from the user, but would allow the [=User Agent=] to allow
       the user to choose other directions.</p>
       <div>
         <pre class="idl"
@@ -5011,9 +5009,9 @@ async function getFrontCameraRes() {
       object</a>. Note that the Capabilities of a <a>constrainable object</a>
       MAY be a subset of the properties defined in the Web platform, with a
       subset of the set values for those properties. Note that Capabilities are
-      returned from the User Agent to the application, and cannot be specified
+      returned from the [=User Agent=] to the application, and cannot be specified
       by the application. However, the application can control the Settings
-      that the User Agent chooses for constrainable properties by means of
+      that the [=User Agent=] chooses for constrainable properties by means of
       Constraints.</p>
       <p>An example of a Capabilities dictionary is shown below. In this case,
       the <a>constrainable object</a> is a video source with a very limited set
@@ -5059,10 +5057,10 @@ async function getFrontCameraRes() {
       <code>Settings</code> dictionary contains the actual values that the User
       Agent has chosen for the object's constrainable properties. The exact
       syntax of the value depends on the type of the property.</p>
-      <p>A conforming User Agent MUST support all the constrainable properties
+      <p>A conforming [=User Agent=] MUST support all the constrainable properties
       defined in this specification.</p>
       <p>An example of a Settings dictionary is shown below. This example is
-      not very realistic in that a User Agent would actually be required to
+      not very realistic in that a [=User Agent=] would actually be required to
       support more constrainable properties than just these.</p>
       <pre class="example">
 {
@@ -5076,7 +5074,7 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
       </div>
     </section>
     <section id="constraints">
-      <h3><dfn>Constraints and ConstraintSet</dfn></h3>
+      <h3>Constraints and ConstraintSet</h3>
       <p>Due to the limitations of WebIDL, interfaces implementing the
       Constrainable Pattern cannot simply subclass Constraints and
       ConstraintSet as they are defined here. Instead they must provide their
@@ -5088,7 +5086,7 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
       </div>
       <p>Each member of a <dfn>ConstraintSet</dfn> corresponds to a
       constrainable property and specifies a subset of the property's legal
-      Capability values. Applying a ConstraintSet instructs the User Agent to
+      Capability values. Applying a ConstraintSet instructs the [=User Agent=] to
       restrict the settings of the corresponding constrainable properties to
       the specified values or ranges of values. A given property MAY occur both
       in the basic Constraints set and in the advanced ConstraintSets list, and
@@ -5106,18 +5104,18 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
             <dt><dfn><code>advanced</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;{{ConstraintSet}}&gt;</span></dt>
             <dd>
-              <p>This is the list of ConstraintSets that the User Agent MUST
+              <p>This is the list of ConstraintSets that the [=User Agent=] MUST
               attempt to satisfy, in order, skipping only those that cannot be
               satisfied. The order of these ConstraintSets is significant. In
               particular, when they are passed as an argument to
-              <code>applyConstraints</code>, the User Agent MUST try to satisfy
+              <code>applyConstraints</code>, the [=User Agent=] MUST try to satisfy
               them in the order that is specified. Thus if advanced
               ConstraintSets C1 and C2 can be satisfied individually, but not
               together, then whichever of C1 and C2 is first in this list will
-              be satisfied, and the other will not. The User Agent MUST attempt
+              be satisfied, and the other will not. The [=User Agent=] MUST attempt
               to satisfy all ConstraintSets in the list, even if some cannot be
               satisfied. Thus, in the preceding example, if constraint C3 is
-              specified after C1 and C2, the User Agent will attempt to satisfy
+              specified after C1 and C2, the [=User Agent=] will attempt to satisfy
               C3 even though C2 cannot be satisfied. Note that a given property
               name may occur only once in each ConstraintSet but may occur in
               more than one ConstraintSet.</p>
@@ -5272,7 +5270,7 @@ window.onload = async () =&gt; {
   <section>
     <h1 id="permissions-integration">Permissions Integration</h1>
     <p>This specification defines two [=powerful features=] identified by the
-    [=powerful feature/names=] <code>"camera"</code> and <code>"microphone"</code>.</p>
+    [=powerful feature/names=] <dfn data-dfn-type="permission"><code>"camera"</code></dfn> and <dfn data-dfn-type="permission"><code>"microphone"</code></dfn>.</p>
     <p>It defines the following types and algorithms:</p>
     <dl>
       <dt>
@@ -5294,7 +5292,7 @@ window.onload = async () =&gt; {
         <p>
           If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, its
           semantic is that it queries for access to all devices of that class. Thus, if a query
-          for the {{PermissionName/"camera"}} permission with no
+          for the [="camera"=] permission with no
           {{DevicePermissionDescriptor/deviceId}} returns {{PermissionState/"granted"}}, the
           client knows that there will never be a permission prompt for a camera, and if
           {{PermissionState/"denied"}} is returned, it knows that no getUserMedia request for a
@@ -5390,17 +5388,17 @@ window.onload = async () =&gt; {
     <var>any&lt;kind&gt;Accessible</var> values.</p>
     <p>Define <var>anyLive</var> to be the logical OR of all
     <var>any&lt;kind&gt;Live</var> values.</p>
-    <p>Then the following are requirements on the User Agent:</p>
+    <p>Then the following are requirements on the [=User Agent=]:</p>
     <ul>
-      <li>The User Agent MUST indicate to the user when the value of
+      <li>The [=User Agent=] MUST indicate to the user when the value of
       <var>anyAccessible</var> changes.</li>
-      <li>The User Agent MUST indicate to the user when the value of
+      <li>The [=User Agent=] MUST indicate to the user when the value of
       <var>anyLive</var> changes.</li>
-      <li>If the User Agent provides indication to the user per
+      <li>If the [=User Agent=] provides indication to the user per
       <var>kind</var>, then for each <var>any&lt;kind&gt;Accessible</var> value
       and <var>any&lt;kind&gt;Live</var> value, it MUST at minimum indicate
       when the value changes.</li>
-      <li>If the User Agent provides indication to the user per
+      <li>If the [=User Agent=] provides indication to the user per
       <var>device</var>, then for each
       {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> value and
       {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> value, it MUST at minimum
@@ -5412,20 +5410,20 @@ window.onload = async () =&gt; {
       the combined indication cannot transition to false if any of its
       component indications are still true.</li>
     </ul>
-    <p>and the following are encouraged behaviors for the User Agent:</p>
+    <p>and the following are encouraged behaviors for the [=User Agent=]:</p>
     <ul>
-      <li>The User Agent is encouraged to provide ongoing indication of the
+      <li>The [=User Agent=] is encouraged to provide ongoing indication of the
       current state of <var>anyAccessible</var>.</li>
-      <li>The User Agent is encouraged to provide ongoing indication of the
+      <li>The [=User Agent=] is encouraged to provide ongoing indication of the
       current state of <var>anyLive</var> and to make any generic hardware
       device indicator light match.</li>
-      <li>If the User Agent provides indication to the user per
+      <li>If the [=User Agent=] provides indication to the user per
       <var>kind</var>, then for each any<var>&lt;kind&gt;Accessible</var> value
       and any<var>&lt;kind&gt;Live</var> value, it is encouraged to provide
       ongoing indication of the current state of the value. It is also
       encouraged to make any device-type-specific hardware indicator light
       match the corresponding any<var>&lt;kind&gt;Live</var> value.</li>
-      <li>If the User Agent provides indication to the user per
+      <li>If the [=User Agent=] provides indication to the user per
       <var>device</var>, then for each
       {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> value and
       {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> value, it is encouraged to
@@ -5497,16 +5495,16 @@ window.onload = async () =&gt; {
     room by disparate users (e.g. via analysis of ambient audio or of unique
     audio purposely played out of the device speaker). User-level mitigation
     for both audio and video consists of covering up the camera and/or
-    microphone or revoking permission via User Agent chrome controls.</p>
+    microphone or revoking permission via [=User Agent=] chrome controls.</p>
     <p>It is possible to use constraints so that the failure of a getUserMedia
     call will return information about devices on the system without prompting
     the user, which increases the surface available for fingerprinting. The
-    User Agent should consider limiting the rate at which failed getUserMedia
+    [=User Agent=] should consider limiting the rate at which failed getUserMedia
     calls are allowed in order to limit this additional surface.</p>
     <p>In the case of persistent authorization via a stored permission, it is
     important that it is easy to find the list of granted permissions and
     revoke permissions that the user wishes to revoke.</p>
-    <p>Once permission has been granted, the User Agent should make two things
+    <p>Once permission has been granted, the [=User Agent=] should make two things
     readily apparent to the user:</p>
     <ul>
       <li>That the page has access to the devices for which permission is
