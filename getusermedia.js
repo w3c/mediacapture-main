@@ -1,3 +1,6 @@
+let aMonthFromNow = new Date();
+aMonthFromNow.setMonth(aMonthFromNow.getMonth() + 1);
+
 var respecConfig = {
    // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
    specStatus:           "ED",
@@ -28,7 +31,7 @@ var respecConfig = {
    // it is recommended that the respec.css stylesheet be kept
    //extraCSS:             ["http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css"],
    //extraCSS:           ["../../../2009/dap/ReSpec.js/css/respec.css"],
-
+  crEnd: aMonthFromNow.toJSON().slice(0,10),
    // editors, add as many as you like
   formerEditors: [
        { w3cid: "85118", name: "Daniel C. Burnett", company: "Invited Expert", retiredDate: "2018-06-01" },
