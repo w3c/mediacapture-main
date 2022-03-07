@@ -870,7 +870,7 @@ interface MediaStream : EventTarget {
               </li>
               <li>
                 If <var>deviceId</var> is <code>undefined</code>, tracks whose
-                permission associated with this kind of track [="camera"=], [="microphone"=]
+                permission associated with this kind of track <a>"camera"</a>, <a>"microphone"</a>
                 matches <var>permissionName</var>
               </li>
             </ul>
@@ -2678,8 +2678,8 @@ interface OverconstrainedError : DOMException {
           {{MediaDevices.getUserMedia()}} exposes, set
           {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> either to <code>true</code>
           if the [=permission state=]
-          of the permission associated with <var>kind</var> (e.g. [="camera"=],
-          [="microphone"=]), is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
+          of the permission associated with <var>kind</var> (e.g. <a>"camera"</a>,
+          <a>"microphone"</a> is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
         </li>
         <li>
           <p>For each individual device that {{MediaDevices.getUserMedia()}}
@@ -2866,7 +2866,7 @@ interface MediaDevices : EventTarget {
                   <ol>
                     <li>
                       <p>If <var>device</var> is not a microphone, or <var>document</var> is not
-                      [=allowed to use=] the feature identified by <a data-link-for="">"microphone"</a>,
+                      [=allowed to use=] the feature identified by <a>"microphone"</a>,
                       abort these sub steps and continue with the next device (if any).</p>
                     </li>
                     <li>
@@ -2885,7 +2885,7 @@ interface MediaDevices : EventTarget {
                   <ol>
                     <li>
                       <p>If <var>device</var> is not a camera, or <var>document</var> is not
-                      [=allowed to use=] the feature identified by <a data-link-for="">"camera"</a>,
+                      [=allowed to use=] the feature identified by <a>"camera"</a>,
                       abort these sub steps and continue with the next device (if any).</p>
                     </li>
                     <li>
@@ -3624,7 +3624,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>[=Request permission to
                           use=] a {{PermissionDescriptor}} with its {{PermissionDescriptor/name}} member set
                           to the permission name associated with <var>kind</var>
-                          (e.g. [="camera"=] for <a>"video"</a>, [="microphone"=] for <a>"audio"</a>),
+                          (e.g. <a>"camera"</a> for <a>"video"</a>, <a>"microphone"</a> for <a>"audio"</a>),
                           and, optionally, consider its deviceId member set to
                           any appropriate device's <var>deviceId</var>,
                           while considering all devices attached to a
@@ -5270,7 +5270,7 @@ window.onload = async () =&gt; {
   <section>
     <h1 id="permissions-integration">Permissions Integration</h1>
     <p>This specification defines two [=powerful features=] identified by the
-    [=powerful feature/names=] <dfn data-dfn-type="permission"><code>"camera"</code></dfn> and <dfn data-dfn-type="permission"><code>"microphone"</code></dfn>.</p>
+    [=powerful feature/names=] <code><dfn class="permission">"camera"</dfn></code> and <code><dfn class="permission">"microphone"</dfn></code>.</p>
     <p>It defines the following types and algorithms:</p>
     <dl>
       <dt>
@@ -5292,7 +5292,7 @@ window.onload = async () =&gt; {
         <p>
           If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, its
           semantic is that it queries for access to all devices of that class. Thus, if a query
-          for the [="camera"=] permission with no
+          for the <a>"camera"</a> permission with no
           {{DevicePermissionDescriptor/deviceId}} returns {{PermissionState/"granted"}}, the
           client knows that there will never be a permission prompt for a camera, and if
           {{PermissionState/"denied"}} is returned, it knows that no getUserMedia request for a
@@ -5351,10 +5351,8 @@ window.onload = async () =&gt; {
   </section>
   <section>
     <h1 id=permissions-policy-integration>Permissions Policy Integration</h1>
-    <p>This specification defines two [=policy-controlled feature=]s
-    identified by the strings
-    <code><dfn>"camera"</dfn></code> and
-    <code><dfn>"microphone"</dfn></code>.
+    <p>This specification defines two [=policy-controlled features=]
+    identified by the strings <a>"camera"</a> and <a>"microphone"</a>.
     Both have a [=default allowlist=] of <code class=permissionspolicy>"self"</code>.
     <div class="note">
       <p>A [=document=]'s [=Document/permissions policy=]
