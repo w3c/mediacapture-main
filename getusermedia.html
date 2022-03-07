@@ -136,8 +136,7 @@
         change over time, and constraints can be changed. If circumstances
         change such that constraints cannot be met, the
         <a>ConstrainablePattern</a> interface defines an appropriate error to
-        inform the application. <a href=
-        "#the-model-sources-sinks-constraints-and-settings"></a> explains how
+        inform the application. [[[#the-model-sources-sinks-constraints-and-settings]]] explains how
         constraints interact in more detail.</p>
         <p>For each constrainable property, a constraint exists whose name
         corresponds with the relevant source setting name and capability
@@ -154,7 +153,7 @@
         using the <code><a href="#dom-constraints-advanced">advanced</a></code>
         keyword.</li>
         </ul>
-        <p>In general, [=User Agent=]s will have more flexibility to optimize the
+        <p>In general, [=User Agents=] will have more flexibility to optimize the
         media streaming experience the fewer constraints are applied, so
         application authors are strongly encouraged to use <a>required
         constraints</a> sparingly.</p>
@@ -246,7 +245,7 @@
                   <p>A {{MediaStream}} object:</p>
                   <p>Let <var>tracks</var> be a set containing all the
                   {{MediaStreamTrack}} objects in the
-                  {{MediaStream}} <a href="#track-set">track
+                  {{MediaStream}} <a>track
                   set</a>.</p>
                 </li>
                 <li>
@@ -265,12 +264,12 @@
               <ol>
                 <li>
                   <p>If <var>track</var> is already in <var>stream</var>'s
-                  <a href="#track-set">track set</a>, skip
+                  [=track set=], skip
                   <var>track</var>.</p>
                 </li>
                 <li>
                   <p>Otherwise, add <var>track</var> to <var>stream</var>'s
-                  <a href="#track-set">track set</a>.</p>
+                  [=track set=].</p>
                 </li>
               </ol>
             </li>
@@ -281,7 +280,7 @@
         </li>
       </ol>
       <p>The tracks of a {{MediaStream}} are stored in a
-      <dfn id="track-set" data-export>track set</dfn>. The track set MUST contain the
+      <dfn class="export">track set</dfn>. The track set MUST contain the
       {{MediaStreamTrack}} objects that correspond to the
       tracks of the stream. The relative order of the tracks in the set is User
       Agent defined and the API will never put any requirements on the order.
@@ -311,42 +310,36 @@
       that has not [= track/ended =]. A {{MediaStream}} that does not have any
       audio tracks or only has audio tracks that are [= track/ended =] is
       <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
-      <p>The [=User Agent=] may update a {{MediaStream}}'s <a href=
-      "#track-set">track set</a> in response to, for example, an external
+      <p>The [=User Agent=] may update a {{MediaStream}}'s [=track set=] in response to, for example, an external
       event. This specification does not specify any such cases, but other
       specifications using the MediaStream API may. One such example is the
-      WebRTC 1.0 [[?WEBRTC]] specification where the <a href=
-      "#track-set">track set</a> of a {{MediaStream}}, received
+      WebRTC 1.0 [[?WEBRTC]] specification where the [=track set=] of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
-      <p>To <dfn data-dfn-type="abstract-op" id="add-track" data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
+      <p>To <dfn data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>track</var> is already in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
+          <p>If <var>track</var> is already in <var>stream's</var> [=track set=], then abort these steps.</p>
         </li>
         <li>
-          <p>Add <var>track</var> to <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
+          <p>Add <var>track</var> to <var>stream</var>'s [=track set=].</p>
         </li>
         <li>
           <p>[= Fire a track event=] named {{addtrack}} with
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
-      <p>To <dfn data-dfn-type="abstract-op" id="remove-track" data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
+      <p>To <dfn data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
         <li>
-          <p>If <var>track</var> is not in <var>stream's</var> <a href=
-          "#track-set">track set</a>, then abort these steps.</p>
+          <p>If <var>track</var> is not in <var>stream's</var> [=track set=], then abort these steps.</p>
         </li>
         <li>
-          <p>Remove <var>track</var> from <var>stream</var>'s <a href=
-          "#track-set">track set</a>.</p>
+          <p>[=MediaStream/Remove a track|Remove=] <var>track</var> from <var>stream</var>'s [=track set=].</p>
         </li>
         <li>
           <p>[= Fire a track event =] named {{removetrack}} with
@@ -438,7 +431,7 @@ interface MediaStream : EventTarget {
           <h2>Methods</h2>
           <dl data-link-for="MediaStream" data-dfn-for="MediaStream" class=
           "methods">
-            <dt><dfn id="dom-mediastream-getaudiotracks">getAudioTracks</dfn></dt>
+            <dt><dfn>getAudioTracks()</dfn></dt>
             <dd>
               <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing the audio tracks in this stream.</p>
@@ -449,7 +442,7 @@ interface MediaStream : EventTarget {
               <a>"audio"</a>. The conversion from the [=track set=] to the sequence is [=User Agent=] defined
               and the order does not have to be stable between calls.</p>
             </dd>
-            <dt><dfn id="dom-mediastream-getvideotracks">getVideoTracks</dfn></dt>
+            <dt><dfn>getVideoTracks()</dfn></dt>
             <dd>
               <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing the video tracks in this stream.</p>
@@ -461,7 +454,7 @@ interface MediaStream : EventTarget {
               [=track set=] to the sequence is [=User Agent=] defined
               and the order does not have to be stable between calls.</p>
             </dd>
-            <dt><dfn id="dom-mediastream-gettracks">getTracks</dfn></dt>
+            <dt><dfn>getTracks()</dfn></dt>
             <dd>
               <p>Returns a sequence of {{MediaStreamTrack}}
               objects representing all the tracks in this stream.</p>
@@ -473,7 +466,7 @@ interface MediaStream : EventTarget {
               Agent defined and the order does not have to be stable between
               calls.</p>
             </dd>
-            <dt><dfn id="dom-mediastream-gettrackbyid">getTrackById</dfn></dt>
+            <dt><dfn>getTrackById()</dfn></dt>
             <dd>
               <p>The {{getTrackById}}
               method MUST return either a {{MediaStreamTrack}}
@@ -482,7 +475,7 @@ interface MediaStream : EventTarget {
               equal to <var>trackId</var>, or <code>null</code>, if no such track
               exists.</p>
             </dd>
-            <dt><dfn id="dom-mediastream-addtrack">addTrack</dfn></dt>
+            <dt><dfn>addTrack()</dfn></dt>
             <dd>
               <p>Adds the given {{MediaStreamTrack}} to this
               {{MediaStream}}.</p>
@@ -500,11 +493,11 @@ interface MediaStream : EventTarget {
                   steps.</p>
                 </li>
                 <li>
-                  <p>Add <var>track</var> to <var>stream</var>'s [=track set=].</p>
+                  <p>[=MediaStream/Add a track|Add=] <var>track</var> to <var>stream</var>'s [=track set=].</p>
                 </li>
               </ol>
             </dd>
-            <dt><dfn id="dom-mediastream-removetrack">removeTrack</dfn></dt>
+            <dt><dfn>removeTrack()</dfn></dt>
             <dd>
               <p>Removes the given {{MediaStreamTrack}} object
               from this {{MediaStream}}.</p>
@@ -525,7 +518,7 @@ interface MediaStream : EventTarget {
                 </li>
               </ol>
             </dd>
-            <dt><dfn>clone</dfn></dt>
+            <dt><dfn>clone()</dfn></dt>
             <dd>
               <p>Clones the given {{MediaStream}} and all its
               tracks.</p>
@@ -543,7 +536,7 @@ interface MediaStream : EventTarget {
                 <li>
                   <p><a href="#track-clone">Clone each track</a> in this
                   {{MediaStream}} object and add the result to
-                  <var>streamClone</var>'s <a href="#track-set">track
+                  <var>streamClone</var>'s <a>track
                   set</a>.</p>
                 </li>
                 <li>Return <var>streamClone</var>.</li>
@@ -565,7 +558,7 @@ interface MediaStream : EventTarget {
       <p>The data from a {{MediaStreamTrack}} object does not
       necessarily have a canonical binary form; for example, it could just be
       "the video currently coming from the user's video camera". This allows
-      [=User Agent=]s to manipulate media in whatever fashion is most suitable on
+      [=User Agents=] to manipulate media in whatever fashion is most suitable on
       the user's platform.</p>
       <p>A script can indicate that a {{MediaStreamTrack}}
       object no longer needs its source with the {{MediaStreamTrack/stop()}}
@@ -592,46 +585,46 @@ interface MediaStream : EventTarget {
       </ol>
       <p>To <dfn data-export>create a MediaStreamTrack</dfn> with an underlying
       <var>source</var>, and an optional parameter <var>tieSourceToContext</var>,
-      whose value is <code>true</code> unless explicitely specified, run the
+      whose value is <code>true</code> unless explicitly specified, run the
       following steps:</p>
       <ol>
         <li>
           <p>Let <var>track</var> be a new {{MediaStreamTrack}} object with the
           following internal slots:</p>
-          <ul>
+          <ul data-dfn-for="MediaStreamTrack">
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Source]]</dfn>,
+              <p><dfn>[[\Source]]</dfn>,
               initialized to <var>source</var>.</p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Id]]</dfn>,
+              <p><dfn>[[\Id]]</dfn>,
               initialized to a newly generated unique identifier string. See
               {{MediaStream.id}} attribute for guidelines on how to generate
               such an identifier.</p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Kind]]</dfn>,
+              <p><dfn>[[\Kind]]</dfn>,
               initialized to <dfn><code>"audio"</code></dfn> if <var>source</var> is
               an audio source, or <dfn><code>"video"</code></dfn> if
               <var>source</var> is a video source.</p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Label]]</dfn>,
+              <p><dfn>[[\Label]]</dfn>,
               initialized to <var>source</var>'s label, if provided by the User
-              Agent, or <code>""</code> otherwise. [=User Agent=]s MAY label audio and
+              Agent, or <code>""</code> otherwise. [=User Agents=] MAY label audio and
               video sources (e.g., "Internal microphone" or "External USB Webcam").
               </p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\ReadyState]]</dfn>,
+              <p><dfn>[[\ReadyState]]</dfn>,
               initialized to {{MediaStreamTrackState/"live"}}.</p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Enabled]]</dfn>,
+              <p><dfn>[[\Enabled]]</dfn>,
               initialized to <code>true</code>.</p>
             </li>
             <li>
-              <p><dfn data-dfn-for="MediaStreamTrack">[[\Muted]]</dfn>,
+              <p><dfn>[[\Muted]]</dfn>,
               initialized to <code>true</code> if <var>source</var> is
               [= muted =], and <code>false</code> otherwise.</p>
             </li>
@@ -1811,7 +1804,7 @@ interface MediaStreamTrack : EventTarget {
         Agent for the particular system.</p>
         <div class="note">
           <p>On systems that support automatic switching between landscape and
-          portrait mode, [=User Agent=]s are encouraged to make landscape mode the
+          portrait mode, [=User Agents=] are encouraged to make landscape mode the
           <a>primary orientation</a>.</p>
         </div>
         <div>
@@ -2048,7 +2041,7 @@ interface MediaStreamTrackEvent : Event {
   <section class="informative" id=
   "the-model-sources-sinks-constraints-and-settings"  data-cite="?webrtc">
     <h2>The model: sources, sinks, constraints, and settings</h2>
-    <p>[=User Agent=]s provide a media pipeline from sources to sinks. In a [=User Agent=],
+    <p>[=User Agents=] provide a media pipeline from sources to sinks. In a [=User Agent=],
     sinks are the &lt;[^img^]&gt;, &lt;[^video^]&gt;, and &lt;[^audio^]&gt; tags.
     Traditional sources include streamed content, files, and web resources. The
     media produced by these sources typically does not change over time - these
@@ -2218,7 +2211,7 @@ interface MediaStreamTrackEvent : Event {
     media element is <a data-cite="!HTML/#potentially-playing">
     potentially playing</a>. The timeline does not increment when
     the playout of the {{MediaStream}} is paused.</p>
-    <p>[=User Agent=]s that support this specification MUST support the
+    <p>[=User Agents=] that support this specification MUST support the
     {{HTMLMediaElement/srcObject}}
     attribute of the {{HTMLMediaElement}} interface defined in
     [[HTML]], which includes support for playing {{MediaStream}}
@@ -2777,7 +2770,7 @@ interface OverconstrainedError : DOMException {
       object at that time.</p>
       <div class="note">
         <p class="fingerprint">These events are potentially triggered
-        simultaneously on documents of different origins. [=User Agent=]s MAY add
+        simultaneously on documents of different origins. [=User Agents=] MAY add
         fuzzing on the timing of events to avoid cross-origin activity
         correlation.</p>
       </div>
@@ -3174,9 +3167,9 @@ interface MediaDeviceInfo {
               across browsing sessions and to reduce its potential as a
               fingerprinting mechanism, {{deviceId}} is to be treated
               as other persistent storage mechanisms such as cookies
-              [[COOKIES]], in that [=User Agent=]s MUST NOT persist device
+              [[COOKIES]], in that [=User Agents=] MUST NOT persist device
               identifiers for sites that are blocked from using cookies, and
-              [=User Agent=]s MUST rotate per-origin device identifiers when other
+              [=User Agents=] MUST rotate per-origin device identifiers when other
               persistent storage are cleared.</p>
             </dd>
             <dt id="def-mediadeviceinfo-kind"><dfn>kind</dfn> of
@@ -3321,7 +3314,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular [=User Agent=]s. To ensure functional equivalence, the getUserMedia()
+        popular [=User Agents=]. To ensure functional equivalence, the getUserMedia()
         method here is defined in terms of the method under MediaDevices.</p>
         <p>Second, the decision to change all other callback-based methods in
         the specification to be based on Promises instead required that the
@@ -3426,7 +3419,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         navigator.getUserMedia || navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia;" in order for their code to be functional
         both before and after official implementations of getUserMedia() in
-        popular [=User Agent=]s. To ensure functional equivalence, the getUserMedia()
+        popular [=User Agents=]. To ensure functional equivalence, the getUserMedia()
         method under {{Navigator}} is defined in terms of the method here.</p>
         <p>Second, the method defined here is Promises-based, while the one
         defined under {{Navigator}} is currently still callback-based. Developers
@@ -3615,7 +3608,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <var>requestedMediaTypes</var>, run the following sub steps,
                       preferably at the same time:</p>
                       <div class="note">
-                        <p>[=User Agent=]s are encouraged to bundle concurrent
+                        <p>[=User Agents=] are encouraged to bundle concurrent
                         requests for different kinds of media into a single
                         user-facing permission prompt.</p>
                       </div>
@@ -3651,9 +3644,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           algorithm as an input to the selection algorithm.
                           However, it MAY also use other internally-available
                           information about the devices, such as user preference.</p>
-                          <p>[=User Agent=]s are encouraged to default to using the
+                          <p>[=User Agents=] are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
-                          (when possible). [=User Agent=]s
+                          (when possible). [=User Agents=]
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
                         </li>
@@ -3925,7 +3918,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         user be allowed to select any available hardware as a source for the
         stream requested by the page (provided the resource is able to fulfill
         any specified <a>required constraints</a>). Although not specifically
-        recommended as best practice, note that some [=User Agent=]s may support
+        recommended as best practice, note that some [=User Agents=] may support
         the ability to substitute a video or audio source with local files and
         other media. A file picker may be used to provide this functionality to
         the user.</p>
@@ -4040,7 +4033,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           <li>
             <p>An OS-level event for which the [=User Agent=] already resumes media
             playback globally, <em>and</em> the page is visible to the user
-            (e.g. not during a lock screen). [=User Agent=]s may defer such action
+            (e.g. not during a lock screen). [=User Agents=] may defer such action
             if it determines significant time has passed that may jeopardize a
             user's awareness of the earlier capture session.</p>
           </li>
@@ -4107,9 +4100,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
       constraints, so the [=User Agent=] does not see them and the unsupported names
       end up being silently ignored. This will cause confusing programming
       errors as the JavaScript code will be setting constraints but the [=User Agent=]
-      will be ignoring them. [=User Agent=]s that support (recognize) the name of a
+      will be ignoring them. [=User Agents=] that support (recognize) the name of a
       required constraint but cannot satisfy it will generate an error, while
-      [=User Agent=]s that do not support the constrainable property will not generate
+      [=User Agents=] that do not support the constrainable property will not generate
       an error.
     </div>
     <p>The following examples may help to understand how constraints work. The
@@ -5548,7 +5541,7 @@ window.onload = async () =&gt; {
         <li>adding a new getXXXXTracks() method for the type to the
         {{MediaStream}} interface,</li>
         <li>describing what a muted or disabled track of that type will render
-        (see <a href="#life-cycle-and-media-flow"></a>),
+        (see [[[#life-cycle-and-media-flow]]]),
         </li>
         <li>adding the new type as an additional legal value for the
         {{MediaStreamTrack/kind}} attribute on
@@ -5589,8 +5582,7 @@ window.onload = async () =&gt; {
         </li>
         <li>the description of the {{MediaStreamTrack/label}} attribute on the
         {{MediaStreamTrack}} interface,</li>
-        <li>the list of sinks (see <a href=
-        "#the-model-sources-sinks-constraints-and-settings"></a>), and
+        <li>the list of sinks (see [[[#the-model-sources-sinks-constraints-and-settings]]]), and
         </li>
         <li>the best practice statements referring to video and audio (see
         <a href="#implementation-suggestions"></a>).
@@ -5632,7 +5624,7 @@ window.onload = async () =&gt; {
       <ul>
         <li>how a {{MediaStreamTrack}} will render in the
         various states in which it can be, including muted and disabled (see
-        <a href="#life-cycle-and-media-flow"></a>).
+        [[[#life-cycle-and-media-flow]]]).
         </li>
       </ul>
     </section>
