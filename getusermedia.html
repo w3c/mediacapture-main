@@ -319,7 +319,7 @@
       "#track-set">track set</a> of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
-      <p>To <dfn data-dfn-type="abstract-op" id="add-track" data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
+      <p>To <dfn data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
@@ -336,7 +336,7 @@
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
-      <p>To <dfn data-dfn-type="abstract-op" id="remove-track" data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
+      <p>To <dfn data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
       <ol>
@@ -500,7 +500,7 @@ interface MediaStream : EventTarget {
                   steps.</p>
                 </li>
                 <li>
-                  <p>Add <var>track</var> to <var>stream</var>'s [=track set=].</p>
+                  <p>[=MediaStream/Add a track|Add=] <var>track</var> to <var>stream</var>'s [=track set=].</p>
                 </li>
               </ol>
             </dd>
@@ -521,7 +521,7 @@ interface MediaStream : EventTarget {
                   <p>If <var>track</var> is not in <var>stream's</var> [=track set=], then abort these steps.</p>
                 </li>
                 <li>
-                  <p>Remove <var>track</var> from <var>stream</var>'s [=track set=].</p>
+                  <p>[=MediaStream/Remove a track|Remove=] <var>track</var> from <var>stream</var>'s [=track set=].</p>
                 </li>
               </ol>
             </dd>
