@@ -645,6 +645,19 @@ interface MediaStream : EventTarget {
         </li>
         <li><p>Return <var>track</var>.</p></li>
       </ol>
+      <p>To <dfn data-export>initialize the underlying source</dfn> of <var>track</var>
+      to <var>source</var>, run the following steps:</p>
+      <ol>
+        <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Source]]}} to
+          <var>source</var>.</p></li>
+        <li><p>Initialize <var>track</var>'s <a data-link-for="constrainable object"
+            data-link-type="attribute">[[\Capabilities]]</a>,
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Constraints]]</a>, and
+          <a data-link-for="constrainable object"
+             data-link-type="attribute">[[\Settings]]</a>, as
+          specified in the {{ConstrainablePattern}}.</p></li>
+      </ol>
       <p>To <dfn>tie track source to context</dfn> with <var>source</var>, run
       the following steps:
       <ol>
