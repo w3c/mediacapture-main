@@ -781,7 +781,7 @@ interface MediaStream : EventTarget {
         device as soon as any live track sourced by the device
         becomes both [= track/muted | unmuted =] and
         [= track/enabled =] again, provided that track's
-        [=relevant settings object=]'s [=relevant global object=]'s [=associated `Document`=]
+        [=relevant global object=]'s [=associated `Document`=]
         <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
         document does not <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
         the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
@@ -2749,7 +2749,6 @@ interface OverconstrainedError : DOMException {
           <p>Let <var>lastExposedDevices</var> be the result of
           [=creating a list of device info objects=] for
           {{MediaDevices/[[storedDeviceList]]}} and the
-          [=relevant settings object=]'s
           [=relevant global object=]'s [=associated `Document`=].</p>
         </li>
         <li>
@@ -2759,8 +2758,8 @@ interface OverconstrainedError : DOMException {
         <li>
           <p>Let <var>newExposedDevices</var> be the result of
           [=creating a list of device info objects=] for
-          <var>deviceList</var> and the [=relevant settings object=]'s
-          [=relevant global object=]'s [=associated `Document`=].</p>
+          <var>deviceList</var> and the [=relevant global object=]'s
+          [=associated `Document`=].</p>
         </li>
         <li>
           <p>If the {{MediaDeviceInfo}} objects in <var>newExposedDevices</var>
@@ -2844,8 +2843,8 @@ interface MediaDevices : EventTarget {
                   <ol>
                     <li>
 
-                      <p>Let <var>document</var> be the [=relevant settings object=]'s
-                      [=relevant global object=]'s [=associated `Document`=].</p>
+                      <p>Let <var>document</var> be the [=relevant global object=]'s
+                      [=associated `Document`=].</p>
                     </li>
                     <li>
                       <p>The [=User Agent=] MUST wait to proceed to the next step until
@@ -2967,7 +2966,8 @@ interface MediaDevices : EventTarget {
               information across browsing sessions and origins via the availability
               of media capture devices, it adds to the
               fingerprinting surface exposed by the [=User Agent=].</p>
-              <p class="fingerprint">As long as the [=relevant settings object=]'s [=relevant global object=]'s [=associated `Document`=] did not capture, this method will
+              <p class="fingerprint">As long as the [=relevant global object=]'s
+              [=associated `Document`=] did not capture, this method will
               limit exposure to two bits of information: whether there is a camera
               and whether there is a microphone. A [=User Agent=] may mitigate this by
               pretending the system has a camera and a microphone, for instance until the
@@ -3051,7 +3051,8 @@ interface MediaDevices : EventTarget {
             [=device information can be exposed=] is <code>true</code>.
           </li>
           <li>
-            <p>If the [=relevant settings object=]'s [=relevant global object=]'s [=associated `Document`=] is [=Document/fully active=] and
+            <p>If the [=relevant global object=]'s [=associated `Document`=] is
+            [=Document/fully active=] and
             <a data-cite="!HTML/#gains-focus">has focus</a>, return
             <code>true</code>.</p>
           </li>
@@ -3080,9 +3081,8 @@ interface MediaDevices : EventTarget {
         <ol>
           <li>
             <p>If any of the local devices of kind "videoinput" are attached to a live
-            {{MediaStreamTrack}} in the [=relevant settings object=]'s
-            [=relevant global object=]'s [=associated `Document`=], return
-            <code>true</code>.</p>
+            {{MediaStreamTrack}} in the [=relevant global object=]'s
+            [=associated `Document`=], return <code>true</code>.</p>
           </li>
           <li>
             <p>Return {{MediaDevices/[[canExposeCameraInfo]]}}.</p>
@@ -3094,9 +3094,8 @@ interface MediaDevices : EventTarget {
         <ol>
           <li>
             <p>If any of the local devices of kind "audioinput" are attached to a live
-            {{MediaStreamTrack}} in the [=relevant settings object=]'s
-            [=relevant global object=]'s [=associated `Document`=], return
-            <code>true</code>.</p>
+            {{MediaStreamTrack}} in the [=relevant global object=]'s
+            [=associated `Document`=], return <code>true</code>.</p>
           </li>
           <li>
             <p>Return {{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
@@ -3502,8 +3501,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   succeed.</p>
                 </li>
                 <li>
-                  <p>Let <var>document</var> be the [=relevant settings object=]'s
-                  [=relevant global object=]'s [=associated `Document`=].</p>
+                  <p>Let <var>document</var> be the [=relevant global object=]'s
+                  [=associated `Document`=].</p>
                 </li>
                 <li>
                   <p>If <var>document</var> is NOT
@@ -3531,8 +3530,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <ol>
                     <li>
                       <p>The [=User Agent=] MUST wait to proceed to the next step until
-                      the [=relevant settings object=]'s
-                      [=relevant global object=]'s [=associated `Document`=] is
+                      the [=relevant global object=]'s [=associated `Document`=] is
                       [=Document/fully active=] and
                       <a data-cite="!HTML/#gains-focus">has focus.</a></p>
                     </li>
