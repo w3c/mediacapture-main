@@ -3319,110 +3319,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
     from certain types of DOM elements, such as the video element
     [[?mediacapture-fromelement]]. This can be useful for automated testing.</p>
     <section>
-      <h3>Legacy Interface Extensions</h3>
-      <div class="note">
-        The definition of getUserMedia() in this section reflects two major
-        changes from the method definition that has existed here for many
-        months.
-        <p>First, the official definition for the getUserMedia() method, and
-        the one which developers are encouraged to use, is now at {{MediaDevices}}. This decision
-        reflected consensus as long as the original API remained available here
-        under the Navigator object for backwards compatibility reasons, since
-        the working group acknowledges that early users of these APIs have been
-        encouraged to define getUserMedia as "var getUserMedia =
-        navigator.getUserMedia || navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia;" in order for their code to be functional
-        both before and after official implementations of getUserMedia() in
-        popular [=User Agents=]. To ensure functional equivalence, the getUserMedia()
-        method here is defined in terms of the method under MediaDevices.</p>
-        <p>Second, the decision to change all other callback-based methods in
-        the specification to be based on Promises instead required that the
-        navigator.getUserMedia() definition reflect this in its use of
-        navigator.mediaDevices.getUserMedia(). Because navigator.getUserMedia()
-        is now the only callback-based method remaining in the specification,
-        there is ongoing discussion as to a) whether it still belongs in the
-        specification, and b) if it does, whether its syntax should remain
-        callback-based or change in some way to use Promises. Input on these
-        questions is encouraged, particularly from developers actively using
-        today's implementations of this functionality.</p>
-        <p>Note that the other methods that changed from a callback-based
-        syntax to a Promises-based syntax were not considered to have been
-        implemented widely enough in any form to have to consider legacy
-        usage.</p>
-      </div>
-      <div>
-        <pre class="idl"
->partial interface Navigator {
-  [SecureContext] undefined getUserMedia(MediaStreamConstraints constraints,
-                                    NavigatorUserMediaSuccessCallback successCallback,
-                                    NavigatorUserMediaErrorCallback errorCallback);
-};</pre>
-        <section>
-          <h2>Methods</h2>
-          <dl data-link-for="Navigator" data-dfn-for="Navigator" class=
-          "methods">
-            <dt><dfn>getUserMedia</dfn></dt>
-            <dd>
-              <p>Prompts the user for permission to use their Web cam or other
-              video or audio input.</p>
-              <p>The <var>constraints</var> argument is a dictionary of type
-              {{MediaStreamConstraints}}.</p>
-              <p>The <var>successCallback</var> will be invoked with a suitable
-              {{MediaStream}} object as its argument if the
-              user accepts valid tracks as described in {{MediaDevices/getUserMedia()}} on
-              {{MediaDevices}}.</p>
-              <p>The <var>errorCallback</var> will be invoked if there is a
-              failure in finding valid tracks or if the user denies permission,
-              as described in {{MediaDevices/getUserMedia()}} on
-              {{MediaDevices}}.</p>
-              <p>When the {{getUserMedia()}} method is called,
-              the [=User Agent=] MUST run the following steps:</p>
-              <ol>
-                <li>
-                  <p>Let <var>constraints</var> be the method's first
-                  argument.</p>
-                </li>
-                <li>
-                  <p>Let <var>successCallback</var> be the callback indicated
-                  by the method's second argument.</p>
-                </li>
-                <li>
-                  <p>Let <var>errorCallback</var> be the callback indicated by
-                  the method's third argument.</p>
-                </li>
-                <li>
-                  <p>Run the steps specified by the <a href=
-                  "#dom-mediadevices-getusermedia">getUserMedia() algorithm</a>
-                  with <var>constraints</var> as the argument, and let
-                  <var>p</var> be the resulting promise.</p>
-                </li>
-                <li>
-                  <p>[=Upon fulfillment=] of <var>p</var> with value
-                  <var>stream</var>, run the following step:</p>
-                  <ol>
-                    <li>
-                      <p>Invoke <var>successCallback</var> with
-                      <var>stream</var> as the argument.</p>
-                    </li>
-                  </ol>
-                </li>
-                <li>
-                  <p>[=Upon rejection=] of <var>p</var> with reason
-                  <var>r</var>, run the following step:</p>
-                  <ol>
-                    <li>
-                      <p>Invoke <var>errorCallback</var> with <var>r</var> as
-                      the argument.</p>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </section>
-    <section>
       <h3>{{MediaDevices}} Interface Extensions</h3>
       <div class="note">
         The definition of {{Navigator/getUserMedia()}} in this section reflects two major
@@ -3875,6 +3771,118 @@ interface InputDeviceInfo : MediaDeviceInfo {
       </div>
     </section>
     <section>
+      <h3>Legacy GetUserMedia interface</h3>
+      <div class="note">
+        <p>This section is non-normative.</p>
+        <p>
+        The definition of getUserMedia() in this section reflects the call format
+        that was originally proposed; it is only documented here for browsers that
+        wish to retain backwards compatibility. It differs from the recommended
+        interface in two important ways.
+        </p>
+        <p>First, the official definition for the getUserMedia() method, and
+        the one which developers are encouraged to use, is now at {{MediaDevices}}. This decision
+        reflected consensus as long as the original API remained available here
+        under the Navigator object for backwards compatibility reasons, since
+        the working group acknowledges that early users of these APIs have been
+        encouraged to define getUserMedia as "var getUserMedia =
+        navigator.getUserMedia || navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia;" in order for their code to be functional
+        both before and after official implementations of getUserMedia() in
+        popular browsers. To ensure functional equivalence, the getUserMedia()
+        method here is defined in terms of the method under MediaDevices.</p>
+        <p>Second, the decision to change all other callback-based methods in
+        the specification to be based on Promises instead required that the
+        navigator.getUserMedia() definition reflect this in its use of
+        navigator.mediaDevices.getUserMedia(). Because navigator.getUserMedia()
+        is now the only callback-based method remaining in the specification,
+        there is ongoing discussion as to a) whether it still belongs in the
+        specification, and b) if it does, whether its syntax should remain
+        callback-based or change in some way to use Promises. Input on these
+        questions is encouraged, particularly from developers actively using
+        today's implementations of this functionality.</p>
+        <p>Note that the other methods that changed from a callback-based
+        syntax to a Promises-based syntax were not considered to have been
+        implemented widely enough in any form to have to consider legacy
+        usage.</p>
+        <p>Implementations do not need to implement this interface in order
+        to be considered compliant.</p>
+      </div>
+      <section>
+      <h3>Interface definition</h3> 
+      <div>
+        <pre class="idl"
+>partial interface Navigator {
+  [SecureContext] undefined getUserMedia(MediaStreamConstraints constraints,
+                                    NavigatorUserMediaSuccessCallback successCallback,
+                                    NavigatorUserMediaErrorCallback errorCallback);
+};</pre>
+        <section>
+          <h2>Methods</h2>
+          <dl data-link-for="Navigator" data-dfn-for="Navigator" class=
+          "methods">
+            <dt><dfn>getUserMedia</dfn></dt>
+            <dd>
+              <p>Prompts the user for permission to use their Web cam or other
+              video or audio input.</p>
+              <p>The <var>constraints</var> argument is a dictionary of type
+              {{MediaStreamConstraints}}.</p>
+              <p>The <var>successCallback</var> will be invoked with a suitable
+              {{MediaStream}} object as its argument if the
+              user accepts valid tracks as described in {{MediaDevices/getUserMedia()}} on
+              {{MediaDevices}}.</p>
+              <p>The <var>errorCallback</var> will be invoked if there is a
+              failure in finding valid tracks or if the user denies permission,
+              as described in {{MediaDevices/getUserMedia()}} on
+              {{MediaDevices}}.</p>
+              <p>When the {{getUserMedia()}} method is called,
+              the User Agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>constraints</var> be the method's first
+                  argument.</p>
+                </li>
+                <li>
+                  <p>Let <var>successCallback</var> be the callback indicated
+                  by the method's second argument.</p>
+                </li>
+                <li>
+                  <p>Let <var>errorCallback</var> be the callback indicated by
+                  the method's third argument.</p>
+                </li>
+                <li>
+                  <p>Run the steps specified by the <a href=
+                  "#dom-mediadevices-getusermedia">getUserMedia() algorithm</a>
+                  with <var>constraints</var> as the argument, and let
+                  <var>p</var> be the resulting promise.</p>
+                </li>
+                <li>
+                  <p>Upon <a>fulfillment</a> of <var>p</var> with value
+                  <var>stream</var>, run the following step:</p>
+                  <ol>
+                    <li>
+                      <p>Invoke <var>successCallback</var> with
+                      <var>stream</var> as the argument.</p>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  <p>Upon <a>rejection</a> of <var>p</var> with reason
+                  <var>r</var>, run the following step:</p>
+                  <ol>
+                    <li>
+                      <p>Invoke <var>errorCallback</var> with <var>r</var> as
+                      the argument.</p>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      </section>
+    <section>
       <h2><dfn>NavigatorUserMediaSuccessCallback</dfn></h2>
       <div>
         <pre class="idl"
@@ -3913,6 +3921,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           </dl>
         </section>
       </div>
+    </section>
     </section>
     <section class="informative">
       <h2>Implementation Suggestions</h2>
