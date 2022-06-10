@@ -2541,16 +2541,16 @@ interface OverconstrainedError : DOMException {
     <p>The following events fire on {{MediaStream}}
     objects:</p>
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th>Event name</th>
           <th>Interface</th>
           <th>Fired when...</th>
         </tr>
-      </tbody>
+      </thead>
       <tbody>
         <tr>
-          <td><dfn id=
+          <th scope=row><dfn id=
           "event-mediastream-addtrack" data-dfn-type=event>addtrack</dfn></td>
           <td>{{MediaStreamTrackEvent}}</td>
           <td>A new {{MediaStreamTrack}} has been added to this
@@ -2558,7 +2558,7 @@ interface OverconstrainedError : DOMException {
           modifies the tracks of a {{MediaStream}}.</td>
         </tr>
         <tr>
-          <td><dfn id=
+          <th scope=row><dfn id=
           "event-mediastream-removetrack" data-dfn-type=event>removetrack</dfn></td>
           <td>{{MediaStreamTrackEvent}}</td>
           <td>A {{MediaStreamTrack}} has been removed from this
@@ -2570,30 +2570,30 @@ interface OverconstrainedError : DOMException {
     <p>The following events fire on {{MediaStreamTrack}}
     objects:</p>
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th>Event name</th>
           <th>Interface</th>
           <th>Fired when...</th>
         </tr>
-      </tbody>
+      </thead>
       <tbody>
         <tr>
-          <td><dfn id=
+          <th scope=row><dfn id=
           "event-mediastreamtrack-mute" data-dfn-type=event>mute</dfn></td>
           <td>{{Event}}</td>
           <td>The {{MediaStreamTrack}} object's source is
           temporarily unable to provide data.</td>
         </tr>
         <tr>
-          <td><dfn id=
+          <th scope=row><dfn id=
           "event-mediastreamtrack-unmute" data-dfn-type=event>unmute</dfn></td>
           <td>{{Event}}</td>
           <td>The {{MediaStreamTrack}} object's source is live
           again after having been temporarily unable to provide data.</td>
         </tr>
         <tr>
-          <td><dfn data-dfn-type=event id="event-mediastreamtrack-ended">ended</dfn></td>
+          <th scope=row><dfn data-dfn-type=event id="event-mediastreamtrack-ended">ended</dfn></td>
           <td>{{Event}}</td>
           <td>
             <p>The {{MediaStreamTrack}} object's source will no
@@ -2607,16 +2607,16 @@ interface OverconstrainedError : DOMException {
     <p>The following events fire on {{MediaDevices}}
     objects:</p>
     <table>
-      <tbody>
+      <thead>
         <tr>
           <th>Event name</th>
           <th>Interface</th>
           <th>Fired when...</th>
         </tr>
-      </tbody>
+      </thead>
       <tbody>
         <tr>
-          <td><dfn id=
+          <th scope=row><dfn id=
           "event-mediadevices-devicechange" data-dfn-type=event>devicechange</dfn></td>
           <td>{{Event}}</td>
           <td>The set of media devices, available to the [=User Agent=], has
