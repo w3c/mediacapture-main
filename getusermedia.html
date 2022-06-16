@@ -555,6 +555,20 @@ interface MediaStream : EventTarget {
       here. Several {{MediaStreamTrack}} objects can represent
       the same media source, e.g., when the user chooses the same camera in the
       UI shown by two consecutive calls to {{MediaDevices/getUserMedia()}}.</p>
+      <p>A {{MediaStreamTrack}} source defines the following properties:
+        <ol>
+	  <li>A source has a <dfn data-export>MediaStreamTrack source type</dfn>.
+             It is set to either {{MediaStreamTrack}} or a subtype of {{MediaStreamTrack}}.
+             By default, it is set to {{MediaStreamTrack}}. </li>
+          <li>A source has <dfn data-export>MediaStreamTrack source-specific construction steps</dfn>
+            that are executed when creating a {{MediaStreamTrack}} from a source.
+            The steps take a newly created {{MediaStreamTrack}} as input. By default, the steps are empty.</li>
+          <li>A source has <dfn data-export>MediaStreamTrack source-specific clone steps</dfn>
+            that are executed when cloning a {{MediaStreamTrack}} of the given source.
+            The steps take the source and destination {{MediaStreamTrack}}s as input. By default, the steps are empty.</li>
+        </ol>
+      </p>
+
       <p>The data from a {{MediaStreamTrack}} object does not
       necessarily have a canonical binary form; for example, it could just be
       "the video currently coming from the user's video camera". This allows
@@ -589,8 +603,8 @@ interface MediaStream : EventTarget {
       following steps:</p>
       <ol>
         <li>
-          <p>Let <var>track</var> be a new {{MediaStreamTrack}} object with the
-          following internal slots:</p>
+          <p>Let <var>track</var> be a new object of type <var>source</var>'s [=MediaStreamTrack source type=].</p>
+          <p>Initialize track with the following internal slots:</p>
           <ul data-dfn-for="MediaStreamTrack">
             <li>
               <p><dfn>[[\Source]]</dfn>,
@@ -643,6 +657,8 @@ interface MediaStream : EventTarget {
           <p>If <var>tieSourceToContext</var> is <code>true</code>,
           [=tie track source to context=] with <var>source</var>.</p>
         </li>
+        <li><p>Run <var>source</var>'s [=MediaStreamTrack source-specific construction steps=]
+          with <var>track</var> as parameter.</p></li>
         <li><p>Return <var>track</var>.</p></li>
       </ol>
       <p>To <dfn data-export>initialize the underlying source</dfn> of <var>track</var>
@@ -735,6 +751,9 @@ interface MediaStream : EventTarget {
           <var>track</var>'s
           <a data-link-for="constrainable object"
              data-link-type="attribute">[[\Settings]]</a>.</p>
+        </li>
+        <li>
+          <p>Run <var>source</var> [=MediaStreamTrack source-specific clone steps=] with <var>track</var> and <var>trackClone</var> as parameters.</p>
         </li>
         <li>
           <p>Return <var>trackClone</var>.</p>
