@@ -3151,6 +3151,33 @@ interface MediaDevices : EventTarget {
         <p>By default, it returns <code>false</code>.</p>
         <p>Other specifications can define the algorithm for specific device types.
       </section>
+      <section>
+        <h2>Context capturing state</h2>
+        <p>To perform a <dfn data-export id="context-is-capturing">context is capturing</dfn> check
+        for <var>context</var>, run the following steps:</p>
+        <ol>
+          <li>
+           <p>For each <var>source</var> in <var>context</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
+           run the following sub steps:</p>
+           <ol>
+             <li>
+               <p>If <var>source</var> is [=source/stopped=] or [=muted=], abort these steps.</p>
+             </li>
+             <li>
+               <p>Let <var>deviceId</var> be <var>source</var>'s device's deviceId.</p>
+             </li>
+             <li>
+               <p>If <var>context</var>'s {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] is
+               <code>true</code>, return <code>true</code>.</p>
+             </li>
+           </ol>
+         </li>
+         <li>
+           <p>Return <code>false</code>.</p>
+         </li>
+        </ol>
+        <p class="note">This algorithm covers all capture tracks, including microphone, camera and display.</p>
+      </section>
     </section>
     <section>
       <h2>Device Info</h2>
