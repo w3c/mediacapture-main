@@ -2933,16 +2933,12 @@ interface MediaDevices : EventTarget {
                   </ol>
                 </li>
                 <li>
-                  <p>If [=device information can be exposed=] is <code>false</code>,
-                  run the following sub steps:<p>
-                  <ol>
-                    <li>
-                      <p>If <var>microphoneList</var> is not empty, truncate <var>microphoneList</var> to its first item.</p>
-                    </li>
-                    <li>
-                      <p>If <var>cameraList</var> is not empty, truncate <var>cameraList</var> to its first item.</p>
-                    </li>
-                  </ol>
+                  <p>If [=microphone information can be exposed=] is <code>false</code>,
+                    truncate <var>microphoneList</var> to its first item.</p>
+                </li>
+                <li>
+                  <p>If [=camera information can be exposed=] is <code>false</code>,
+                    truncate <var>cameraList</var> to its first item.</p>
                 </li>
                 <li>
                   <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
