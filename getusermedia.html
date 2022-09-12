@@ -3323,7 +3323,7 @@ interface MediaDeviceInfo {
       capabilities of the input device it represents.</p>
       <div>
         <pre class="idl"
->[Exposed=Window]
+>[Exposed=Window, SecureContext]
 interface InputDeviceInfo : MediaDeviceInfo {
   MediaTrackCapabilities getCapabilities();
 };</pre>
