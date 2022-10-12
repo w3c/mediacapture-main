@@ -1774,7 +1774,7 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-frameRate">
               <td><dfn>frameRate</dfn></td>
               <td>{{ConstrainDouble}}</td>
-              <td>The exact frame rate (frames per second) or frame rate range.
+              <td><p>The exact frame rate (frames per second) or frame rate range.
               If video source's pre-set can determine frame rate values, the range, as a capacity,
               should span the video source's pre-set frame rate values with
               min being equal to 0 and max being the largest frame rate.
@@ -1783,7 +1783,14 @@ interface MediaStreamTrack : EventTarget {
               If this frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
               determined from the source stream), then this value MUST refer to
-              the [=User Agent=]'s vsync display rate.</td>
+              the [=User Agent=]'s vsync display rate.</p>
+              <p>As a setting, this value represents the configured frame rate.
+              If decimation is used, this is that value rather than the native
+              frame rate. For example, if the setting is 25 frames per second
+              via decimation, the native frame rate of the camera is 30 frames
+              per second but due to lighting conditions only 20 frames per
+              second is achieved, {{frameRate}} reports the setting: 25 frames
+              per second.</p></td>
             </tr>
             <tr id="def-constraint-aspect">
               <td><dfn>aspectRatio</dfn></td>
