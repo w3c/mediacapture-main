@@ -3612,6 +3612,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <var>kind</var>.</p>
                         </li>
                         <li>
+                          <p>If the user never responds, this algorithm stalls on this step.</p>
+                        </li>
+                        <li>
+                          <p>If the result of the request is {{PermissionState/"denied"}},
+                          jump to the step labeled <em>Permission Failure</em> below.</p>
+                        </li>
+                        <li>
                           <p>The [=User Agent=] MUST wait to proceed to the next
                           step until a task queued to set <var>systemFocus</var>
                           to `true` if the [=top-level browsing context=] has
@@ -3636,13 +3643,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           (when possible). [=User Agents=]
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
-                        </li>
-                        <li>
-                          <p>If the user never responds, this algorithm stalls on this step.</p>
-                        </li>
-                        <li>
-                          <p>If the result of the request is {{PermissionState/"denied"}},
-                          jump to the step labeled <em>Permission Failure</em> below.</p>
                         </li>
                         <li>
                           <p>The result of the request is {{PermissionState/"granted"}}.
