@@ -5517,8 +5517,10 @@ window.onload = async () =&gt; {
     <a href="https://w3ctag.github.io/design-principles/#device-enumeration">
     device enumeration design principles</a>.
     </p>
-    <p>For open web documents where capture has taken place, or for open web documents that have focus, the
-    <a data-link-type=event>devicechange</a> event may be emitted across browsing
+    <p>For open web documents where capture has begun or has taken place, or for
+    web documents that have focus, the
+    <a data-link-type=event>devicechange</a> event can end up being fired at
+    the same time across multiple browsing
     contexts and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events, or by deferring their firing
