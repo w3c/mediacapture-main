@@ -3616,9 +3616,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
-                        </li>
-                        <li>
-                          <p>If the user never responds, this algorithm stalls on this step.</p>
+                          <div class="note">
+                            <p>If the user never responds, this algorithm stalls on this step.</p>
+                          </div>
                         </li>
                         <li>
                           <p>If the result of the request is {{PermissionState/"denied"}},
