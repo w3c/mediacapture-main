@@ -3138,6 +3138,16 @@ interface MediaDevices : EventTarget {
             is `"visible"`, return `true`. Otherwise, return `false`.</p>
           </li>
         </ol>
+        <p>To perform a <dfn>has system focus</dfn> check, run the following
+        steps:</p>
+        <ol>
+          <li>
+            <p>If the [=relevant global object=]'s [=associated `Document`=]'s
+            [=top-level browsing context=] has
+            <a data-cite="!HTML/#tlbc-system-focus">system focus</a>, return
+            `true`. Otherwise, return `false`.</p>
+          </li>
+        </ol>
       </section>
       <section>
         <h2>Set device information exposure</h2>
@@ -3625,11 +3635,14 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           jump to the step labeled <em>Permission Failure</em> below.</p>
                         </li>
                         <li>
-                          <p>The [=User Agent=] MUST wait to proceed to the next
-                          step until a task queued to set <var>systemFocus</var>
-                          to `true` if the [=top-level browsing context=] has
-                          <a data-cite="!HTML/#tlbc-system-focus">system focus</a>,
-                          or `false` otherwise, sets <var>systemFocus</var> to
+                          <p>Let <var>hasSystemFocus</var> be `false`.</p>
+                        </li>
+                        <li>
+                          <p>While <var>hasSystemFocus</var> is `false`, the
+                          [=User Agent=] MUST wait to proceed to the next step
+                          until a task queued to set <var>hasSystemFocus</var>
+                          to the result of the [=has system focus=]</a>
+                          algorithm, would set <var>hasSystemFocus</var> to
                           `true`.</p>
                         </li>
                         <li>
