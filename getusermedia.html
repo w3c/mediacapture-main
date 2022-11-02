@@ -3129,6 +3129,15 @@ interface MediaDevices : EventTarget {
             <p>Return {{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
           </li>
         </ol>
+        <p>To perform an <dfn>is in view</dfn> check, run the following
+        steps:</p>
+        <ol>
+          <li>
+            <p>If the [=relevant global object=]'s [=associated `Document`=] is
+            [=Document/fully active=] and its [=Document/visibility state=]
+            is `"visible"`, return `true`. Otherwise, return `false`.</p>
+          </li>
+        </ol>
       </section>
       <section>
         <h2>Set device information exposure</h2>
@@ -3474,11 +3483,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     jump to the step labeled <em>Permission Failure</em> below.</p>
                 </li>
                 <li>
-                  <p>Let <var>inForeground</var> be the result of the following
-                  <dfn>in the foreground</dfn> algorithm, which returns `true` if
-                  the [=relevant global object=]'s [=associated `Document`=] is
-                  [=Document/fully active=] and its [=Document/visibility state=]
-                  is `"visible"`.</p>
+                  <p>Let <var>isInView</var> be the result of the
+                  <a>is in view</a> algorithm.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3487,11 +3493,11 @@ interface InputDeviceInfo : MediaDeviceInfo {
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>While <var>inForeground</var> is `false`, the [=User Agent=]
+                      <p>While <var>isInView</var> is `false`, the [=User Agent=]
                       MUST wait to proceed to the next step until a task queued
-                      to set <var>inForeground</var> to the result of the
-                      [=in the foreground=]</a> algorithm, sets
-                      <var>inForeground</var> to `true`.</p>
+                      to set <var>isInView</var> to the result of the
+                      [=is in view=]</a> algorithm, would set
+                      <var>isInView</var> to `true`.</p>
                     </li>
                     <li>
                       <p>Let <var>finalSet</var> be an (initially) empty
@@ -4118,10 +4124,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
             continuing capture in situations that may surprise users.</p>
           </li>
           <li>
-            <p>A web page not [=in the foreground=]
+            <p>A web page not [=is in view|in view=]
             <a data-lt=enabled>re-enables</a> a track when all tracks from that
             source are <a data-lt=enabled>disabled</a>, in order to delay
-            resumption of capture until the page is [=in the foreground=].
+            resumption of capture until the page [=is in view=].
             </p>
           </li>
         </ul>
@@ -4137,7 +4143,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
             user's awareness of the earlier capture session.</p>
           </li>
           <li>
-            <p>A web page comes [=in the foreground|into the foreground=] and
+            <p>A web page comes [=is in view|into view=] and
             has one or more <a data-lt=enabled>enabled</a> tracks that are also
             [= muted =].
             </p>
