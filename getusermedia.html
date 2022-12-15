@@ -791,9 +791,9 @@ interface MediaStream : EventTarget {
         <p>When a {{MediaStreamTrackState/"live"}}, [= track/muted | unmuted =], and
         [= track/enabled =] track sourced by a device exposed
         by {{MediaDevices/getUserMedia()}} becomes either
-        [= track/muted or [= track/enabled | disabled =],
-        and this brings <em>all</em> tracks connected to the device (regardless
-        of browsing context) to be either
+        [= track/muted =] or [= track/enabled | disabled =],
+        and this brings <em>all</em> tracks connected to the device (across all
+        {{Document}}s the user agent operates) to be either
         muted, disabled, or stopped, then the UA SHOULD relinquish the device
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA SHOULD attempt to reacquire the
@@ -1823,7 +1823,7 @@ interface MediaStreamTrack : EventTarget {
                 <p class="fingerprint">The UA MAY disguise concurrent use of
                 the camera, by cropping and/or downscaling to mimic native
                 resolutions when "none" is used, but only when the camera is in
-                use in another browsing context.</p>Note that
+                use in another [=navigable=].</p>Note that
                 <code><a data-link-for=
                 "ConstrainablePattern">getConstraints</a></code> may not return
                 exactly the same string for strings not in this enum. This
@@ -1928,7 +1928,7 @@ interface MediaStreamTrack : EventTarget {
                   its driver, or the OS.</p>
                   <p class="fingerprint">Note: The UA MAY report this value to
                   disguise concurrent use, but only when the camera is in use
-                  in another browsing context.</p>
+                  in another [=navigable=].</p>
                 </td>
               </tr>
               <tr>
@@ -3020,7 +3020,8 @@ interface MediaDevices : EventTarget {
         <h2>Access control model</h2>
         <p>The algorithm described above means that the access to media device
         information depends on whether or not the [=relevant global object=]'s [=associated `Document`=] did capture.</p>
-        <p>For camera and microphone devices, if the browsing context did not capture
+        <p>For camera and microphone devices, if the [=relevant global object=]'s
+        [=associated `Document`=] did not capture
         (i.e. {{MediaDevices/getUserMedia()}} was not called or never resolved successfully), the
         {{MediaDeviceInfo}} object will contain a valid value for {{MediaDeviceInfo/kind}} but empty strings
         for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}.
@@ -3142,8 +3143,8 @@ interface MediaDevices : EventTarget {
         steps:</p>
         <ol>
           <li>
-            <p>If the [=relevant global object=]'s [=browsing context=]'s
-            [=top-level browsing context=] has
+            <p>If the [=relevant global object=]'s [=navigable=]'s
+            [=top-level traversable=] has
             <a data-cite="!HTML/#tlbc-system-focus">system focus</a>, return
             `true`. Otherwise, return `false`.</p>
           </li>
@@ -3167,7 +3168,7 @@ interface MediaDevices : EventTarget {
         </ol>
         <div class="note">
           <p>A [=User Agent=] MAY at any point set the device information exposure back to <code>false</code>,
-          for instance if the [=User Agent=] decides to revoke device access on a given browsing context.</p>
+          for instance if the [=User Agent=] decides to revoke device access on a given {{Document}}.</p>
         </div>
       </section>
       <section>
@@ -3228,8 +3229,8 @@ interface MediaDeviceInfo {
             <dd>
               <p>The identifier of the represented device. The device MUST be
               uniquely identified by its identifier and its {{MediaDeviceInfo/kind}}.</p>
-              <p>To to ensure stored identifiers are recognized, the identifier
-              MUST be the same in documents of the same origin in [=top-level browsing contexts=].
+              <p>To ensure stored identifiers are recognized, the identifier
+              MUST be the same in {{Document}}s of the [=same origin=] in [=top-level traversables=].
               In [=child navigables=],
               the decision of whether or not the identifier is the same across
               documents, MUST follow the [=User Agent=]'s partitioning rules for
@@ -3572,7 +3573,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           <p>Read the current [=permission state=] for all
                           candidate devices in <var>candidateSet</var> that are
                           not attached to a live {{MediaStreamTrack}}
-                          in the current browsing context. Remove from
+                          in the current {{Document}}. Remove from
                           <var>candidateSet</var> any candidate whose device's
                           permission state is {{PermissionState/"denied"}}.</p>
                           <p>If <var>candidateSet</var> is now empty,
@@ -3611,12 +3612,12 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           use=] a {{PermissionDescriptor}} with its {{PermissionDescriptor/name}} member set
                           to the permission name associated with <var>kind</var>
                           (e.g. <a>"camera"</a> for <a>"video"</a>, <a>"microphone"</a> for <a>"audio"</a>),
-                          and, optionally, consider its deviceId member set to
+                          and, optionally, consider its {{DevicePermissionDescriptor/deviceId}} member set to
                           any appropriate device's <var>deviceId</var>,
                           while considering all devices attached to a
                           live and <a>same-permission</a>
-                          {{MediaStreamTrack}} in the current [=browsing
-                          context=] to have permission status {{PermissionState/"granted"}},
+                          {{MediaStreamTrack}} in the current {{Document}}
+                          to have permission status {{PermissionState/"granted"}},
                           resulting in a set of provided media.
                           <dfn>Same-permission</dfn> in this context means a
                           {{MediaStreamTrack}} that required the same level of
@@ -5586,8 +5587,8 @@ window.onload = async () =&gt; {
     device enumeration design principles</a>.
     </p>
     <p>For origins to which permission has been granted, the
-    <a data-link-type=event>devicechange</a> event will be emitted across browsing
-    contexts and origins each time a new media device is added or removed; user
+    <a data-link-type=event>devicechange</a> event will be emitted across
+    [=navigables=] and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events.</p>
     <p>Once a developer gains access to a media stream from a capture device,
