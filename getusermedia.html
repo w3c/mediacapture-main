@@ -2865,16 +2865,22 @@ interface MediaDevices : EventTarget {
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
+                  <p>Let <var>proceed</var> be the result of
+                  [=device enumeration can proceed=].</p>
+                </li>
+                <li>
+                  <p>Let <var>document</var> be the [=relevant global object=]'s
+                  [=associated `Document`=].</p>
+                </li>
+                <li>
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-
-                      <p>Let <var>document</var> be the [=relevant global object=]'s
-                      [=associated `Document`=].</p>
-                    </li>
-                    <li>
-                      <p>The [=User Agent=] MUST wait to proceed to the next step until
-                      [=device enumeration can proceed=] is <code>true</code>.</p>
+                      <p>While <var>proceed</var> is `false`, the [=User Agent=]
+                      MUST wait to proceed to the next step until a task queued
+                      to set <var>proceed</var> to the result of
+                      [=device enumeration can proceed=], would set
+                      <var>proceed</var> to `true`.</p>
                     </li>
                     <li>
                       <p>Let <var>resultList</var> be the result of
@@ -3123,6 +3129,25 @@ interface MediaDevices : EventTarget {
             <p>Return {{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
           </li>
         </ol>
+        <p>To perform an <dfn>is in view</dfn> check, run the following
+        steps:</p>
+        <ol>
+          <li>
+            <p>If the [=relevant global object=]'s [=associated `Document`=] is
+            [=Document/fully active=] and its [=Document/visibility state=]
+            is `"visible"`, return `true`. Otherwise, return `false`.</p>
+          </li>
+        </ol>
+        <p>To perform a <dfn>has system focus</dfn> check, run the following
+        steps:</p>
+        <ol>
+          <li>
+            <p>If the [=relevant global object=]'s [=browsing context=]'s
+            [=top-level browsing context=] has
+            <a data-cite="!HTML/#tlbc-system-focus">system focus</a>, return
+            `true`. Otherwise, return `false`.</p>
+          </li>
+        </ol>
       </section>
       <section>
         <h2>Set device information exposure</h2>
@@ -3205,7 +3230,7 @@ interface MediaDeviceInfo {
               uniquely identified by its identifier and its {{MediaDeviceInfo/kind}}.</p>
               <p>To to ensure stored identifiers are recognized, the identifier
               MUST be the same in documents of the same origin in [=top-level browsing contexts=].
-              In [=nested browsing contexts=],
+              In [=child navigables=],
               the decision of whether or not the identifier is the same across
               documents, MUST follow the [=User Agent=]'s partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
@@ -3468,16 +3493,21 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     jump to the step labeled <em>Permission Failure</em> below.</p>
                 </li>
                 <li>
+                  <p>Let <var>isInView</var> be the result of the
+                  <a>is in view</a> algorithm.</p>
+                </li>
+                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
                   <p>Run the following steps in parallel:</p>
                   <ol>
                     <li>
-                      <p>The [=User Agent=] MUST wait to proceed to the next step until
-                      the [=relevant global object=]'s [=associated `Document`=] is
-                      [=Document/fully active=] and
-                      <a data-cite="!HTML/#gains-focus">has focus.</a></p>
+                      <p>While <var>isInView</var> is `false`, the [=User Agent=]
+                      MUST wait to proceed to the next step until a task queued
+                      to set <var>isInView</var> to the result of the
+                      [=is in view=]</a> algorithm, would set
+                      <var>isInView</var> to `true`.</p>
                     </li>
                     <li>
                       <p>Let <var>finalSet</var> be an (initially) empty
@@ -3596,6 +3626,26 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           MUST disclose whether permission will be granted only to
                           the device chosen, or to all devices of that
                           <var>kind</var>.</p>
+                          <div class="note">
+                            <p>If the user never responds, this algorithm stalls on this step.</p>
+                          </div>
+                        </li>
+                        <li>
+                          <p>If the result of the request is {{PermissionState/"denied"}},
+                          jump to the step labeled <em>Permission Failure</em> below.</p>
+                        </li>
+                        <li>
+                          <p>Let <var>hasSystemFocus</var> be `false`.</p>
+                        </li>
+                        <li>
+                          <p>While <var>hasSystemFocus</var> is `false`, the
+                          [=User Agent=] MUST wait to proceed to the next step
+                          until a task queued to set <var>hasSystemFocus</var>
+                          to the result of the [=has system focus=]</a>
+                          algorithm, would set <var>hasSystemFocus</var> to
+                          `true`.</p>
+                        </li>
+                        <li>
                           <p>Let <var>finalCandidate</var> be the provided media, which
                           MUST be precisely one <a>candidate</a> of type <var>kind</var> from
                           <var>finalSet</var>. The decision of which candidate to
@@ -3612,13 +3662,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           (when possible). [=User Agents=]
                           MAY allow users to use any media source, including
                           pre-recorded media files.</p>
-                        </li>
-                        <li>
-                          <p>If the user never responds, this algorithm stalls on this step.</p>
-                        </li>
-                        <li>
-                          <p>If the result of the request is {{PermissionState/"denied"}},
-                          jump to the step labeled <em>Permission Failure</em> below.</p>
                         </li>
                         <li>
                           <p>The result of the request is {{PermissionState/"granted"}}.
@@ -4094,11 +4137,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
             continuing capture in situations that may surprise users.</p>
           </li>
           <li>
-            <p>A web page <a data-cite="!HTML/#gains-focus">without focus</a>
+            <p>A web page not [=is in view|in view=]
             <a data-lt=enabled>re-enables</a> a track when all tracks from that
             source are <a data-lt=enabled>disabled</a>, in order to delay
-            resumption of capture until the page
-            <a data-cite="!HTML/#gains-focus">gains focus</a>.
+            resumption of capture until the page [=is in view=].
             </p>
           </li>
         </ul>
@@ -4114,7 +4156,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
             user's awareness of the earlier capture session.</p>
           </li>
           <li>
-            <p>A web page <a data-cite="!HTML/#gains-focus">gains focus</a> and
+            <p>A web page comes [=is in view|into view=] and
             has one or more <a data-lt=enabled>enabled</a> tracks that are also
             [= muted =].
             </p>
