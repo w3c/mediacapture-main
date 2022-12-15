@@ -3230,7 +3230,7 @@ interface MediaDeviceInfo {
               uniquely identified by its identifier and its {{MediaDeviceInfo/kind}}.</p>
               <p>To to ensure stored identifiers are recognized, the identifier
               MUST be the same in documents of the same origin in [=top-level browsing contexts=].
-              In [=nested browsing contexts=],
+              In [=child navigables=],
               the decision of whether or not the identifier is the same across
               documents, MUST follow the [=User Agent=]'s partitioning rules for
               storage (such as {{WindowLocalStorage/localStorage}}), if any,
