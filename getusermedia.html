@@ -793,7 +793,7 @@ interface MediaStream : EventTarget {
         by {{MediaDevices/getUserMedia()}} becomes either
         [= track/muted =] or [= track/enabled | disabled =],
         and this brings <em>all</em> tracks connected to the device (across all
-        {{Document}}s the user agent operates) to be either
+        [=navigables=] the user agent operates) to be either
         muted, disabled, or stopped, then the UA SHOULD relinquish the device
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA SHOULD attempt to reacquire the
