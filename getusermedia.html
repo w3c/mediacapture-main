@@ -5547,33 +5547,37 @@ window.onload = async () =&gt; {
     <p>This section is non-normative; it specifies no new behavior, but instead
     summarizes information already present in other parts of the
     specification.</p>
-    <p>This document extends the Web platform with the ability to manage input
-    devices for media - in this iteration, microphones, and cameras. It also
-    allows the manipulation of audio output devices (speakers and headphones).
-    Capturing audio and video exposes personally-identifiable information to
+    <p>This specification extends the Web platform with the ability to manage input
+    devices for media - specifically microphones, and cameras. It also potentially
+    allows exposure of information about other media devices, such as audio output
+    devices (speakers and headphones), but the details of such exposure is relegated
+    to other specifications.
+    Capturing audio and video from the user's microphone and camera exposes
+    personally-identifiable information to
     applications, and this specification requires obtaining explicit user
     consent before sharing it.</p>
-    <p>Without authorization (to the "drive-by web"), it offers the ability to
+    <p>Ahead of camera or microphone capture, an application (the "drive-by web")
+    is only offered the ability to
     tell whether the user has a camera or a microphone (but not how many). The
     identifiers for the devices are designed to not be useful for a fingerprint
     that can track the user between origins, but the presence of camera or
     microphone ability adds two bits to the fingerprint surface. It recommends to treat the
     per-origin persistent identifier {{MediaDeviceInfo/deviceId}} as other persistent
     storage (e.g. cookies) are treated.</p>
-    <p>When authorization is given, this document describes how to get access
+    <p>Once camera or microphone capture has begun, this specification describes how to get access
     to, and use, media data from the devices mentioned. This data may be
     sensitive; advice is given that indicators should be supplied to indicate
-    that devices are in use, but both the nature of authorization and the
+    that devices are in use, but both the nature of permission and the
     indicators of in-use devices are platform decisions.</p>
-    <p>Authorization may be given on a case-by-case basis, or be persistent. In
-    the case of a case-by-case authorization, it is important that the user be
+    <p>Permission to begin capture may be given on a case-by-case basis, or be persistent. In
+    the case of a case-by-case permission, it is important that the user be
     able to say "no" in a way that prevents the UI from blocking user
     interaction until permission is given - either by offering a way to say a
     "persistent NO" or by not using a modal permissions dialog.</p>
-    <p>When authorization to any media device is given, application developers
-    gain access to the labels of all available media capture devices. In most
-    cases, the labels are persistent across browsing sessions and across
-    origins that have also been granted authorization, and thus potentially
+    <p>Once capture of camera or microphone has begun, the web document gains the
+    ability to list all available media capture devices and their labels. This
+    ability lasts until the web document is closed, and cannot be persisted.
+    In most cases, the labels are stable across origins, and thus potentially
     provide a way to track a given device across time and origins.</p>
     <p class="note">
     This specification exposes device information of devices other than those in
@@ -5583,13 +5587,16 @@ window.onload = async () =&gt; {
     <a href="https://w3ctag.github.io/design-principles/#device-enumeration">
     device enumeration design principles</a>.
     </p>
-    <p>For origins to which permission has been granted, the
-    <a data-link-type=event>devicechange</a> event will be emitted across browsing
-    contexts and origins each time a new media device is added or removed; user
+    <p>For open web documents where capture has begun or has taken place, or for
+    web documents that have focus, the
+    <a data-link-type=event>devicechange</a> event can end up being fired at
+    the same time across [=navigables=]
+    and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
-    origins by fuzzing the timing of these events.</p>
-    <p>Once a developer gains access to a media stream from a capture device,
-    the developer also gains access to detailed information about the device,
+    origins by fuzzing the timing of these events, or by deferring their firing
+    until those web documents gain focus.</p>
+    <p>Once a web document gains access to a media stream from a capture device,
+    it also gains access to detailed information about the device,
     including its range of operating capabilities (e.g. available resolutions
     for a camera). These operating capabilities are for the most part
     persistent across browsing sessions and origins, and thus provide a way to
@@ -5608,7 +5615,7 @@ window.onload = async () =&gt; {
     the user, which increases the surface available for fingerprinting. The
     [=User Agent=] should consider limiting the rate at which failed getUserMedia
     calls are allowed in order to limit this additional surface.</p>
-    <p>In the case of persistent authorization via a stored permission, it is
+    <p>In the case of a stored persistent permission to begin capture, it is
     important that it is easy to find the list of granted permissions and
     revoke permissions that the user wishes to revoke.</p>
     <p>Once permission has been granted, the [=User Agent=] should make two things
