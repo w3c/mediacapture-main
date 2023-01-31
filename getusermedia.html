@@ -3004,12 +3004,13 @@ interface MediaDevices : EventTarget {
               cross-origin information via the list of all media capture devices,
               including their grouping and human readable labels associated
               with the capture devices, which further adds to the
-              fingerprinting surface. A [=User Agent=] may limit exposure by sanitizing
+              fingerprinting surface.</p>
+              <p class="fingerprint" id="sanitize-device-labels">
+              A [=User Agent=] may limit exposure by sanitizing
               device labels. This could for instance mean removing user names found
               in labels, but keeping device manufacturer or model information.
               It is important that the sanitized labels allow users to identify
-              the corresponding devices.
-              </p>
+              the corresponding devices.</p>
             </dd>
           </dl>
         </section>
@@ -3900,7 +3901,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         to be considered compliant.</p>
       </div>
       <section>
-      <h3>Interface definition</h3> 
+      <h3>Interface definition</h3>
       <div>
         <pre class="idl"
 >partial interface Navigator {
