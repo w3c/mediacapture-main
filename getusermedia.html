@@ -2810,7 +2810,7 @@ interface OverconstrainedError : DOMException {
       </ol>
       <p>Additionally, if a {{MediaDevices}} object that was traversed comes
       to meet the [=device enumeration can proceed=] criteria later (e.g.
-      <a data-cite="!HTML/#gains-focus">gains focus</a>), the [=User Agent=] MUST
+      [=is in view | comes into view=]), the [=User Agent=] MUST
       execute the [=device change notification steps=] on the {{MediaDevices}}
       object at that time.</p>
       <div class="note">
@@ -3079,13 +3079,8 @@ interface MediaDevices : EventTarget {
             [=device information can be exposed=] is <code>true</code>.
           </li>
           <li>
-            <p>If the [=relevant global object=]'s [=associated `Document`=] is
-            [=Document/fully active=] and
-            <a data-cite="!HTML/#gains-focus">has focus</a>, return
-            <code>true</code>.</p>
+            <p>Return the result of [=is in view=].</p>
           </li>
-          <li>
-            <p>Return <code>false</code>.</li>
         </ol>
         <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
         "device-information-can-be-exposed">device information can be exposed</dfn>
@@ -5597,13 +5592,13 @@ window.onload = async () =&gt; {
     device enumeration design principles</a>.
     </p>
     <p>For open web documents where capture has begun or has taken place, or for
-    web documents that have focus, the
+    web documents that [=is in view|are in view=], the
     <a data-link-type=event>devicechange</a> event can end up being fired at
     the same time across [=navigables=]
     and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events, or by deferring their firing
-    until those web documents gain focus.</p>
+    until those web documents [=is in view | come into view=].</p>
     <p>Once a web document gains access to a media stream from a capture device,
     it also gains access to detailed information about the device,
     including its range of operating capabilities (e.g. available resolutions
