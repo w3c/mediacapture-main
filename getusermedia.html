@@ -801,11 +801,11 @@ interface MediaStream : EventTarget {
         becomes both [= track/muted | unmuted =] and
         [= track/enabled =] again, provided that track's
         [=relevant global object=]'s [=associated `Document`=]
-        <a data-cite="!HTML/#gains-focus">has focus</a> at that time. If the
-        document does not <a data-cite="!HTML/#gains-focus">have focus</a> at that time,
+        [=is in view=] at that time. If the
+        document is not [=is in view|in view=] at that time,
         the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
         track, and not queue a task to <a data-lt=muted>unmute</a> it until
-        the document <a data-cite="!HTML/#gains-focus">regains focus</a>.
+        the document comes [=is in view|into view=].
         If reacquiring the device fails, the UA MUST
         [= track ended by the User agent | end the track =] (The UA MAY end it earlier
         should it detect a device problem, like the device being physically
