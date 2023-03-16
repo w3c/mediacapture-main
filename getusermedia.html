@@ -580,8 +580,7 @@ interface MediaStream : EventTarget {
       using a source have been stopped or ended by some other means, the source
       is <dfn id="source-stopped" data-lt="source stopped state">stopped</dfn>. If the source is a device
       exposed by {{MediaDevices/getUserMedia()}}, then when
-      the source is stopped, the [=User Agent=] MUST queue a task to run the
-      following steps:</p>
+      the source is stopped, the [=User Agent=] MUST run the following steps:</p>
       <ol>
         <li>
           <p>Let <var>mediaDevices</var> be the {{MediaDevices}} object in question.</p>
