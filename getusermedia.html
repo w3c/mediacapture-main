@@ -692,7 +692,7 @@ interface MediaStream : EventTarget {
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
         set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}} to
         {{MediaStreamTrackState/"ended"}}.</p></li>
-        <p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
+        <li><p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
         <var>globalObject</var>'s
         [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
         [= source/stopped | stop =] <var>source</var>.</p></li>
