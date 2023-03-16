@@ -689,14 +689,10 @@ interface MediaStream : EventTarget {
       <p>To <dfn>stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
       the [=User Agent=] MUST run the following steps:</p>
       <ol>
-        <li><p>Let <var>tracks</var> be a [=list=] of every {{MediaStreamTrack}} object whose
-        <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is
-        <var>globalObject</var>.</p></li>
-        <li>
-          <p>For each track, <var>track</var>, in <var>tracks</var>,
-          [=end the `MediaStreamTrack`=] <var>track</var> with `false`.</p>
-        </li>
-        <li>
+        <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
+        <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
+        set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}} to
+        {{MediaStreamTrackState/"ended"}}.</p></li>
         <p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
         <var>globalObject</var>'s
         [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
@@ -862,11 +858,8 @@ interface MediaStream : EventTarget {
         Agent has instructed the track to end for any reason) it is said to be
         <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
-        <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends</dfn>
-        and the [=end the `MediaStreamTrack`=] algorithm has not already been run on it,
-        the [=User Agent=] MUST queue a task to [=end the `MediaStreamTrack`=] with `true`.</p>
-        <p>To <dfn>end the `MediaStreamTrack`</dfn> <var>track</var>, given a boolean
-        <var>notify</var>, run the following
+        <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
+        invoked</dfn>, the [=User Agent=] MUST queue a task that runs the following
         steps:</p>
         <ol>
           <li>
@@ -1094,8 +1087,31 @@ interface MediaStreamTrack : EventTarget {
               </dd>
               <dt><dfn>stop</dfn></dt>
               <dd>
-                <p>When the {{stop()}} method is invoked, the [=User Agent=]
-                MUST [=end the `MediaStreamTrack`=] with [=this=].</p>
+                <p>When a {{MediaStreamTrack}} object's
+                <dfn>stop()</dfn> method is invoked, the User
+                Agent MUST run following steps:</p>
+                <ol>
+                  <li>
+                    <p>Let <var>track</var> be the current
+                    {{MediaStreamTrack}} object.</p>
+                  </li>
+                  <li>
+                    <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
+                    is {{MediaStreamTrackState/"ended"}}, then abort these steps.</p>
+                  </li>
+                  <li>
+                    <p>Notify <var>track</var>'s source that <var>track</var>
+                    is [= track/ended =].</p>
+                    <p>A source that is notified of a track ending will be
+                    [= source/stopped =], unless other
+                    {{MediaStreamTrack}} objects depend on
+                    it.</p>
+                  </li>
+                  <li>
+                    <p>Set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
+                    to {{MediaStreamTrackState/"ended"}}.</p>
+                  </li>
+                </ol>
               </dd>
               <dt><dfn>getCapabilities</dfn></dt>
               <dd>
