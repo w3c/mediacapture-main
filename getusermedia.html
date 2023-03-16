@@ -576,15 +576,17 @@ interface MediaStream : EventTarget {
       the user's platform.</p>
       <p>A script can indicate that a {{MediaStreamTrack}}
       object no longer needs its source with the {{MediaStreamTrack/stop()}}
-      method. When <em>all</em> tracks
+      method. When all tracks
       using a source have been stopped or ended by some other means, the source
       is <dfn id="source-stopped" data-lt="source stopped state">stopped</dfn>. If the source is a device
       exposed by {{MediaDevices/getUserMedia()}}, then when
-      the source is stopped, then for each {{MediaDevices}} object, <var>mediaDevices</var> in the
-      [=User Agent=], queue a task to run the following steps:</p>
+      the source is stopped, the [=User Agent=] MUST queue a task to run the
+      following steps:</p>
       <ol>
         <li>
-          <p>Let <var>deviceId</var> be the device's {{MediaDeviceInfo/deviceId}}.</p>
+          <p>Let <var>mediaDevices</var> be the {{MediaDevices}} object in question.</p>
+        <li>
+          <p>Let <var>deviceId</var> be the source device's {{MediaDeviceInfo/deviceId}}.</p>
         </li>
         <li>
           <p>Set <var>mediaDevices</var>.{{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
@@ -684,18 +686,23 @@ interface MediaStream : EventTarget {
         </li>
       </ol>
 
-      <p>To <dfn>end all `MediaStreamTrack`s</dfn> of a [=global object=], named <var>globalObject</var>,
-      the [=User Agent=] MUST queue a task to run the following steps:</p>
+      <p>To <dfn>stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
+      the [=User Agent=] MUST run the following steps:</p>
       <ol>
         <li><p>Let <var>tracks</var> be a [=list=] of every {{MediaStreamTrack}} object whose
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is
         <var>globalObject</var>.</p></li>
         <li>
-          <p>For each track, <var>track</var>, in <var>tracks</var>, queue a task to
+          <p>For each track, <var>track</var>, in <var>tracks</var>,
           [=end the `MediaStreamTrack`=] <var>track</var> with `false`.</p>
         </li>
+        <li>
+        <p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
+        <var>globalObject</var>'s
+        [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
+        [= source/stopped | stop =] <var>source</var>.</p></li>
       </ol>
-      <p>The [=User Agent=] MUST [=end all `MediaStreamTrack`s=] of a <var>globalObject</var> in the following conditions:</p>
+      <p>The [=User Agent=] MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
       <ol>
         <li><p>If <var>globalObject</var> is a {{Window}} object and the [=unloading document cleanup steps=]
         are executed for its [=associated document=].</p></li>
