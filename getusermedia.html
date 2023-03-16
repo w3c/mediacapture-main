@@ -871,13 +871,12 @@ interface MediaStream : EventTarget {
             to {{MediaStreamTrackState/"ended"}}.</p>
           </li>
           <li>
-            <p>Inform <var>track</var>'s {{MediaStreamTrack/[[Source]]}} that <var>track</var> is
+            <p>Notify <var>track</var>'s {{MediaStreamTrack/[[Source]]}} that <var>track</var> is
             [= track/ended =] so that the source may be [= source/stopped =], unless other
             {{MediaStreamTrack}} objects depend on it.</p>
           </li>
           <li>
-            <p>If <var>notify</var> is `true`, [=fire an event=] named <a data-link-type=event>ended</a>
-            at <var>track</var>.</p>
+            <p>[=Fire an event=] named <a data-link-type=event>ended</a> at the object.</p>
           </li>
         </ol>
         <p>If the end of the track was reached due to a user request, the event
