@@ -2796,10 +2796,6 @@ interface OverconstrainedError : DOMException {
       object, <var>mediaDevices</var>, for which [=device enumeration can proceed=] is <code>true</code>,
       but for no other {{MediaDevices}} object:</p>
       <ol>
-          <li>
-            <p>Let <var>document</var> be <var>mediaDevices</var>'s
-            [=relevant global object=]'s [=associated `Document`=].</p>
-          </li>
         <li>
           <p>Let <var>lastExposedDevices</var> be the result of
           [=creating a list of device info objects=] with <var>mediaDevices</var> and
