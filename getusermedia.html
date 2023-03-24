@@ -580,26 +580,28 @@ interface MediaStream : EventTarget {
       using a source have been stopped or ended by some other means, the source
       is <dfn id="source-stopped" data-lt="source stopped state">stopped</dfn>. If the source is a device
       exposed by {{MediaDevices/getUserMedia()}}, then when
-      the source is stopped, the UA MUST run the following steps:</p>
+      the source is stopped, the [=User Agent=] MUST run the following steps:</p>
       <ol>
         <li>
-          <p>Let <var>deviceId</var> be the device's {{MediaDeviceInfo/deviceId}}.</p>
+          <p>Let <var>mediaDevices</var> be the {{MediaDevices}} object in question.</p>
+        <li>
+          <p>Let <var>deviceId</var> be the source device's {{MediaDeviceInfo/deviceId}}.</p>
         </li>
         <li>
-          <p>Set {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
+          <p>Set <var>mediaDevices</var>.{{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
           <code>false</code>.</p>
         </li>
         <li>
           <p>If the [=permission state=]
           of the permission associated with the device's kind and
-          <var>deviceId</var>, is not {{PermissionState/"granted"}}, then set
-          {{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
+          <var>deviceId</var> for <var>mediaDevices</var>'s [=relevant settings object=],
+          is not {{PermissionState/"granted"}}, then set
+          <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
           <code>false</code>.</p>
         </li>
       </ol>
       <p>To <dfn data-export>create a MediaStreamTrack</dfn> with an underlying
-      <var>source</var>, and an optional parameter <var>tieSourceToContext</var>,
-      whose value is <code>true</code> unless explicitly specified, run the
+      <var>source</var>, and a <var>mediaDevicesToTieSourceTo</var>, run the
       following steps:</p>
       <ol>
         <li>
@@ -654,8 +656,8 @@ interface MediaStream : EventTarget {
           </ul>
         </li>
         <li>
-          <p>If <var>tieSourceToContext</var> is <code>true</code>,
-          [=tie track source to context=] with <var>source</var>.</p>
+          <p>If <var>mediaDevicesToTieSourceTo</var> is not <code>null</code>,
+          [=tie track source to `MediaDevices`=] with <var>source</var> and <var>mediaDevicesToTieSourceTo</var>.</p>
         </li>
         <li><p>Run <var>source</var>'s [=MediaStreamTrack source-specific construction steps=]
           with <var>track</var> as parameter.</p></li>
@@ -674,15 +676,12 @@ interface MediaStream : EventTarget {
              data-link-type="attribute">[[\Settings]]</a>, as
           specified in the {{ConstrainablePattern}}.</p></li>
       </ol>
-      <p>To <dfn>tie track source to context</dfn> with <var>source</var>, run
-      the following steps:
+      <p>To <dfn>tie track source to `MediaDevices`</dfn>, given <var>source</var> and
+      <var>mediaDevices</var>, run the following steps:
       <ol>
         <li>
-          <p>Let <var>globalObject</var> be the [=relevant global object=].</p>
-        </li>
-        <li>
-          <p>Add <var>source</var> to <var>globalObject</var>'s
-          {{MediaDevices/[[mediaStreamTrackSources]]}}.</p>
+          <p>Add <var>source</var> to
+          <var>mediaDevices</var>.{{MediaDevices/[[mediaStreamTrackSources]]}}.</p>
         </li>
       </ol>
 
@@ -693,7 +692,9 @@ interface MediaStream : EventTarget {
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
         set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}} to
         {{MediaStreamTrackState/"ended"}}.</p></li>
-        <li><p>For each <var>source</var> in <var>globalObject</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
+        <li><p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
+        <var>globalObject</var>'s
+        [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
         [= source/stopped | stop =] <var>source</var>.</p></li>
       </ol>
       <p>The [=User Agent=] MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
@@ -721,7 +722,7 @@ interface MediaStream : EventTarget {
         <li>
           <p>Let <var>trackClone</var> be the result of
           [=create a MediaStreamTrack | creating a MediaStreamTrack=] with
-          <var>source</var> and the value <code>false</code>.
+          <var>source</var> and <code>null</code>.
           </p>
         </li>
         <li>
@@ -779,12 +780,12 @@ interface MediaStream : EventTarget {
         sourced by a muted or disabled {{MediaStreamTrack}}
         (contained within a {{MediaStream}} ), is playing but
         the rendered content is the muted output.</p>
-        <p>If the source is a device exposed by {{MediaDevices/getUserMedia()}},
+        <p>If the source is a device exposed by `navigator.mediaDevices.`{{MediaDevices/getUserMedia()}},
         then when a track becomes either
         muted or disabled, and this brings all tracks connected to the device
         to be either muted, disabled, or stopped, then the UA MAY, using the
         device's {{MediaDeviceInfo/deviceId}}, <var>deviceId</var>, set
-        {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to <code>false</code>,
+        `navigator.mediaDevices.`{{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to <code>false</code>,
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
@@ -870,7 +871,7 @@ interface MediaStream : EventTarget {
             to {{MediaStreamTrackState/"ended"}}.</p>
           </li>
           <li>
-            <p>Notify <var>track</var>'s source that <var>track</var> is
+            <p>Notify <var>track</var>'s {{MediaStreamTrack/[[Source]]}} that <var>track</var> is
             [= track/ended =] so that the source may be [= source/stopped =], unless other
             {{MediaStreamTrack}} objects depend on it.</p>
           </li>
@@ -1079,12 +1080,10 @@ interface MediaStreamTrack : EventTarget {
             "MediaStreamTrack" class="methods">
               <dt><dfn>clone</dfn></dt>
               <dd>
-                <p>Clones this {{MediaStreamTrack}}.</p>
-                <p>When the {{clone()}} method is invoked, the User
-                Agent MUST return the result of [= clone a track |cloning
-                this track =].</p>
+                <p>When the {{clone()}} method is invoked, the [=User Agent=]
+                MUST return the result of [=clone a track=] with [=this=].</p>
               </dd>
-              <dt>{{stop}}</dt>
+              <dt><dfn>stop</dfn></dt>
               <dd>
                 <p>When a {{MediaStreamTrack}} object's
                 <dfn>stop()</dfn> method is invoked, the User
@@ -2658,6 +2657,9 @@ interface OverconstrainedError : DOMException {
     camera or a headset).</p>
     <section>
       <h3>`Navigator` Interface Extensions</h3>
+      <p>Each {{Window}} has an <dfn>associated `MediaDevices`</dfn>, which is a {{MediaDevices}} object.
+      Upon creation of the {{Window}} object, its [=associated `MediaDevices`=] MUST be set to a newly
+      [=create a MediaDevices | created MediaDevices=] object with the {{Window}} object's [=relevant realm=].</p>
       <div>
         <pre class="idl"
 >partial interface Navigator {
@@ -2669,8 +2671,7 @@ interface OverconstrainedError : DOMException {
           "attributes">
             <dt><dfn>mediaDevices</dfn> of type {{MediaDevices}}, readonly</dt>
             <dd>
-              <p>Returns the {{MediaDevices}} object associated with
-              this {{Navigator}} object.</p>
+              <p>Return [=this=]'s [=relevant global object=]'s  [=associated `MediaDevices`=].</p>
             </dd>
           </dl>
         </section>
@@ -2681,83 +2682,109 @@ interface OverconstrainedError : DOMException {
       <p>The <dfn>MediaDevices</dfn> object is the entry point
       to the API used to examine and get access to media devices available to
       the [=User Agent=].</p>
-      <p>On page load, run the following steps:</p>
+      <p>To <dfn data-export>create a MediaDevices</dfn> object, given <var>realm</var>, run the following steps:</p>
       <ol>
         <li>
-          <p>On the <a data-cite=
-          "!HTML/#concept-relevant-global">relevant global
-          object</a>, run the following steps:</p>
-          <ol>
+          <p>Let <var>mediaDevices</var> be a new {{MediaDevices}} object in <var>realm</var>,
+          initalized with the following internal slots:</p>
+          <ul data-dfn-for="MediaDevices">
             <li>
-              <p>Create three internal slots: <dfn data-dfn-for="MediaDevices">[[\devicesLiveMap]]</dfn>,
-              <dfn data-dfn-for="MediaDevices">[[\devicesAccessibleMap]]</dfn>, and <dfn data-dfn-for="MediaDevices">[[\kindsAccessibleMap]]</dfn>, each
-              initialized to a different empty object.</p>
+              <p><dfn>[[\devicesLiveMap]]</dfn>,
+               initialized to an empty [=ordered map | map=].</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\storedDeviceList]]</dfn>, initialized
-              to the list of all media input and/or output devices available
+              <p><dfn>[[\devicesAccessibleMap]]</dfn>,
+               initialized to an empty [=ordered map | map=].</p>
+            </li>
+            <li>
+              <p><dfn>[[\kindsAccessibleMap]]</dfn>,
+               initialized to an empty [=ordered map | map=].</p>
+            </li>
+            <li>
+              <p><dfn data-dfn-for="MediaDevices">[[\storedDeviceList]]</dfn>, initialized
+              to a [=list=] of all media input and output devices available
               to the [=User Agent=].</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeCameraInfo]]</dfn>, initialized
+              <p><dfn data-dfn-for="MediaDevices">[[\canExposeCameraInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\canExposeMicrophoneInfo]]</dfn>, initialized
+              <p><dfn data-dfn-for="MediaDevices">[[\canExposeMicrophoneInfo]]</dfn>, initialized
               to <code>false</code>.</p>
             </li>
             <li>
-              <p>Create one internal slot: <dfn data-dfn-for="MediaDevices">[[\mediaStreamTrackSources]]</dfn>, initialized
-              to an empty set.</p>
+              <p><dfn data-dfn-for="MediaDevices">[[\mediaStreamTrackSources]]</dfn>, initialized
+              to an empty [=set=].</p>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>Let <var>settings</var> be <var>mediaDevices</var>'s [=relevant settings object=].</p>
+        </li>
+        <li>
+          <p>For each kind of device, <var>kind</var>, that
+          {{MediaDevices.getUserMedia()}} exposes, run the following step:<p>
+          <ol>
+            <li>
+              <p>Set <var>mediaDevices</var>.{{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var>
+              to either <code>true</code>
+              if the [=permission state=]
+              of the permission associated with <var>kind</var> (e.g. <a>"camera"</a>,
+              <a>"microphone"</a>) for <var>settings</var> is {{PermissionState/"granted"}}, or to
+              <code>false</code> otherwise.</p>
             </li>
           </ol>
         </li>
         <li>
-          <p>For each kind of device, <var>kind</var>, that
-          {{MediaDevices.getUserMedia()}} exposes, set
-          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> either to <code>true</code>
-          if the [=permission state=]
-          of the permission associated with <var>kind</var> (e.g. <a>"camera"</a>,
-          <a>"microphone"</a> is {{PermissionState/"granted"}}, or to <code>false</code> otherwise.</p>
-        </li>
-        <li>
           <p>For each individual device that {{MediaDevices.getUserMedia()}}
           exposes, using the device's
-          deviceId, <var>deviceId</var>, set
-          {{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> to <code>false</code>, and
-          set {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> either to
-          <code>true</code> if the [=permission state=]
-          of the permission associated with the device’s kind and
-          <var>deviceId</var>, is {{PermissionState/"granted"}}, or to false otherwise.</p>
+          deviceId, <var>deviceId</var>, run the following step:<p>
+          <ol>
+            <li>
+              <p>Set <var>mediaDevices</var>.{{MediaDevices/[[devicesLiveMap]]}}<var>[deviceId]</var> to <code>false</code>, and
+              set <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to either
+              <code>true</code> if the [=permission state=]
+              of the permission associated with the device’s kind and
+              <var>deviceId</var> for <var>settings</var>, is {{PermissionState/"granted"}}, or to
+              <code>false</code> otherwise.</p>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <p>Return <var>mediaDevices</var>.</p>
         </li>
       </ol>
-      <p>For each kind of device, <var>kind</var>, that {{MediaDevices/getUserMedia()}} exposes, [=permission state|whenever a transition occurs of the
-        permission state=] of the permission associated with <var>kind</var>,
+      <p>For each kind of device, <var>kind</var>, that {{MediaDevices/getUserMedia()}} exposes,
+      [=permission state|whenever a transition occurs of the
+      permission state=] of the permission associated with <var>kind</var> for
+      <var>mediaDevices</var>'s [=relevant settings object=],
       run the following steps:</p>
       <ol>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
-          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>true</code>.</p>
+          <var>mediaDevices</var>.{{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from {{PermissionState/"granted"}} to another value, then set
-          {{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>false</code>.</p>
+          <var>mediaDevices</var>.{{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>false</code>.</p>
         </li>
       </ol>
       <p>For each device that {{MediaDevices/getUserMedia()}} exposes, whenever a transition occurs of the
       [=permission state=] of the permission associated with the device's kind
-      and the device's deviceId, <var>deviceId</var>, run the following
+      and the device's deviceId, <var>deviceId</var>, for
+      <var>mediaDevices</var>'s [=relevant settings object=], run the following
       steps:</p>
       <ol>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
-          {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to <code>true</code>,
+          <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to <code>true</code>,
           if it isn’t already <code>true</code>.</p>
         </li>
         <li>
           <p>If the transition is from {{PermissionState/"granted"}} to another value, and the
           device is currently [= source/stopped =], then set
-          {{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to
+          <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to
           <code>false</code>.</p>
         </li>
       </ol>
@@ -2766,14 +2793,13 @@ interface OverconstrainedError : DOMException {
       unavailable, or the system default for input and/or output devices of a
       {{MediaDeviceKind}} changed, the [=User Agent=] MUST run the following
       <dfn>device change notification steps</dfn> for each {{MediaDevices}}
-      object for which [=device enumeration can proceed=] is <code>true</code>,
+      object, <var>mediaDevices</var>, for which [=device enumeration can proceed=] is <code>true</code>,
       but for no other {{MediaDevices}} object:</p>
       <ol>
         <li>
           <p>Let <var>lastExposedDevices</var> be the result of
-          [=creating a list of device info objects=] for
-          {{MediaDevices/[[storedDeviceList]]}} and the
-          [=relevant global object=]'s [=associated `Document`=].</p>
+          [=creating a list of device info objects=] with <var>mediaDevices</var> and
+          <var>mediaDevices</var>.{{MediaDevices/[[storedDeviceList]]}}.</p>
         </li>
         <li>
           <p>Let <var>deviceList</var> be the list of all media input and/or
@@ -2781,9 +2807,8 @@ interface OverconstrainedError : DOMException {
         </li>
         <li>
           <p>Let <var>newExposedDevices</var> be the result of
-          [=creating a list of device info objects=] for
-          <var>deviceList</var> and the [=relevant global object=]'s
-          [=associated `Document`=].</p>
+          [=creating a list of device info objects=] with <var>mediaDevices</var> and
+          <var>deviceList</var>.</p>
         </li>
         <li>
           <p>If the {{MediaDeviceInfo}} objects in <var>newExposedDevices</var>
@@ -2797,12 +2822,12 @@ interface OverconstrainedError : DOMException {
           </div>
         </li>
         <li>
-          <p>Set {{MediaDevices/[[storedDeviceList]]}} to
+          <p>Set <var>mediaDevices</var>.{{MediaDevices/[[storedDeviceList]]}} to
           <var>deviceList</var>.</p>
         </li>
         <li>
-          <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at the
-          {{MediaDevices}} object.</p>
+          <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at
+          <var>mediaDevices</var>.</p>
           <p>The [=User Agent=] MAY combine firing multiple events into firing one
           event when several events are due or when multiple devices are added
           or removed at the same time, e.g. a camera with a microphone.</p>
@@ -2864,11 +2889,10 @@ interface MediaDevices : EventTarget {
                 </li>
                 <li>
                   <p>Let <var>proceed</var> be the result of
-                  [=device enumeration can proceed=].</p>
+                  [=device enumeration can proceed=] with [=this=].</p>
                 </li>
                 <li>
-                  <p>Let <var>document</var> be the [=relevant global object=]'s
-                  [=associated `Document`=].</p>
+                  <p>Let <var>mediaDevices</var> be [=this=].</p>
                 </li>
                 <li>
                   <p>Run the following steps in parallel:</p>
@@ -2877,14 +2901,13 @@ interface MediaDevices : EventTarget {
                       <p>While <var>proceed</var> is `false`, the [=User Agent=]
                       MUST wait to proceed to the next step until a task queued
                       to set <var>proceed</var> to the result of
-                      [=device enumeration can proceed=], would set
+                      [=device enumeration can proceed=] with <var>mediaDevices</var>, would set
                       <var>proceed</var> to `true`.</p>
                     </li>
                     <li>
                       <p>Let <var>resultList</var> be the result of
-                      [=creating a list of device info objects=] for
-                      {{MediaDevices/[[storedDeviceList]]}} and
-                      <var>document<var>.</p></li>
+                      [=creating a list of device info objects=] with <var>mediaDevices</var> and
+                      <var>mediaDevices</var>.{{MediaDevices/[[storedDeviceList]]}}.</p></li>
                     <li>
                       <p>[= resolve =] <var>p</var> with <var>resultList</var>.</p>
                     </li>
@@ -2897,13 +2920,17 @@ interface MediaDevices : EventTarget {
               <p>To perform
               <dfn data-lt="creating-a-list-of-device-info-objects" id=
               "creating-a-list-of-device-info-objects">
-              creating a list of device info objects</dfn> for
-              <var>deviceList</var> and <var>document</var>,
+              creating a list of device info objects</dfn>, given
+              <var>mediaDevices</var> and <var>deviceList</var>,
               run the following steps:</p>
               <ol>
                 <li><p>Let <var>resultList</var> be an empty list.</p></li>
                 <li>
                   <p>Let <var>microphoneList</var>, <var>cameraList</var> and <var>otherDeviceList</var> be empty lists.</p>
+                </li>
+                <li>
+                  <p>Let <var>document</var> be <var>mediaDevices</var>'s
+                  [=relevant global object=]'s [=associated `Document`=].</p>
                 </li>
                 <li>
                   <p>Run the following sub steps for each discovered device in <var>deviceList</var>, <var>device</var>:</p>
@@ -2915,7 +2942,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>
                       <p>Let <var>deviceInfo</var> be the result of
-                      [=creating a device info object=] to represent <var>device</var>.</p>
+                      [=creating a device info object=] to represent <var>device</var>,
+                      with <var>mediaDevices</var>.</p>
                     </li>
                     <li>
                       <p>If <var>device</var> is the system default microphone,
@@ -2934,7 +2962,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>
                       <p>Let <var>deviceInfo</var> be the result of
-                      [=creating a device info object=] to represent <var>device</var>.</p>
+                      [=creating a device info object=] to represent <var>device</var>,
+                      with <var>mediaDevices</var>.</p>
                     </li>
                     <li>
                       <p>If <var>device</var> is the system default camera,
@@ -2944,11 +2973,11 @@ interface MediaDevices : EventTarget {
                   </ol>
                 </li>
                 <li>
-                  <p>If [=microphone information can be exposed=] is <code>false</code>,
+                  <p>If [=microphone information can be exposed=] on <var>mediaDevices</var> is <code>false</code>,
                     truncate <var>microphoneList</var> to its first item.</p>
                 </li>
                 <li>
-                  <p>If [=camera information can be exposed=] is <code>false</code>,
+                  <p>If [=camera information can be exposed=] on <var>mediaDevices</var> is <code>false</code>,
                     truncate <var>cameraList</var> to its first item.</p>
                 </li>
                 <li>
@@ -2966,7 +2995,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>
                       <p>Let <var>deviceInfo</var> be the result of
-                      [=creating a device info object=] to represent <var>device</var>.</p>
+                      [=creating a device info object=] to represent <var>device</var>,
+                      with <var>mediaDevices</var>.</p>
                     </li>
                     <li>
                       <p>If <var>device</var> is the system default audio output,
@@ -3030,7 +3060,7 @@ interface MediaDevices : EventTarget {
         {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}. All available devices are listed in {{MediaDevices/enumerateDevices()}} result.</p>
         <p>To perform <dfn data-lt="creating-a-device-info-object" id=
         "creating-a-device-info-object">creating a device info object</dfn> to represent a discovered device,
-        <var>device</var>, run the following steps:</p>
+        <var>device</var>, given <var>mediaDevices</var>, run the following steps:</p>
         <ol>
           <li>
             <p>Let <var>deviceInfo</var> be a new {{MediaDeviceInfo}} object to represent <var>device</var>.</p>
@@ -3040,11 +3070,11 @@ interface MediaDevices : EventTarget {
           </li>
           <li>
             <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "videoinput"
-            and [=camera information can be exposed=] is <code>false</code>, return <var>deviceInfo</var>.</p>
+            and [=camera information can be exposed=] on <var>mediaDevices</var> is <code>false</code>, return <var>deviceInfo</var>.</p>
           </li>
           <li>
             <p>If <var>deviceInfo</var>.{{MediaDeviceInfo/kind}} is equal to "audioinput"
-            and [=microphone information can be exposed=] is <code>false</code>, return <var>deviceInfo</var>.</p>
+            and [=microphone information can be exposed=] on <var>mediaDevices</var> is <code>false</code>, return <var>deviceInfo</var>.</p>
           </li>
           <li>
             <p>Initialize <var>deviceInfo</var>.{{MediaDeviceInfo/label}} for <var>device</var>.</p>
@@ -3071,27 +3101,27 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Device information exposure</h2>
         <p>To perform a <dfn data-lt="device-enumeration-can-proceed" id=
-        "device-enumeration-can-proceed">device enumeration can proceed</dfn> check,
+        "device-enumeration-can-proceed">device enumeration can proceed</dfn> check, given <var>mediaDevices</var>,
         run the following steps:</p>
         <ol>
           <li>
             <p>The [=User Agent=] MAY return <code>true</code> if
-            [=device information can be exposed=] is <code>true</code>.
+            [=device information can be exposed=] on <var>mediaDevices</var>.
           </li>
           <li>
-            <p>Return the result of [=is in view=].</p>
+            <p>Return the result of [=is in view=] with <var>mediaDevices</var>.</p>
           </li>
         </ol>
         <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
         "device-information-can-be-exposed">device information can be exposed</dfn>
-        check, run the following steps:</p>
+        check, given <var>mediaDevices</var>, run the following steps:</p>
         <ol>
           <li>
-            <p>If [=camera information can be exposed=] is <code>true</code>,
+            <p>If [=camera information can be exposed=] on <var>mediaDevices</var>,
             return <code>true</code>.</p>
           </li>
           <li>
-            <p>If [=microphone information can be exposed=] is <code>true</code>,
+            <p>If [=microphone information can be exposed=] on <var>mediaDevices</var>,
             return <code>true</code>.</p>
           </li>
           <li>
@@ -3100,20 +3130,20 @@ interface MediaDevices : EventTarget {
         </ol>
         <p>To perform a <dfn data-lt="camera-information-can-be-exposed" id=
         "camera-information-can-be-exposed">camera information can be exposed</dfn>
-        check, run the following steps:</p>
+        check, given <var>mediaDevices</var>, run the following steps:</p>
         <ol>
           <li>
             <p>If any of the local devices of kind "videoinput" are attached to a live
-            {{MediaStreamTrack}} in the [=relevant global object=]'s
+            {{MediaStreamTrack}} in <var>mediaDevices</var>'s [=relevant global object=]'s
             [=associated `Document`=], return <code>true</code>.</p>
           </li>
           <li>
-            <p>Return {{MediaDevices/[[canExposeCameraInfo]]}}.</p>
+            <p>Return <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}}.</p>
           </li>
         </ol>
         <p>To perform a <dfn data-lt="microphone-information-can-be-exposed" id=
         "microphone-information-can-be-exposed">microphone information can be exposed</dfn>
-        check, run the following steps:</p>
+        check, given <var>mediaDevices</var>, run the following steps:</p>
         <ol>
           <li>
             <p>If any of the local devices of kind "audioinput" are attached to a live
@@ -3121,23 +3151,23 @@ interface MediaDevices : EventTarget {
             [=associated `Document`=], return <code>true</code>.</p>
           </li>
           <li>
-            <p>Return {{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
+            <p>Return <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
           </li>
         </ol>
-        <p>To perform an <dfn>is in view</dfn> check, run the following
+        <p>To perform an <dfn>is in view</dfn> check, given <var>mediaDevices</var>, run the following
         steps:</p>
         <ol>
           <li>
-            <p>If the [=relevant global object=]'s [=associated `Document`=] is
+            <p>If <var>mediaDevices</var>'s [=relevant global object=]'s [=associated `Document`=] is
             [=Document/fully active=] and its [=Document/visibility state=]
             is `"visible"`, return `true`. Otherwise, return `false`.</p>
           </li>
         </ol>
-        <p>To perform a <dfn>has system focus</dfn> check, run the following
+        <p>To perform a <dfn>has system focus</dfn> check, given <var>mediaDevices</var>, run the following
         steps:</p>
         <ol>
           <li>
-            <p>If the [=relevant global object=]'s [=navigable=]'s
+            <p>If <var>mediaDevices</var>'s [=relevant global object=]'s [=navigable=]'s
             [=top-level traversable=] has
             <a data-cite="!HTML/#tlbc-system-focus">system focus</a>, return
             `true`. Otherwise, return `false`.</p>
@@ -3147,16 +3177,16 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Set device information exposure</h2>
         <p>To <dfn data-lt="set-device-information-exposure" id=
-        "set-device-information-exposure">set the device information exposure</dfn>,
-        with a <var>requestedTypes</var> set and <var>value</var> of type boolean, run the following steps:</p>
+        "set-device-information-exposure">set the device information exposure</dfn> on
+        <var>mediaDevices</var>, given a <var>requestedTypes</var> [=set=], and a boolean <var>value</var>, run the following steps:</p>
         <ol>
           <li>
             <p>If <a>"video"</a> is in <var>requestedTypes</var>, then set
-            {{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p>
+            <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p>
           </li>
           <li>
             <p>If <a>"audio"</a> is in <var>requestedTypes</var>, then set
-            {{MediaDevices/[[canExposeMicrophoneInfo]]}} to
+            <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}} to
             <var>value</var>.</p>
           </li>
         </ol>
@@ -3177,10 +3207,16 @@ interface MediaDevices : EventTarget {
       <section>
         <h2>Context capturing state</h2>
         <p>To perform a <dfn data-export id="context-is-capturing">context is capturing</dfn> check
-        for <var>context</var>, run the following steps:</p>
+        for <var>globalObject</var>, run the following steps:</p>
         <ol>
           <li>
-           <p>For each <var>source</var> in <var>context</var>'s {{MediaDevices/[[mediaStreamTrackSources]]}},
+            <p>If <var>globalObject</var> is not a {{Window}}, then return false.</p>
+          </li>
+          <li>
+            <p>Let <var>mediaDevices</var> be <var>globalObject</var>'s [=associated `MediaDevices`=].</p>
+          </li>
+          <li>
+           <p>For each <var>source</var> in <var>mediaDevices</var>.{{MediaDevices/[[mediaStreamTrackSources]]}},
            run the following sub steps:</p>
            <ol>
              <li>
@@ -3190,7 +3226,7 @@ interface MediaDevices : EventTarget {
                <p>Let <var>deviceId</var> be <var>source</var>'s device's deviceId.</p>
              </li>
              <li>
-               <p>If <var>context</var>'s {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] is
+               <p>If <var>mediaDevices</var>.{{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] is
                <code>true</code>, return <code>true</code>.</p>
              </li>
            </ol>
@@ -3488,6 +3524,9 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     jump to the step labeled <em>Permission Failure</em> below.</p>
                 </li>
                 <li>
+                  <p>Let <var>mediaDevices</var> be [=this=].</p>
+                </li>
+                <li>
                   <p>Let <var>isInView</var> be the result of the
                   <a>is in view</a> algorithm.</p>
                 </li>
@@ -3681,17 +3720,17 @@ interface InputDeviceInfo : MediaDeviceInfo {
                             <var>finalCandidate</var>'s source device.</p>
                         <li>
                           <p>Using <var>grantedDevice</var>'s deviceId, <var>deviceId</var>, set
-                          {{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
+                          <var>mediaDevices</var>.{{MediaDevices/[[devicesLiveMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already <code>true</code>,
-                          and set the
-                          {{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
+                          and set
+                          <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}[<var>deviceId</var>] to
                           <code>true</code>, if it isn’t already
                           <code>true</code>.</p>
                         </li>
                         <li>
                           <p>Let <var>track</var> be the result of
                           [=create a MediaStreamTrack|creating a MediaStreamTrack=]
-                          with <var>grantedDevice</var> and the value <code>false</code> for <var>tieSourceToContext</var>.
+                          with <var>grantedDevice</var> and <var>mediaDevices</var>.
                           The source of the {{MediaStreamTrack}} MUST NOT change.</p>
                         </li>
                         <li>
@@ -3709,11 +3748,13 @@ interface InputDeviceInfo : MediaDeviceInfo {
                     </li>
                     <li>
                       <p>For each <var>track</var> in <var>stream</var>,
-                      [=tie track source to context=] with
-                      <var>track</var>'s {{MediaStreamTrack/[[Source]]}}.</p>
+                      [=tie track source to `MediaDevices`=] with
+                      <var>track</var>.{{MediaStreamTrack/[[Source]]}} and
+                      <var>mediaDevices</var>.</p>
                     </li>
                     <li>
-                      <p>[=Set the device information exposure=] with <code>requestedMediaTypes</code> and <code>true</code>.</p>
+                      <p>[=Set the device information exposure=] on <var>mediaDevices</var>
+                      with <code>requestedMediaTypes</code> and <code>true</code>.</p>
                     </li>
                     <li>
                       <p>[= Resolve =] <var>p</var> with <var>stream</var> and
@@ -5482,6 +5523,12 @@ window.onload = async () =&gt; {
   </section>
   <section>
     <h1>Privacy Indicator Requirements</h1>
+    <p class="note">
+    This specification expresses privacy indicator requirements using algorithms from the
+    viewpoint of a single {{MediaDevices}} object. Implementers are encouraged to
+    extrapolate these principles to unify presentation of indicators to cover multiple
+    {{MediaDevices}} objects that can co-exist on a page due to iframes.
+    </p>
     <p>For each <var>kind</var> of device that {{MediaDevices/getUserMedia()}} exposes,</p>
     <ul>
       <li>Define <var>any&lt;kind&gt;Accessible</var> (e.g.
