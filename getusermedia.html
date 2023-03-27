@@ -1604,19 +1604,19 @@ interface MediaStreamTrack : EventTarget {
         <div>
           <pre class="idl"
 >dictionary MediaTrackSettings {
-  long width;
-  long height;
+  unsigned long width;
+  unsigned long height;
   double aspectRatio;
   double frameRate;
   DOMString facingMode;
   DOMString resizeMode;
-  long sampleRate;
-  long sampleSize;
+  unsigned long sampleRate;
+  unsigned long sampleSize;
   boolean echoCancellation;
   boolean autoGainControl;
   boolean noiseSuppression;
   double latency;
-  long channelCount;
+  unsigned long channelCount;
   DOMString deviceId;
   DOMString groupId;
 };</pre>
@@ -1625,10 +1625,10 @@ interface MediaStreamTrack : EventTarget {
             Members</h2>
             <dl data-link-for="MediaTrackSettings" data-dfn-for=
             "MediaTrackSettings" class="dictionary-members">
-              <dt><dfn>width</dfn> of type {{long}}</dt>
+              <dt><dfn>width</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href="#def-constraint-width">width</a>
               for details.</dd>
-              <dt><dfn>height</dfn> of type {{long}}</dt>
+              <dt><dfn>height</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href="#def-constraint-height">height</a>
               for details.</dd>
               <dt><dfn>aspectRatio</dfn> of type {{double}}</dt>
@@ -1646,11 +1646,11 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <a href=
               "#def-constraint-resizeMode">resizeMode</a> for
               details.</dd>
-              <dt><dfn>sampleRate</dfn> of type {{long}}</dt>
+              <dt><dfn>sampleRate</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-sampleRate">sampleRate</a> for
               details.</dd>
-              <dt><dfn>sampleSize</dfn> of type {{long}}</dt>
+              <dt><dfn>sampleSize</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-sampleSize">sampleSize</a> for
               details.</dd>
@@ -1669,7 +1669,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>latency</dfn> of type {{double}}</dt>
               <dd>See <a href=
               "#def-constraint-latency">latency</a> for details.</dd>
-              <dt><dfn>channelCount</dfn> of type {{long}}</dt>
+              <dt><dfn>channelCount</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-channelCount">channelCount</a> for
               details.</dd>
