@@ -1693,14 +1693,14 @@ interface MediaStreamTrack : EventTarget {
           <thead>
             <tr>
               <th>Property Name</th>
-              <th>Values</th>
+              <th>Type</th>
               <th>Notes</th>
             </tr>
           </thead>
           <tbody>
             <tr id="def-constraint-deviceId">
               <td><dfn>deviceId</dfn></td>
-              <td>DOMString</td>
+              <td>{{DOMString}}</td>
               <td>
                 The identifier of the device generating the content of the
                 {{MediaStreamTrack}}. It conforms with the definition of
@@ -1745,14 +1745,14 @@ interface MediaStreamTrack : EventTarget {
           <thead>
             <tr>
               <th>Property Name</th>
-              <th>Values</th>
+              <th>Type</th>
               <th>Notes</th>
             </tr>
           </thead>
           <tbody>
             <tr id="def-constraint-width">
               <td><dfn>width</dfn></td>
-              <td>{{ConstrainULong}}</td>
+              <td>{{unsigned long}}</td>
               <td>The width or width range, in pixels. As a capability, the
               range should span the video source's pre-set width values with
               min being equal to 1 and max being the largest
@@ -1761,7 +1761,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-height">
               <td><dfn>height</dfn></td>
-              <td>{{ConstrainULong}}</td>
+              <td>{{unsigned long}}</td>
               <td>The height or height range, in pixels. As a capability, the
               range should span the video source's pre-set height values with
               min being equal to 1 and max being the largest
@@ -1770,7 +1770,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-frameRate">
               <td><dfn>frameRate</dfn></td>
-              <td>{{ConstrainDouble}}</td>
+              <td>{{double}}</td>
               <td><p>The frame rate (frames per second) or frame rate range.
               If video source's pre-set can determine frame rate values, the range, as a capacity,
               should span the video source's pre-set frame rate values with
@@ -1791,14 +1791,14 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-aspect">
               <td><dfn>aspectRatio</dfn></td>
-              <td>{{ConstrainDouble}}</td>
+              <td>{{double}}</td>
               <td>The exact aspect ratio (width in pixels divided by height in
               pixels, represented as a double rounded to the tenth decimal
               place) or aspect ratio range.</td>
             </tr>
             <tr id="def-constraint-facingMode">
               <td><dfn>facingMode</dfn></td>
-              <td>{{ConstrainDOMString}}</td>
+              <td>{{DOMString}}</td>
               <td>This string (or each string, when a list) should be one of
               the members of {{VideoFacingModeEnum}}. The
               members describe the directions that the camera can face, as seen
@@ -1810,7 +1810,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-resizeMode">
               <td><dfn>resizeMode</dfn></td>
-              <td>{{ConstrainDOMString}}</td>
+              <td>{{DOMString}}</td>
               <td>
                 This string (or each string, when a list) should be one of the
                 members of {{VideoResizeModeEnum}}. The members
@@ -1955,13 +1955,13 @@ interface MediaStreamTrack : EventTarget {
           <tbody>
             <tr id="def-constraint-sampleRate">
               <td><dfn>sampleRate</dfn></td>
-              <td>{{ConstrainULong}}</td>
+              <td>{{unsigned long}}</td>
               <td>The sample rate in samples per second for the audio
               data.</td>
             </tr>
             <tr id="def-constraint-sampleSize">
               <td><dfn>sampleSize</dfn></td>
-              <td>{{ConstrainULong}}</td>
+              <td>{{unsigned long}}</td>
               <td>The linear sample size in bits. This constraint can only be
               satisfied for audio devices that produce linear samples.</td>
             </tr>
@@ -1997,7 +1997,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-latency">
               <td><dfn>latency</dfn></td>
-              <td>{{ConstrainDouble}}</td>
+              <td>{{double}}</td>
               <td>The latency or latency range, in seconds. The latency is the
               time between start of processing (for instance, when sound occurs
               in the real world) to the data being available to the next step
@@ -2009,7 +2009,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-channelCount">
               <td><dfn>channelCount</dfn></td>
-              <td>{{ConstrainULong}}</td>
+              <td>{{unsigned long}}</td>
               <td>The number of independent channels of sound that the audio
               data contains, i.e. the number of audio samples per sample
               frame.</td>
@@ -4966,7 +4966,7 @@ async function getFrontCameraRes() {
       </pre>
     </section>
     <section>
-      <h2>Types for Constrainable Properties</h2>
+      <h2>Constraint Types</h2>
       <p>The syntax for the specification of the set of legal values depends on
       the type of the values. In addition to the standard atomic types
       (boolean, long, double, DOMString), legal values include lists of any of
