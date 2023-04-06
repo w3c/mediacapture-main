@@ -1753,7 +1753,7 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-width">
               <td><dfn>width</dfn></td>
               <td>{{unsigned long}}</td>
-              <td>The width or width range, in pixels. As a capability, the
+              <td>The width, in pixels. As a capability, its valid
               range should span the video source's pre-set width values with
               min being equal to 1 and max being the largest
               width. The [=User Agent=] MUST support downsampling to any value
@@ -1762,7 +1762,7 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-height">
               <td><dfn>height</dfn></td>
               <td>{{unsigned long}}</td>
-              <td>The height or height range, in pixels. As a capability, the
+              <td>The height, in pixels. As a capability, its valid
               range should span the video source's pre-set height values with
               min being equal to 1 and max being the largest
               height. The [=User Agent=] MUST support downsampling to any value
@@ -1771,15 +1771,15 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-frameRate">
               <td><dfn>frameRate</dfn></td>
               <td>{{double}}</td>
-              <td><p>The frame rate (frames per second) or frame rate range.
-              If video source's pre-set can determine frame rate values, the range, as a capacity,
-              should span the video source's pre-set frame rate values with
+              <td><p>The frame rate (frames per second).
+              If video source's pre-set can determine frame rates, then, as a capability,
+              its valid range should span the video source's pre-set frame rate values with
               min being equal to 0 and max being the largest frame rate.
               The [=User Agent=] MUST support frame rates obtained from
               integral decimation of the native resolution frame rate.
-              If this frame rate cannot be determined (e.g. the source does not
+              If frame rate cannot be determined (e.g. the source does not
               natively provide a frame rate, or the frame rate cannot be
-              determined from the source stream), then this value MUST refer to
+              determined from the source stream), then the capability values MUST refer to
               the [=User Agent=]'s vsync display rate.</p>
               <p>As a setting, this value represents the configured frame rate.
               If decimation is used, this is that value rather than the native
@@ -1794,12 +1794,12 @@ interface MediaStreamTrack : EventTarget {
               <td>{{double}}</td>
               <td>The exact aspect ratio (width in pixels divided by height in
               pixels, represented as a double rounded to the tenth decimal
-              place) or aspect ratio range.</td>
+              place).</td>
             </tr>
             <tr id="def-constraint-facingMode">
               <td><dfn>facingMode</dfn></td>
               <td>{{DOMString}}</td>
-              <td>This string (or each string, when a list) should be one of
+              <td>This string is one of
               the members of {{VideoFacingModeEnum}}. The
               members describe the directions that the camera can face, as seen
               from the user's perspective. Note that <code><a data-link-for=
@@ -1812,7 +1812,7 @@ interface MediaStreamTrack : EventTarget {
               <td><dfn>resizeMode</dfn></td>
               <td>{{DOMString}}</td>
               <td>
-                This string (or each string, when a list) should be one of the
+                This string is one of the
                 members of {{VideoResizeModeEnum}}. The members
                 describe the means by which the resolution can be derived by
                 the UA. In other words, whether the UA is allowed to use
@@ -1962,12 +1962,12 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-sampleSize">
               <td><dfn>sampleSize</dfn></td>
               <td>{{unsigned long}}</td>
-              <td>The linear sample size in bits. This constraint can only be
+              <td>The linear sample size in bits. As a constraint, it can only be
               satisfied for audio devices that produce linear samples.</td>
             </tr>
             <tr id="def-constraint-echoCancellation">
               <td><dfn>echoCancellation</dfn></td>
-              <td>{{ConstrainBoolean}}</td>
+              <td>{{boolean}}</td>
               <td>When one or more audio streams is being played in the
               processes of various microphones, it is often desirable to
               attempt to remove all the sound being played from the input signals
@@ -1979,7 +1979,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-autoGainControl">
               <td><dfn>autoGainControl</dfn></td>
-              <td>{{ConstrainBoolean}}</td>
+              <td>{{boolean}}</td>
               <td>Automatic gain control is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
               needed and it is desirable to turn it off so that the audio is
@@ -1988,7 +1988,7 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-noiseSuppression">
               <td><dfn>noiseSuppression</dfn></td>
-              <td>{{ConstrainBoolean}}</td>
+              <td>{{boolean}}</td>
               <td>Noise suppression is often desirable on the input signal
               recorded by the microphone. There are cases where it is not
               needed and it is desirable to turn it off so that the audio is
