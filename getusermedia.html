@@ -1604,19 +1604,19 @@ interface MediaStreamTrack : EventTarget {
         <div>
           <pre class="idl"
 >dictionary MediaTrackSettings {
-  long width;
-  long height;
+  unsigned long width;
+  unsigned long height;
   double aspectRatio;
   double frameRate;
   DOMString facingMode;
   DOMString resizeMode;
-  long sampleRate;
-  long sampleSize;
+  unsigned long sampleRate;
+  unsigned long sampleSize;
   boolean echoCancellation;
   boolean autoGainControl;
   boolean noiseSuppression;
   double latency;
-  long channelCount;
+  unsigned long channelCount;
   DOMString deviceId;
   DOMString groupId;
 };</pre>
@@ -1625,10 +1625,10 @@ interface MediaStreamTrack : EventTarget {
             Members</h2>
             <dl data-link-for="MediaTrackSettings" data-dfn-for=
             "MediaTrackSettings" class="dictionary-members">
-              <dt><dfn>width</dfn> of type {{long}}</dt>
+              <dt><dfn>width</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href="#def-constraint-width">width</a>
               for details.</dd>
-              <dt><dfn>height</dfn> of type {{long}}</dt>
+              <dt><dfn>height</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href="#def-constraint-height">height</a>
               for details.</dd>
               <dt><dfn>aspectRatio</dfn> of type {{double}}</dt>
@@ -1646,11 +1646,11 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <a href=
               "#def-constraint-resizeMode">resizeMode</a> for
               details.</dd>
-              <dt><dfn>sampleRate</dfn> of type {{long}}</dt>
+              <dt><dfn>sampleRate</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-sampleRate">sampleRate</a> for
               details.</dd>
-              <dt><dfn>sampleSize</dfn> of type {{long}}</dt>
+              <dt><dfn>sampleSize</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-sampleSize">sampleSize</a> for
               details.</dd>
@@ -1669,7 +1669,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>latency</dfn> of type {{double}}</dt>
               <dd>See <a href=
               "#def-constraint-latency">latency</a> for details.</dd>
-              <dt><dfn>channelCount</dfn> of type {{long}}</dt>
+              <dt><dfn>channelCount</dfn> of type {{unsigned long}}</dt>
               <dd>See <a href=
               "#def-constraint-channelCount">channelCount</a> for
               details.</dd>
@@ -4967,12 +4967,12 @@ async function getFrontCameraRes() {
     </section>
     <section>
       <h2>Constraint Types</h2>
-      <p>The syntax for the specification of the set of legal values depends on
+      <p>The syntax for the specification of the set of valid inputs depends on
       the type of the values. In addition to the standard atomic types
-      (boolean, long, double, DOMString), legal values include lists of any of
+      (boolean, long, double, DOMString), valid values include lists of any of
       the atomic types, plus min-max ranges, as defined below.</p>
       <p>List values MUST be interpreted as disjunctions. For example, if a
-      property 'facingMode' for a camera is defined as having legal values
+      property 'facingMode' for a camera is defined as having valid values
       ["left", "right", "user", "environment"], this means that 'facingMode'
       can have the values "left", "right", "environment", and "user". Similarly
       <a>Constraints</a> restricting 'facingMode' to ["user", "left", "right"]
@@ -4993,7 +4993,7 @@ async function getFrontCameraRes() {
           "dictionary-members">
             <dt><dfn>max</dfn> of type {{double}}</dt>
             <dd>
-              <p>The maximum legal value of this property.</p>
+              <p>The maximum valid value of this property.</p>
             </dd>
             <dt><dfn>min</dfn> of type {{double}}</dt>
             <dd>
@@ -5035,7 +5035,7 @@ async function getFrontCameraRes() {
           "dictionary-members">
             <dt><dfn>max</dfn> of type {{unsigned long}}</dt>
             <dd>
-              <p>The maximum legal value of this property.</p>
+              <p>The maximum valid value of this property.</p>
             </dd>
             <dt><dfn>min</dfn> of type {{unsigned long}}</dt>
             <dd>
@@ -5237,7 +5237,7 @@ the below dictionary, but instead provide its own definition. See {{MediaTrackSe
         <pre class="idl">dictionary ConstraintSet {};</pre>
       </div>
       <p>Each member of a <dfn>ConstraintSet</dfn> corresponds to a
-      constrainable property and specifies a subset of the property's legal
+      constrainable property and specifies a subset of the property's valid
       Capability values. Applying a ConstraintSet instructs the [=User Agent=] to
       restrict the settings of the corresponding constrainable properties to
       the specified values or ranges of values. A given property MAY occur both
@@ -5720,7 +5720,7 @@ window.onload = async () =&gt; {
         <li>describing what a muted or disabled track of that type will render
         (see [[[#life-cycle-and-media-flow]]]),
         </li>
-        <li>adding the new type as an additional legal value for the
+        <li>adding the new type as an additional valid value for the
         {{MediaStreamTrack/kind}} attribute on
         the {{MediaStreamTrack}} interface,</li>
         <li>defining any constrainable properties (see <a href=
