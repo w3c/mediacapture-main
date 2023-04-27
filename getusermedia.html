@@ -224,7 +224,7 @@
       {{MediaStream}} or an array of
       {{MediaStreamTrack}} objects. When the constructor is invoked, the User
       Agent must run the following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>Let <var>stream</var> be a newly constructed
           {{MediaStream}} object.</p>
@@ -316,10 +316,10 @@
       WebRTC 1.0 [[?WEBRTC]] specification where the [=track set=] of a {{MediaStream}}, received
       from another peer, can be updated as a result of changes to the media
       session.</p>
-      <p>To <dfn data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
+      <p>To <dfn class="abstract-op" data-dfn-for="MediaStream">add a track</dfn> <var>track</var> to a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>If <var>track</var> is already in <var>stream's</var> [=track set=], then abort these steps.</p>
         </li>
@@ -331,10 +331,10 @@
           <var>track</var> at <var>stream</var>.</p>
         </li>
       </ol>
-      <p>To <dfn data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
+      <p>To <dfn class="abstract-op" data-dfn-for="MediaStream">remove a track</dfn> <var>track</var> from a
       {{MediaStream}} <var>stream</var>, the [=User Agent=] MUST
       run the following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>If <var>track</var> is not in <var>stream's</var> [=track set=], then abort these steps.</p>
         </li>
@@ -481,7 +481,7 @@ interface MediaStream : EventTarget {
               {{MediaStream}}.</p>
               <p>When the {{addTrack}} method is
               invoked, the [=User Agent=] MUST run the following steps:</p>
-              <ol>
+              <ol class=algorithm>
                 <li>
                   <p>Let <var>track</var> be the methods argument and
                   <var>stream</var> the {{MediaStream}} object
@@ -504,7 +504,7 @@ interface MediaStream : EventTarget {
               <p>When the {{removeTrack}}
               method is invoked, the [=User Agent=] MUST run the following
               steps:</p>
-              <ol>
+              <ol class=algorithm>
                 <li>
                   <p>Let <var>track</var> be the methods argument and
                   <var>stream</var> the {{MediaStream}} object
@@ -524,7 +524,7 @@ interface MediaStream : EventTarget {
               tracks.</p>
               <p>When the {{clone()}} method is invoked, the User
               Agent MUST run the following steps:</p>
-              <ol>
+              <ol class=algorithm>
                 <li>
                   <p>Let <var>streamClone</var> be a newly constructed
                   {{MediaStream}} object.</p>
@@ -581,7 +581,7 @@ interface MediaStream : EventTarget {
       is <dfn id="source-stopped" data-lt="source stopped state">stopped</dfn>. If the source is a device
       exposed by {{MediaDevices/getUserMedia()}}, then when
       the source is stopped, the [=User Agent=] MUST run the following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>Let <var>mediaDevices</var> be the {{MediaDevices}} object in question.</p>
         <li>
@@ -600,10 +600,10 @@ interface MediaStream : EventTarget {
           <code>false</code>.</p>
         </li>
       </ol>
-      <p>To <dfn data-export>create a MediaStreamTrack</dfn> with an underlying
+      <p>To <dfn  class="abstract-op">create a MediaStreamTrack</dfn> with an underlying
       <var>source</var>, and a <var>mediaDevicesToTieSourceTo</var>, run the
       following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>Let <var>track</var> be a new object of type <var>source</var>'s [=MediaStreamTrack source type=].</p>
           <p>Initialize track with the following internal slots:</p>
@@ -663,9 +663,9 @@ interface MediaStream : EventTarget {
           with <var>track</var> as parameter.</p></li>
         <li><p>Return <var>track</var>.</p></li>
       </ol>
-      <p>To <dfn data-export>initialize the underlying source</dfn> of <var>track</var>
+      <p>To <dfn class="abstract-op">initialize the underlying source</dfn> of <var>track</var>
       to <var>source</var>, run the following steps:</p>
-      <ol>
+      <ol class="algorithm">
         <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Source]]}} to
           <var>source</var>.</p></li>
         <li><p>Initialize <var>track</var>'s <a data-link-for="constrainable object"
@@ -676,18 +676,18 @@ interface MediaStream : EventTarget {
              data-link-type="attribute">[[\Settings]]</a>, as
           specified in the {{ConstrainablePattern}}.</p></li>
       </ol>
-      <p>To <dfn>tie track source to `MediaDevices`</dfn>, given <var>source</var> and
+      <p>To <dfn class="abstract-op">tie track source to `MediaDevices`</dfn>, given <var>source</var> and
       <var>mediaDevices</var>, run the following steps:
-      <ol>
+      <ol class="algorithm">
         <li>
           <p>Add <var>source</var> to
           <var>mediaDevices</var>.{{MediaDevices/[[mediaStreamTrackSources]]}}.</p>
         </li>
       </ol>
 
-      <p>To <dfn>stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
+      <p>To <dfn class="abstract-op">stop all sources</dfn> of a [=global object=], named <var>globalObject</var>,
       the [=User Agent=] MUST run the following steps:</p>
-      <ol>
+      <ol class="algorithm">
         <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
         <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> is <var>globalObject</var>,
         set <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}} to
@@ -708,9 +708,9 @@ interface MediaStream : EventTarget {
       <p>An implementation may use a per-source reference count to keep track
       of source usage, but the specifics are out of scope for this
       specification.</p>
-      <p>To <dfn id="track-clone">clone a track</dfn> the [=User Agent=] MUST run
+      <p>To <dfn class="abstract-op" id="track-clone">clone a track</dfn> the [=User Agent=] MUST run
       the following steps:</p>
-      <ol>
+      <ol class="algorithm">
         <li>
           <p>Let <var>track</var> be the {{MediaStreamTrack}}
           object to be cloned.</p>
@@ -860,7 +860,7 @@ interface MediaStream : EventTarget {
         <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
         invoked</dfn>, the [=User Agent=] MUST queue a task that runs the following
         steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
             has the value {{MediaStreamTrackState/"ended"}} already, then abort these
@@ -881,10 +881,10 @@ interface MediaStream : EventTarget {
         </ol>
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
-        <p>To invoke the <dfn data-export="">device permission revocation algorithm</dfn> with <var>permissionName</var> and
+        <p>To invoke the <dfn class="abstract-op">device permission revocation algorithm</dfn> with <var>permissionName</var> and
         {{DevicePermissionDescriptor/deviceId}} <var>deviceId</var>, run the
         following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>Let <var>tracks</var> be the set of all currently
             {{MediaStreamTrackState/"live"}} <code>MediaStreamTrack</code>s
@@ -931,9 +931,9 @@ interface MediaStream : EventTarget {
         <p>Whenever the [=User Agent=] initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
-        <p>To <dfn data-export id="set-track-muted">set a track's muted state</dfn> to
+        <p>To <dfn class="abstract-op" id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>Let <var>track</var> be the {{MediaStreamTrack}} in
             question.</p>
@@ -986,7 +986,7 @@ interface MediaStream : EventTarget {
         retrieval and manipulation of the constraints currently established on
         a track.</p>
         <p>Once ended, a track will continue exposing a
-        <dfn data-lt="list-of-inherent-constrainable-track-properties" id="list-of-inherent-constrainable-track-properties">
+        <dfn id="list-of-inherent-constrainable-track-properties">
         list of inherent constrainable track properties</dfn>.
         This list contains <code><a href="#def-constraint-deviceId">deviceId</a></code>,
         <code><a href="#def-constraint-facingMode">facingMode</a></code> and
@@ -1086,9 +1086,9 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>stop</dfn></dt>
               <dd>
                 <p>When a {{MediaStreamTrack}} object's
-                <dfn>stop()</dfn> method is invoked, the User
+                {{stop()}} method is invoked, the User
                 Agent MUST run following steps:</p>
-                <ol>
+                <ol class="algorithm">
                   <li>
                     <p>Let <var>track</var> be the current
                     {{MediaStreamTrack}} object.</p>
@@ -1131,7 +1131,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>When a {{MediaStreamTrack}} object's {{MediaStreamTrack.getSettings()}} method is invoked,
                 the [=User Agent=] MUST run following steps:</p>
-                <ol>
+                <ol class="algorithm">
                   <li>
                     <p>Let <var>track</var> be the current {{MediaStreamTrack}} object.</p>
                   </li>
@@ -1159,7 +1159,7 @@ interface MediaStreamTrack : EventTarget {
                 <p>When a {{MediaStreamTrack}} object's
                 {{applyConstraints()}} method is invoked, the User
                 Agent MUST run following steps:</p>
-                <ol>
+                <ol class="algorithm">
                   <li>
                     <p>Let <var>track</var> be the current
                     {{MediaStreamTrack}} object.</p>
@@ -2514,7 +2514,7 @@ interface OverconstrainedError : DOMException {
           <dt><dfn data-idl><code>OverconstrainedError</code></dfn></dt>
           <dd>
             <p>Run the following steps:</p>
-            <ol>
+            <ol class="algorithm">
               <li>
                 <p>Let <var>constraint</var> be the constructor's first
                 argument.</p>
@@ -2682,8 +2682,8 @@ interface OverconstrainedError : DOMException {
       <p>The <dfn>MediaDevices</dfn> object is the entry point
       to the API used to examine and get access to media devices available to
       the [=User Agent=].</p>
-      <p>To <dfn data-export>create a MediaDevices</dfn> object, given <var>realm</var>, run the following steps:</p>
-      <ol>
+      <p>To <dfn class="abstract-op">create a MediaDevices</dfn> object, given <var>realm</var>, run the following steps:</p>
+      <ol class="algorithm">
         <li>
           <p>Let <var>mediaDevices</var> be a new {{MediaDevices}} object in <var>realm</var>,
           initalized with the following internal slots:</p>
@@ -2760,7 +2760,7 @@ interface OverconstrainedError : DOMException {
       permission state=] of the permission associated with <var>kind</var> for
       <var>mediaDevices</var>'s [=relevant settings object=],
       run the following steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
           <var>mediaDevices</var>.{{MediaDevices/[[kindsAccessibleMap]]}}<var>[kind]</var> to <code>true</code>.</p>
@@ -2775,7 +2775,7 @@ interface OverconstrainedError : DOMException {
       and the device's deviceId, <var>deviceId</var>, for
       <var>mediaDevices</var>'s [=relevant settings object=], run the following
       steps:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>If the transition is to {{PermissionState/"granted"}} from another value, then set
           <var>mediaDevices</var>.{{MediaDevices/[[devicesAccessibleMap]]}}<var>[deviceId]</var> to <code>true</code>,
@@ -2792,10 +2792,10 @@ interface OverconstrainedError : DOMException {
       [=User Agent=], or any available input and/or output device becomes
       unavailable, or the system default for input and/or output devices of a
       {{MediaDeviceKind}} changed, the [=User Agent=] MUST run the following
-      <dfn>device change notification steps</dfn> for each {{MediaDevices}}
+      <dfn class="abstract-op">device change notification steps</dfn> for each {{MediaDevices}}
       object, <var>mediaDevices</var>, for which [=device enumeration can proceed=] is <code>true</code>,
       but for no other {{MediaDevices}} object:</p>
-      <ol>
+      <ol class=algorithm>
         <li>
           <p>Let <var>lastExposedDevices</var> be the result of
           [=creating a list of device info objects=] with <var>mediaDevices</var> and
@@ -2883,7 +2883,7 @@ interface MediaDevices : EventTarget {
               be enumerable.</p>
               <p>When the {{MediaDevices/enumerateDevices()}} method is
               called, the [=User Agent=] must run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
@@ -2918,12 +2918,12 @@ interface MediaDevices : EventTarget {
                 </li>
               </ol>
               <p>To perform
-              <dfn data-lt="creating-a-list-of-device-info-objects" id=
+              <dfn class="abstract-op" id=
               "creating-a-list-of-device-info-objects">
               creating a list of device info objects</dfn>, given
               <var>mediaDevices</var> and <var>deviceList</var>,
               run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li><p>Let <var>resultList</var> be an empty list.</p></li>
                 <li>
                   <p>Let <var>microphoneList</var>, <var>cameraList</var> and <var>otherDeviceList</var> be empty lists.</p>
@@ -3058,10 +3058,10 @@ interface MediaDevices : EventTarget {
         <p>Otherwise, the
         <dfn>MediaDeviceInfo</dfn> object will contain meaningful values for {{MediaDeviceInfo/deviceId}}, {{MediaDeviceInfo/kind}},
         {{MediaDeviceInfo/label}}, and {{MediaDeviceInfo/groupId}}. All available devices are listed in {{MediaDevices/enumerateDevices()}} result.</p>
-        <p>To perform <dfn data-lt="creating-a-device-info-object" id=
+        <p>To perform <dfn class="abstract-op" id=
         "creating-a-device-info-object">creating a device info object</dfn> to represent a discovered device,
         <var>device</var>, given <var>mediaDevices</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>Let <var>deviceInfo</var> be a new {{MediaDeviceInfo}} object to represent <var>device</var>.</p>
           </li>
@@ -3100,10 +3100,10 @@ interface MediaDevices : EventTarget {
       </section>
       <section>
         <h2>Device information exposure</h2>
-        <p>To perform a <dfn data-lt="device-enumeration-can-proceed" id=
+        <p>To perform a <dfn class="abstract-op" id=
         "device-enumeration-can-proceed">device enumeration can proceed</dfn> check, given <var>mediaDevices</var>,
         run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>The [=User Agent=] MAY return <code>true</code> if
             [=device information can be exposed=] on <var>mediaDevices</var>.
@@ -3117,10 +3117,10 @@ interface MediaDevices : EventTarget {
           <li>
             <p>Return <code>false</code>.</li>
         </ol>
-        <p>To perform a <dfn data-lt="device-information-can-be-exposed" id=
+        <p>To perform a <dfn class="abstract-op" id=
         "device-information-can-be-exposed">device information can be exposed</dfn>
         check, given <var>mediaDevices</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If [=camera information can be exposed=] on <var>mediaDevices</var>,
             return <code>true</code>.</p>
@@ -3133,10 +3133,10 @@ interface MediaDevices : EventTarget {
             <p>Return <code>false</code>.</p>
           </li>
         </ol>
-        <p>To perform a <dfn data-lt="camera-information-can-be-exposed" id=
+        <p>To perform a <dfn class="abstract-op" id=
         "camera-information-can-be-exposed">camera information can be exposed</dfn>
         check, given <var>mediaDevices</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If any of the local devices of kind "videoinput" are attached to a live
             {{MediaStreamTrack}} in <var>mediaDevices</var>'s [=relevant global object=]'s
@@ -3146,10 +3146,10 @@ interface MediaDevices : EventTarget {
             <p>Return <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}}.</p>
           </li>
         </ol>
-        <p>To perform a <dfn data-lt="microphone-information-can-be-exposed" id=
+        <p>To perform a <dfn class="abstract-op" id=
         "microphone-information-can-be-exposed">microphone information can be exposed</dfn>
         check, given <var>mediaDevices</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If any of the local devices of kind "audioinput" are attached to a live
             {{MediaStreamTrack}} in the [=relevant global object=]'s
@@ -3159,9 +3159,9 @@ interface MediaDevices : EventTarget {
             <p>Return <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}}.</p>
           </li>
         </ol>
-        <p>To perform an <dfn>is in view</dfn> check, given <var>mediaDevices</var>, run the following
+        <p>To perform an <dfn data-dfn-for="Document" class="abstract-op">is in view</dfn> check, given <var>mediaDevices</var>, run the following
         steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If <var>mediaDevices</var>'s [=relevant global object=]'s [=associated `Document`=] is
             [=Document/fully active=] and its [=Document/visibility state=]
@@ -3170,7 +3170,7 @@ interface MediaDevices : EventTarget {
         </ol>
         <p>To perform a <dfn>has system focus</dfn> check, given <var>mediaDevices</var>, run the following
         steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If <var>mediaDevices</var>'s [=relevant global object=]'s [=navigable=]'s
             [=top-level traversable=] has
@@ -3181,10 +3181,10 @@ interface MediaDevices : EventTarget {
       </section>
       <section>
         <h2>Set device information exposure</h2>
-        <p>To <dfn data-lt="set-device-information-exposure" id=
+        <p>To <dfn class="abstract-op" id=
         "set-device-information-exposure">set the device information exposure</dfn> on
         <var>mediaDevices</var>, given a <var>requestedTypes</var> [=set=], and a boolean <var>value</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If <a>"video"</a> is in <var>requestedTypes</var>, then set
             <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p>
@@ -3211,9 +3211,9 @@ interface MediaDevices : EventTarget {
       </section>
       <section>
         <h2>Context capturing state</h2>
-        <p>To perform a <dfn data-export id="context-is-capturing">context is capturing</dfn> check
+        <p>To perform a <dfn class="abstract-op" id="context-is-capturing">context is capturing</dfn> check
         for <var>globalObject</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li>
             <p>If <var>globalObject</var> is not a {{Window}}, then return false.</p>
           </li>
@@ -3533,7 +3533,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                 </li>
                 <li>
                   <p>Let <var>isInView</var> be the result of the
-                  <a>is in view</a> algorithm.</p>
+                  [= Document/is in view =] algorithm.</p>
                 </li>
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
@@ -3545,7 +3545,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
                       <p>While <var>isInView</var> is `false`, the [=User Agent=]
                       MUST wait to proceed to the next step until a task queued
                       to set <var>isInView</var> to the result of the
-                      [=is in view=]</a> algorithm, would set
+                      [=Document/is in view=]</a> algorithm, would set
                       <var>isInView</var> to `true`.</p>
                     </li>
                     <li>
@@ -3823,10 +3823,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
         </section>
       </div>
       <div>
-        <p>To check whether <dfn data-lt="getUserMedia-specific-failure-is-allowed" id=
+        <p>To check whether <dfn class="abstract-op" id=
         "getUserMedia-specific-failure-is-allowed">getUserMedia specific failure is allowed</dfn>,
         given <var>requestedMediaTypes</var>, run the following steps:</p>
-        <ol>
+        <ol class="algorithm">
           <li><p>If <var>requestedMediaTypes</var> contains "audio", read the [=permission state=]
             for the descriptor whose name is "microphone". If the result of the request is
             {{PermissionState/"denied"}}, return <code>false</code>.</p></li>
@@ -3970,7 +3970,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
               {{MediaDevices}}.</p>
               <p>When the {{getUserMedia()}} method is called,
               the User Agent MUST run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>
                   <p>Let <var>constraints</var> be the method's first
                   argument.</p>
@@ -4178,10 +4178,10 @@ interface InputDeviceInfo : MediaDeviceInfo {
             continuing capture in situations that may surprise users.</p>
           </li>
           <li>
-            <p>A web page not [=is in view|in view=]
+            <p>A web page not [=Document/is in view|in view=]
             <a data-lt=enabled>re-enables</a> a track when all tracks from that
             source are <a data-lt=enabled>disabled</a>, in order to delay
-            resumption of capture until the page [=is in view=].
+            resumption of capture until the page [=Document/is in view=].
             </p>
           </li>
         </ul>
@@ -4197,8 +4197,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
             user's awareness of the earlier capture session.</p>
           </li>
           <li>
-            <p>A web page comes [=is in view|into view=] and
-            has one or more <a data-lt=enabled>enabled</a> tracks that are also
+            <p>A web page comes [=Document/is in view|into view=] and
+            has one or more <a>enabled</a> tracks that are also
             [= muted =].
             </p>
           </li>
@@ -4481,7 +4481,7 @@ interface ConstrainablePattern {
             <dd>
               <p>When the <dfn>applyConstraints template method</dfn> is invoked, the
               [=User Agent=] MUST run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>
                   <p>Let <var>object</var> be the object on which this method
                   was invoked.</p>
@@ -4638,9 +4638,9 @@ interface ConstrainablePattern {
                 to choose such a sequence of values that satisfy CS1...CSn and
                 assign them as the settings for the properties of O.</li>
               </ul>
-              <p>We define the <dfn data-export>SelectSettings</dfn> algorithm as
+              <p>We define the <dfn class="abstract-op">SelectSettings</dfn> algorithm as
               follows:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>Each <a>constraint</a> specifies one
                 or more values (or a range of values) for its property. A
                 property MAY appear more than once in the list of 'advanced'
@@ -4724,10 +4724,10 @@ interface ConstrainablePattern {
                   <li><p><a href="#def-constraint-echoCancellation">echoCancellation</a> set to <code>true</code>.</p></li>
                 </ol>
               </div>
-              <p>To apply the <dfn data-export>ApplyConstraints algorithm</dfn> to an
+              <p>To apply the <dfn class="abstract-op">ApplyConstraints algorithm</dfn> to an
               <var>object</var>, given <var>newConstraints</var> as an
               argument, the [=User Agent=] MUST run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>
                   <p>Let <var>successfulSettings</var> be the result of running
                   the <a>SelectSettings</a> algorithm with
@@ -4771,7 +4771,7 @@ interface ConstrainablePattern {
               described in the algorithm above, let
               <var>successfulSettings</var> be the resulting new settings, and
               queue a task to run the following steps:</p>
-              <ol>
+              <ol class="algorithm">
                 <li>
                   <p>Let <var>object</var> be the
                   <code><a>ConstrainablePattern</a></code> object on which new
