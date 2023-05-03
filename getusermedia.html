@@ -2989,7 +2989,8 @@ interface MediaDevices : EventTarget {
                     </li>
                     <li>
                       <p>Run the [=exposure decision algorithm for devices other than camera and microphone=],
-                      with <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input.
+                      with <var>device</var>, <var>microphoneList</var>, <var>cameraList</var> and
+                      <var>mediaDevices</var> as input.
                       If the result of this algorithm is <code>false</code>,
                       abort these sub steps and continue with the next device (if any).</p>
                     </li>
@@ -3204,8 +3205,9 @@ interface MediaDevices : EventTarget {
         <h2>Exposure decision algorithm for devices other than camera and microphone</h2>
         <p>The <dfn data-export id=
           "device-exposure-decision-non-camera-microphone">exposure decision algorithm for devices other than camera and microphone</dfn>
-          takes a <var>device</var>, <var>microphoneList</var> and <var>cameraList</var> as input
-          and returns a boolean to decide whether exposing the device to the web page or not.</p>
+          takes a <var>device</var>, <var>microphoneList</var>, <var>cameraList</var> and
+          <var>mediaDevices</var> as input and returns a boolean to decide whether to expose
+          information about <var>device</var> to the web page or not.</p>
         <p>By default, it returns <code>false</code>.</p>
         <p>Other specifications can define the algorithm for specific device types.
       </section>
