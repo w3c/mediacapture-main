@@ -802,11 +802,11 @@ interface MediaStream : EventTarget {
         becomes both [= track/muted | unmuted =] and
         [= track/enabled =] again, provided that track's
         [=relevant global object=]'s [=associated `Document`=]
-        [=is in view=] at that time. If the
-        document is not [=is in view|in view=] at that time,
+        [=Document/is in view=] at that time. If the
+        document is not [=Document/is in view|in view=] at that time,
         the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
         track, and not queue a task to <a data-lt=muted>unmute</a> it until
-        the document comes [=is in view|into view=].
+        the document comes [=Document/is in view|into view=].
         If reacquiring the device fails, the UA MUST
         [= track ended by the User agent | end the track =] (The UA MAY end it earlier
         should it detect a device problem, like the device being physically
@@ -2835,7 +2835,7 @@ interface OverconstrainedError : DOMException {
       </ol>
       <p>Additionally, if a {{MediaDevices}} object that was traversed comes
       to meet the [=device enumeration can proceed=] criteria later (e.g.
-      [=is in view | comes into view=]), the [=User Agent=] MUST
+      [=Document/is in view | comes into view=]), the [=User Agent=] MUST
       execute the [=device change notification steps=] on the {{MediaDevices}}
       object at that time.</p>
       <div class="note">
@@ -3110,7 +3110,7 @@ interface MediaDevices : EventTarget {
             [=device information can be exposed=] on <var>mediaDevices</var>.
           </li>
           <li>
-            <p>Return the result of [=is in view=] with <var>mediaDevices</var>.</p>
+            <p>Return the result of [=Document/is in view=] with <var>mediaDevices</var>.</p>
           </li>
         </ol>
         <p>To perform a <dfn class="abstract-op" id=
@@ -5641,13 +5641,13 @@ window.onload = async () =&gt; {
     device enumeration design principles</a>.
     </p>
     <p>For open web documents where capture has begun or has taken place, or for
-    web documents that [=is in view|are in view=], the
+    web documents that [=Document/is in view|are in view=], the
     <a data-link-type=event>devicechange</a> event can end up being fired at
     the same time across [=navigables=]
     and origins each time a new media device is added or removed; user
     agents can mitigate the risk of correlation of browsing activity across
     origins by fuzzing the timing of these events, or by deferring their firing
-    until those web documents [=is in view | come into view=].</p>
+    until those web documents [=Document/is in view | come into view=].</p>
     <p>Once a web document gains access to a media stream from a capture device,
     it also gains access to detailed information about the device,
     including its range of operating capabilities (e.g. available resolutions
