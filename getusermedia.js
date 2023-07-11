@@ -86,4 +86,8 @@ var respecConfig = {
                 el.appendChild(img);
             });
     },
+    caniuse: {
+        feature: "stream",
+        removeOnSave: false,
+    }
 };
