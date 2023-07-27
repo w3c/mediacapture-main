@@ -882,7 +882,7 @@ interface MediaStream : EventTarget {
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
         <p>To invoke the <dfn class="abstract-op">device permission revocation algorithm</dfn> with <var>permissionName</var> and
-        {{DevicePermissionDescriptor/deviceId}} <var>deviceId</var>, run the
+        {{MediaDeviceInfo/deviceId}} <var>deviceId</var>, run the
         following steps:</p>
         <ol class="algorithm">
           <li>
@@ -3647,8 +3647,6 @@ interface InputDeviceInfo : MediaDeviceInfo {
                           use=] a {{PermissionDescriptor}} with its {{PermissionDescriptor/name}} member set
                           to the permission name associated with <var>kind</var>
                           (e.g. <a>"camera"</a> for <a>"video"</a>, <a>"microphone"</a> for <a>"audio"</a>),
-                          and, optionally, consider its {{DevicePermissionDescriptor/deviceId}} member set to
-                          any appropriate device's <var>deviceId</var>,
                           while considering all devices attached to a
                           live and <a>same-permission</a>
                           {{MediaStreamTrack}} in the current {{Document}}
@@ -5427,34 +5425,29 @@ window.onload = async () =&gt; {
       </dt>
       <dd>
         <pre class="idl">
-          dictionary DevicePermissionDescriptor : PermissionDescriptor {
-            DOMString deviceId;
-          };
-
-          dictionary CameraDevicePermissionDescriptor : DevicePermissionDescriptor {
+          dictionary CameraDevicePermissionDescriptor : PermissionDescriptor {
             boolean panTiltZoom = false;
           };
         </pre>
         <p>
-          A permission covers access to the device given in the associated descriptor.
+          A permission covers access to at least one device of a kind.
         </p>
         <p>
-          If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, its
-          semantic is that it queries for access to any device of that kind. Thus, if a query
-          for the <a>"camera"</a> permission with no
-          {{DevicePermissionDescriptor/deviceId}} returns {{PermissionState/"granted"}}, the
+          The semantics of the descriptor is that it queries for access to any device of that kind.
+          Thus, if a query
+          for the <a>"camera"</a> permission returns {{PermissionState/"granted"}}, the
           client knows that it will get access to one camera without a permission prompt, and if
           {{PermissionState/"denied"}} is returned, it knows that no getUserMedia request for a
           camera will succeed.
         </p>
         <p>
-          If a {{PermissionState/"granted"}} permission is present on some, but not all, devices of a kind, a query
-          without the {{DevicePermissionDescriptor/deviceId}} will return
+          If the User agent considers permission given to some, but not all, devices of a kind, a query
+          will return
           {{PermissionState/"granted"}}.
         </p>
         <p>
-          If a {{PermissionState/"denied"}} permission is present on all devices of a kind, a query
-          without the {{DevicePermissionDescriptor/deviceId}} will return
+          If the User agent considers permission denied to all devices of a kind, a query
+          will return
           {{PermissionState/"denied"}}.
         </p>
         <p>
@@ -5463,44 +5456,17 @@ window.onload = async () =&gt; {
         </p>
         <p class="note">
           A {{PermissionState/"granted"}} permission is no guarantee that getUserMedia will succeed. It
-          only indicates that the user will not be prompted for permission to the
-          {{DevicePermissionDescriptor/deviceId}} it specifies. There are many
+          only indicates that the user will not be prompted for permission. There are many
           other things (such as constraints or the camera being in use) that can cause
           getUserMedia to fail.
         </p>
-      </dd>
-      <dt>
-        [=powerful feature/extra permission data type=]
-      </dt>
-      <dd>
-        A list of {{MediaDeviceInfo/deviceId}} values for the devices the user has made a
-        non-default decision on access to.
-      </dd>
-      <dt>
-        [=powerful feature/permission query algorithm=]
-      </dt>
-      <dd>
-        The permission query algorithm runs the following steps:
-        <ol class="algorithm">
-          <li>If |permissionDesc|.deviceId exists in the [=powerful feature/extra permission
-          data=], set <code>|status|.state</code> to |permissionDesc|'s <a>permission state</a>
-          and terminate these steps.
-          </li>
-          <li>Let <var>global</var> be a copy of |permissionDesc| with the
-          {{DevicePermissionDescriptor/deviceId}} member removed.
-          </li>
-          <li>Set <code>|status|.state</code> to <var>global</var>'s <a>permission state</a>.
-          </li>
-        </ol>
       </dd>
       <dt>
         [=powerful feature/permission revocation algorithm=]
       </dt>
       <dd>
         This is the result of calling the [=device permission revocation algorithm=] passing
-        {{PermissionDescriptor/name}} and {{DevicePermissionDescriptor/deviceId}} as arguments.
-        If the descriptor does not have a {{DevicePermissionDescriptor/deviceId}}, then
-        <code>undefined</code> is passed in place of {{DevicePermissionDescriptor/deviceId}}.
+        {{PermissionDescriptor/name}} and <code>undefined</code> as arguments.
       </dd>
     </dl>
   </section>
