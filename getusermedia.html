@@ -882,24 +882,13 @@ interface MediaStream : EventTarget {
         <p>If the end of the track was reached due to a user request, the event
         source for this event is the user interaction event source.</p>
         <p>To invoke the <dfn class="abstract-op">device permission revocation algorithm</dfn> with <var>permissionName</var>,
-        run the
-        following steps:</p>
+        run the following steps:</p>
         <ol class="algorithm">
           <li>
             <p>Let <var>tracks</var> be the set of all currently
             {{MediaStreamTrackState/"live"}} <code>MediaStreamTrack</code>s
-            that fit the following criteria:</p>
-            <ul>
-              <li>
-                If <var>deviceId</var> is not <code>undefined</code>, tracks
-                whose associated <a>deviceId</a> matches <var>deviceId</var>
-              </li>
-              <li>
-                If <var>deviceId</var> is <code>undefined</code>, tracks whose
-                permission associated with this kind of track <a>"camera"</a>, <a>"microphone"</a>
-                matches <var>permissionName</var>
-              </li>
-            </ul>
+            whose permission associated with this kind of track (<a>"camera"</a> or <a>"microphone"</a>)
+            matches <var>permissionName</var>.</p>
           </li>
           <li>
             <p>For each <var>track</var> in <var>tracks</var>,
