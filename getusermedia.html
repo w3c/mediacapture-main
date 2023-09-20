@@ -1925,7 +1925,10 @@ interface MediaStreamTrack : EventTarget {
                   camera resolution by the [=User Agent=], or its frame rate is
                   decimated by the [=User Agent=]. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
-                  occur in the input source.</p>
+                  occur in the input source, except as noted below.</p>
+                  <p class="fingerprint">Note: The UA MAY upscale to
+                  disguise concurrent use, but only when the camera is in use
+                  in another [=navigable=].</p>
                 </td>
               </tr>
             </tbody>
