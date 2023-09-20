@@ -1390,9 +1390,16 @@ interface MediaStreamTrack : EventTarget {
   sequence&lt;boolean&gt; noiseSuppression;
   DoubleRange latency;
   ULongRange channelCount;
-  sequence&lt;DOMString&gt; deviceId;
-  sequence&lt;DOMString&gt; groupId;
+  DOMString deviceId;
+  DOMString groupId;
 };</pre>
+        <div class="note">
+          <p>For historical reasons, {{MediaTrackCapabilities/deviceId}} and
+          {{MediaTrackCapabilities/groupId}} are {{DOMString}} instead of the
+          `sequence&lt;DOMString&gt;` expected by {{Capabilities}} in the
+          <code><a>ConstrainablePattern</a></code>.</p>
+        </div>
+
           <section>
             <h2>Dictionary {{MediaTrackCapabilities}}
             Members</h2>
@@ -1479,12 +1486,12 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <a href=
               "#def-constraint-channelCount">channelCount</a> for
               details.</dd>
-              <dt><dfn>deviceId</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
-              <dd>A sequence containing a single <a href=
-              "#def-constraint-deviceId">deviceId</a>.</dd>
-              <dt><dfn>groupId</dfn> of type <code>sequence&lt;{{DOMString}}&gt;</code></dt>
-              <dd>A sequence containing a single <a href=
-              "#def-constraint-groupId">groupId</a>.</dd>
+              <dt><dfn>deviceId</dfn> of type {{DOMString}}</dt>
+              <dd>See <a href=
+              "#def-constraint-deviceId">deviceId</a> for details.</dd>
+              <dt><dfn>groupId</dfn> of type {{DOMString}}</dt>
+              <dd>See <a href=
+              "#def-constraint-groupId">groupId</a> for details.</dd>
             </dl>
           </section>
         </div>
