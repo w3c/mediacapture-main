@@ -1814,9 +1814,9 @@ interface MediaStreamTrack : EventTarget {
                 the UA. In other words, whether the UA is allowed to use
                 cropping and downscaling on the camera output.
                 <p class="fingerprint">The UA MAY disguise concurrent use of
-                the camera, by cropping and/or downscaling to mimic native
+                the camera, by downscaling, upscaling, and/or cropping to mimic native
                 resolutions when "none" is used, but only when the camera is in
-                use in another [=navigable=].</p>Note that
+                use in another application outside the [=User Agent=].</p>Note that
                 <code><a data-link-for=
                 "ConstrainablePattern">getConstraints</a></code> may not return
                 exactly the same string for strings not in this enum. This
@@ -1932,7 +1932,10 @@ interface MediaStreamTrack : EventTarget {
                   camera resolution by the [=User Agent=], or its frame rate is
                   decimated by the [=User Agent=]. The media MUST NOT be
                   upscaled, stretched or have fake data created that did not
-                  occur in the input source.</p>
+                  occur in the input source, except as noted below.</p>
+                  <p class="fingerprint">Note: The UA MAY upscale to
+                  disguise concurrent use, but only when the camera is in use
+                  in another application outside the [=User Agent=].</p>
                 </td>
               </tr>
             </tbody>
