@@ -1382,6 +1382,13 @@ interface MediaStreamTrack : EventTarget {
   DOMString deviceId;
   DOMString groupId;
 };</pre>
+        <div class="note">
+          <p>For historical reasons, {{MediaTrackCapabilities/deviceId}} and
+          {{MediaTrackCapabilities/groupId}} are {{DOMString}} instead of the
+          `sequence&lt;DOMString&gt;` expected by {{Capabilities}} in the
+          <code><a>ConstrainablePattern</a></code>.</p>
+        </div>
+
           <section>
             <h2>Dictionary {{MediaTrackCapabilities}}
             Members</h2>
