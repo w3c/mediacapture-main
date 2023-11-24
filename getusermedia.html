@@ -1640,11 +1640,19 @@ interface MediaStreamTrack : EventTarget {
                 </p>
                 <p>
                   <code>false</code> if the reason is anything else, such as an error
-                  or a temporary absence of media for an unspecified reason.
+                  or a temporary absence of media for any reason.
                 </p>
               </dd>
             </dl>
           </section>
+        </div>
+        <div class="note">
+          <p>
+            What additional information can be exposed, and under which conditions,
+            is actively debated. One proposal is to expose the MuteSource, with potential
+            values such as <code>"user-agent"</code>, <code>"operating-system"</code>,
+            <code>"hardware"</code> and <code>"unspecified"</code>.
+          </p>
         </div>
       </section>
       <section id="media-track-settings">
