@@ -643,6 +643,12 @@ interface MediaStream : EventTarget {
               [= muted =], and <code>false</code> otherwise.</p>
             </li>
             <li>
+              <p><dfn>[[\MuteReasons]]</dfn></p>
+              <p>
+                TODO: Decide whether this replaces {{MediaStreamTrack/[[Muted]]}}
+                or goes alongside it.
+              </p>
+            <li>
               <a data-link-for="constrainable object"
                  data-link-type="attribute">[[\Capabilities]]</a>,
               <a data-link-for="constrainable object"
@@ -999,6 +1005,7 @@ interface MediaStreamTrack : EventTarget {
   undefined stop();
   MediaTrackCapabilities getCapabilities();
   MediaTrackConstraints getConstraints();
+  sequence&lt;MuteReason&gt; getMuteReasons();
   MediaTrackSettings getSettings();
   Promise&lt;undefined&gt; applyConstraints(optional MediaTrackConstraints constraints = {});
 };</pre>
@@ -1113,6 +1120,26 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>See <a href="#constrainable-interface">ConstrainablePattern
                 Interface</a> for the definition of this method.</p>
+              </dd>
+              <dt><dfn>getMuteReasons</dfn></dt>
+              <dd>
+                <p>When a {{MediaStreamTrack}} object's {{MediaStreamTrack.getMuteReasons()}} method is invoked,
+                  the [=User Agent=] MUST run following steps:</p>
+                  <ol class="algorithm">
+                    <li>
+                      <p>Let <var>track</var> be the current {{MediaStreamTrack}} object.</p>
+                    </li>
+                    <li>
+                      <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
+                        is {{MediaStreamTrackState/"ended"}}, return an empty sequence.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Return <var>track</var>.{{MediaStreamTrack/[[MuteReasons]]}}.
+                      </p>
+                    </li>
+                  </ol>  
               </dd>
               <dt><dfn>getSettings</dfn></dt>
               <dd>
@@ -1584,6 +1611,38 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>groupId</dfn> of type {{ConstrainDOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-groupId">groupId</a> for details.</dd>
+            </dl>
+          </section>
+        </div>
+      </section>
+      <section id="mute-reason">
+        <h2><dfn>MuteReason</dfn></h2>
+        <p>
+          {{MuteReason}} represents information about why a {{MediaStreamTrack}}
+          is [=muted=]. Multiple reasons might apply concurrently. The information
+          exposed to applications might depend on certain conditions.
+        </p>
+        <div>
+          <pre class="idl">
+            [Exposed=Window]
+            interface MuteReason {
+              readonly attribute boolean explicitUpstream;
+            };
+          </pre>
+          <section>
+            <h2>{{MuteReason}} Members</h2>
+            <dl data-link-for="MuteReason" data-dfn-for="MuteReason" class="attributes">
+              <dt><dfn>explicitUpstream</dfn> of type {{boolean}}</dt>
+              <dd>
+                <p>
+                  <code>true</code> if the reason is an explicit decision to mute by an upstream
+                  entity such as the user agent, operating system or hardware.
+                </p>
+                <p>
+                  <code>false</code> if the reason is anything else, such as an error
+                  or a temporary absence of media for an unspecified reason.
+                </p>
+              </dd>
             </dl>
           </section>
         </div>
