@@ -897,7 +897,7 @@ interface MediaStream : EventTarget {
         <p>There are two dimensions related to the media flow for a
         {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
         muted, and enabled / disabled.</p>
-        <p><dfn data-export id=
+        <p><dfn class="export" data-dfn-for="MediaStreamTrack" id=
         "track-muted">Muted</dfn> refers to the input to the
         {{MediaStreamTrack}}. If live samples are not made
         available to the {{MediaStreamTrack}} it is muted.</p>
@@ -918,7 +918,8 @@ interface MediaStream : EventTarget {
         <p>Whenever the [=User Agent=] initiates such a change, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
-        <p>To <dfn class="abstract-op" id="set-track-muted">set a track's muted state</dfn> to
+        <p>To <dfn class="export" data-dfn-for="MediaStreamTrack"
+        id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
         <ol class="algorithm">
           <li>
