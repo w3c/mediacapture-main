@@ -903,7 +903,9 @@ interface MediaStream : EventTarget {
         available to the {{MediaStreamTrack}} it is muted.</p>
         <p>{{Muted}} is outside the control of web applications, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
-        to the associated events {{mute}} and {{unmute}}. There can be
+        to the associated events {{mute}} and {{unmute}}. The reasons for a
+        {{MediaStreamTrack}} to be muted are defined by its <a>source</a>.</p>
+        <p>For camera and microphone sources, there can be
         several reasons for a {{MediaStreamTrack}} to be muted:
         the user pushing a physical mute button on the microphone, the user
         closing a laptop lid with an embedded camera, the user toggling a
@@ -5671,8 +5673,7 @@ window.onload = async () =&gt; {
     specification may be extended. Two likely extension points are defining a
     new media type and defining a new constrainable property.</p>
     <section>
-      <h2>Defining a new media type (beyond the existing Audio and Video
-      types)</h2>
+      <h2>Defining a new {{MediaStreamTrack/kind}} of media (beyond audio and video)</h2>
       <p>At a minimum, defining a new media type would require</p>
       <ul>
         <li>adding a new getXXXXTracks() method for the type to the
@@ -5685,7 +5686,7 @@ window.onload = async () =&gt; {
         the {{MediaStreamTrack}} interface,</li>
         <li>defining any constrainable properties (see <a href=
         "#constrainable-properties"></a>) that are applicable to the media
-        type,
+        type for each <a>source</a>,
         </li>
         <li>updating how the {{HTMLMediaElement}} works with a
           {{MediaStream}} containing a track of the new media type
@@ -5750,18 +5751,43 @@ window.onload = async () =&gt; {
       Future versions of this specification and others created by the WebRTC Working Group will take into consideration all extensions they are
       aware of in an attempt to reduce potential usage conflicts.</p>
     </section>
-    <p>&nbsp;</p>
-    <p>It is also likely that new consumers of {{MediaStream}}s
-    or {{MediaStreamTrack}}s will be defined in the future. The
-    following section provides guidance.</p>
     <section>
-      <h2>Defining new consumers of {{MediaStream}}s and {{MediaStreamTrack}}s</h2>
-      <p>At a minimum, any new consumer of a
-      {{MediaStreamTrack}} will need to define</p>
+      <h2>Defining new a sink for {{MediaStreamTrack}} and {{MediaStream}}</h2>
+      <p>It is likely that new sinks for {{MediaStream}} and/or {{MediaStreamTrack}}
+      will be defined in the future. At a minimum, a new consumer of a
+      {{MediaStreamTrack}} will need to define:</p>
       <ul>
-        <li>how a {{MediaStreamTrack}} will render in the
+        <li>how a {{MediaStreamTrack}} will be consumed in the
         various states in which it can be, including muted and disabled (see
         [[[#life-cycle-and-media-flow]]]).
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Defining a new <a>source</a> of {{MediaStreamTrack}}</h2>
+      <p>It is likely that new sources of {{MediaStreamTrack}}
+      will be defined in the future. At a minimum, a new source of
+      {{MediaStreamTrack}} will need to</p>
+      <ul>
+        <li>define a new API to [=create a MediaStreamTrack=] of the
+        relevant {{MediaStreamTrack/kind}}s from this new <a>source</a>
+        ({{MediaDevices/getUserMedia()}} is dedicated to camera and microphone sources),
+        </li>
+        <li>declare which constrainable properties (see <a href=
+        "#constrainable-properties"></a>), if any, are applicable to each
+        {{MediaStreamTrack/kind}} of media this new <a>source</a> produces,
+        and how they work with this source,
+        </li>
+        <li>describe how and when to [=set a track's muted state=] for this
+        <a>source</a>,
+        </li>
+        <li>if capture of the source is a [=powerful feature=] requiring
+        [=express permission=], describe its
+        <a href="#permissions-integration">permissions integration</a> and
+        <a href="#permissions-policy-integration">permissions policy integration</a>,
+        </li>
+        <li>if capture of the source poses a privacy concern, describe its
+        <a href="#privacy-indicator-requirements">privacy indicator requirements</a>.
         </li>
       </ul>
     </section>
