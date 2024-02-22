@@ -849,7 +849,7 @@ interface MediaStream : EventTarget {
         [= source/stopped =].</p>
         <p>After the application has invoked the {{MediaStreamTrack/stop()}}
         method on a {{MediaStreamTrack}} object, or once the [=source=] of a
-        {{MediaStreamTrack}} ends production of live samples to its tracks,
+        {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
         whichever is sooner, a {{MediaStreamTrack}} is said to be
         <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
         <p>For camera and microphone sources, the reasons for a source to
