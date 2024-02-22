@@ -847,13 +847,17 @@ interface MediaStream : EventTarget {
         <p>If all {{MediaStreamTrack}}s that are using the same
         source are [= track/ended =], the source will be
         [= source/stopped =].</p>
-        <p>When a {{MediaStreamTrack}} object ends for any
-        reason (e.g., because the user rescinds the permission for the page to
-        use the local camera, or because the application invoked the
-        {{MediaStreamTrack/stop()}} method on
-        the {{MediaStreamTrack}} object, or because the User
-        Agent has instructed the track to end for any reason) it is said to be
+        <p>After the application has invoked the {{MediaStreamTrack/stop()}}
+        method on a {{MediaStreamTrack}} object, or once the [=source=] of a
+        {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
+        whichever is sooner, a {{MediaStreamTrack}} is said to be
         <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
+        <p>For camera and microphone sources, the reasons for a source to
+        [=track/ended|end=] besides {{MediaStreamTrack/stop()}} are
+         [=implementation-defined=]
+        (e.g., because the user rescinds the permission for the page to
+        use the local camera, or because the User
+        Agent has instructed the track to end for any reason).</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
         <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
         invoked</dfn>, the [=User Agent=] MUST queue a task that runs the following
@@ -899,12 +903,15 @@ interface MediaStream : EventTarget {
         muted, and enabled / disabled.</p>
         <p><dfn data-export id=
         "track-muted">Muted</dfn> refers to the input to the
-        {{MediaStreamTrack}}. If live samples are not made
-        available to the {{MediaStreamTrack}} it is muted.</p>
+        {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
+        {{MediaStreamTrack}} while it is [=muted=].</p>
         <p>{{Muted}} is outside the control of web applications, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
-        to the associated events {{mute}} and {{unmute}}. There can be
-        several reasons for a {{MediaStreamTrack}} to be muted:
+        to the associated events {{mute}} and {{unmute}}. The reasons for a
+        {{MediaStreamTrack}} to be muted are defined by its <a>source</a>.</p>
+        <p>For camera and microphone sources, the reasons to [=muted|mute=] are
+        [=implementation-defined=]. This allows user agents to implement privacy
+        mitigations in situations like:
         the user pushing a physical mute button on the microphone, the user
         closing a laptop lid with an embedded camera, the user toggling a
         control in the operating system, the user clicking a mute button in the
@@ -915,9 +922,13 @@ interface MediaStream : EventTarget {
         this information to the web application through {{MediaStreamTrack/muted}} and
         its associated events.</p>
 
-        <p>Whenever the [=User Agent=] initiates such a change, it MUST queue a
+        <p>Whenever the [=User Agent=] initiates such an [= implementation-defined=]
+        change for camera or microphone sources, it MUST queue a
         task, using the user interaction task source, to [=set a track's muted
         state=] to the state desired by the user.</p>
+        <div class="note">This does not apply to [=source|sources=] defined in
+        other specifications. Other specifications need to define their own steps
+        to [=set a track's muted state=] if desired.</div>
         <p>To <dfn class="abstract-op" id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
         <ol class="algorithm">
@@ -5671,8 +5682,7 @@ window.onload = async () =&gt; {
     specification may be extended. Two likely extension points are defining a
     new media type and defining a new constrainable property.</p>
     <section>
-      <h2>Defining a new media type (beyond the existing Audio and Video
-      types)</h2>
+      <h2>Defining a new {{MediaStreamTrack/kind}} of media (beyond audio and video)</h2>
       <p>At a minimum, defining a new media type would require</p>
       <ul>
         <li>adding a new getXXXXTracks() method for the type to the
@@ -5685,7 +5695,7 @@ window.onload = async () =&gt; {
         the {{MediaStreamTrack}} interface,</li>
         <li>defining any constrainable properties (see <a href=
         "#constrainable-properties"></a>) that are applicable to the media
-        type,
+        type for each <a>source</a>,
         </li>
         <li>updating how the {{HTMLMediaElement}} works with a
           {{MediaStream}} containing a track of the new media type
@@ -5750,18 +5760,45 @@ window.onload = async () =&gt; {
       Future versions of this specification and others created by the WebRTC Working Group will take into consideration all extensions they are
       aware of in an attempt to reduce potential usage conflicts.</p>
     </section>
-    <p>&nbsp;</p>
-    <p>It is also likely that new consumers of {{MediaStream}}s
-    or {{MediaStreamTrack}}s will be defined in the future. The
-    following section provides guidance.</p>
     <section>
-      <h2>Defining new consumers of {{MediaStream}}s and {{MediaStreamTrack}}s</h2>
-      <p>At a minimum, any new consumer of a
-      {{MediaStreamTrack}} will need to define</p>
+      <h2>Defining a new sink for {{MediaStreamTrack}} and {{MediaStream}}</h2>
+      <p>Other specs can define new sinks for {{MediaStream}} and/or
+      {{MediaStreamTrack}}. At a minimum, a new consumer of a
+      {{MediaStreamTrack}} will need to define:</p>
       <ul>
-        <li>how a {{MediaStreamTrack}} will render in the
+        <li>how a {{MediaStreamTrack}} will be consumed in the
         various states in which it can be, including muted and disabled (see
         [[[#life-cycle-and-media-flow]]]).
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Defining a new <a>source</a> of {{MediaStreamTrack}}</h2>
+      <p>Other specs can define new sources of {{MediaStreamTrack}}.
+      At a minimum, a new source of {{MediaStreamTrack}} will need to</p>
+      <ul>
+        <li>define a new API to [=create a MediaStreamTrack=] of the
+        relevant {{MediaStreamTrack/kind}}s from this new <a>source</a>
+        ({{MediaDevices/getUserMedia()}} is dedicated to camera and microphone sources),
+        </li>
+        <li>declare which constrainable properties (see <a href=
+        "#constrainable-properties"></a>), if any, are applicable to each
+        {{MediaStreamTrack/kind}} of media this new <a>source</a> produces,
+        and how they work with this source,
+        </li>
+        <li>describe how and when to [=set a track's muted state=] for this
+        <a>source</a>,
+        </li>
+        <li>describe how and when to <a href="#ends-nostop">end</a> tracks
+        from this <a>source</a>,
+        </li>
+        <li>if capture of the source is a [=powerful feature=] requiring
+        [=express permission=], describe its
+        <a href="#permissions-integration">permissions integration</a> and
+        <a href="#permissions-policy-integration">permissions policy integration</a>,
+        </li>
+        <li>if capture of the source poses a privacy concern, describe its
+        <a href="#privacy-indicator-requirements">privacy indicator requirements</a>.
         </li>
       </ul>
     </section>
