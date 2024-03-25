@@ -299,14 +299,14 @@
       consumer.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for="stream" id=
       "stream-active">active</dfn> when it has at least one
-      {{MediaStreamTrack}} that has not [= track/ended =]. A {{MediaStream}} that does not
-      have any tracks or only has tracks that are [= track/ended =]
+      {{MediaStreamTrack}} that has not [= MediaStreamTrack/ended =]. A {{MediaStream}} that does not
+      have any tracks or only has tracks that are [= MediaStreamTrack/ended =]
       is <dfn data-dfn-for="stream" id="stream-inactive">inactive</dfn>.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for=stream id=
       "stream-audible" data-dfn-for=stream>audible</dfn> when it has at least one
       {{MediaStreamTrack}} whose {{MediaStreamTrack/[[Kind]]}} is <a>"audio"</a>
-      that has not [= track/ended =]. A {{MediaStream}} that does not have any
-      audio tracks or only has audio tracks that are [= track/ended =] is
+      that has not [= MediaStreamTrack/ended =]. A {{MediaStream}} that does not have any
+      audio tracks or only has audio tracks that are [= MediaStreamTrack/ended =] is
       <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
       <p>The [=User Agent=] may update a {{MediaStream}}'s [=track set=] in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -845,15 +845,15 @@ interface MediaStream : EventTarget {
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
         <p>If all {{MediaStreamTrack}}s that are using the same
-        source are [= track/ended =], the source will be
+        source are [= MediaStreamTrack/ended =], the source will be
         [= source/stopped =].</p>
         <p>After the application has invoked the {{MediaStreamTrack/stop()}}
         method on a {{MediaStreamTrack}} object, or once the [=source=] of a
         {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
         whichever is sooner, a {{MediaStreamTrack}} is said to be
-        <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
+        <dfn id="track-ended" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-export>ended</dfn>.</p>
         <p>For camera and microphone sources, the reasons for a source to
-        [=track/ended|end=] besides {{MediaStreamTrack/stop()}} are
+        [=MediaStreamTrack/ended|end=] besides {{MediaStreamTrack/stop()}} are
          [=implementation-defined=]
         (e.g., because the user rescinds the permission for the page to
         use the local camera, or because the User
@@ -874,7 +874,7 @@ interface MediaStream : EventTarget {
           </li>
           <li>
             <p>Notify <var>track</var>'s {{MediaStreamTrack/[[Source]]}} that <var>track</var> is
-            [= track/ended =] so that the source may be [= source/stopped =], unless other
+            [= MediaStreamTrack/ended =] so that the source may be [= source/stopped =], unless other
             {{MediaStreamTrack}} objects depend on it.</p>
           </li>
           <li>
@@ -955,7 +955,7 @@ interface MediaStream : EventTarget {
             <var>track</var>.</p>
           </li>
         </ol>
-        <p><dfn data-export id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
+        <p><dfn data-export id="track-enabled" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
         available to the application to control (and observe) via the
         {{MediaStreamTrack/enabled}}
         attribute.</p>
@@ -1044,7 +1044,7 @@ interface MediaStreamTrack : EventTarget {
                 [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be set to the
                 new value.</p>
                 <p class="note">Thus, after a
-                {{MediaStreamTrack}} has [= track/ended =], its {{MediaStreaMtrack/enabled}} attribute
+                {{MediaStreamTrack}} has [= MediaStreamTrack/ended =], its {{MediaStreaMtrack/enabled}} attribute
                 still changes value when set; it just doesn't do anything with
                 that new value.</p>
               </dd>
@@ -1098,7 +1098,7 @@ interface MediaStreamTrack : EventTarget {
                   </li>
                   <li>
                     <p>Notify <var>track</var>'s source that <var>track</var>
-                    is [= track/ended =].</p>
+                    is [= MediaStreamTrack/ended =].</p>
                     <p>A source that is notified of a track ending will be
                     [= source/stopped =], unless other
                     {{MediaStreamTrack}} objects depend on
@@ -1242,7 +1242,7 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn id=
                 "idl-def-MediaStreamTrackState.ended">ended</dfn></td>
                 <td>
-                  <p>The track has [= track/ended =] (the
+                  <p>The track has [= MediaStreamTrack/ended =] (the
                   track's underlying media source is no longer providing data,
                   and will never provide more data for this track). Once a
                   track enters this state, it never exits it.</p>
