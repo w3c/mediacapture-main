@@ -771,7 +771,7 @@ interface MediaStream : EventTarget {
         <p>In the live state, the track is active and media is
         available for use by consumers (but may be replaced by
         zero-information-content if the {{MediaStreamTrack}} is
-        [= MediaStreamTrack/muted =]  or [= enabled | disabled =], see below).</p>
+        [= MediaStreamTrack/muted =]  or [= MediaStreamTrack/enabled | disabled =], see below).</p>
         <p>A muted or disabled {{MediaStreamTrack}} renders
         either silence (audio), black frames (video), or a
         zero-information-content equivalent. For example, a video element
@@ -788,9 +788,9 @@ interface MediaStream : EventTarget {
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
         <p>When a {{MediaStreamTrackState/"live"}}, [= MediaStreamTrack/muted | unmuted =], and
-        [= track/enabled =] track sourced by a device exposed
+        [= MediaStreamTrack/enabled =] track sourced by a device exposed
         by {{MediaDevices/getUserMedia()}} becomes either
-        [= MediaStreamTrack/muted =] or [= track/enabled | disabled =],
+        [= MediaStreamTrack/muted =] or [= MediaStreamTrack/enabled | disabled =],
         and this brings <em>all</em> tracks connected to the device (across all
         [=navigables=] the user agent operates) to be either
         muted, disabled, or stopped, then the UA SHOULD relinquish the device
@@ -798,7 +798,7 @@ interface MediaStream : EventTarget {
         become aware of the transition. The UA SHOULD attempt to reacquire the
         device as soon as any live track sourced by the device
         becomes both [= MediaStreamTrack/muted | unmuted =] and
-        [= track/enabled =] again, provided that track's
+        [= MediaStreamTrack/enabled =] again, provided that track's
         [=relevant global object=]'s [=associated `Document`=]
         [=Document/is in view=] at that time. If the
         document is not [=Document/is in view|in view=] at that time,
@@ -831,7 +831,7 @@ interface MediaStream : EventTarget {
         result of the user hitting a hardware switch or toggling a control in
         the operating system / [=User Agent=] chrome. A track can also be muted by the
         [=User Agent=].</p>
-        <p>Applications are able to [= track/enabled | enable =] or
+        <p>Applications are able to [= MediaStreamTrack/enabled | enable =] or
         disable a {{MediaStreamTrack}} to prevent it from
         rendering media from the source. A muted track will however, regardless
         of the enabled state, render silence and blackness. A disabled track is
@@ -1037,14 +1037,14 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled">enabled</dfn>
-                attribute controls the [= track/enabled =] state for the object.</p>
+                attribute controls the [= MediaStreamTrack/enabled =] state for the object.</p>
                 <p>On getting,
                 [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be returned.
                 On setting,
                 [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be set to the
                 new value.</p>
                 <p class="note">Thus, after a
-                {{MediaStreamTrack}} has [= MediaStreamTrack/ended =], its {{MediaStreaMtrack/enabled}} attribute
+                {{MediaStreamTrack}} has [= MediaStreamTrack/ended =], its {{MediaStreamTrack/enabled}} attribute
                 still changes value when set; it just doesn't do anything with
                 that new value.</p>
               </dd>
@@ -4182,8 +4182,8 @@ interface InputDeviceInfo : MediaDeviceInfo {
           </li>
           <li>
             <p>A web page not [=Document/is in view|in view=]
-            <a data-lt=enabled>re-enables</a> a track when all tracks from that
-            source are <a data-lt=enabled>disabled</a>, in order to delay
+            [=MediaStreamTrack/enabled|re-enables=] a track when all tracks from that
+            source are [=MediaStreamTrack/enabled|disabled=], in order to delay
             resumption of capture until the page [=Document/is in view=].
             </p>
           </li>
@@ -4201,7 +4201,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
           </li>
           <li>
             <p>A web page comes [=Document/is in view|into view=] and
-            has one or more <a>enabled</a> tracks that are also
+            has one or more [=MediaStreamTrack/enabled=] tracks that are also
             [= MediaStreamTrack/muted =].
             </p>
           </li>
