@@ -759,7 +759,85 @@ interface MediaStream : EventTarget {
         </li>
       </ol>
       <section>
-        <h3>Life-cycle and Media Flow</h3>
+       <h3>Media Flow and Life-cycle</h3>
+       <section>
+        <h4>Media Flow</h4>
+        <p>There are two dimensions related to the media flow for a
+        {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
+        muted, and enabled / disabled.</p>
+        <p><dfn class="export" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" id=
+        "track-muted">Muted</dfn> refers to the input to the
+        {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
+        {{MediaStreamTrack}} while it is [=MediaStreamTrack/muted=].</p>
+        <p>The [=MediaStreamTrack/muted=] state is outside the control of web applications, but can be observed by
+        the application by reading the {{MediaStreamTrack/muted}} attribute and listening
+        to the associated events {{mute}} and {{unmute}}. The reasons for a
+        {{MediaStreamTrack}} to be muted are defined by its <a>source</a>.</p>
+        <p>For camera and microphone sources, the reasons to [=source/muted|mute=] are
+        [=implementation-defined=]. This allows user agents to implement privacy
+        mitigations in situations like:
+        the user pushing a physical mute button on the microphone, the user
+        closing a laptop lid with an embedded camera, the user toggling a
+        control in the operating system, the user clicking a mute button in the
+        [=User Agent=] chrome, the [=User Agent=] (on behalf of the user) mutes, etc.</p>
+        <p>On some operating systems, microphone access may
+        get stolen from the [=User Agent=] when another application with higher-audio priority gets access to it,
+        for instance in case of an incoming phone call on mobile OS. The [=User Agent=] SHOULD provide
+        this information to the web application through {{MediaStreamTrack/muted}} and
+        its associated events.</p>
+
+        <p>Whenever the [=User Agent=] initiates such an [= implementation-defined=]
+        change for camera or microphone sources, it MUST queue a
+        task, using the user interaction task source, to [=MediaStreamTrack/set a track's muted
+        state=] to the state desired by the user.</p>
+        <div class="note">This does not apply to [=source|sources=] defined in
+        other specifications. Other specifications need to define their own steps
+        to [=MediaStreamTrack/set a track's muted state=] if desired.</div>
+        <p>To <dfn class="export abstract-op" data-dfn-for="MediaStreamTrack" 
+        id="set-track-muted">set a track's muted state</dfn> to
+        <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
+        <ol class="algorithm">
+          <li>
+            <p>Let <var>track</var> be the {{MediaStreamTrack}} in
+            question.</p>
+          </li>
+          <li>
+            <p>If <var>track</var>.{{MediaStreamTrack/[[Muted]]}} is already
+            <var>newState</var>, then abort these steps.</p>
+          </li>
+          <li>
+            <p>Set <var>track</var>.{{MediaStreamTrack/[[Muted]]}} to
+            <var>newState</var>.</p>
+          </li>
+          <li>
+            <p>If <var>newState</var> is <code>true</code> let
+            <var>eventName</var> be {{mute}}, otherwise
+            {{unmute}}.</p>
+          </li>
+          <li>
+            <p>[=Fire an event=] named <var>eventName</var> on
+            <var>track</var>.</p>
+          </li>
+        </ol>
+        <p><dfn data-export id="track-enabled" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
+        available to the application to control (and observe) via the
+        {{MediaStreamTrack/enabled}}
+        attribute.</p>
+        <p>The result for the consumer is the same in the sense that whenever
+        {{MediaStreamTrack}} is muted or disabled (or both) the
+        consumer gets zero-information-content, which means silence for audio
+        and black frames for video. In other words, media from the source only
+        flows when a {{MediaStreamTrack}} object is both
+        unmuted and enabled. For example, a video element sourced by a muted or
+        disabled {{MediaStreamTrack}} (contained in a
+        {{MediaStream}} ), is playing but rendering
+        blackness.</p>
+        <p>For a newly created {{MediaStreamTrack}} object, the
+        following applies: the track is always enabled unless stated otherwise
+        (for example when cloned) and the muted state reflects the state of the
+        source at the time the track is created.</p>
+       </section>
+       <section>
         <h4>Life-cycle</h4>
         <p>A {{MediaStreamTrack}} has two states in its
         life-cycle: live and ended. A newly created
@@ -897,81 +975,7 @@ interface MediaStream : EventTarget {
             <a href="#ends-nostop">end</a> the track.</p>
           </li>
         </ol>
-        <h4>Media Flow</h4>
-        <p>There are two dimensions related to the media flow for a
-        {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
-        muted, and enabled / disabled.</p>
-        <p><dfn class="export" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" id=
-        "track-muted">Muted</dfn> refers to the input to the
-        {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
-        {{MediaStreamTrack}} while it is [=MediaStreamTrack/muted=].</p>
-        <p>The [=MediaStreamTrack/muted=] state is outside the control of web applications, but can be observed by
-        the application by reading the {{MediaStreamTrack/muted}} attribute and listening
-        to the associated events {{mute}} and {{unmute}}. The reasons for a
-        {{MediaStreamTrack}} to be muted are defined by its <a>source</a>.</p>
-        <p>For camera and microphone sources, the reasons to [=source/muted|mute=] are
-        [=implementation-defined=]. This allows user agents to implement privacy
-        mitigations in situations like:
-        the user pushing a physical mute button on the microphone, the user
-        closing a laptop lid with an embedded camera, the user toggling a
-        control in the operating system, the user clicking a mute button in the
-        [=User Agent=] chrome, the [=User Agent=] (on behalf of the user) mutes, etc.</p>
-        <p>On some operating systems, microphone access may
-        get stolen from the [=User Agent=] when another application with higher-audio priority gets access to it,
-        for instance in case of an incoming phone call on mobile OS. The [=User Agent=] SHOULD provide
-        this information to the web application through {{MediaStreamTrack/muted}} and
-        its associated events.</p>
-
-        <p>Whenever the [=User Agent=] initiates such an [= implementation-defined=]
-        change for camera or microphone sources, it MUST queue a
-        task, using the user interaction task source, to [=MediaStreamTrack/set a track's muted
-        state=] to the state desired by the user.</p>
-        <div class="note">This does not apply to [=source|sources=] defined in
-        other specifications. Other specifications need to define their own steps
-        to [=MediaStreamTrack/set a track's muted state=] if desired.</div>
-        <p>To <dfn class="export abstract-op" data-dfn-for="MediaStreamTrack" 
-        id="set-track-muted">set a track's muted state</dfn> to
-        <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
-        <ol class="algorithm">
-          <li>
-            <p>Let <var>track</var> be the {{MediaStreamTrack}} in
-            question.</p>
-          </li>
-          <li>
-            <p>If <var>track</var>.{{MediaStreamTrack/[[Muted]]}} is already
-            <var>newState</var>, then abort these steps.</p>
-          </li>
-          <li>
-            <p>Set <var>track</var>.{{MediaStreamTrack/[[Muted]]}} to
-            <var>newState</var>.</p>
-          </li>
-          <li>
-            <p>If <var>newState</var> is <code>true</code> let
-            <var>eventName</var> be {{mute}}, otherwise
-            {{unmute}}.</p>
-          </li>
-          <li>
-            <p>[=Fire an event=] named <var>eventName</var> on
-            <var>track</var>.</p>
-          </li>
-        </ol>
-        <p><dfn data-export id="track-enabled" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
-        available to the application to control (and observe) via the
-        {{MediaStreamTrack/enabled}}
-        attribute.</p>
-        <p>The result for the consumer is the same in the sense that whenever
-        {{MediaStreamTrack}} is muted or disabled (or both) the
-        consumer gets zero-information-content, which means silence for audio
-        and black frames for video. In other words, media from the source only
-        flows when a {{MediaStreamTrack}} object is both
-        unmuted and enabled. For example, a video element sourced by a muted or
-        disabled {{MediaStreamTrack}} (contained in a
-        {{MediaStream}} ), is playing but rendering
-        blackness.</p>
-        <p>For a newly created {{MediaStreamTrack}} object, the
-        following applies: the track is always enabled unless stated otherwise
-        (for example when cloned) and the muted state reflects the state of the
-        source at the time the track is created.</p>
+       </section>
       </section>
       <section>
         <h3>Tracks and Constraints</h3>
@@ -5751,7 +5755,7 @@ window.onload = async () =&gt; {
         <li>adding a new getXXXXTracks() method for the type to the
         {{MediaStream}} interface,</li>
         <li>describing what a muted or disabled track of that type will render
-        (see [[[#life-cycle-and-media-flow]]]),
+        (see [[[#media-flow-and-life-cycle]]]),
         </li>
         <li>adding the new type as an additional valid value for the
         {{MediaStreamTrack/kind}} attribute on
@@ -5831,7 +5835,7 @@ window.onload = async () =&gt; {
       <ul>
         <li>how a {{MediaStreamTrack}} will be consumed in the
         various states in which it can be, including muted and disabled (see
-        [[[#life-cycle-and-media-flow]]]).
+        [[[#media-flow-and-life-cycle]]]).
         </li>
       </ul>
     </section>
