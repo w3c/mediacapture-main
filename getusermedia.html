@@ -767,7 +767,9 @@ interface MediaStream : EventTarget {
         muted, and enabled / disabled.</p>
         <p><dfn class="export" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" id=
         "track-muted">Muted</dfn> refers to the input to the
-        {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
+        {{MediaStreamTrack}}. A {{MediaStreamTrack}} is [= MediaStreamTrack/muted =]
+        when its source is <dfn data-dfn-for="source">muted</dfn>.
+        Live samples MUST NOT be made available to a
         {{MediaStreamTrack}} while it is [=MediaStreamTrack/muted=].</p>
         <p>The [=MediaStreamTrack/muted=] state is outside the control of web applications, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
