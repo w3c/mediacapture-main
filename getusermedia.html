@@ -299,14 +299,14 @@
       consumer.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for="stream" id=
       "stream-active">active</dfn> when it has at least one
-      {{MediaStreamTrack}} that has not [= track/ended =]. A {{MediaStream}} that does not
-      have any tracks or only has tracks that are [= track/ended =]
+      {{MediaStreamTrack}} that has not [=MediaStreamTrack/ended=]. A {{MediaStream}} that does not
+      have any tracks or only has tracks that are [= MediaStreamTrack/ended =]
       is <dfn data-dfn-for="stream" id="stream-inactive">inactive</dfn>.</p>
       <p>A {{MediaStream}} object is said to be <dfn data-dfn-for=stream id=
       "stream-audible" data-dfn-for=stream>audible</dfn> when it has at least one
       {{MediaStreamTrack}} whose {{MediaStreamTrack/[[Kind]]}} is <a>"audio"</a>
-      that has not [= track/ended =]. A {{MediaStream}} that does not have any
-      audio tracks or only has audio tracks that are [= track/ended =] is
+      that has not [=MediaStreamTrack/ended=]. A {{MediaStream}} that does not have any
+      audio tracks or only has audio tracks that are [=MediaStreamTrack/ended=] is
       <dfn id="stream-inaudible" data-dfn-for=stream>inaudible</dfn>.</p>
       <p>The [=User Agent=] may update a {{MediaStream}}'s [=track set=] in response to, for example, an external
       event. This specification does not specify any such cases, but other
@@ -640,7 +640,7 @@ interface MediaStream : EventTarget {
             <li>
               <p><dfn>[[\Muted]]</dfn>,
               initialized to <code>true</code> if <var>source</var> is
-              [= muted =], and <code>false</code> otherwise.</p>
+              [= source/muted =], and <code>false</code> otherwise.</p>
             </li>
             <li>
               <a data-link-for="constrainable object"
@@ -771,7 +771,7 @@ interface MediaStream : EventTarget {
         <p>In the live state, the track is active and media is
         available for use by consumers (but may be replaced by
         zero-information-content if the {{MediaStreamTrack}} is
-        [= muted =]  or [= enabled | disabled =], see below).</p>
+        [= MediaStreamTrack/muted =]  or [= MediaStreamTrack/enabled | disabled =], see below).</p>
         <p>A muted or disabled {{MediaStreamTrack}} renders
         either silence (audio), black frames (video), or a
         zero-information-content equivalent. For example, a video element
@@ -787,23 +787,23 @@ interface MediaStream : EventTarget {
         provided the UA sets it back to <code>true</code> as soon as any
         unstopped track connected to this device becomes un-muted or enabled
         again.</p>
-        <p>When a {{MediaStreamTrackState/"live"}}, [= track/muted | unmuted =], and
-        [= track/enabled =] track sourced by a device exposed
+        <p>When a {{MediaStreamTrackState/"live"}}, [= MediaStreamTrack/muted | unmuted =], and
+        [= MediaStreamTrack/enabled =] track sourced by a device exposed
         by {{MediaDevices/getUserMedia()}} becomes either
-        [= track/muted =] or [= track/enabled | disabled =],
+        [= MediaStreamTrack/muted =] or [= MediaStreamTrack/enabled | disabled =],
         and this brings <em>all</em> tracks connected to the device (across all
         [=navigables=] the user agent operates) to be either
         muted, disabled, or stopped, then the UA SHOULD relinquish the device
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA SHOULD attempt to reacquire the
         device as soon as any live track sourced by the device
-        becomes both [= track/muted | unmuted =] and
-        [= track/enabled =] again, provided that track's
+        becomes both [= MediaStreamTrack/muted | unmuted =] and
+        [= MediaStreamTrack/enabled =] again, provided that track's
         [=relevant global object=]'s [=associated `Document`=]
         [=Document/is in view=] at that time. If the
         document is not [=Document/is in view|in view=] at that time,
-        the UA SHOULD instead queue a task to <a data-lt=muted>mute</a> the
-        track, and not queue a task to <a data-lt=muted>unmute</a> it until
+        the UA SHOULD instead queue a task to [=MediaStreamTrack/muted|mute=] the
+        track, and not queue a task to [=MediaStreamTrack/muted|unmute=] it until
         the document comes [=Document/is in view|into view=].
         If reacquiring the device fails, the UA MUST
         [= track ended by the User agent | end the track =] (The UA MAY end it earlier
@@ -824,14 +824,14 @@ interface MediaStream : EventTarget {
         its consumers). Hence, media from the source only flows when a
         {{MediaStreamTrack}} object is both unmuted and
         enabled.</p>
-        <p>A {{MediaStreamTrack}} is [= track/muted =]
-        when the source is temporarily unable to
+        <p>A {{MediaStreamTrack}} is [= MediaStreamTrack/muted =]
+        when the source is <dfn data-dfn-for="source">muted</dfn>, i.e. temporarily unable to
         provide the track with data. A track can be muted by a user. Often this
         action is outside the control of the application. This could be as a
         result of the user hitting a hardware switch or toggling a control in
         the operating system / [=User Agent=] chrome. A track can also be muted by the
         [=User Agent=].</p>
-        <p>Applications are able to [= track/enabled | enable =] or
+        <p>Applications are able to [= MediaStreamTrack/enabled | enable =] or
         disable a {{MediaStreamTrack}} to prevent it from
         rendering media from the source. A muted track will however, regardless
         of the enabled state, render silence and blackness. A disabled track is
@@ -845,15 +845,15 @@ interface MediaStream : EventTarget {
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
         <p>If all {{MediaStreamTrack}}s that are using the same
-        source are [= track/ended =], the source will be
+        source are [= MediaStreamTrack/ended =], the source will be
         [= source/stopped =].</p>
         <p>After the application has invoked the {{MediaStreamTrack/stop()}}
         method on a {{MediaStreamTrack}} object, or once the [=source=] of a
         {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
         whichever is sooner, a {{MediaStreamTrack}} is said to be
-        <dfn id="track-ended" data-dfn-for="track" data-export>ended</dfn>.</p>
+        <dfn id="track-ended" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-export>ended</dfn>.</p>
         <p>For camera and microphone sources, the reasons for a source to
-        [=track/ended|end=] besides {{MediaStreamTrack/stop()}} are
+        [=MediaStreamTrack/ended|end=] besides {{MediaStreamTrack/stop()}} are
          [=implementation-defined=]
         (e.g., because the user rescinds the permission for the page to
         use the local camera, or because the User
@@ -874,7 +874,7 @@ interface MediaStream : EventTarget {
           </li>
           <li>
             <p>Notify <var>track</var>'s {{MediaStreamTrack/[[Source]]}} that <var>track</var> is
-            [= track/ended =] so that the source may be [= source/stopped =], unless other
+            [= MediaStreamTrack/ended =] so that the source may be [= source/stopped =], unless other
             {{MediaStreamTrack}} objects depend on it.</p>
           </li>
           <li>
@@ -901,15 +901,15 @@ interface MediaStream : EventTarget {
         <p>There are two dimensions related to the media flow for a
         {{MediaStreamTrackState/"live"}} {{MediaStreamTrack}} : muted / not
         muted, and enabled / disabled.</p>
-        <p><dfn data-export id=
+        <p><dfn class="export" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" id=
         "track-muted">Muted</dfn> refers to the input to the
         {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
-        {{MediaStreamTrack}} while it is [=muted=].</p>
-        <p>{{Muted}} is outside the control of web applications, but can be observed by
+        {{MediaStreamTrack}} while it is [=MediaStreamTrack/muted=].</p>
+        <p>The [=MediaStreamTrack/muted=] state is outside the control of web applications, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
         to the associated events {{mute}} and {{unmute}}. The reasons for a
         {{MediaStreamTrack}} to be muted are defined by its <a>source</a>.</p>
-        <p>For camera and microphone sources, the reasons to [=muted|mute=] are
+        <p>For camera and microphone sources, the reasons to [=source/muted|mute=] are
         [=implementation-defined=]. This allows user agents to implement privacy
         mitigations in situations like:
         the user pushing a physical mute button on the microphone, the user
@@ -924,12 +924,13 @@ interface MediaStream : EventTarget {
 
         <p>Whenever the [=User Agent=] initiates such an [= implementation-defined=]
         change for camera or microphone sources, it MUST queue a
-        task, using the user interaction task source, to [=set a track's muted
+        task, using the user interaction task source, to [=MediaStreamTrack/set a track's muted
         state=] to the state desired by the user.</p>
         <div class="note">This does not apply to [=source|sources=] defined in
         other specifications. Other specifications need to define their own steps
-        to [=set a track's muted state=] if desired.</div>
-        <p>To <dfn class="abstract-op" id="set-track-muted">set a track's muted state</dfn> to
+        to [=MediaStreamTrack/set a track's muted state=] if desired.</div>
+        <p>To <dfn class="export abstract-op" data-dfn-for="MediaStreamTrack" 
+        id="set-track-muted">set a track's muted state</dfn> to
         <var>newState</var>, the [=User Agent=] MUST run the following steps:</p>
         <ol class="algorithm">
           <li>
@@ -954,7 +955,7 @@ interface MediaStream : EventTarget {
             <var>track</var>.</p>
           </li>
         </ol>
-        <p><dfn data-export id="track-enabled" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
+        <p><dfn data-export id="track-enabled" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" data-lt="track enabled state|enabled" data-lt-noDefault>Enabled/disabled</dfn> on the other hand is
         available to the application to control (and observe) via the
         {{MediaStreamTrack/enabled}}
         attribute.</p>
@@ -1036,21 +1037,21 @@ interface MediaStreamTrack : EventTarget {
               <dd>
                 <p>The <dfn id=
                 "dom-mediastreamtrack-enabled">enabled</dfn>
-                attribute controls the [= track/enabled =] state for the object.</p>
+                attribute controls the [= MediaStreamTrack/enabled =] state for the object.</p>
                 <p>On getting,
                 [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be returned.
                 On setting,
                 [=this=].{{MediaStreamTrack/[[Enabled]]}} MUST be set to the
                 new value.</p>
                 <p class="note">Thus, after a
-                {{MediaStreamTrack}} has [= track/ended =], its {{MediaStreaMtrack/enabled}} attribute
+                {{MediaStreamTrack}} has [= MediaStreamTrack/ended =], its {{MediaStreamTrack/enabled}} attribute
                 still changes value when set; it just doesn't do anything with
                 that new value.</p>
               </dd>
               <dt>{{muted}} of type {{boolean}}, readonly</dt>
               <dd>
                 <p>The <dfn data-idl>muted</dfn> attribute
-                reflects whether the track is [= track/muted =]. It MUST return
+                reflects whether the track is [= MediaStreamTrack/muted =]. It MUST return
                 [=this=].{{MediaStreamTrack/[[Muted]]}}.</p>
               </dd>
               <dt><dfn>onmute</dfn> of type {{EventHandler}}</dt>
@@ -1097,7 +1098,7 @@ interface MediaStreamTrack : EventTarget {
                   </li>
                   <li>
                     <p>Notify <var>track</var>'s source that <var>track</var>
-                    is [= track/ended =].</p>
+                    is [= MediaStreamTrack/ended =].</p>
                     <p>A source that is notified of a track ending will be
                     [= source/stopped =], unless other
                     {{MediaStreamTrack}} objects depend on
@@ -1241,7 +1242,7 @@ interface MediaStreamTrack : EventTarget {
                 <td><dfn id=
                 "idl-def-MediaStreamTrackState.ended">ended</dfn></td>
                 <td>
-                  <p>The track has [= track/ended =] (the
+                  <p>The track has [= MediaStreamTrack/ended =] (the
                   track's underlying media source is no longer providing data,
                   and will never provide more data for this track). Once a
                   track enters this state, it never exits it.</p>
@@ -3230,7 +3231,7 @@ interface MediaDevices : EventTarget {
            run the following sub steps:</p>
            <ol>
              <li>
-               <p>If <var>source</var> is [=source/stopped=] or [=muted=], abort these steps.</p>
+               <p>If <var>source</var> is [=source/stopped=] or [=source/muted=], abort these steps.</p>
              </li>
              <li>
                <p>Let <var>deviceId</var> be <var>source</var>'s device's deviceId.</p>
@@ -4222,7 +4223,7 @@ interface DeviceChangeEvent : Event {
       <div class="practice">
         <span class="practicelab" id="muting-devices">Device muting initiated by [=User Agent=]</span>
         <p class="practicedesc">A track sourced by a camera or microphone may be
-        forcibly [= track/muted =] by a [=User Agent=] at any time, in order
+        forcibly [= MediaStreamTrack/muted =] by a [=User Agent=] at any time, in order
         to manage a user's privacy. However, doing so may create web
         compatibility issues, as well as leak information about user activity, so
         caution is advised.
@@ -4244,15 +4245,15 @@ interface DeviceChangeEvent : Event {
           </li>
           <li>
             <p>A web page not [=Document/is in view|in view=]
-            <a data-lt=enabled>re-enables</a> a track when all tracks from that
-            source are <a data-lt=enabled>disabled</a>, in order to delay
+            [=MediaStreamTrack/enabled|re-enables=] a track when all tracks from that
+            source are [=MediaStreamTrack/enabled|disabled=], in order to delay
             resumption of capture until the page [=Document/is in view=].
             </p>
           </li>
         </ul>
         <p class="practicedesc">Best practice is to
-        [= muted | unmute =] a camera or microphone track it previously
-        [= muted =], in the following instances:</p>
+        [= MediaStreamTrack/muted | unmute =] a camera or microphone track it previously
+        [= MediaStreamTrack/muted =], in the following instances:</p>
         <ul>
           <li>
             <p>An OS-level event for which the [=User Agent=] already resumes media
@@ -4263,8 +4264,8 @@ interface DeviceChangeEvent : Event {
           </li>
           <li>
             <p>A web page comes [=Document/is in view|into view=] and
-            has one or more <a>enabled</a> tracks that are also
-            [= muted =].
+            has one or more [=MediaStreamTrack/enabled=] tracks that are also
+            [= MediaStreamTrack/muted =].
             </p>
           </li>
         </ul>
@@ -5848,7 +5849,7 @@ window.onload = async () =&gt; {
         {{MediaStreamTrack/kind}} of media this new <a>source</a> produces,
         and how they work with this source,
         </li>
-        <li>describe how and when to [=set a track's muted state=] for this
+        <li>describe how and when to [=MediaStreamTrack/set a track's muted state=] for this
         <a>source</a>,
         </li>
         <li>describe how and when to <a href="#ends-nostop">end</a> tracks
