@@ -2649,11 +2649,10 @@ interface OverconstrainedError : DOMException {
         <tr>
           <th scope=row><dfn id=
           "event-mediadevices-devicechange" data-dfn-type=event>devicechange</dfn></td>
-          <td>{{Event}}</td>
+          <td>{{DeviceChangeEvent}}</td>
           <td>The set of media devices, available to the [=User Agent=], has
-          changed. The current list devices can be retrieved with the
-          {{MediaDevices/enumerateDevices()}}
-          method.</td>
+          changed. The current list of devices is available in the
+          {{DeviceChangeEvent/devices}} attribute.</td>
         </tr>
       </tbody>
     </table>
@@ -2834,8 +2833,9 @@ interface OverconstrainedError : DOMException {
           <var>deviceList</var>.</p>
         </li>
         <li>
-          <p>Queue a task that fires a simple event named <a data-link-type=event>devicechange</a> at
-          <var>mediaDevices</var>.</p>
+          <p>Queue a task that [= fire an event | fires an event=] named {{devicechange}},
+          using the {{DeviceChangeEvent}} constructor with {{DeviceChangeEventInit/devices}}
+          initialized to <var>newExposedDevices</var>, at <var>mediaDevices</var>.</p>
           <p>The [=User Agent=] MAY combine firing multiple events into firing one
           event when several events are due or when multiple devices are added
           or removed at the same time, e.g. a camera with a microphone.</p>
@@ -3419,6 +3419,69 @@ interface InputDeviceInfo : MediaDeviceInfo {
               unique identifying information (see above description of
               {{MediaDevices/enumerateDevices()}} result), then this method returns
               an empty dictionary.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+    <section>
+      <h3>{{DeviceChangeEvent}}</h3>
+      <p>The {{devicechange}} event uses the {{DeviceChangeEvent}} interface.</p>
+      <div>
+        <pre class="idl"
+>[Exposed=Window]
+interface DeviceChangeEvent : Event {
+  constructor(DOMString type, DeviceChangeEventInit eventInitDict);
+  [SameObject] readonly attribute FrozenArray&lt;MediaDeviceInfo&gt; devices;
+};</pre>
+        <section>
+          <h2>Constructors</h2>
+          <dl data-link-for="DeviceChangeEvent" data-dfn-for=
+          "DeviceChangeEvent" class="constructors">
+            <dt><dfn>constructor()</dfn></dt>
+            <dd>
+              <p>Initialize [=this=].{{DeviceChangeEvent/devices}} to the
+              result of [=creating a frozen array=] from
+              <var>eventInitDict</var>.{{DeviceChangeEventInit/devices}}.</p>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="DeviceChangeEvent" data-dfn-for=
+          "DeviceChangeEvent" class="attributes">
+            <dt>
+              <dfn data-idl="">devices</dfn> of type <span class=
+              "idlAttrType">FrozenArray&lt;{{MediaDeviceInfo}}&gt;</span>,
+              readonly
+            </dt>
+            <dd>
+              <p>The {{devices}} attribute returns an array of {{MediaDeviceInfo}}
+              objects representing the list of available devices at this time.
+              </p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl"
+>dictionary DeviceChangeEventInit : EventInit {
+  sequence&lt;MediaStream&gt; streams = [];
+};</pre>
+        <section>
+          <h2>Dictionary <dfn>DeviceChangeEventInit</dfn> Members</h2>
+          <dl data-link-for="DeviceChangeEventInit" data-dfn-for=
+          "DeviceChangeEventInit" class="dictionary-members">
+            <dt>
+              <dfn data-idl="">devices</dfn> of type <span class=
+              "idlMemberType">sequence&lt;{{MediaDeviceInfo}}&gt;</span>,
+              defaulting to <code>[]</code>
+            </dt>
+            <dd>
+              <p>
+                The {{devices}} member is an array of {{MediaDeviceInfo}} objects
+                representing the available devices.
+              </p>
             </dd>
           </dl>
         </section>
