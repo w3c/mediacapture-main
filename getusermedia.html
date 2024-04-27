@@ -3436,7 +3436,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
         <pre class="idl"
 >[Exposed=Window]
 interface DeviceChangeEvent : Event {
-  constructor(DOMString type, DeviceChangeEventInit eventInitDict);
+  constructor(DOMString type, optional DeviceChangeEventInit eventInitDict = {});
   [SameObject] readonly attribute FrozenArray&lt;MediaDeviceInfo&gt; devices;
 };</pre>
         <section>
