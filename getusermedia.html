@@ -767,7 +767,10 @@ interface MediaStream : EventTarget {
         muted, and enabled / disabled.</p>
         <p><dfn class="export" data-dfn-for="MediaStreamTrack" data-dfn-type="dfn" id=
         "track-muted">Muted</dfn> refers to the input to the
-        {{MediaStreamTrack}}. Live samples MUST NOT be made available to a
+        {{MediaStreamTrack}}. A {{MediaStreamTrack}} is [= MediaStreamTrack/muted =]
+        when its source is <dfn data-dfn-for="source">muted</dfn>,
+        i.e. temporarily unable to provide the track with data.
+        Live samples MUST NOT be made available to a
         {{MediaStreamTrack}} while it is [=MediaStreamTrack/muted=].</p>
         <p>The [=MediaStreamTrack/muted=] state is outside the control of web applications, but can be observed by
         the application by reading the {{MediaStreamTrack/muted}} attribute and listening
@@ -828,10 +831,10 @@ interface MediaStream : EventTarget {
         consumer gets zero-information-content, which means silence for audio
         and black frames for video. In other words, media from the source only
         flows when a {{MediaStreamTrack}} object is both
-        unmuted and enabled. For example, a video element sourced by a muted or
-        disabled {{MediaStreamTrack}} (contained in a
-        {{MediaStream}} ), is playing but rendering
-        blackness.</p>
+        unmuted and enabled. For example, a video element sourced by a
+        {{MediaStream}} containing only muted or disabled {{MediaStreamTrack}}s
+        for audio and video, is playing but rendering black video frames in
+        silence.</p>
         <p>For a newly created {{MediaStreamTrack}} object, the
         following applies: the track is always enabled unless stated otherwise
         (for example when cloned) and the muted state reflects the state of the
@@ -846,16 +849,10 @@ interface MediaStream : EventTarget {
         new ended track. The current state is reflected by the object's
         {{MediaStreamTrack/readyState}}
         attribute.</p>
-        <p>In the live state, the track is active and media is
-        available for use by consumers (but may be replaced by
-        zero-information-content if the {{MediaStreamTrack}} is
-        [= MediaStreamTrack/muted =]  or [= MediaStreamTrack/enabled | disabled =], see below).</p>
-        <p>A muted or disabled {{MediaStreamTrack}} renders
-        either silence (audio), black frames (video), or a
-        zero-information-content equivalent. For example, a video element
-        sourced by a muted or disabled {{MediaStreamTrack}}
-        (contained within a {{MediaStream}} ), is playing but
-        the rendered content is the muted output.</p>
+        <p>In the live state, the track is active and media
+        (or zero-information-content if the {{MediaStreamTrack}} is
+        [= MediaStreamTrack/muted =] or [= MediaStreamTrack/enabled | disabled =])
+        is available for use by consumers.</p>
         <p>If the source is a device exposed by `navigator.mediaDevices.`{{MediaDevices/getUserMedia()}},
         then when a track becomes either
         muted or disabled, and this brings all tracks connected to the device
@@ -896,29 +893,6 @@ interface MediaStream : EventTarget {
           simultaneously may interfere with this intent at times, they do not
           interfere with the rules laid forth.</p>
         </div>
-        <p>The muted/unmuted state of a track reflects whether the source
-        provides any media at this moment. The enabled/disabled state is under
-        application control and determines whether the track outputs media (to
-        its consumers). Hence, media from the source only flows when a
-        {{MediaStreamTrack}} object is both unmuted and
-        enabled.</p>
-        <p>A {{MediaStreamTrack}} is [= MediaStreamTrack/muted =]
-        when the source is <dfn data-dfn-for="source">muted</dfn>, i.e. temporarily unable to
-        provide the track with data. A track can be muted by a user. Often this
-        action is outside the control of the application. This could be as a
-        result of the user hitting a hardware switch or toggling a control in
-        the operating system / [=User Agent=] chrome. A track can also be muted by the
-        [=User Agent=].</p>
-        <p>Applications are able to [= MediaStreamTrack/enabled | enable =] or
-        disable a {{MediaStreamTrack}} to prevent it from
-        rendering media from the source. A muted track will however, regardless
-        of the enabled state, render silence and blackness. A disabled track is
-        logically equivalent to a muted track, from a consumer point of
-        view.</p>
-        <p>For a newly created {{MediaStreamTrack}} object, the
-        following applies. The track is always enabled unless stated otherwise
-        (for example when cloned) and the muted state reflects the state of the
-        source at the time the track is created.</p>
         <p>A {{MediaStreamTrack}} object is said to
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
