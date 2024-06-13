@@ -1265,6 +1265,7 @@ interface MediaStreamTrack : EventTarget {
   boolean channelCount = true;
   boolean deviceId = true;
   boolean groupId = true;
+  boolean backgroundBlur = true;
 };</pre>
           <section>
             <h2>Dictionary {{MediaTrackSupportedConstraints}} Members</h2>
@@ -1339,6 +1340,10 @@ interface MediaStreamTrack : EventTarget {
               <code>true</code></dt>
               <dd>See <a href=
               "#def-constraint-groupId">groupId</a> for details.</dd>
+              <dt><dfn>backgroundBlur</dfn> of type {{boolean}}, defaulting to
+              <code>true</code></dt>
+              <dd>See <a href=
+              "#def-constraint-backgroundBlur">backgroundBlur</a> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1369,6 +1374,7 @@ interface MediaStreamTrack : EventTarget {
   ULongRange channelCount;
   DOMString deviceId;
   DOMString groupId;
+  sequence&lt;boolean> backgroundBlur;
 };</pre>
         <div class="note">
           <p>For historical reasons, {{MediaTrackCapabilities/deviceId}} and
@@ -1469,6 +1475,9 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>groupId</dfn> of type {{DOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-groupId">groupId</a> for details.</dd>
+              <dt><dfn>backgroundBlur</dfn> of type <code>sequence&lt;{{boolean}}&gt;</code></dt>
+              <dd>If the source does not have built-in background blurring, a single <code>false</code> is reported. If background blurring cannot be turned off, a single <code>true</code> is reported. If the script can control the feature, the source reports a list with both true and false as possible values. See <a href=
+              "#def-constraint-backgroundBlur">backgroundBlur</a> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1514,6 +1523,7 @@ interface MediaStreamTrack : EventTarget {
   ConstrainULong channelCount;
   ConstrainDOMString deviceId;
   ConstrainDOMString groupId;
+  ConstrainBoolean backgroundBlur;
 };</pre>
           <section>
             <h2>Dictionary {{MediaTrackConstraintSet}}
@@ -1574,6 +1584,9 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>groupId</dfn> of type {{ConstrainDOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-groupId">groupId</a> for details.</dd>
+              <dt><dfn>backgroundBlur</dfn> of type {{ConstrainBoolean}}</dt>
+              <dd>See <a href=
+              "#def-constraint-backgroundBlur">backgroundBlur</a> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1603,6 +1616,7 @@ interface MediaStreamTrack : EventTarget {
   unsigned long channelCount;
   DOMString deviceId;
   DOMString groupId;
+  boolean backgroundBlur;
 };</pre>
           <section>
             <h2>Dictionary {{MediaTrackSettings}}
@@ -1663,6 +1677,10 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>groupId</dfn> of type {{DOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-groupId">groupId</a> for details.</dd>
+              <dt><dfn>backgroundBlur</dfn> of type {{boolean}}, defaulting to
+              <code>true</code></dt>
+              <dd>See <a href=
+              "#def-constraint-backgroundBlur">backgroundBlur</a> for details.</dd>
             </dl>
           </section>
         </div>
@@ -1810,6 +1828,19 @@ interface MediaStreamTrack : EventTarget {
                 exactly the same string for strings not in this enum. This
                 preserves the possibility of using a future version of WebIDL
                 enum for this property.
+              </td>
+            </tr>
+            <tr>
+              <td><dfn id="def-constraint-backgroundBlur">backgroundBlur</dfn></td>
+              <td>{{boolean}}</td>
+              <td>
+                Some platforms or User Agents may provide built-in support
+                for background blurring of video frames, in particular for
+                camera video streams. Web applications may either want to
+                control or at least be aware that background blur is applied at
+                the source level. This may for instance allow the web
+                application to update its UI or to not apply background blur on
+                its own.
               </td>
             </tr>
           </tbody>
