@@ -3412,6 +3412,7 @@ interface InputDeviceInfo : MediaDeviceInfo {
 interface DeviceChangeEvent : Event {
   constructor(DOMString type, optional DeviceChangeEventInit eventInitDict = {});
   [SameObject] readonly attribute FrozenArray&lt;MediaDeviceInfo&gt; devices;
+  [SameObject] readonly attribute FrozenArray&lt;MediaDeviceInfo&gt; userInsertedDevices;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -3438,6 +3439,38 @@ interface DeviceChangeEvent : Event {
               <p>The {{devices}} attribute returns an array of {{MediaDeviceInfo}}
               objects representing the list of available devices at this time.
               </p>
+            </dd>
+            <dt>
+              <dfn data-idl="">userInsertedDevices</dfn> of type <span class=
+              "idlAttrType">FrozenArray&lt;{{MediaDeviceInfo}}&gt;</span>,
+              readonly
+            </dt>
+            <dd>
+              <p>The {{userInsertedDevices}} attribute returns an array
+              containing only those {{MediaDeviceInfo}} objects from
+              {{devices}} that the user physically inserted or activated
+              recently and are newly exposed with this event as a result.
+              Otherwise, an empty list is returned.</p>
+              <p>The [=User Agent=] MAY include devices the
+              user inserted or activated before
+              {{MediaDevices/getUserMedia()}} was called, provided this
+              event marks their first exposure, and the user did not
+              choose devices in {{MediaDevices/getUserMedia()}}.
+              </p>
+              <p>The {{MediaDeviceInfo}} objects, if any, MUST also exist
+              in {{devices}}.</p>
+              <div class="note">
+                <p>A user inserting a device during (or immediately ahead of)
+                a call can be a strong signal that they wish to use the
+                device immediately.</p>
+                <p>Applications are encouraged to rely on this attribute
+                to disambiguate this signal from differences in {{devices}}
+                that might happen from changes in device information exposure.</p>
+              </div>
+              <div class="note">
+              If the attribute is missing, it means that this UA has not been upgraded to implement
+              this version of the specification.
+              </div>
             </dd>
           </dl>
         </section>
