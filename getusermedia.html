@@ -210,6 +210,7 @@
       the same source to have different constraints applied for different
       <a>consumer</a>s. The {{MediaStream}} object is also used in
       contexts outside {{MediaDevices/getUserMedia}}, such as [[?WEBRTC]].</p>
+      <p>A {{MediaStream}} object has a [[\CanFireEvent\]] slot initialized to <code>false</code> by default.</p>
     </section>
     <section>
       <h2>{{MediaStream}}</h2>
@@ -538,6 +539,14 @@ interface MediaStream : EventTarget {
               </ol>
             </dd>
           </dl>
+        </section>
+        <section>
+          <h2>Garbage Collection</h2>
+          <p>
+            A {{MediaStream}} object MUST not be garbage collected if its [[\CanFireEvent]]
+            slot is <code>true</code> and there are any event listeners registered for addtrack
+            events or removetrack events.
+          </p>
         </section>
       </div>
     </section>
@@ -2034,6 +2043,22 @@ interface MediaStreamTrack : EventTarget {
             </tr>
           </tbody>
         </table>
+      </section>
+      <section>
+        <h2>Garbage Collection</h2>
+        <p>
+          A {{MediaStreamTrack}} object MUST not be garbage collected if it is
+          not [= MediaStreamTrack/ended =] and there are any event listeners
+          registered for mute, unmute or ended events.
+          <!-- FIXME: add configurationchange event -->
+          Each source type can further refine the garbage collection rules as
+          sources may never fire a particular event.
+          <div class="note">
+             Authors are encouraged to call stop() on {{MediaStreamTrack}},
+             especially capture tracks since the underlying resource are costly
+             and it can have effects on the privacy indicators presented to the user.
+          </div>
+        </p>
       </section>
     </section>
     <section>
