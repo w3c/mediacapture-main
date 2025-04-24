@@ -539,6 +539,16 @@ interface MediaStream : EventTarget {
             </dd>
           </dl>
         </section>
+        <section>
+          <h2>Garbage Collection</h2>
+          <p>
+            User agent code that expects to fire the addtrack or removetrack events
+            is expected to keep the target {{MediaStream}} objects alive by reference
+            from another object.
+            The presence of addtrack or removetrack event listeners does not need to
+            be taken into account when trying to garbage collect {{MediaStream}} objects.
+          </p>
+        </section>
       </div>
     </section>
     <section>
@@ -2034,6 +2044,23 @@ interface MediaStreamTrack : EventTarget {
             </tr>
           </tbody>
         </table>
+      </section>
+      <section>
+        <h2>Garbage Collection</h2>
+        <p>
+          A {{MediaStreamTrack}} object MUST NOT be garbage collected if it is
+          not [=MediaStreamTrack/ended=] and there are any event listeners
+          registered for <a data-lt=muted>mute</a>, <a data-lt=unmuted>unmute</a>
+          or <a data-lt=ended>ended</a> events.
+          <!-- FIXME: add configurationchange event -->
+          Each source type can further refine the garbage collection rules as
+          sources may never fire a particular event.
+          <div class="note">
+             Authors are encouraged to call stop() on {{MediaStreamTrack}},
+             especially capture tracks since the underlying resource are costly
+             and it can have effects on the privacy indicators presented to the user.
+          </div>
+        </p>
       </section>
     </section>
     <section>
