@@ -4860,8 +4860,9 @@ interface ConstrainablePattern {
                 <p>If the UA [=relinquish the device|relinquished the device=],
                 for instance if the track is [=MediaStreamTrack/muted|muted=],
                 applying the settings does not mean changing the device configuration.
-                Instead, the UA will apply these settings if the UA is reacquiring
-                the device, for instance  when the track gets
+                Instead, the UA will configure the device to match the
+                track settings at the time the UA is reacquiring the
+                device, for instance when the track gets
                 [=MediaStreamTrack/muted|unmuted=].</p>
               </div>
               <div class="note">
