@@ -3192,6 +3192,24 @@ interface MediaDevices : EventTarget {
             `true`. Otherwise, return `false`.</p>
           </li>
         </ol>
+        <p>To perform a <dfn>device exposure can be extended</dfn> check, given <var>deviceType</var>, run the following
+        steps:</p>
+        <ol class="algorithm">
+          <li>
+            <p>Let <var>permission</var> be the result of reading the [=permission state=] for the descriptor
+            whose name is <var>deviceType</var>.</p>
+          </li>
+          <li>
+            <p>If <var>permission</var> is {{PermissionState/"granted"}}, return <code>true</code>.</p>
+          </li>
+          <li>
+            <p>If <var>permission</var> is {{PermissionState/"prompt"}}, the User Agent MAY return <code>true</code>
+              if it knows that <var>deviceType</var> access was previously granted for that origin.</p>
+          </li>
+          <li>
+            <p>Return <code>false</code>.</p>
+          </li>
+        </ol>
       </section>
       <section>
         <h2>Set device information exposure</h2>
@@ -3200,13 +3218,28 @@ interface MediaDevices : EventTarget {
         <var>mediaDevices</var>, given a <var>requestedTypes</var> [=set=], and a boolean <var>value</var>, run the following steps:</p>
         <ol class="algorithm">
           <li>
-            <p>If <a>"video"</a> is in <var>requestedTypes</var>, then set
-            <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p>
+            <p>If <a>"video"</a> is in <var>requestedTypes</var>, run the following sub-steps:</p>
+            <ol>
+              <li>
+                <p>Set <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}} to <var>value</var>.</p>
+              </li>
+              <li>
+                <p>If <var>value</var> is <code>true</code> and if [=device exposure can be extended=] with "microphone",
+                set <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}} to <code>true</code>.</p>
+              </li>
+            </ol>
           </li>
           <li>
-            <p>If <a>"audio"</a> is in <var>requestedTypes</var>, then set
-            <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}} to
-            <var>value</var>.</p>
+            <p>If <a>"audio"</a> is in <var>requestedTypes</var>, run the following sub-steps:</p>
+            <ol>
+              <li>
+                <p>Set <var>mediaDevices</var>.{{MediaDevices/[[canExposeMicrophoneInfo]]}} to <var>value</var>.</p>
+              </li>
+              <li>
+                <p>If <var>value</var> is <code>true</code> and if [=device exposure can be extended=] with "camera",
+                set <var>mediaDevices</var>.{{MediaDevices/[[canExposeCameraInfo]]}} to <code>true</code>.</p>
+              </li>
+            </ol>
           </li>
         </ol>
         <div class="note">
