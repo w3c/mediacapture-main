@@ -542,10 +542,11 @@ interface MediaStream : EventTarget {
         <section>
           <h2>Garbage Collection</h2>
           <p>
-            It is not needed to prevent GC of {{MediaStream}} objects which have
-            event listeners registered for addtrack events or removetrack events.
-            It is up to the object that will trigger these events to keep a reference to
-            the {{MediaStream}} object.
+            User agent code that expects to fire the addtrack or removetrack events
+            is expected to keep the target {{MediaStream}} objects alive by reference
+            from another object.
+            The presence of addtrack or removetrack event listeners does not need to
+            be taken into account when trying to garbage collect {{MediaStream}} objects.
           </p>
         </section>
       </div>
@@ -2047,7 +2048,7 @@ interface MediaStreamTrack : EventTarget {
       <section>
         <h2>Garbage Collection</h2>
         <p>
-          A {{MediaStreamTrack}} object MUST not be garbage collected if it is
+          A {{MediaStreamTrack}} object MUST NOT be garbage collected if it is
           not [=MediaStreamTrack/ended=] and there are any event listeners
           registered for <a data-lt=muted>mute</a>, <a data-lt=unmuted>unmute</a>
           or <a data-lt=ended>ended</a> events.
