@@ -3782,17 +3782,27 @@ interface DeviceChangeEvent : Event {
                           <p>If the result of the request is {{PermissionState/"denied"}},
                           jump to the step labeled <em>Permission Failure</em> below.</p>
                         </li>
-                        <li>
-                          <p>Let <var>hasSystemFocus</var> be `false`.</p>
-                        </li>
-                        <li>
-                          <p>While <var>hasSystemFocus</var> is `false`, the
-                          [=User Agent=] MUST wait to proceed to the next step
-                          until a task queued to set <var>hasSystemFocus</var>
-                          to the result of the [=has system focus=]</a>
-                          algorithm, would set <var>hasSystemFocus</var> to
-                          `true`.</p>
-                        </li>
+                      </ol>
+                    </li>
+                    <li>
+                      <p>Let <var>hasSystemFocus</var> be `false`.</p>
+                    </li>
+                    <li>
+                      <p>While <var>hasSystemFocus</var> is `false`, the
+                      [=User Agent=] MUST wait to proceed to the next step
+                      until a task queued to set <var>hasSystemFocus</var>
+                      to the result of the [=has system focus=]</a>
+                      algorithm, would set <var>hasSystemFocus</var> to
+                      `true`.</p>
+                    </li>
+                    <li>
+                      <p>[=Set the device information exposure=] on <var>mediaDevices</var>
+                      with <code>requestedMediaTypes</code> and <code>true</code>.</p>
+                    </li>
+                    <li>
+                      <p>For each media type <var>kind</var> in
+                      <var>requestedMediaTypes</var>, run the following sub steps:</p>
+                      <ol>
                         <li>
                           <p>Let <var>finalCandidate</var> be the provided media, which
                           MUST be precisely one <a>candidate</a> of type <var>kind</var> from
@@ -3865,10 +3875,6 @@ interface DeviceChangeEvent : Event {
                       [=tie track source to `MediaDevices`=] with
                       <var>track</var>.{{MediaStreamTrack/[[Source]]}} and
                       <var>mediaDevices</var>.</p>
-                    </li>
-                    <li>
-                      <p>[=Set the device information exposure=] on <var>mediaDevices</var>
-                      with <code>requestedMediaTypes</code> and <code>true</code>.</p>
                     </li>
                     <li>
                       <p>[= Resolve =] <var>p</var> with <var>stream</var> and
