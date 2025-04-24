@@ -868,7 +868,7 @@ interface MediaStream : EventTarget {
         [= MediaStreamTrack/muted =] or [= MediaStreamTrack/enabled | disabled =],
         and this brings <em>all</em> tracks connected to the device (across all
         [=navigables=] the user agent operates) to be either
-        muted, disabled, or stopped, then the UA SHOULD relinquish the device
+        muted, disabled, or stopped, then the UA SHOULD <dfn>relinquish the device</dfn>
         within 3 seconds while allowing time for a reasonably-observant user to
         become aware of the transition. The UA SHOULD attempt to reacquire the
         device as soon as any live track sourced by the device
@@ -4857,11 +4857,12 @@ interface ConstrainablePattern {
                 <li>Return <code>undefined</code>.</li>
               </ol>
               <div class="note">
-                <p>If the UA relinquished the device, in particular if the track
-                is [=MediaStreamTrack/muted|muted=], applying the settings does not
-                mean changing the device configuration. Instead, the UA will apply
-                these settings if the UA is reacquiring the device, for instance
-                when the track gets [=MediaStreamTrack/muted|unmuted=].</p>
+                <p>If the UA [=relinquish the device|relinquished the device=],
+                for instance if the track is [=MediaStreamTrack/muted|muted=],
+                applying the settings does not  mean changing the device configuration.
+                Instead, the UA will apply these settings if the UA is reacquiring
+                the device, for instance  when the track gets
+                [=MediaStreamTrack/muted|unmuted=].</p>
               </div>
               <div class="note">
                 <p>Any implementation that has the same result as the algorithm
