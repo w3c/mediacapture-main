@@ -37,10 +37,11 @@ var respecConfig = {
        { w3cid: "85118", name: "Daniel C. Burnett", company: "Invited Expert", retiredDate: "2018-06-01" },
        { w3cid: "45507", name: "Adam Bergkvist", company: "Ericsson", retiredDate: "2018-06-01" },
        { w3cid: "47326", name: "Anant Narayanan", company: "Mozilla", retiredDate: "2012-11-30" },
+       { w3cid: "65611", name: "Bernard Aboba", company: "Microsoft Corporation" }
+
   ],
     editors:  [
        { w3cid: "25254", name: "Cullen Jennings", company: "Cisco" },
-       { w3cid: "65611", name: "Bernard Aboba", company: "Microsoft Corporation" },
        { w3cid: "79152", name: "Jan-Ivar Bruaroey", company: "Mozilla" },
        { w3cid: "96936", name: "Henrik Bostr\xF6m", company: "Google" },
        { w3cid: "96458", name: "Youenn Fablet", company: "Apple" }
