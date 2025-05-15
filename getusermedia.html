@@ -1442,7 +1442,7 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>echoCancellation</dfn> of type <code>sequence&lt;{{boolean}}&gt;</code></dt>
               <dd>
                 <p>If the source cannot do echo cancellation a single
-                <code>false</code> is reported. If source can do echo
+                <code>false</code> is reported. If the source can do echo
                 cancellation <code>true</code> must be included in the list.
                 If the script can control the feature, the source reports a list
                 that includes at least both <code>true</code> and <code>false</code>.
@@ -1814,7 +1814,7 @@ interface MediaStreamTrack : EventTarget {
               <td><dfn>facingMode</dfn></td>
               <td>{{DOMString}}</td>
               <td>This string is one of
-              the members of {{}}. The
+              the members of {{VideoFacingModeEnum}}. The
               members describe the directions that the camera can face, as seen
               from the user's perspective. Note that <code><a data-link-for=
               "ConstrainablePattern">getConstraints</a></code> may not return
