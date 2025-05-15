@@ -1447,7 +1447,7 @@ interface MediaStreamTrack : EventTarget {
                 If the script can control the feature, the source reports a list
                 that includes at least both <code>true</code> and <code>false</code>.
                 If the source allows controlling which audio sources will be
-                cancelled, it must include <code>true</code> and any supported
+                cancelled, the reported list MUST include <code>true</code> and any supported
                 values from the {{EchoCancellationModeEnum}} enum. See <a href=
                 "#def-constraint-echoCancellation">echoCancellation</a>
                 for additional details.</p>
