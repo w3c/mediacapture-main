@@ -1442,13 +1442,15 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>echoCancellation</dfn> of type <code>sequence&lt;{{boolean}}&gt;</code></dt>
               <dd>
                 <p>If the source cannot do echo cancellation a single
-                <code>false</code> is reported. If the source can do echo
-                cancellation <code>true</code> MUST be included in the reported list.
-                If the script can control the feature, the source reports a list
-                that includes at least both <code>true</code> and <code>false</code>.
+                <code>false</code> MUST be the only element in the list. If the
+                source can do echo cancellation <code>true</code> MUST be included
+                in the list. If the script can control the feature, the list MUST
+                include at least both <code>true</code> and <code>false</code>.
                 If the source allows controlling which audio sources will be
-                cancelled, the reported list MUST include <code>true</code> and any supported
-                values from the {{EchoCancellationModeEnum}} enum. See <a href=
+                cancelled, it must include <code>true</code> and any supported
+                values from the {{EchoCancellationModeEnum}} enum. If <code>true</code>
+                or <code>false</code> are included in the list, they must appear
+                before any value from {{EchoCancellationModeEnum}}. See <a href=
                 "#def-constraint-echoCancellation">echoCancellation</a>
                 for additional details.</p>
               </dd>
@@ -1998,7 +2000,7 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-echoCancellation">
               <td><dfn>echoCancellation</dfn></td>
               <td>{{boolean}} or {{DOMString}}</td>
-              <td>When one or more audio streams is being played in the
+              <td>When one or more audio streams are being played in the
               processes of various microphones, it is often desirable to
               attempt to remove sound being played from the input signals
               recorded by the microphones. This is referred to as echo
@@ -2048,37 +2050,33 @@ interface MediaStreamTrack : EventTarget {
         </table>
         <div>
           <pre class="idl"
->enum EchoCancellationMode {
+>enum EchoCancellationModeEnum {
   "private",
   "remote-only"
 };</pre>
-          <table data-link-for="EchoCancellationModeEnum" data-dfn-for=
-		 "EchoCancellationModeEnum" class="simple">
-	    <caption><dfn>EchoCancellationModeEnum</dfn> Enumeration
-                description</caption>
+          <table data-link-for="EchoCancellationModeEnum"
+              data-dfn-for="EchoCancellationModeEnum" class="simple">
+            <caption><dfn>EchoCancellationModeEnum</dfn> Enumeration description</caption>
             <thead>
               <tr>
-		<th>Enum value</th><th>Description</th>
+                <th>Enum value</th><th>Description</th>
               </tr>
-	    </thead>
-	    <tbody>
+            </thead>
               <tr>
-                <td><dfn id=
-                "idl-def-EchoCancellationModeEnum.private">private</dfn></td>
+                <td>{{EchoCancellationModeEnum/"private"}}</td>
                 <td>
                   <p>The system MUST remove all sound being played by the system
                   from the input signal of the microphone.</p>
-                  <p>This option provides the maximum privacy, as it prevents
-                  the transmission of local audio such as notifications or screen
+                  <p>This option provides maximum privacy, as it prevents the
+                  transmission of local audio such as notifications or screen
                   readers.</p>
                 </td>
               </tr>
               <tr>
-                <td><dfn id=
-                "idl-def-EchoCancellationMode.remote-only">remote-only</dfn></td>
+                <td>{{EchoCancellationModeEnum/"remote-only"}}</td>
                 <td>
-                  <p>The system MUST remove all sound received from audio
-                  {{MediaStreamTrack}}s sourced from WebRTC RTCPeerConnections.</p>
+                  <p>The system MUST remove the sound from incoming audio
+                  {{MediaStreamTrack}}s sourced from WebRTC {{RTCPeerConnection}}s.</p>
                   This option is useful for cases where it is desirable to
                   transmit locally played audio. One example is a remote music
                   class, where a student plays an instrument together with some
@@ -2088,12 +2086,22 @@ interface MediaStreamTrack : EventTarget {
                   also requires that the accompaniment not be cancelled since the
                   music teacher on the remote side needs to hear it together with
                   the sound from the instrument.</p>
+                  <p>It is up to the UA to decide which {{RTCPeerConnection}}s to cancel,
+                  but the ones being played out SHOULD be among those cancelled.</p>
                 </td>
               </tr>
             </tbody>
           </table>
+          <div class="note">
+            In addition to the values from {{EchoCancellationModeEnum}}. The {{echoCancellation}}
+            property also accepts the values <code>true</code> and <code>false</code>.
+            <code>false</code> means that no echo cancellation will take place.
+            <code>true</code> means that the UA decides what audio will be removed
+            from the signals recorded by the microphone. <code>true</code> MUST
+            cancel at least as much as {{EchoCancellationModeEnum/"remote-only"}} and
+            SHOULD cancel as much as {{EchoCancellationModeEnum/"private"}}.
+          </div>
         </div>
-
       </section>
       <section>
         <h2>Garbage Collection</h2>
