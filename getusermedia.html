@@ -1183,6 +1183,22 @@ interface MediaStreamTrack : EventTarget {
                             constrainable properties that at times <a>must not
                             be exposed</a>.</p>
                           </li>
+                          <li>
+                            <p>For every [=settings dictionary=] with
+                            <a href="#def-constraint-resizeMode">resizeMode</a>
+                            set to
+                            <a href="#idl-def-VideoResizeModeEnum.none">"none"</a>,
+                            the [=User Agent=] MUST include another otherwise
+                            identical [=settings dictionary=] with
+                            <a href="#def-constraint-resizeMode">resizeMode</a>
+                            set to
+                            <a href="#idl-def-VideoResizeModeEnum.cropandscale">"crop-and-scale"</a>.
+                            Constraining around non-native modes is not supported.
+                            </p>
+                            <p class="note">
+                              The net effect is to reflect that crop-and-scale is a superset of none.
+                            </p>
+                          </li>
                         </ul>
                       </li>
                       <li>In step 3 of the <a>ApplyConstraints algorithm</a>, all
@@ -1944,7 +1960,7 @@ interface MediaStreamTrack : EventTarget {
 	    <tbody>
               <tr>
                 <td><dfn id=
-                "idl-def-VideoResizeModeEnum.user">none</dfn></td>
+                "idl-def-VideoResizeModeEnum.none">none</dfn></td>
                 <td>
                   <p>This resolution and frame rate is offered by the camera,
                   its driver, or the OS.</p>
@@ -1955,7 +1971,7 @@ interface MediaStreamTrack : EventTarget {
               </tr>
               <tr>
                 <td><dfn id=
-                "idl-def-VideoResizeModeEnum.right">crop-and-scale</dfn></td>
+                "idl-def-VideoResizeModeEnum.cropandscale">crop-and-scale</dfn></td>
                 <td>
                   <p>This resolution is downscaled and/or cropped from a higher
                   camera resolution by the [=User Agent=], or its frame rate is
