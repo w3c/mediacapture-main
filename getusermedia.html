@@ -1393,7 +1393,7 @@ interface MediaStreamTrack : EventTarget {
   sequence&lt;DOMString&gt; resizeMode;
   ULongRange sampleRate;
   ULongRange sampleSize;
-  sequence&lt;boolean&gt; echoCancellation;
+  sequence&lt;(boolean or DOMString)&gt; echoCancellation;
   sequence&lt;boolean&gt; autoGainControl;
   sequence&lt;boolean&gt; noiseSuppression;
   DoubleRange latency;
@@ -1458,11 +1458,15 @@ interface MediaStreamTrack : EventTarget {
               <dt><dfn>echoCancellation</dfn> of type <code>sequence&lt;{{boolean}}&gt;</code></dt>
               <dd>
                 <p>If the source cannot do echo cancellation a single
-                <code>false</code> is reported. If echo cancellation cannot be
-                turned off, a single <code>true</code> is reported. If the
-                script can control the feature, the source reports a list with
-                both <code>true</code> and <code>false</code> as possible
-                values. See <a href=
+                <code>false</code> MUST be the only element in the list. If the
+                source can do echo cancellation, then <code>true</code> MUST be included
+                in the list. If the script can control the feature, the list MUST
+                include at least both <code>true</code> and <code>false</code>.
+                Additionally, if the source allows controlling which audio sources will be
+                cancelled, it must include any supported
+                values from the {{EchoCancellationModeEnum}} enum. If <code>true</code>
+                or <code>false</code> are included in the list, they must appear
+                before any value from {{EchoCancellationModeEnum}}. See <a href=
                 "#def-constraint-echoCancellation">echoCancellation</a>
                 for additional details.</p>
               </dd>
@@ -1542,7 +1546,7 @@ interface MediaStreamTrack : EventTarget {
   ConstrainDOMString resizeMode;
   ConstrainULong sampleRate;
   ConstrainULong sampleSize;
-  ConstrainBoolean echoCancellation;
+  ConstrainBooleanOrDOMString echoCancellation;
   ConstrainBoolean autoGainControl;
   ConstrainBoolean noiseSuppression;
   ConstrainDouble latency;
@@ -1585,7 +1589,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <a href=
               "#def-constraint-sampleSize">sampleSize</a> for
               details.</dd>
-              <dt><dfn>echoCancellation</dfn> of type {{ConstrainBoolean}}</dt>
+              <dt><dfn>echoCancellation</dfn> of type {{ConstrainBooleanOrDOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-echoCancellation">echoCancellation</a>
               for details.</dd>
@@ -1635,7 +1639,7 @@ interface MediaStreamTrack : EventTarget {
   DOMString resizeMode;
   unsigned long sampleRate;
   unsigned long sampleSize;
-  boolean echoCancellation;
+  (boolean or DOMString) echoCancellation;
   boolean autoGainControl;
   boolean noiseSuppression;
   double latency;
@@ -1678,7 +1682,7 @@ interface MediaStreamTrack : EventTarget {
               <dd>See <a href=
               "#def-constraint-sampleSize">sampleSize</a> for
               details.</dd>
-              <dt><dfn>echoCancellation</dfn> of type {{boolean}}</dt>
+              <dt><dfn>echoCancellation</dfn> of type {{boolean}} or {{DOMString}}</dt>
               <dd>See <a href=
               "#def-constraint-echoCancellation">echoCancellation</a>
               for details.</dd>
@@ -2011,10 +2015,10 @@ interface MediaStreamTrack : EventTarget {
             </tr>
             <tr id="def-constraint-echoCancellation">
               <td><dfn>echoCancellation</dfn></td>
-              <td>{{boolean}}</td>
-              <td>When one or more audio streams is being played in the
+              <td>{{boolean}} or {{DOMString}}</td>
+              <td>When one or more audio streams are being played in the
               processes of various microphones, it is often desirable to
-              attempt to remove all the sound being played from the input signals
+              attempt to remove sound being played from the input signals
               recorded by the microphones. This is referred to as echo
               cancellation. There are cases where it is not needed and it is
               desirable to turn it off so that no audio artifacts are
@@ -2060,6 +2064,61 @@ interface MediaStreamTrack : EventTarget {
             </tr>
           </tbody>
         </table>
+        <div>
+          <pre class="idl"
+>enum EchoCancellationModeEnum {
+  "all",
+  "remote-only"
+};</pre>
+          <table data-link-for="EchoCancellationModeEnum"
+              data-dfn-for="EchoCancellationModeEnum" class="simple">
+            <caption><dfn>EchoCancellationModeEnum</dfn> Enumeration description</caption>
+            <thead>
+              <tr>
+                <th>Enum value</th><th>Description</th>
+              </tr>
+            </thead>
+              <tr>
+                <td>{{EchoCancellationModeEnum/"all"}}</td>
+                <td>
+                  <p>The system MUST attempt to remove all sound being played by the system
+                  from the input signal of the microphone.</p>
+                  <p>This option is meant to provide maximum privacy, as it prevents the
+                  transmission of local audio such as notifications or screen
+                  readers.</p>
+                </td>
+              </tr>
+              <tr>
+                <td>{{EchoCancellationModeEnum/"remote-only"}}</td>
+                <td>
+                  <p>The system MUST attempt to remove the sound from incoming audio
+                  {{MediaStreamTrack}}s sourced from WebRTC {{RTCPeerConnection}}s.</p>
+                  This option is useful for cases where it is desirable to
+                  transmit locally played audio. One example is a remote music
+                  class, where a student plays an instrument together with some
+                  accompaniment produced by a local application. In this case,
+                  the application requires audio coming from the remote participant
+                  (i.e., the teacher) to be cancelled in order to avoid echo, but
+                  also requires that the accompaniment not be cancelled since the
+                  music teacher on the remote side needs to hear it together with
+                  the sound from the instrument.</p>
+                  <p>It is up to the UA to decide which {{RTCPeerConnection}}s to cancel,
+                  but the ones being played out by the browsing context capturing
+                  microphone SHOULD be among those cancelled.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">
+            In addition to the values from {{EchoCancellationModeEnum}}. The {{echoCancellation}}
+            constrainable property also accepts the values <code>true</code> and <code>false</code>.
+            <code>false</code> means that no echo cancellation will take place.
+            <code>true</code> means that the UA decides what audio will be removed
+            from the signals recorded by the microphone. <code>true</code> MUST
+            attempt to cancel at least as much as {{EchoCancellationModeEnum/"remote-only"}}
+            and SHOULD attempt to cancel as much as {{EchoCancellationModeEnum/"all"}}.
+          </div>
+        </div>
       </section>
       <section>
         <h2>Garbage Collection</h2>
@@ -5310,6 +5369,27 @@ async function getFrontCameraRes() {
       </div>
       <div>
         <pre class="idl"
+>dictionary ConstrainBooleanOrDOMStringParameters {
+  (boolean or DOMString) exact;
+  (boolean or DOMString) ideal;
+};</pre>
+        <section>
+          <h2>Dictionary <dfn>ConstrainBooleanOrDOMStringParameters</dfn> Members</h2>
+          <dl data-link-for="ConstrainBooleanOrDOMStringParameters" data-dfn-for=
+          "ConstrainBooleanOrDOMStringParameters" class="dictionary-members">
+            <dt><dfn>exact</dfn> of type ({{boolean}} or {{DOMString}})</dt>
+            <dd>
+              <p>The exact required value for this property.</p>
+            </dd>
+            <dt><dfn>ideal</dfn> of type ({{boolean}} or {{DOMString}})</dt>
+            <dd>
+              <p>The ideal (target) value for this property.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl"
 >typedef ([Clamp] unsigned long or ConstrainULongRange) ConstrainULong;</pre>
         <div class="idlTypedefDesc">
           Throughout this specification, the identifier
@@ -5346,6 +5426,15 @@ async function getFrontCameraRes() {
           <dfn>ConstrainDOMString</dfn> is used to refer to the <span class=
           "idlTypedefType">(DOMString or sequence&lt;DOMString&gt; or
           ConstrainDOMStringParameters)</span> type.
+        </div>
+      </div>
+      <div>
+        <pre class="idl"
+>typedef (boolean or DOMString or ConstrainBooleanOrDOMStringParameters) ConstrainBooleanOrDOMString;</pre>
+        <div class="idlTypedefDesc">
+          Throughout this specification, the identifier
+          <dfn>ConstrainBooleanOrDOMString</dfn> is used to refer to the <span class=
+          "idlTypedefType">(boolean or DOMString or ConstrainBooleanOrDOMStringParameters)</span> type.
         </div>
       </div>
     </section>
