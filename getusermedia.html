@@ -2051,7 +2051,7 @@ interface MediaStreamTrack : EventTarget {
         <div>
           <pre class="idl"
 >enum EchoCancellationModeEnum {
-  "private",
+  "all",
   "remote-only"
 };</pre>
           <table data-link-for="EchoCancellationModeEnum"
@@ -2063,7 +2063,7 @@ interface MediaStreamTrack : EventTarget {
               </tr>
             </thead>
               <tr>
-                <td>{{EchoCancellationModeEnum/"private"}}</td>
+                <td>{{EchoCancellationModeEnum/"all"}}</td>
                 <td>
                   <p>The system MUST attempt to remove all sound being played by the system
                   from the input signal of the microphone.</p>
@@ -2087,7 +2087,8 @@ interface MediaStreamTrack : EventTarget {
                   music teacher on the remote side needs to hear it together with
                   the sound from the instrument.</p>
                   <p>It is up to the UA to decide which {{RTCPeerConnection}}s to cancel,
-                  but the ones being played out by the browsing context capturing microphone SHOULD be among those cancelled.</p>
+                  but the ones being played out by the browsing context capturing
+                  microphone SHOULD be among those cancelled.</p>
                 </td>
               </tr>
             </tbody>
@@ -2098,8 +2099,8 @@ interface MediaStreamTrack : EventTarget {
             <code>false</code> means that no echo cancellation will take place.
             <code>true</code> means that the UA decides what audio will be removed
             from the signals recorded by the microphone. <code>true</code> MUST
-            cancel at least as much as {{EchoCancellationModeEnum/"remote-only"}} and
-            SHOULD cancel as much as {{EchoCancellationModeEnum/"private"}}.
+            attempt to cancel at least as much as {{EchoCancellationModeEnum/"remote-only"}}
+            and SHOULD attempt to cancel as much as {{EchoCancellationModeEnum/"all"}}.
           </div>
         </div>
       </section>
