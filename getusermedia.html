@@ -972,12 +972,19 @@ interface MediaStream : EventTarget {
         APIs defined in the <a>ConstrainablePattern</a> Interface allow the
         retrieval and manipulation of the constraints currently established on
         a track.</p>
-        <p>Once ended, a track will continue exposing a
+        <p>Once ended, a track will continue exposing a subset of
+        constrainable track properties on the
         <dfn id="list-of-inherent-constrainable-track-properties">
         list of inherent constrainable track properties</dfn>.
-        This list contains <code><a href="#def-constraint-deviceId">deviceId</a></code>,
+        This list will vary by source. For tracks created by
+        {{MediaDevices.getUserMedia()}}, the list is
+        <code><a href="#def-constraint-deviceId">deviceId</a></code> and
+        <code><a href="#def-constraint-groupId">groupId</a></code> for
+        audio tracks, and
+        <code><a href="#def-constraint-deviceId">deviceId</a></code>,
         <code><a href="#def-constraint-facingMode">facingMode</a></code> and
-        <code><a href="#def-constraint-groupId">groupId</a></code>.
+        <code><a href="#def-constraint-groupId">groupId</a></code> for video
+        tracks.
         </p>
       </section>
       <section id="media-stream-track-interface-definition">
