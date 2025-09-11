@@ -2016,7 +2016,9 @@ interface MediaStreamTrack : EventTarget {
             <tr id="def-constraint-echoCancellation">
               <td><dfn>echoCancellation</dfn></td>
               <td>{{boolean}} or {{DOMString}}</td>
-              <td>When one or more audio streams are being played in the
+              <td>This is either <code>false</code>, <code>true</code>, or
+              one of the members of {{EchoCancellationModeEnum}}.
+              When one or more audio streams are being played in the
               processes of various microphones, it is often desirable to
               attempt to remove sound being played from the input signals
               recorded by the microphones. This is referred to as echo
@@ -2109,15 +2111,15 @@ interface MediaStreamTrack : EventTarget {
               </tr>
             </tbody>
           </table>
-          <div class="note">
-            In addition to the values from {{EchoCancellationModeEnum}}. The {{echoCancellation}}
+          <p>
+            In addition to the values from {{EchoCancellationModeEnum}}, the {{echoCancellation}}
             constrainable property also accepts the values <code>true</code> and <code>false</code>.
             <code>false</code> means that no echo cancellation will take place.
             <code>true</code> means that the UA decides what audio will be removed
             from the signals recorded by the microphone. <code>true</code> MUST
             attempt to cancel at least as much as {{EchoCancellationModeEnum/"remote-only"}}
             and SHOULD attempt to cancel as much as {{EchoCancellationModeEnum/"all"}}.
-          </div>
+          </p>
         </div>
       </section>
       <section>
