@@ -3952,6 +3952,9 @@ interface DeviceChangeEvent : Event {
                           algorithm as an input to the selection algorithm.
                           However, it MAY also use other internally-available
                           information about the devices, such as user preference.</p>
+                          <div class="note">
+                            <p>This means that non-[=required constraints=] values are not guaranteed.</p>
+                          </div>
                           <p>[=User Agents=] are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
                           (when possible). [=User Agents=]
@@ -4515,11 +4518,6 @@ interface DeviceChangeEvent : Event {
       [=User Agents=] that do not support the constrainable property will not generate
       an error.
     </div>
-    <div class="note">
-      [=User Agent=] MAY use internally-available information about the devices, such
-      as user preference, over 'ideal' constraints or a constraint given as a bare
-      value.
-	</div>
     <p>The following examples may help to understand how constraints work. The
     first shows a basic Constraint structure. Three constraints are given, each
     of which the [=User Agent=] will attempt to satisfy individually. Depending
@@ -5130,16 +5128,11 @@ try {
       </pre>
       <div class="note">
         <p>The above example avoids using <code>{exact: deviceId}</code>,
-        so that browsers can immediately offer a choice between different cameras
-        if your preferred device is not available.</p>
+        so that browsers can use internally-available information about the
+        devices, such as user preference or absence of a device, over the
+        provided <code>deviceId</code>.</p>
         <p>The example also stores the <code>deviceId</code>s on every grant, in
         case they represent a new choice.</p>
-      </div>
-      <div class="note">
-        Not using <code>{exact: deviceId}</code> in the above example allows the
-        possibility for the browser to use internally-available information about
-        the devices, such as user preference, over the provided
-        <code>deviceId</code>.
       </div>
       <p>In contrast, here's an example of using constraints to implement an
       in-content camera picker. In this case, we use <code>exact</code> and rely
