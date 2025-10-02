@@ -3952,6 +3952,9 @@ interface DeviceChangeEvent : Event {
                           algorithm as an input to the selection algorithm.
                           However, it MAY also use other internally-available
                           information about the devices, such as user preference.</p>
+                          <div class="note">
+                            <p>This means that non-[=required constraints=] values are not guaranteed.</p>
+                          </div>
                           <p>[=User Agents=] are encouraged to default to using the
                           user's primary or system default device for <var>kind</var>
                           (when possible). [=User Agents=]
@@ -5125,8 +5128,9 @@ try {
       </pre>
       <div class="note">
         <p>The above example avoids using <code>{exact: deviceId}</code>,
-        so that browsers can immediately offer a choice between different cameras
-        if your preferred device is not available.</p>
+        so that browsers can use internally-available information about the
+        devices, such as user preference or absence of a device, over the
+        provided <code>deviceId</code>.</p>
         <p>The example also stores the <code>deviceId</code>s on every grant, in
         case they represent a new choice.</p>
       </div>
