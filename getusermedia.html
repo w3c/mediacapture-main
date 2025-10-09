@@ -3122,9 +3122,29 @@ interface MediaDevices : EventTarget {
                       with <var>mediaDevices</var>.</p>
                     </li>
                     <li>
+                      Append <var>deviceInfo</var> to <var>otherDeviceList</var>.</p>
+                    </li>
+                    <li>
                       <p>If <var>device</var> is the system default audio output,
-                      prepend <var>deviceInfo</var> to <var>otherDeviceList</var>.
-                      Otherwise, append <var>deviceInfo</var> to <var>otherDeviceList</var>.</p>
+                      run the following sub steps:</p>
+                      <ol>
+                        <li>
+                          <p>Let <var>defaultAudioOutputInfo</var> be the result of
+                          [=creating a device info object=] to represent <var>device</var>,
+                          with <var>mediaDevices</var>.</p>
+                        </li>
+                        <li>
+                          <p>Set <var>defaultAudioOutputInfo</var>'s {{MediaDeviceInfo/deviceId}} to
+                          "default".</p>
+                        </li>
+                        <li>
+                          <p>The user agent SHOULD update <var>defaultAudioOutputInfo</var>'s {{MediaDeviceInfo/label}}
+                          to make it explicit that this is the system default audio output.</p>
+                        </li>
+                        <li>
+                          <p>Prepend <var>defaultAudioOutputInfo</var> to <var>otherDeviceList</var>.</p>
+                        </li>
+                      </ol>
                     </li>
                   </ol>
                 </li>
