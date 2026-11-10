@@ -5203,7 +5203,7 @@ async function nativeResolutionButDecimatedFrameRate() {
     }
   });
   const [track] = stream.getVideoTracks();
-  const {width, height, aspectRatio} = track.getSettings();
+  let {width, height, aspectRatio} = track.getSettings();
 
   // Constraints are in landscape, while settings may be rotated (portrait)
   if (width < height) {
