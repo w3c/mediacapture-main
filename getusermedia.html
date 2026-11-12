@@ -5233,7 +5233,7 @@ async function getFrontCameraRes() {
   const supports = navigator.mediaDevices.getSupportedConstraints();
 
   for (const constraint of ["facingMode", "aspectRatio", "resizeMode"]) {
-    if (!(constraint in supports) {
+    if (!(constraint in supports)) {
       throw new OverconstrainedError(constraint, "Not supported");
     }
   }
