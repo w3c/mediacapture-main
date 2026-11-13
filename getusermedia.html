@@ -659,7 +659,7 @@ interface MediaStream : EventTarget {
               specified in the {{ConstrainablePattern}}.</p>
             </li>
             <li>
-              <p><dfn class="export">[[\Restrictable]]</dfn>, initialized to <code>false</code>.</p>
+              <p><dfn>[[\IsDetached]]</dfn>, initialized to <code>false</code>.</p>
             </li>
           </ul>
         </li>
@@ -703,7 +703,16 @@ interface MediaStream : EventTarget {
         <li><p>If <var>globalObject</var> is a {{Window}}, then for each <var>source</var> in
         <var>globalObject</var>'s
         [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
-        [= source/stopped | stop =] <var>source</var>.</p></li>
+        run the following sub steps:</p>
+          <ol>
+            <li><p>[= source/stopped | Stop =] <var>source</var>.</p></li>
+            <li><p>For each {{MediaStreamTrack}} object <var>track</var> whose
+            {{MediaStreamTrack/[[Source]]}} is <var>source</var>, regardless of its
+            <a data-cite="!HTML/#concept-relevant-global">relevant global object</a>
+            (for instance, a transferred track),
+            <a href="#ends-nostop">end</a> <var>track</var>.</p></li>
+          </ol>
+        </li>
       </ol>
       <p>The [=User Agent=] MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
       <ol>
@@ -908,7 +917,11 @@ interface MediaStream : EventTarget {
         exhausted.</p>
         <p>If all {{MediaStreamTrack}}s that are using the same
         source are [= MediaStreamTrack/ended =], the source will be
-        [= source/stopped =].</p>
+        [= source/stopped =]. A data holder created by the
+        <a href="#transferable-mediastreamtrack">{{MediaStreamTrack}} transfer steps</a>
+        is considered as a {{MediaStreamTrack}} using its source that is not ended,
+        until it is consumed by the {{MediaStreamTrack}} transfer-receiving steps
+        or discarded.</p>
         <p>After the application has invoked the {{MediaStreamTrack/stop()}}
         method on a {{MediaStreamTrack}} object, or once the [=source=] of a
         {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
@@ -922,8 +935,10 @@ interface MediaStream : EventTarget {
         Agent has instructed the track to end for any reason).</p>
         <p>When a {{MediaStreamTrack}} <var>track</var>
         <dfn data-lt="track ended by the User agent" data-for=MediaStreamTrack data-export id="ends-nostop">ends for any reason other than the {{MediaStreamTrack/stop()}} method being
-        invoked</dfn>, the [=User Agent=] MUST queue a task that runs the following
-        steps:</p>
+        invoked</dfn>, the [=User Agent=] MUST queue a task on the
+        [=event loop=] of <var>track</var>'s
+        <a data-cite="!HTML/#concept-relevant-global">relevant global object</a>
+        that runs the following steps:</p>
         <ol class="algorithm">
           <li>
             <p>If <var>track</var>'s {{MediaStreamTrack/[[ReadyState]]}}
@@ -984,7 +999,7 @@ interface MediaStream : EventTarget {
         <h3>Interface Definition</h3>
         <div>
           <pre class="idl"
->[Exposed=Window]
+>[Exposed=(Window,DedicatedWorker), Transferable, SameAgentCluster]
 interface MediaStreamTrack : EventTarget {
   readonly attribute DOMString kind;
   readonly attribute DOMString id;
@@ -1258,6 +1273,78 @@ interface MediaStreamTrack : EventTarget {
             </tbody>
           </table>
         </div>
+      </section>
+      <section id="transferable-mediastreamtrack">
+        <h3>Transferable {{MediaStreamTrack}}</h3>
+        <p>A {{MediaStreamTrack}} is a <a data-cite="!HTML/#transferable-objects">transferable object</a>.
+        This allows manipulating real-time media outside the context it was requested or created in,
+        for instance in dedicated workers or same-agent-cluster iframes.</p>
+        <p>To preserve the existing privacy and security infrastructure, in particular for capture tracks,
+        the track source lifetime management remains tied to the context that created it.
+        The transfer algorithm MUST ensure the following behaviors:</p>
+        <ol>
+          <li><p>The context named <var>originalContext</var> that created a track named <var>originalTrack</var> remains in control
+            of the <var>originalTrack</var> source, named <var>trackSource</var>, even when <var>originalTrack</var> is transferred into <var>transferredTrack</var>.</p>
+          </li>
+          <li>
+            <p>In particular, <var>originalContext</var> remains the proxy to privacy indicators of <var>trackSource</var>.
+            <var>transferredTrack</var> or any of its clones are considered as tracks using <var>trackSource</var>
+            as if they were tracks created in and controlled by <var>originalContext</var>.</p>
+          </li>
+          <li><p>When <var>originalContext</var> goes away, <var>trackSource</var> gets ended, thus <var>transferredTrack</var> gets ended.</p></li>
+          <li><p>When <var>originalContext</var> would have muted/unmuted <var>originalTrack</var>, <var>transferredTrack</var> gets muted/unmuted.</p></li>
+          <li><p>If <var>transferredTrack</var> is cloned in <var>transferredTrackClone</var>, <var>transferredTrackClone</var> is tied to <var>trackSource</var>.
+          It is not tied to <var>originalTrack</var> in any way.</p></li>
+          <li><p>If <var>transferredTrack</var> is transferred into <var>transferredAgainTrack</var>, <var>transferredAgainTrack</var> is tied to <var>trackSource</var>.
+          It is not tied to <var>transferredTrack</var> or <var>originalTrack</var> in any way.</p></li>
+        </ol>
+        <p>The {{MediaStreamTrack}} <a data-cite="!HTML/#transfer-steps">transfer steps</a>, given <var>value</var> and <var>dataHolder</var>, are:</p>
+        <ol>
+          <li><p>If <var>value</var>.{{MediaStreamTrack/[[IsDetached]]}} is <code>true</code>, throw a "DataCloneError" DOMException.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Id]]` to <var>value</var>.{{MediaStreamTrack/[[Id]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Kind]]` to <var>value</var>.{{MediaStreamTrack/[[Kind]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Label]]` to <var>value</var>.{{MediaStreamTrack/[[Label]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[ReadyState]]` to <var>value</var>.{{MediaStreamTrack/[[ReadyState]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Enabled]]` to <var>value</var>.{{MediaStreamTrack/[[Enabled]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Muted]]` to <var>value</var>.{{MediaStreamTrack/[[Muted]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Source]]` to <var>value</var>.{{MediaStreamTrack/[[Source]]}}.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[Constraints]]` to <var>value</var>.<a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a>.</p></li>
+          <li><p>Set <var>dataHolder</var>.`[[ContentHint]]` to <var>value</var> application-set content hint.</p></li>
+          <li><p>Set <var>value</var>.{{MediaStreamTrack/[[IsDetached]]}} to <code>true</code>.</p></li>
+          <li><p>Set <var>value</var>.{{MediaStreamTrack/[[ReadyState]]}} to {{MediaStreamTrackState/"ended"}} (without stopping the underlying source or firing an `ended` event).</p></li>
+        </ol>
+        <p>{{MediaStreamTrack}} <a data-cite="!HTML/#transfer-receiving-steps">transfer-receiving steps</a>, given <var>dataHolder</var> and <var>track</var>, are:</p>
+        <ol>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Id]]}} to <var>dataHolder</var>.`[[Id]]`.</p></li>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Kind]]}} to <var>dataHolder</var>.`[[Kind]]`.</p></li>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Label]]}} to <var>dataHolder</var>.`[[Label]]`.</p></li>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[ReadyState]]}} to <var>dataHolder</var>.`[[ReadyState]]`.</p></li>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Enabled]]}} to <var>dataHolder</var>.`[[Enabled]]`.</p></li>
+          <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Muted]]}} to <var>dataHolder</var>.`[[Muted]]`.</p></li>
+          <li><p>Set <var>track</var> application-set content hint to <var>dataHolder</var>.`[[ContentHint]]`.</p></li>
+          <li><p>[=MediaStreamTrack/Initialize the underlying source=] of <var>track</var> to <var>dataHolder</var>.`[[Source]]`.</p></li>
+          <li><p>Set <var>track</var>.<a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a> to <var>dataHolder</var>.`[[Constraints]]`.</p></li>
+          <li>
+            <p>[=Queue a task=] on the [=event loop=] of <var>track</var>'s
+            <a data-cite="!HTML/#concept-relevant-global">relevant global object</a>
+            to run the following steps:</p>
+            <ol>
+              <li><p>If <var>track</var>.{{MediaStreamTrack/[[Source]]}} is [= source/stopped =]
+              (for instance, because the context that created it went away after the transfer steps were run),
+              <a href="#ends-nostop">end</a> <var>track</var> and abort these steps.</p></li>
+              <li><p>[=MediaStreamTrack/Set a track's muted state=] of <var>track</var> to <code>true</code>
+              if <var>track</var>.{{MediaStreamTrack/[[Source]]}} is [= source/muted =], and to <code>false</code> otherwise.</p></li>
+            </ol>
+          </li>
+        </ol>
+        <p>Between the transfer steps and the transfer-receiving steps, <var>dataHolder</var>
+        is considered as a track using <var>dataHolder</var>.`[[Source]]`, so that the source is not
+        [= source/stopped =] merely because the original track is ended.
+        If <var>dataHolder</var> is discarded without the transfer-receiving steps being run,
+        the [=User Agent=] MUST stop considering it as using its source, as if a track using that source had ended.</p>
+        <p>Since the source's state may change between the transfer steps and the transfer-receiving steps,
+        the transfer-receiving steps queue a task that updates the track's {{MediaStreamTrack/[[ReadyState]]}} and
+        {{MediaStreamTrack/[[Muted]]}} according to the source, firing the corresponding events.</p>
       </section>
       <section id="media-track-supported-constraints">
         <h2><dfn>MediaTrackSupportedConstraints</dfn></h2>
@@ -2623,7 +2710,7 @@ interface MediaStreamTrackEvent : Event {
       <h2>OverconstrainedError Interface</h2>
       <div>
         <pre class="idl" data-tests
->[Exposed=Window]
+>[Exposed=(Window,DedicatedWorker)]
 interface OverconstrainedError : DOMException {
   constructor(DOMString constraint, optional DOMString message = "");
   readonly attribute DOMString constraint;
