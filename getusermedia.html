@@ -5620,6 +5620,7 @@ startBtn.onclick = async () =&gt; {
       };
     }
   } catch (err) {
+    startBtn.disabled = false;
     console.error(err);
   }
 };
