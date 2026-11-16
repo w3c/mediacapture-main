@@ -987,7 +987,7 @@ interface MediaStream : EventTarget {
         <h3>Interface Definition</h3>
         <div>
           <pre class="idl"
->[Exposed=(Window,DedicatedWorker), Transferable]
+>[Exposed=(Window,DedicatedWorker), Transferable, SameAgentCluster]
 interface MediaStreamTrack : EventTarget {
   readonly attribute DOMString kind;
   readonly attribute DOMString id;
@@ -1289,7 +1289,6 @@ interface MediaStreamTrack : EventTarget {
         <p>The {{MediaStreamTrack}} <a data-cite="!HTML/#transfer-steps">transfer steps</a>, given <var>value</var> and <var>dataHolder</var>, are:</p>
         <ol>
           <li><p>If <var>value</var>.{{MediaStreamTrack/[[IsDetached]]}} is <code>true</code>, throw a "DataCloneError" DOMException.</p></li>
-          <li><p>Set <var>dataHolder</var>.`[[agentCluster]]` to the [=ECMAScript/surrounding agent=]’s [=ECMAScript/agent cluster=].</p></li>
           <li><p>Set <var>dataHolder</var>.`[[Id]]` to <var>value</var>.{{MediaStreamTrack/[[Id]]}}.</p></li>
           <li><p>Set <var>dataHolder</var>.`[[Kind]]` to <var>value</var>.{{MediaStreamTrack/[[Kind]]}}.</p></li>
           <li><p>Set <var>dataHolder</var>.`[[Label]]` to <var>value</var>.{{MediaStreamTrack/[[Label]]}}.</p></li>
@@ -1304,8 +1303,6 @@ interface MediaStreamTrack : EventTarget {
         </ol>
         <p>{{MediaStreamTrack}} <a data-cite="!HTML/#transfer-receiving-steps">transfer-receiving steps</a>, given <var>dataHolder</var> and <var>track</var>, are:</p>
         <ol>
-          <li><p>If the [=ECMAScript/surrounding agent=]’s [=ECMAScript/agent cluster=] is not
-            <var>dataHolder</var>.`[[agentCluster]]`, then throw a "DataCloneError" DOMException.</p></li>
           <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Id]]}} to <var>dataHolder</var>.`[[Id]]`.</p></li>
           <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Kind]]}} to <var>dataHolder</var>.`[[Kind]]`.</p></li>
           <li><p>Initialize <var>track</var>.{{MediaStreamTrack/[[Label]]}} to <var>dataHolder</var>.`[[Label]]`.</p></li>
