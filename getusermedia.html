@@ -488,7 +488,10 @@ interface MediaStream : EventTarget {
                   steps.</p>
                 </li>
                 <li>
-                  <p>[=MediaStream/Add a track|Add=] <var>track</var> to <var>stream</var>'s [=track set=].</p>
+                  <p>Add <var>track</var> to <var>stream</var>'s [=track set=].</p>
+                  <div class="note">
+                    This does NOT call [=add a track=] or fire an event.
+                  </div>
                 </li>
               </ol>
             </dd>
@@ -509,7 +512,10 @@ interface MediaStream : EventTarget {
                   <p>If <var>track</var> is not in <var>stream's</var> [=track set=], then abort these steps.</p>
                 </li>
                 <li>
-                  <p>[=MediaStream/Remove a track|Remove=] <var>track</var> from <var>stream</var>'s [=track set=].</p>
+                  <p>Remove <var>track</var> from <var>stream</var>'s [=track set=].</p>
+                  <div class="note">
+                    This does NOT call [=remove a track=] or fire an event.
+                  </div>
                 </li>
               </ol>
             </dd>
