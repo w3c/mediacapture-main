@@ -707,6 +707,9 @@ interface MediaStream : EventTarget {
         <var>globalObject</var>'s
         [=associated `MediaDevices`=].{{MediaDevices/[[mediaStreamTrackSources]]}},
         [= source/stopped | stop =] <var>source</var>.</p></li>
+        <div class="note">
+           Stopping a source <a href="#ends-nostop">ends</a> all {{MediaStreamTrack}}s using <var>source</var>.
+        </div>
       </ol>
       <p>The [=User Agent=] MUST [=stop all sources=] of a <var>globalObject</var> in the following conditions:</p>
       <ol>
@@ -910,8 +913,9 @@ interface MediaStream : EventTarget {
         <em>end</em> when the source of the track is disconnected or
         exhausted.</p>
         <p>If all {{MediaStreamTrack}}s that are using the same
-        source are [= MediaStreamTrack/ended =], the source will be
-        [= source/stopped =].</p>
+        source are [= MediaStreamTrack/ended =], the source will be [= source/stopped =].
+        A data holder created by the <a href="#transferable-mediastreamtrack">{{MediaStreamTrack}} transfer steps</a>
+        is considered as a live {{MediaStreamTrack}} using its source, until it is consumed by the {{MediaStreamTrack}} transfer-receiving steps or discarded.</p>
         <p>After the application has invoked the {{MediaStreamTrack/stop()}}
         method on a {{MediaStreamTrack}} object, or once the [=source=] of a
         {{MediaStreamTrack}} permanently ends production of live samples to its tracks,
@@ -1312,9 +1316,17 @@ interface MediaStreamTrack : EventTarget {
           <li><p>Set <var>track</var> application-set content hint to <var>dataHolder</var>.`[[ContentHint]]`.</p></li>
           <li><p>[=MediaStreamTrack/Initialize the underlying source=] of <var>track</var> to <var>dataHolder</var>.`[[Source]]`.</p></li>
           <li><p>Set <var>track</var>.<a data-link-for="constrainable object" data-link-type="attribute">[[\Constraints]]</a> to <var>dataHolder</var>.`[[Constraints]]`.</p></li>
+          <li>
+            <p>[=Queue a task=] on the [=event loop=] of <var>track</var>'s <a data-cite="!HTML/#concept-relevant-global">relevant global object</a> to run the following steps:</p>
+            <ol>
+              <li><p>If <var>track</var>.{{MediaStreamTrack/[[Source]]}} is [= source/stopped =]
+              (for instance, because the context that created it went away after the transfer steps were run),
+              <a href="#ends-nostop">end</a> <var>track</var> and abort these steps.</p></li>
+              <li><p>[=MediaStreamTrack/Set a track's muted state=] of <var>track</var> to <code>true</code>
+              if <var>track</var>.{{MediaStreamTrack/[[Source]]}} is [= source/muted =], and to <code>false</code> otherwise.</p></li>
+            </ol>
+          </li>
         </ol>
-        <p>The underlying source is supposed to be kept alive between the transfer and transfer-receiving steps, or as long as the data holder is alive.
-        In a sense, between these steps, the data holder is attached to the underlying source as if it was a track.</p>
       </section>
       <section id="media-track-supported-constraints">
         <h2><dfn>MediaTrackSupportedConstraints</dfn></h2>
